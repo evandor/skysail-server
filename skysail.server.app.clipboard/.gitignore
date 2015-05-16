@@ -1,0 +1,10 @@
+/bin
+/bin_test
+/generated
+/bin/
+/bin_test/
+/generated/
+/createDDL.jdbc
+/derby.log
+/dropDDL.jdbc
+/bin_test
