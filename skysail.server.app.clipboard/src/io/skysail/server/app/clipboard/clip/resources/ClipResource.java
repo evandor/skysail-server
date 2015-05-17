@@ -1,14 +1,14 @@
-package de.twenty11.skysail.server.app.clipboard.clip;
+package io.skysail.server.app.clipboard.clip.resources;
 
 import io.skysail.api.responses.SkysailResponse;
+import io.skysail.server.app.clipboard.ClipboardApplication;
+import io.skysail.server.app.clipboard.domain.Clip;
 import io.skysail.server.restlet.resources.EntityServerResource;
 
 import java.util.List;
 
 import org.restlet.data.Form;
 import org.restlet.resource.ResourceException;
-
-import de.twenty11.skysail.server.app.clipboard.ClipboardApplication;
 
 public class ClipResource extends EntityServerResource<Clip> {
 

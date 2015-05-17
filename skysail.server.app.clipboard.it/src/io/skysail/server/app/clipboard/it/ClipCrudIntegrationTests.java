@@ -1,0 +1,93 @@
+package io.skysail.server.app.clipboard.it;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import io.skysail.client.testsupport.IntegrationTests;
+import io.skysail.server.app.clipboard.domain.Clip;
+import io.skysail.server.app.clipboard.it.browser.ClipboardBrowser;
+import io.skysail.server.restlet.resources.SkysailServerResource;
+
+import java.io.IOException;
+import java.math.BigInteger;
+
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.osgi.framework.BundleException;
+import org.restlet.data.MediaType;
+
+/**
+ * Integration tests for creating, reading, updating, and deleting TodoLists.
+ *
+ */
+public class ClipCrudIntegrationTests extends IntegrationTests<ClipboardBrowser, Clip> {
+    
+    private Clip clip;
+
+    @Before
+    public void setUp() {
+        browser = new ClipboardBrowser(MediaType.APPLICATION_JSON, determinePort());
+        browser.setUser("admin");
+        clip = createRandomTodoList();
+    }
+
+    @Test  // create and read
+    public void creating_new_entity_will_persists_it() throws Exception {
+        createListAndCheckAssertions();
+    }
+    
+//    @Test // delete
+//    public void new_todolist_can_be_deleted_by_owner() throws Exception {
+//        String id = browser.createTodoList(todoList);
+//        browser.deleteTodoList(id);
+//        assertThat(browser.getTodoLists().getText(), not(containsString(todoList.getName())));
+//    }
+//    
+//    @Test
+//    @Ignore // cannot follow link as it is not displayed
+//    public void new_todolist_cannot_be_deleted_by_someone_else() throws Exception {
+//        String id = browser.createTodoList(todoList);
+//        browser.setUser("demo");
+//        browser.deleteTodoList(id);
+//        assertThat(browser.getTodoLists().getText(), not(containsString(todoList.getName())));
+//    }
+//
+//    @Test // update
+//    public void altering_todolist_updates_existing_todolist() throws Exception {
+//        String id = browser.createTodoList(todoList);
+//        assertThat(browser.getTodoList(id).getText(), containsString(todoList.getName()));
+//        
+//        todoList.setId(id);
+//        todoList.setDesc("description changed");
+//        browser.updateTodoList(todoList);
+//        
+//        String updatedText = browser.getTodoList(id).getText();
+//        assertThat(updatedText, containsString("description changed"));
+//    }
+        
+//    @Test
+//    @Ignore
+//    public void stopping_and_starting_the_TodosBundle_doesnt_break_list_creationg() throws IOException, BundleException {
+//        stopAndStartBundle(TodoList.class);
+//        createListAndCheckAssertions();
+//    }
+//
+//    @Test
+//    @Ignore // not working yet...
+//    public void stopping_and_starting_the_ServerBundle_doesnt_break_list_creationg() throws IOException, BundleException {
+//        stopAndStartBundle(SkysailServerResource.class);
+//        createListAndCheckAssertions();
+//    }
+
+    private void createListAndCheckAssertions() throws IOException {
+        browser.createClip(clip);
+        String html = browser.getClips().getText();
+        assertThat(html, containsString(clip.getContent()));
+    }
+
+    private Clip createRandomTodoList() {
+        return new Clip() {{setContent(new BigInteger(130, random).toString(32));}};
+    }
+}
+

@@ -2,10 +2,6 @@ Bundle-Name: SKYSAIL :: server :: app :: clipboard
 Bundle-Version: 0.1.0.${tstamp}
 Service-Component: *
 Include-Resource: resources
-Private-Package:  \
-	de.twenty11.skysail.server.app.clipboard,\
-	de.twenty11.skysail.server.app.clipboard.clip,\
-	de.twenty11.skysail.server.app.clipboard.domain
 -buildpath:  \
 	osgi.core;version=5.0,\
 	osgi.cmpn;version=5.0,\
@@ -28,7 +24,17 @@ Private-Package:  \
 	etm.core;version=1.2,\
 	lombok;version=1.12,\
 	de.twenty11.owasp-java-html-sanitizer;version=239.0,\
-	org.apache.commons.beanutils;version=1.9
+	org.apache.commons.beanutils;version=1.9,\
+	com.fasterxml.jackson.core.jackson-annotations;version=2.5
 Import-Package:  \
 	javassist.util.proxy,\
 	*
+Private-Package:  \
+	de.twenty11.skysail.server.app.clipboard,\
+	de.twenty11.skysail.server.app.clipboard.clip,\
+	de.twenty11.skysail.server.app.clipboard.domain,\
+	io.skysail.server.app.clipboard.clip.resources,\
+	io.skysail.server.app.clipboard.repo
+Export-Package:  \
+	io.skysail.server.app.clipboard.domain,\
+	io.skysail.server.app.clipboard

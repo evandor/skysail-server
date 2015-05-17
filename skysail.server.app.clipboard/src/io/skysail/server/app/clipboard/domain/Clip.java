@@ -1,9 +1,11 @@
-package de.twenty11.skysail.server.app.clipboard.clip;
+package io.skysail.server.app.clipboard.domain;
 
+import io.skysail.api.domain.Identifiable;
 import io.skysail.api.forms.Field;
 import io.skysail.api.forms.HtmlPolicy;
 import io.skysail.api.forms.InputType;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -12,14 +14,16 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import de.twenty11.skysail.server.um.domain.SkysailUser;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@SuppressWarnings("serial")
 @Getter
 @Setter
-public class Clip {
+@JsonIgnoreProperties("handler")
+public class Clip implements Serializable, Identifiable {
 
-	@Id
-	private Object rid;
+    @Id
+    private String id;
 	
     @Field(type = InputType.TEXTAREA, htmlPolicy = HtmlPolicy.DEFAULT_HTML)
     @Size(min = 2, message = "Sorry, the content must have at least two Characters.")
@@ -35,8 +39,7 @@ public class Clip {
     private Date modified;
 
     @Field(type = InputType.READONLY)
-    //@JsonIgnore
-    private SkysailUser owner;
+    private String owner;
     
     public Clip() {
         this.created = new Date();

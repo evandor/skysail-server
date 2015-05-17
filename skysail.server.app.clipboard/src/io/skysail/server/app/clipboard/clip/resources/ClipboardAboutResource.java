@@ -1,13 +1,11 @@
-package de.twenty11.skysail.server.app.clipboard;
+package io.skysail.server.app.clipboard.clip.resources;
 
+import io.skysail.server.app.clipboard.ClipboardApplication;
+import io.skysail.server.app.clipboard.domain.Clip;
 import io.skysail.server.restlet.resources.ListServerResource;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import de.twenty11.skysail.server.app.clipboard.clip.Clip;
-import de.twenty11.skysail.server.app.clipboard.clip.ClipsResource;
-import de.twenty11.skysail.server.app.clipboard.clip.PostClipResource;
 import de.twenty11.skysail.server.core.restlet.ResourceContextId;
 
 /**
@@ -19,7 +17,7 @@ public class ClipboardAboutResource extends ListServerResource<Clip> {
     private ClipboardApplication app;
 
     public ClipboardAboutResource() {
-        super(null);
+        //super(null);
         app = (ClipboardApplication) getApplication();
         setDescription("Root Resource for skysail clipboard application");
         addToContext(ResourceContextId.LINK_TITLE, "About Clipboard Application");

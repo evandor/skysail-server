@@ -1,13 +1,13 @@
-package de.twenty11.skysail.server.app.clipboard.clip;
+package io.skysail.server.app.clipboard.clip.resources;
 
 import io.skysail.api.responses.SkysailResponse;
+import io.skysail.server.app.clipboard.ClipboardApplication;
+import io.skysail.server.app.clipboard.domain.Clip;
 import io.skysail.server.restlet.resources.PutEntityServerResource;
 
 import java.util.Date;
 
 import org.restlet.resource.ResourceException;
-
-import de.twenty11.skysail.server.app.clipboard.ClipboardApplication;
 
 public class PutClipResource extends PutEntityServerResource<Clip> {
 
@@ -27,18 +27,16 @@ public class PutClipResource extends PutEntityServerResource<Clip> {
 
     @Override
     public SkysailResponse<?> updateEntity(Clip entity) {
-        entity.setModified(new Date());
-        if (entity.getOwner() == null) {
-            entity.setOwner(app.getCurrentUser());
-        }
-        System.out.println(entity.getRid());
-        app.getClipsRepository().update(entity);
-        return new SkysailResponse<String>();
+        Clip original = getEntity();
+        original.setContent(entity.getContent());
+        original.setModified(new Date());
+        app.getClipsRepository().update(original);
+        return new SkysailResponse<>();
     }
-    
+
     @Override
-	public String redirectTo() {
-		return super.redirectTo(ClipsResource.class);
-	}
+    public String redirectTo() {
+        return super.redirectTo(ClipsResource.class);
+    }
 
 }
