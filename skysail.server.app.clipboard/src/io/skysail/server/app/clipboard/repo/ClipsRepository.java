@@ -2,13 +2,10 @@ package io.skysail.server.app.clipboard.repo;
 
 import io.skysail.server.app.clipboard.domain.Clip;
 import io.skysail.server.db.DbRepository;
-import io.skysail.server.db.DbService2;
+import io.skysail.server.db.DbService;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 
 import aQute.bnd.annotation.component.Activate;
 import aQute.bnd.annotation.component.Component;
@@ -17,7 +14,7 @@ import aQute.bnd.annotation.component.Reference;
 @Component(immediate = true, properties = "name=ClipsRepository")
 public class ClipsRepository implements DbRepository {
 
-    private static DbService2 dbService;
+    private static DbService dbService;
 
     @Activate
     public void activate() {
@@ -27,11 +24,11 @@ public class ClipsRepository implements DbRepository {
     }
 
     @Reference
-    public void setDbService(DbService2 dbService) {
+    public void setDbService(DbService dbService) {
         ClipsRepository.dbService = dbService;
     }
 
-    public void unsetDbService(DbService2 dbService) {
+    public void unsetDbService(DbService dbService) {
         ClipsRepository.dbService = null;
     }
 

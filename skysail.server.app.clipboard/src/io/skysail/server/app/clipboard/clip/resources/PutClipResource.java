@@ -26,7 +26,7 @@ public class PutClipResource extends PutEntityServerResource<Clip> {
     }
 
     @Override
-    public SkysailResponse<?> updateEntity(Clip entity) {
+    public SkysailResponse<Clip> updateEntity(Clip entity) {
         Clip original = getEntity();
         original.setContent(entity.getContent());
         original.setModified(new Date());

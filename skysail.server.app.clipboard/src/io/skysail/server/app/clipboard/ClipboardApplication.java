@@ -1,5 +1,6 @@
 package io.skysail.server.app.clipboard;
 
+import io.skysail.api.search.SearchService;
 import io.skysail.server.app.SkysailApplication;
 import io.skysail.server.app.clipboard.clip.resources.ClipResource;
 import io.skysail.server.app.clipboard.clip.resources.ClipboardAboutResource;
@@ -23,7 +24,6 @@ import de.twenty11.skysail.server.core.restlet.ApplicationContextId;
 import de.twenty11.skysail.server.core.restlet.RouteBuilder;
 import de.twenty11.skysail.server.services.MenuItem;
 import de.twenty11.skysail.server.services.MenuItemProvider;
-import de.twenty11.skysail.server.services.SearchService;
 import de.twenty11.skysail.server.services.SkysailThreadPool;
 import de.twenty11.skysail.server.services.UserManager;
 import de.twenty11.skysail.server.um.domain.SkysailUser;
@@ -68,6 +68,7 @@ public class ClipboardApplication extends SkysailApplication implements Applicat
     @Override
     protected void attach() {
         super.attach();
+
         router.attach(new RouteBuilder("", ClipsResource.class));
         router.attach(new RouteBuilder("/", ClipsResource.class));
         router.attach(new RouteBuilder(PATH_CLIPS, ClipsResource.class));
@@ -85,7 +86,7 @@ public class ClipboardApplication extends SkysailApplication implements Applicat
     public SkysailThreadPool getSkysailThreadPool() {
         return skysailThreadPool;
     }
-    
+
     public SearchService getSearchService() {
 	    return searchService;
     }
@@ -95,11 +96,11 @@ public class ClipboardApplication extends SkysailApplication implements Applicat
     }
 
     public List<MenuItem> getMenuEntries() {
-        MenuItem appMenu = new MenuItem(APP_NAME, "/" + APP_NAME, this);
+        MenuItem appMenu = new MenuItem(APP_NAME, "/" + APP_NAME + getApiVersion().getVersionPath(), this);
         appMenu.setCategory(MenuItem.Category.APPLICATION_MAIN_MENU);
         return Arrays.asList(appMenu);
     }
 
-   
+
 
 }

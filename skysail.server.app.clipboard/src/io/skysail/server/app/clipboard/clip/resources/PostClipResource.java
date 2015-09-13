@@ -21,7 +21,7 @@ public class PostClipResource extends PostEntityServerResource<Clip> {
 		setDescription("create a new clip");
 		addToContext(ResourceContextId.LINK_TITLE, "Create new Clip");
 	}
-	
+
 	@Override
 	protected void doInit() throws ResourceException {
 	    app = (ClipboardApplication) getApplication();
@@ -33,7 +33,7 @@ public class PostClipResource extends PostEntityServerResource<Clip> {
     }
 
 	@Override
-	public SkysailResponse<?> addEntity(Clip entity) {
+	public SkysailResponse<Clip> addEntity(Clip entity) {
 	    entity.setCreated(new Date());
         Subject subject = SecurityUtils.getSubject();
         subject.getPrincipals().getPrimaryPrincipal();
@@ -41,7 +41,7 @@ public class PostClipResource extends PostEntityServerResource<Clip> {
         String id = app.getClipsRepository().add(entity).toString();
         entity.setId(id);
         return new SkysailResponse<>();
-	    
+
         //        Linkheader linkheader = ServerLink.fromResource(app, ClipResource.class);
         //        if (linkheader != null) {
         //            index(entity, app.getSearchService(), linkheader.getUri(), id);
