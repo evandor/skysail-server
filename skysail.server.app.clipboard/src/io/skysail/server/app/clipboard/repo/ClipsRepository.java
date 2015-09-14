@@ -7,13 +7,14 @@ import io.skysail.server.db.DbService;
 import java.util.HashMap;
 import java.util.List;
 
-import aQute.bnd.annotation.component.Activate;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
-@Component(immediate = true, properties = "name=ClipsRepository")
+@Component(immediate = true, property = "name=ClipsRepository")
 public class ClipsRepository implements DbRepository {
 
+	@Reference
     private static DbService dbService;
 
     @Activate
@@ -22,16 +23,6 @@ public class ClipsRepository implements DbRepository {
         dbService.register(Clip.class);
         //dbService.createUniqueIndex(Clip.class, "name", "owner");
     }
-
-    @Reference
-    public void setDbService(DbService dbService) {
-        ClipsRepository.dbService = dbService;
-    }
-
-    public void unsetDbService(DbService dbService) {
-        ClipsRepository.dbService = null;
-    }
-
 
     public Clip getById(String id) {
         return null;//dbService.find(id, Clip.class);
@@ -49,7 +40,7 @@ public class ClipsRepository implements DbRepository {
         //dbService.update(entity);
     }
 
-    @SuppressWarnings({ "unchecked", "serial" })
+    @SuppressWarnings({ "serial" })
     public List<Clip> getClips(int page, Object rid, int linesPerPage) {
         String sql = "select * from Clip WHERE owner=:owner ORDER BY content SKIP " + (linesPerPage * (page - 1)) + " LIMIT 10";
         return dbService.findObjects(sql,new HashMap<String,Object>() {{

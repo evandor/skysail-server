@@ -1,4 +1,4 @@
--runfw: org.apache.felix.framework;version='[4,5)'
+-runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.8
 -runsystemcapabilities: ${native_capability}
 -runrepos:  \
@@ -42,7 +42,8 @@
 
 
 -runbundles:  \
-	ch.qos.logback.classic;version='[1.1.2,1.1.3)',\
+    osgi.core;version=${osgi.core.version},\
+    ch.qos.logback.classic;version='[1.1.2,1.1.3)',\
 	ch.qos.logback.core;version='[1.1.2,1.1.3)',\
 	classmate;version='[1.0.0,1.0.1)',\
 	com.fasterxml.jackson.core.jackson-annotations;version='[2.5,2.6)',\
@@ -79,15 +80,15 @@
 	org.apache.commons.lang3;version='[3.3.0,3.4)',\
 	org.apache.commons.logging;version='[1.1.3,1.1.4)',\
 	org.apache.felix.bundlerepository;version=latest,\
-	org.apache.felix.configadmin;version='[1.8.0,1.8.1)',\
-	org.apache.felix.fileinstall;version='[3.4.0,3.4.1)',\
+	org.apache.felix.configadmin;version=${org.apache.felix.configadmin.version},\
+	org.apache.felix.fileinstall;version=${org.apache.felix.fileinstall.version},\
 	org.apache.felix.eventadmin;version=1.3.2,\
 	org.apache.felix.gogo.command;version='[0.14.0,0.14.1)',\
 	org.apache.felix.gogo.runtime;version='[0.12.1,0.12.2)',\
 	org.apache.felix.gogo.shell;version='[0.10.0,0.10.1)',\
 	org.apache.felix.log;version='[1.0.1,1.0.2)',\
 	org.apache.felix.prefs;version=1.0.6,\
-	org.apache.felix.scr;version='[1.8.2,1.8.3)',\
+	org.apache.felix.scr;version=${org.apache.felix.scr.version},\
 	org.apache.felix.shell.remote;version=1.1.2,\
 	org.apache.shiro.core;version='[1.2.2,1.2.3)',\
 	org.apache.shiro.web;version='[1.2.2,1.2.3)',\
@@ -107,8 +108,6 @@
 	org.restlet.ext.raml;version=${restlet.version},\
 	org.restlet.ext.servlet;version=${restlet.version},\
 	org.xerial.snappy.snappy-java;version='[1.1.1,1.1.2)',\
-	osgi.cmpn;version='[5.0.0,5.0.1)',\
-	osgi.enterprise;version='[4.2.0,4.2.1)',\
 	skysail.api;version=${skysail.api.version},\
 	skysail.api.documentation;version=${skysail.api.documentation.version},\
 	skysail.api.favorites;version=${skysail.api.favorites.version},\
@@ -145,17 +144,13 @@
 	org.eclipse.jetty.webapp;version=9.2.11,\
 	org.eclipse.jetty.deploy;version=9.2.11,\
 	org.eclipse.jetty.xml;version=9.2.11,\
-	org.eclipse.jetty.osgi-servlet-api;version=3.1.0,\
 	org.eclipse.jetty.client;version=9.2.11,\
-	org.quartz-scheduler.quartz;version=2.2.1,\
-	org.apache.servicemix.bundles.c3p0;version=0.9.1,\
-	io.skysail.bundled.raml-parser;version=0.8.12,\
 	org.restlet.ext.apispark;version=2.3.4,\
 	org.yaml.snakeyaml;version=1.15.0,\
 	org.apache.servicemix.bundles.jakarta-regexp
-
-
-	biz.aQute.bnd.annotation;version=2.4.0,\
+	
+	
+	
 
     skysail.server.osgi;version=${skysail.server.osgi.version},\
 	skysail.server.performance.etm;version=${skysail.server.performance.etm.version},\

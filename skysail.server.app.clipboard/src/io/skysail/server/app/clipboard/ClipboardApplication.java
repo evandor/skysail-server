@@ -9,6 +9,7 @@ import io.skysail.server.app.clipboard.clip.resources.PostClipResource;
 import io.skysail.server.app.clipboard.clip.resources.PutClipResource;
 import io.skysail.server.app.clipboard.repo.ClipsRepository;
 import io.skysail.server.db.DbRepository;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,9 +17,11 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
 import de.twenty11.skysail.server.app.ApplicationProvider;
 import de.twenty11.skysail.server.core.restlet.ApplicationContextId;
 import de.twenty11.skysail.server.core.restlet.RouteBuilder;
@@ -39,7 +42,10 @@ public class ClipboardApplication extends SkysailApplication implements Applicat
     public static final String PATH_CLIPS = "/clips";
     public static final String PARAMETER_GROUP = "group";
 
-    private AtomicReference<ClipsRepository> clipsRepository = new AtomicReference<>();
+    @Reference(policy = ReferencePolicy.DYNAMIC, cardinality = ReferenceCardinality.MANDATORY, target = "(name=ClipsRepository)")
+    @Getter
+    private ClipsRepository clipsRepository;
+    
     private volatile UserManager userManager;
 
     private volatile SkysailThreadPool skysailThreadPool;
@@ -50,20 +56,6 @@ public class ClipboardApplication extends SkysailApplication implements Applicat
         super(APP_NAME);
         addToAppContext(ApplicationContextId.IMG, "/static/img/silk/page_link.png");
     }
-
-    @Reference(dynamic = true, multiple = false, optional = false, target = "(name=ClipsRepository)")
-    public void setRepository(DbRepository repo) {
-        this.clipsRepository.set((ClipsRepository) repo);
-    }
-
-    public void unsetRepository(DbRepository repo) {
-        this.clipsRepository.compareAndSet((ClipsRepository)repo, null);
-    }
-
-    public ClipsRepository getClipsRepository() {
-        return clipsRepository.get();
-    }
-
 
     @Override
     protected void attach() {
