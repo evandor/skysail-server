@@ -13,16 +13,18 @@ import de.twenty11.skysail.server.core.restlet.RouteBuilder;
 import de.twenty11.skysail.server.services.MenuItem;
 import de.twenty11.skysail.server.services.MenuItemProvider;
 import io.skysail.server.app.SkysailApplication;
-import lombok.Getter;
+import io.skysail.server.app.bb.areas.PostAreaResource;
+import io.skysail.server.db.DbRepository;
+import lombok.Setter;
 
 @Component(immediate = true)
 public class BodyboosterApplication extends SkysailApplication implements ApplicationProvider, MenuItemProvider {
 
     private static final String APP_NAME = "bodybooster";
     
-    @Reference(policy = ReferencePolicy.DYNAMIC, cardinality = ReferenceCardinality.OPTIONAL)//, target = "(name=BodyboosterRepository)")
-    @Getter
-    private Repository repository;
+    @Reference(policy = ReferencePolicy.DYNAMIC, cardinality = ReferenceCardinality.MANDATORY, target = "(name=BodyboosterRepository)")
+    @Setter // for tests
+    private DbRepository repository;
 
     public BodyboosterApplication() {
         super(APP_NAME);
@@ -32,6 +34,8 @@ public class BodyboosterApplication extends SkysailApplication implements Applic
     protected void attach() {
         super.attach();
         router.attach(new RouteBuilder("", AreasResource.class));
+        router.attach(new RouteBuilder("/areas", AreasResource.class));
+        router.attach(new RouteBuilder("/areas/", PostAreaResource.class));
     }
 
     @Override
@@ -39,6 +43,10 @@ public class BodyboosterApplication extends SkysailApplication implements Applic
         MenuItem menuItem = new MenuItem(APP_NAME, "/" + APP_NAME + getApiVersion().getVersionPath());
         menuItem.setCategory(MenuItem.Category.APPLICATION_MAIN_MENU);
         return Arrays.asList(menuItem);
+    }
+
+    public Repository getRepository() {
+        return (Repository)repository;
     }
 
 }

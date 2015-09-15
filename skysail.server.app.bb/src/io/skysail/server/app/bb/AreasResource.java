@@ -23,8 +23,8 @@ public class AreasResource extends ListServerResource<Area> {
     public List<Area> getEntity() {
         Filter filter = new Filter(getRequest());
         filter.add("owner", SecurityUtils.getSubject().getPrincipal().toString());
-        Pagination pagination = new Pagination(getRequest(), getResponse(), 10000);
-        return null;// app.getRepository().findAll(Area.class, filter, pagination);
+        Pagination pagination = new Pagination(getRequest(), getResponse(), 10);
+        return app.getRepository().findAll(Area.class, filter, pagination);
     }
 
 }

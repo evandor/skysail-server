@@ -43,8 +43,7 @@ public class ClipboardApplication extends SkysailApplication implements Applicat
     public static final String PARAMETER_GROUP = "group";
 
     @Reference(policy = ReferencePolicy.DYNAMIC, cardinality = ReferenceCardinality.MANDATORY, target = "(name=ClipsRepository)")
-    @Getter
-    private ClipsRepository clipsRepository;
+    private DbRepository clipsRepository;
     
     private volatile UserManager userManager;
 
@@ -91,6 +90,10 @@ public class ClipboardApplication extends SkysailApplication implements Applicat
         MenuItem appMenu = new MenuItem(APP_NAME, "/" + APP_NAME + getApiVersion().getVersionPath(), this);
         appMenu.setCategory(MenuItem.Category.APPLICATION_MAIN_MENU);
         return Arrays.asList(appMenu);
+    }
+    
+    public ClipsRepository getClipsRepository() {
+        return (ClipsRepository)clipsRepository;
     }
 
 
