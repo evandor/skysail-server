@@ -32,6 +32,10 @@ public class Repository implements DbRepository {
 //                + limitClause(pagination);
         return dbService.findObjects(sql, filter.getParams());
     }
+
+    public Object persist(Area entity) {
+        return dbService.persist(entity);
+    }
     
     
 

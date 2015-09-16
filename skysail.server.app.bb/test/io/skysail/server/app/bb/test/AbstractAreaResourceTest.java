@@ -50,6 +50,8 @@ public abstract class AbstractAreaResourceTest extends ResourceTestBase {
         super.setUpResource(postAreaResource);
         setUpRepository(new Repository());
         setUpSubject("admin");
+        
+        application.setDbService(testDb);
 
         //new UniquePerOwnerValidator().setDbService(testDb);
     }
@@ -64,8 +66,8 @@ public abstract class AbstractAreaResourceTest extends ResourceTestBase {
         repo = rep;
         repo.setDbService(testDb);
         repo.activate();
-        ((BodyboosterApplication)application).setRepository(repo);
-        Mockito.when(((BodyboosterApplication)application).getRepository()).thenReturn(repo);
+        //((BodyboosterApplication)application).setRepository(repo);
+        //Mockito.when(((BodyboosterApplication)application).getRepository()).thenReturn(repo);
 
     }
 

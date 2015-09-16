@@ -4,9 +4,9 @@ INFO  io.skysail.server.services.ServerLoad - activating ServerLoad task
 INFO  io.skysail.server.services.ServerTime - activating ServerTime task
 INFO  io.skysail.server.app.ApplicationList - (+) Adding application 'bodybooster'
 INFO  io.skysail.server.app.ApplicationList - (+) Adding application 'webapp'
+INFO  io.skysail.server.db.DbConfigurations - activating DbConfigurations with config DbConfig(name=skysail, driver=, url=plocal:db/todos, username=)
 INFO  io.skysail.server.app.ApplicationList - (+) Adding application 'clipboard'
 INFO  io.skysail.server.db.DbConfigurations - activating DbConfigurations with config DbConfig(name=skysailgraph, driver=, url=remote:localhost/skysailcrm, username=admin)
-INFO  io.skysail.server.db.DbConfigurations - activating DbConfigurations with config DbConfig(name=skysail, driver=, url=plocal:db/todos, username=)
 INFO  io.skysail.server.http.HttpServer - Activating io.skysail.server.http.HttpServer
 INFO  de.twenty11.skysail.server.SkysailComponent - Creating Restlet Component: de.twenty11.skysail.server.SkysailComponent
 INFO  io.skysail.server.http.HttpServer - configuration was provided
@@ -15,14 +15,14 @@ INFO  io.skysail.server.http.HttpServer - ====================================
 INFO  io.skysail.server.http.HttpServer - Starting skysail server on port 2015
 INFO  io.skysail.server.http.HttpServer - ====================================
 INFO  io.skysail.server.http.HttpServer - 
-INFO  org.eclipse.jetty.util.log - Logging initialized @10297ms
+INFO  io.skysail.server.app.ApplicationList - (+) Adding application '_polymer'
+INFO  io.skysail.server.app.ApplicationList - (+) Adding application 'static'
+INFO  org.eclipse.jetty.util.log - Logging initialized @6526ms
+INFO  io.skysail.server.app.ApplicationList - (+) Adding application 'usermanagement'
 INFO  org.restlet - Starting the Jetty [HTTP/1.1] server on port 2015
 INFO  org.eclipse.jetty.server.Server - jetty-9.2.11.v20150529
-INFO  io.skysail.server.app.ApplicationList - (+) Adding application '_polymer'
-INFO  org.eclipse.jetty.server.ServerConnector - Started ServerConnector@534820c{HTTP/1.1}{0.0.0.0:2015}
-INFO  org.eclipse.jetty.server.Server - Started @10671ms
-INFO  io.skysail.server.app.ApplicationList - (+) Adding application 'static'
-INFO  io.skysail.server.app.ApplicationList - (+) Adding application 'usermanagement'
+INFO  org.eclipse.jetty.server.ServerConnector - Started ServerConnector@2c04f0bb{HTTP/1.1}{0.0.0.0:2015}
+INFO  org.eclipse.jetty.server.Server - Started @6736ms
 INFO  org.restlet.SkysailComponent.SkysailRootApplication - Starting de.twenty11.skysail.server.app.SkysailRootApplication application
 INFO  io.skysail.server.app.SkysailApplication - creating new Router in de.twenty11.skysail.server.app.SkysailRootApplication
 INFO  io.skysail.server.app.SkysailApplication - adding extensions to metadata service
@@ -52,6 +52,9 @@ INFO  io.skysail.server.app.SkysailApplication - adding protocols
 WARN  io.skysail.server.app.SkysailApplication - not documentation provider available. No Selfdocumentation of APIs.
 INFO  de.twenty11.skysail.server.core.restlet.SkysailRouter - routing path '/v1!meta' -> 'RolesPredicateAuthorizer' -> 'io.skysail.server.app.bb.AreasResource'
 INFO  de.twenty11.skysail.server.core.restlet.SkysailRouter - routing path '/v1' -> 'RolesPredicateAuthorizer' -> 'io.skysail.server.app.bb.AreasResource'
+INFO  de.twenty11.skysail.server.core.restlet.SkysailRouter - routing path '/v1/areas!meta' -> 'RolesPredicateAuthorizer' -> 'io.skysail.server.app.bb.AreasResource'
+INFO  de.twenty11.skysail.server.core.restlet.SkysailRouter - routing path '/v1/areas' -> 'RolesPredicateAuthorizer' -> 'io.skysail.server.app.bb.AreasResource'
+INFO  de.twenty11.skysail.server.core.restlet.SkysailRouter - routing path '/v1/areas/' -> 'RolesPredicateAuthorizer' -> 'io.skysail.server.app.bb.areas.PostAreaResource'
 INFO  org.restlet.SkysailComponent.SkysailRootApplication - Starting io.skysail.server.converter.WebappApplication application
 INFO  org.restlet.SkysailComponent.SkysailRootApplication - Starting io.skysail.server.app.clipboard.ClipboardApplication application
 INFO  io.skysail.server.app.SkysailApplication - creating new Router in io.skysail.server.app.clipboard.ClipboardApplication
@@ -71,7 +74,7 @@ INFO  de.twenty11.skysail.server.core.restlet.SkysailRouter - routing path '/v1/
 INFO  de.twenty11.skysail.server.core.restlet.SkysailRouter - routing path '/v1/about' -> 'RolesPredicateAuthorizer' -> 'io.skysail.server.app.clipboard.clip.resources.ClipboardAboutResource'
 INFO  org.restlet.SkysailComponent.SkysailRootApplication - Starting io.skysail.server.polymer.PolymerStaticWebapp application
 INFO  org.restlet.SkysailComponent.SkysailRootApplication - Starting de.twenty11.skysail.server.webapp.internal.WebappApplication application
-INFO  o.r.S.InternalRouter.SimpleUserManagementApplication - Starting io.skysail.server.um.simple.app.SimpleUserManagementApplication application
+INFO  org.restlet.SkysailComponent.SkysailRootApplication - Starting io.skysail.server.um.simple.app.SimpleUserManagementApplication application
 INFO  io.skysail.server.app.SkysailApplication - creating new Router in io.skysail.server.um.simple.app.SimpleUserManagementApplication
 INFO  io.skysail.server.app.SkysailApplication - adding extensions to metadata service
 INFO  io.skysail.server.app.SkysailApplication - adding protocols
@@ -79,21 +82,23 @@ WARN  io.skysail.server.app.SkysailApplication - not documentation provider avai
 INFO  de.twenty11.skysail.server.core.restlet.SkysailRouter - routing path '/v1/currentUser' -> 'io.skysail.server.um.simple.app.users.resources.CurrentUserResource'
 WARN  de.twenty11.skysail.server.core.restlet.SkysailRouter - please use a RouteBuilder to attach this resource: class io.skysail.server.um.simple.app.users.resources.CurrentUserResource
 INFO  io.skysail.server.restlet.resources.ListServerResource - Request entry point: DefaultResource @Get('html|json|yaml|xml') with variant [text/html]
-INFO  LogService - 2015-09-15	06:42:16	0:0:0:0:0:0:0:1	admin	0:0:0:0:0:0:0:1	2015	GET	/	-	200	-	0	28964	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	-
-INFO  LogService - 2015-09-15	06:42:17	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/themes/jstree/style.min.css	-	200	-	0	15	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  LogService - 2015-09-15	06:42:17	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/js/jstree/jstree.min.js	-	200	-	0	4	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  LogService - 2015-09-15	06:42:17	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/js/mousetrap/mousetrap.min.js	-	200	-	0	6	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  LogService - 2015-09-15	06:42:18	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/silk/user.png	-	200	-	0	12	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  LogService - 2015-09-15	06:42:18	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/silk/page_link.png	-	200	-	0	23	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  LogService - 2015-09-15	06:42:18	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/silk/information.png	-	200	-	0	9	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  LogService - 2015-09-15	06:42:18	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/fileicons/16px/x-yaml.png	-	200	-	0	6	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  LogService - 2015-09-15	06:42:18	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/fileicons/16px/xml.png	-	200	-	0	6	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  LogService - 2015-09-15	06:42:18	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/fileicons/16px/csv.png	-	200	-	0	12	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  LogService - 2015-09-15	06:42:18	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/fileicons/16px/json.png	-	200	-	0	5	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
-INFO  io.skysail.server.restlet.resources.ListServerResource - Request entry point: DefaultResource @Get('html|json|yaml|xml') with variant [text/html]
-INFO  LogService - 2015-09-15	06:42:32	0:0:0:0:0:0:0:1	admin	0:0:0:0:0:0:0:1	2015	GET	/	-	200	-	0	825	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	-
-INFO  io.skysail.server.restlet.resources.ListServerResource - Request entry point: DefaultResource @Get('html|json|yaml|xml') with variant [text/html]
-INFO  LogService - 2015-09-15	06:42:52	0:0:0:0:0:0:0:1	admin	0:0:0:0:0:0:0:1	2015	GET	/	-	200	-	0	833	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	-
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	admin	0:0:0:0:0:0:0:1	2015	GET	/	-	200	-	0	1348	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	-
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/_polymer/sky-app-nav-accordion.html	-	200	-	0	24	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/_polymer/bower_components/google-chart/google-chart.html	-	200	-	0	17	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/_polymer/proto-element.html	-	200	-	0	25	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/themes/jstree/style.min.css	-	200	-	0	32	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/_polymer/sky-ajax-get.html	-	200	-	0	6	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/js/jstree/jstree.min.js	-	200	-	0	6	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/js/mousetrap/mousetrap.min.js	-	200	-	0	7	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/_polymer/sky-ajax-table.html	-	200	-	0	17	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/_polymer/bower_components/webcomponentsjs/webcomponents-lite.min.js	-	200	-	0	5	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/silk/information.png	-	200	-	0	9	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/fileicons/16px/x-yaml.png	-	200	-	0	4	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/silk/page_link.png	-	200	-	0	6	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/silk/user.png	-	200	-	0	9	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/fileicons/16px/xml.png	-	200	-	0	11	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/fileicons/16px/csv.png	-	200	-	0	20	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:12	0:0:0:0:0:0:0:1	-	0:0:0:0:0:0:0:1	2015	GET	/static/img/fileicons/16px/json.png	-	200	-	0	5	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/
 INFO  io.skysail.server.restlet.resources.ListServerResource - Request entry point: AreasResource @Get('html|json|yaml|xml') with variant [text/html]
 ERROR i.skysail.server.restlet.filter.ExceptionCatchingFilter - null
 java.lang.NullPointerException: null
@@ -178,4 +183,4 @@ java.lang.NullPointerException: null
 	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:635) [jetty-util-9.2.11.v20150529.jar:9.2.11.v20150529]
 	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:555) [jetty-util-9.2.11.v20150529.jar:9.2.11.v20150529]
 	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_20]
-INFO  LogService - 2015-09-15	06:42:58	0:0:0:0:0:0:0:1	admin	0:0:0:0:0:0:0:1	2015	GET	/bodybooster/v1	-	500	-	0	797	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0	http://localhost:2015/
+INFO  LogService - 2015-09-15	17:40:15	0:0:0:0:0:0:0:1	admin	0:0:0:0:0:0:0:1	2015	GET	/bodybooster/v1	-	500	-	0	620	http://localhost:2015	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36	http://localhost:2015/

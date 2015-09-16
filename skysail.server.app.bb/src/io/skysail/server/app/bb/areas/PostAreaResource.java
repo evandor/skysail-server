@@ -2,6 +2,8 @@ package io.skysail.server.app.bb.areas;
 
 import org.restlet.resource.ResourceException;
 
+import com.orientechnologies.orient.core.id.ORecordId;
+
 import io.skysail.api.responses.SkysailResponse;
 import io.skysail.server.app.bb.Area;
 import io.skysail.server.app.bb.BodyboosterApplication;
@@ -24,7 +26,8 @@ public class PostAreaResource extends PostEntityServerResource<Area> {
 
     @Override
     public SkysailResponse<Area> addEntity(Area entity) {
-        app.getRepository().persist(entity);
+        ORecordId persisted = (ORecordId) app.getDbService().persist(entity);
+        entity.setId(persisted.getIdentity().toString());
         return new SkysailResponse<>(entity);
     }
 
