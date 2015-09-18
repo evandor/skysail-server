@@ -26,8 +26,8 @@ public class PostAreaResource extends PostEntityServerResource<Area> {
 
     @Override
     public SkysailResponse<Area> addEntity(Area entity) {
-        ORecordId persisted = (ORecordId) app.getDbService().persist(entity);
-        entity.setId(persisted.getIdentity().toString());
+        //ORecordId persisted = (ORecordId) app.getRepository().persist(entity);
+        //entity.setId(persisted.getIdentity().toString());
         return new SkysailResponse<>(entity);
     }
 

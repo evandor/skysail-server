@@ -25,23 +25,12 @@ public class BodyboosterApplication extends SkysailApplication implements Applic
 
     private static final String APP_NAME = "bodybooster";
     
-    /*@Reference(policy = ReferencePolicy.DYNAMIC, cardinality = ReferenceCardinality.MANDATORY, target = "(name=BodyboosterRepository)")
+    @Reference(policy = ReferencePolicy.DYNAMIC, cardinality = ReferenceCardinality.MANDATORY, target = "(name=BodyboosterRepository)")
     @Setter // for tests
-    private DbRepository repository;*/
+    private DbRepository repository;
     
-    @Reference(cardinality = ReferenceCardinality.OPTIONAL)
-    @Setter // for tests
-    @Getter
-    private DbService dbService;
-
     public BodyboosterApplication() {
         super(APP_NAME);
-    }
-    
-    @Activate
-    public void activate() { // NO_UCD
-        dbService.createWithSuperClass("V", Area.class.getSimpleName());
-        dbService.register(Area.class);
     }
     
     @Override
@@ -58,5 +47,10 @@ public class BodyboosterApplication extends SkysailApplication implements Applic
         menuItem.setCategory(MenuItem.Category.APPLICATION_MAIN_MENU);
         return Arrays.asList(menuItem);
     }
+    
+    public Repository getRepository() {
+        return (Repository)repository;
+    }
+    
 
 }

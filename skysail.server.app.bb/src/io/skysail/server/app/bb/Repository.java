@@ -33,8 +33,8 @@ public class Repository implements DbRepository {
         return dbService.findObjects(sql, filter.getParams());
     }
 
-    public Object persist(Area entity) {
-        return dbService.persist(entity);
+    public void persist(Area entity) {
+        return ;//dbService.persist(entity, edges);
     }
     
     
