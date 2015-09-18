@@ -24,7 +24,7 @@ public class AreasResource extends ListServerResource<Area> {
         Filter filter = new Filter(getRequest());
         filter.add("owner", SecurityUtils.getSubject().getPrincipal().toString());
         Pagination pagination = new Pagination(getRequest(), getResponse(), 10);
-        return app.getRepository().findAll(Area.class, filter, pagination);
+        return null;//app.getRepository().findAll(Area.class, filter, pagination);
     }
 
 }

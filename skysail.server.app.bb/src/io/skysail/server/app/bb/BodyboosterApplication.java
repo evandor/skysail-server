@@ -15,6 +15,10 @@ import de.twenty11.skysail.server.services.MenuItem;
 import de.twenty11.skysail.server.services.MenuItemProvider;
 import io.skysail.server.app.SkysailApplication;
 import io.skysail.server.app.bb.areas.PostAreaResource;
+import io.skysail.server.app.bb.goals.GoalResource;
+import io.skysail.server.app.bb.goals.GoalsResource;
+import io.skysail.server.app.bb.goals.PostGoalResource;
+import io.skysail.server.app.bb.goals.PutGoalResource;
 import io.skysail.server.db.DbRepository;
 import io.skysail.server.db.DbService;
 import lombok.Getter;
@@ -39,6 +43,11 @@ public class BodyboosterApplication extends SkysailApplication implements Applic
         router.attach(new RouteBuilder("", AreasResource.class));
         router.attach(new RouteBuilder("/areas", AreasResource.class));
         router.attach(new RouteBuilder("/areas/", PostAreaResource.class));
+
+        router.attach(new RouteBuilder("/goals/", PostGoalResource.class));
+        router.attach(new RouteBuilder("/goals/{id}", GoalResource.class));
+        router.attach(new RouteBuilder("/goals", GoalsResource.class));
+        router.attach(new RouteBuilder("/goals/{id}/", PutGoalResource.class));
     }
 
     @Override
