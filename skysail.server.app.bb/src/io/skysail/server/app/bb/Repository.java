@@ -1,25 +1,25 @@
 package io.skysail.server.app.bb;
 
-import java.util.List;
-
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
 
+import io.skysail.server.db.DbRepository;
 import io.skysail.server.db.DbService;
 import io.skysail.server.db.GraphDbRepository;
-import io.skysail.server.queryfilter.Filter;
-import io.skysail.server.queryfilter.pagination.Pagination;
-import lombok.Setter;
 
 @Component(immediate = true, property = "name=BodyboosterRepository")
-public class Repository extends GraphDbRepository<Goal> {
+public class Repository extends GraphDbRepository<Goal> implements DbRepository {
 
-    @Reference(cardinality = ReferenceCardinality.OPTIONAL)
-    @Setter // for tests
-    private DbService dbService;
-    
+    @Reference
+    public void setDbService(DbService dbService) {
+        this.dbService = dbService;
+    }
+
+    public void unsetDbService(DbService dbService) {
+        this.dbService = null;
+    }
+
     @Activate
     public void activate() { // NO_UCD
         dbService.createWithSuperClass("V", Goal.class.getSimpleName());

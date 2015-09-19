@@ -1,26 +1,16 @@
 package io.skysail.server.app.clipboard;
 
-import io.skysail.api.search.SearchService;
-import io.skysail.server.app.SkysailApplication;
-import io.skysail.server.app.clipboard.clip.resources.ClipResource;
-import io.skysail.server.app.clipboard.clip.resources.ClipboardAboutResource;
-import io.skysail.server.app.clipboard.clip.resources.ClipsResource;
-import io.skysail.server.app.clipboard.clip.resources.PostClipResource;
-import io.skysail.server.app.clipboard.clip.resources.PutClipResource;
-import io.skysail.server.app.clipboard.repo.ClipsRepository;
-import io.skysail.server.db.DbRepository;
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 import de.twenty11.skysail.server.app.ApplicationProvider;
 import de.twenty11.skysail.server.core.restlet.ApplicationContextId;
@@ -30,6 +20,15 @@ import de.twenty11.skysail.server.services.MenuItemProvider;
 import de.twenty11.skysail.server.services.SkysailThreadPool;
 import de.twenty11.skysail.server.services.UserManager;
 import de.twenty11.skysail.server.um.domain.SkysailUser;
+import io.skysail.api.search.SearchService;
+import io.skysail.server.app.SkysailApplication;
+import io.skysail.server.app.clipboard.clip.resources.ClipResource;
+import io.skysail.server.app.clipboard.clip.resources.ClipboardAboutResource;
+import io.skysail.server.app.clipboard.clip.resources.ClipsResource;
+import io.skysail.server.app.clipboard.clip.resources.PostClipResource;
+import io.skysail.server.app.clipboard.clip.resources.PutClipResource;
+import io.skysail.server.app.clipboard.repo.ClipsRepository;
+import io.skysail.server.db.DbRepository;
 
 /**
  * The restlet application defined in this bundle.
@@ -42,7 +41,7 @@ public class ClipboardApplication extends SkysailApplication implements Applicat
     public static final String PATH_CLIPS = "/clips";
     public static final String PARAMETER_GROUP = "group";
 
-    @Reference(policy = ReferencePolicy.DYNAMIC, cardinality = ReferenceCardinality.MANDATORY, target = "(name=ClipsRepository)")
+    @Reference(target = "(name=ClipsRepository)")
     private DbRepository clipsRepository;
     
     private volatile UserManager userManager;

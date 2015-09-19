@@ -9,7 +9,7 @@ import io.skysail.server.queryfilter.Filter;
 import io.skysail.server.queryfilter.pagination.Pagination;
 import io.skysail.server.restlet.resources.ListServerResource;
 
-public class AreasResource extends ListServerResource<Area> {
+public class AreasResource extends ListServerResource<AreaOld> {
 
     private BodyboosterApplication app;
 
@@ -20,7 +20,7 @@ public class AreasResource extends ListServerResource<Area> {
     }
 
     @Override
-    public List<Area> getEntity() {
+    public List<AreaOld> getEntity() {
         Filter filter = new Filter(getRequest());
         filter.add("owner", SecurityUtils.getSubject().getPrincipal().toString());
         Pagination pagination = new Pagination(getRequest(), getResponse(), 10);

@@ -30,11 +30,9 @@
     felix.fileinstall.log.level=4,\
     org.apache.felix.log.storeDebug=true,\
     logback.configurationFile=config/logback.xml,\
-    obr.repository.url=https://raw.githubusercontent.com/evandor/skysail-repository/master/index.xml https://raw.githubusercontent.com/evandor/skysail/master/cnf/releaserepo/index.xml http://felix.apache.org/obr/releases.xml,\
-    http.proxyHost=192.168.11.140,\
-    http.proxyPort=8080,\
-    https.proxyHost=192.168.11.140,\
-    https.proxyPort=8080
+    obr.repository.url=https://raw.githubusercontent.com/evandor/skysail-repository/master/index.xml https://raw.githubusercontent.com/evandor/skysail/master/cnf/releaserepo/index.xml http://felix.apache.org/obr/releases.xml
+
+-dsannotations: *
 
 -runbundles:  \
     osgi.core;version=${osgi.core.version},\
@@ -79,7 +77,7 @@
 	org.apache.felix.fileinstall;version=${org.apache.felix.fileinstall.version},\
 	org.apache.felix.eventadmin;version=1.3.2,\
 	org.apache.felix.gogo.command;version='[0.14.0,0.14.1)',\
-	org.apache.felix.gogo.runtime;version='[0.12.1,0.12.2)',\
+	org.apache.felix.gogo.runtime;version='[0.16.2,0.16.3)',\
 	org.apache.felix.gogo.shell;version='[0.10.0,0.10.1)',\
 	org.apache.felix.log;version='[1.0.1,1.0.2)',\
 	org.apache.felix.prefs;version=1.0.6,\

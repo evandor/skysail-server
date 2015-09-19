@@ -12,7 +12,7 @@ import org.mockito.Spy;
 import org.restlet.data.Status;
 
 import io.skysail.api.responses.SkysailResponse;
-import io.skysail.server.app.bb.Area;
+import io.skysail.server.app.bb.AreaOld;
 import io.skysail.server.app.bb.AreasResource;
 import io.skysail.server.app.bb.BodyboosterApplication;
 import io.skysail.server.app.bb.Repository;
@@ -56,8 +56,8 @@ public abstract class AbstractAreaResourceTest extends ResourceTestBase {
         //new UniquePerOwnerValidator().setDbService(testDb);
     }
 
-    protected void assertListResult(SkysailServerResource<?> resource, SkysailResponse<Area> result, String title) {
-        Area entity = result.getEntity();
+    protected void assertListResult(SkysailServerResource<?> resource, SkysailResponse<AreaOld> result, String title) {
+        AreaOld entity = result.getEntity();
         assertThat(responses.get(resource.getClass().getName()).getStatus(),is(Status.SUCCESS_CREATED));
         assertThat(entity.getTitle(),is(title));
     }
@@ -66,7 +66,7 @@ public abstract class AbstractAreaResourceTest extends ResourceTestBase {
         repo = rep;
         repo.setDbService(testDb);
         repo.activate();
-        ((BodyboosterApplication)application).setRepository(repo);
+       // ((BodyboosterApplication)application).setRepository(repo);
         Mockito.when(((BodyboosterApplication)application).getRepository()).thenReturn(repo);
 
     }

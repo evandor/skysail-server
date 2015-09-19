@@ -1,21 +1,25 @@
 package io.skysail.server.app.clipboard.repo;
 
-import io.skysail.server.app.clipboard.domain.Clip;
-import io.skysail.server.db.DbRepository;
-import io.skysail.server.db.DbService;
-
 import java.util.HashMap;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.log.LogService;
+
+import io.skysail.server.app.clipboard.domain.Clip;
+import io.skysail.server.db.DbRepository;
+import io.skysail.server.db.DbService;
 
 @Component(immediate = true, property = "name=ClipsRepository")
 public class ClipsRepository implements DbRepository {
 
 	@Reference
-    private static DbService dbService;
+    private DbService dbService;
+	
+	@Reference
+	private LogService logService;
 
     @Activate
     public void activate() {

@@ -27,6 +27,11 @@ public class PutGoalResource extends PutEntityServerResource<Goal> {
 		Object update = app.getRepository().update(getAttribute("id"), entity);
 		return new SkysailResponse<>();
 	}
+	
+	@Override
+	public String redirectTo() {
+	    return super.redirectTo(GoalsResource.class);
+	}
 
 
 }

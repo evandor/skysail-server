@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.restlet.resource.ResourceException;
 
+import io.skysail.api.links.Link;
 import io.skysail.server.app.bb.BodyboosterApplication;
 import io.skysail.server.app.bb.Goal;
 import io.skysail.server.queryfilter.Filter;
@@ -13,6 +14,10 @@ public class GoalsResource extends ListServerResource<Goal> {
 
 	private BodyboosterApplication app;
 
+	public GoalsResource() {
+        super(GoalResource.class);
+    }
+	
 	@Override
 	protected void doInit() throws ResourceException {
 		super.doInit();
@@ -22,6 +27,11 @@ public class GoalsResource extends ListServerResource<Goal> {
 	@Override
 	public List<Goal> getEntity() {
 		return app.getRepository().find(new Filter(getRequest()));
+	}
+	
+	@Override
+	public List<Link> getLinks() {
+	    return super.getLinks(app.getMainLinks());
 	}
 
 }

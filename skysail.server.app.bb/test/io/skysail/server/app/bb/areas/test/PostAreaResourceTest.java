@@ -8,7 +8,7 @@ import org.restlet.data.Status;
 
 import io.skysail.api.responses.ConstraintViolationsResponse;
 import io.skysail.api.responses.SkysailResponse;
-import io.skysail.server.app.bb.Area;
+import io.skysail.server.app.bb.AreaOld;
 import io.skysail.server.app.bb.test.AbstractAreaResourceTest;
 
 public class PostAreaResourceTest extends AbstractAreaResourceTest {
@@ -21,20 +21,20 @@ public class PostAreaResourceTest extends AbstractAreaResourceTest {
 
     @Test
     public void empty_json_data_yields_validation_failure() {
-        ConstraintViolationsResponse<?> post = (ConstraintViolationsResponse<?>) postAreaResource.post(new Area(), JSON_VARIANT);
+        ConstraintViolationsResponse<?> post = (ConstraintViolationsResponse<?>) postAreaResource.post(new AreaOld(), JSON_VARIANT);
         assertSingleValidationFailure(postAreaResource, post, "title", "may not be null");
     }
 
     @Test
     public void valid_form_data_yields_new_entity() {
         form.add("title", "aTitle");
-        SkysailResponse<Area> result = postAreaResource.post(form, HTML_VARIANT);
+        SkysailResponse<AreaOld> result = postAreaResource.post(form, HTML_VARIANT);
         assertListResult(postAreaResource, result, "aTitle");
     }
 
     @Test
     public void valid_json_data_yields_new_entity() {
-        SkysailResponse<Area> result = postAreaResource.post(new Area("aTitle"), JSON_VARIANT);
+        SkysailResponse<AreaOld> result = postAreaResource.post(new AreaOld("aTitle"), JSON_VARIANT);
         assertThat(responses.get(postAreaResource.getClass().getName()).getStatus(),is(Status.SUCCESS_CREATED));
         assertListResult(postAreaResource, result, "aTitle");
     }

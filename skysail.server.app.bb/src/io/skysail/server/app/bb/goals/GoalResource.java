@@ -1,7 +1,10 @@
 package io.skysail.server.app.bb.goals;
 
+import java.util.List;
+
 import org.restlet.resource.ResourceException;
 
+import io.skysail.api.links.Link;
 import io.skysail.api.responses.SkysailResponse;
 import io.skysail.server.app.bb.BodyboosterApplication;
 import io.skysail.server.app.bb.Goal;
@@ -26,6 +29,11 @@ public class GoalResource extends EntityServerResource<Goal> {
 	@Override
 	public Goal getEntity() {
 		return app.getRepository().getById(getAttribute("id"));
+	}
+	
+	@Override
+	public List<Link> getLinks() {
+	    return super.getLinks(PutGoalResource.class);
 	}
 
 }
