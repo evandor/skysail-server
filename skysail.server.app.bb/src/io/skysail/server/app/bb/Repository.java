@@ -4,9 +4,9 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.skysail.server.db.DbRepository;
 import io.skysail.server.db.DbService;
 import io.skysail.server.db.GraphDbRepository;
+import io.skysail.server.repo.DbRepository;
 
 @Component(immediate = true, property = "name=BodyboosterRepository")
 public class Repository extends GraphDbRepository<Goal> implements DbRepository {

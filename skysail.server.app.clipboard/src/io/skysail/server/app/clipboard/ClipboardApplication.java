@@ -5,12 +5,8 @@ import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferenceCardinality;
-import org.osgi.service.component.annotations.ReferencePolicy;
-import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 import de.twenty11.skysail.server.app.ApplicationProvider;
 import de.twenty11.skysail.server.core.restlet.ApplicationContextId;
@@ -28,7 +24,7 @@ import io.skysail.server.app.clipboard.clip.resources.ClipsResource;
 import io.skysail.server.app.clipboard.clip.resources.PostClipResource;
 import io.skysail.server.app.clipboard.clip.resources.PutClipResource;
 import io.skysail.server.app.clipboard.repo.ClipsRepository;
-import io.skysail.server.db.DbRepository;
+import io.skysail.server.repo.DbRepository;
 
 /**
  * The restlet application defined in this bundle.

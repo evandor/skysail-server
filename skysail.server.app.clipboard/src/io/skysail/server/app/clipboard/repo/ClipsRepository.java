@@ -8,9 +8,10 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.LogService;
 
+import io.skysail.api.domain.Identifiable;
 import io.skysail.server.app.clipboard.domain.Clip;
-import io.skysail.server.db.DbRepository;
 import io.skysail.server.db.DbService;
+import io.skysail.server.repo.DbRepository;
 
 @Component(immediate = true, property = "name=ClipsRepository")
 public class ClipsRepository implements DbRepository {
@@ -71,4 +72,14 @@ public class ClipsRepository implements DbRepository {
 
         return "owner=" + rid;
     }
+
+	@Override
+	public Object save(Identifiable identifiable) {
+		return null;
+	}
+
+	@Override
+	public Object update(String id, Object entity, String... edges) {
+		return null;
+	}
 }

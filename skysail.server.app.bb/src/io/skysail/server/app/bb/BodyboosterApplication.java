@@ -17,7 +17,7 @@ import io.skysail.server.app.bb.goals.GoalResource;
 import io.skysail.server.app.bb.goals.GoalsResource;
 import io.skysail.server.app.bb.goals.PostGoalResource;
 import io.skysail.server.app.bb.goals.PutGoalResource;
-import io.skysail.server.db.DbRepository;
+import io.skysail.server.repo.DbRepository;
 import io.skysail.server.restlet.resources.SkysailServerResource;
 
 @Component(immediate = true)
