@@ -9,7 +9,7 @@ import io.skysail.server.db.GraphDbRepository;
 import io.skysail.server.repo.DbRepository;
 
 @Component(immediate = true, property = "name=BodyboosterRepository")
-public class Repository extends GraphDbRepository<Goal> implements DbRepository {
+public class BBRepository extends GraphDbRepository<Goal> implements DbRepository {
 
     @Reference
     public void setDbService(DbService dbService) {

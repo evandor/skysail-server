@@ -28,10 +28,10 @@ public class PutGoalResource extends PutEntityServerResource<Goal> {
 		return new SkysailResponse<>();
 	}
 	
-	@Override
-	public String redirectTo() {
-	    return super.redirectTo(GoalsResource.class);
-	}
+//	@Override
+//	public String redirectTo() {
+//	    return super.redirectTo(GoalsResource.class);
+//	}
 
 
 }

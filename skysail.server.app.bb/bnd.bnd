@@ -1,7 +1,7 @@
 Bundle-Name: SKYSAIL :: server :: app :: bodybooster
 Bundle-Version: 0.1.0.${tstamp}
 -dsannotations: *
-Include-Resource: resources
+Include-Resource: resources, templates=src;recursive:=true;filter:=*.st|*.stg
 -buildpath:  \
 	osgi.core;version=${osgi.core.version},\
     osgi.cmpn;version=${osgi.cmpn.version},\
@@ -63,4 +63,6 @@ Import-Package:  \
 Private-Package: \
 	io.skysail.server.app.bb,\
 	io.skysail.server.app.bb.areas,\
-	io.skysail.server.app.bb.goals
+	io.skysail.server.app.bb.goals,\
+	io.skysail.server.app.bb.goals.wc,\
+	io.skysail.server.app.bb.goals.rf

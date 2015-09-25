@@ -35,5 +35,10 @@ public class GoalResource extends EntityServerResource<Goal> {
 	public List<Link> getLinks() {
 	    return super.getLinks(PutGoalResource.class);
 	}
+	
+//	@Override
+//	public String redirectTo() {
+//	    return super.redirectTo(GoalsResource.class);
+//	}
 
 }
