@@ -7,9 +7,9 @@ import org.osgi.service.component.annotations.Reference;
 
 import de.twenty11.skysail.server.app.ApplicationProvider;
 import de.twenty11.skysail.server.core.restlet.RouteBuilder;
-import de.twenty11.skysail.server.services.MenuItem;
-import de.twenty11.skysail.server.services.MenuItemProvider;
 import io.skysail.server.app.SkysailApplication;
+import io.skysail.server.menus.MenuItem;
+import io.skysail.server.menus.MenuItemProvider;
 import io.skysail.server.repo.DbRepository;
 
 @org.osgi.service.component.annotations.Component(immediate = true)
@@ -29,6 +29,7 @@ public class OilApplication extends SkysailApplication implements ApplicationPro
 		// PutClipResource.class));
 	}
 
+	@Override
 	public List<MenuItem> getMenuEntries() {
 		MenuItem appMenu = new MenuItem(APP_NAME, "/" + APP_NAME + getApiVersion().getVersionPath());
 		appMenu.setCategory(MenuItem.Category.APPLICATION_MAIN_MENU);

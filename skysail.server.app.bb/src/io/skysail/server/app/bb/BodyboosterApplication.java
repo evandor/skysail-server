@@ -31,7 +31,7 @@ public class BodyboosterApplication extends SkysailApplication implements Applic
     
     @Reference(target = "(name=BodyboosterRepository)")
     private DbRepository bbRepository;
-    
+
     public BodyboosterApplication() {
         super(APP_NAME);
     }
@@ -69,8 +69,8 @@ public class BodyboosterApplication extends SkysailApplication implements Applic
         return Arrays.asList(menuItem);
     }
     
-    public Repository getRepository() {
-        return bbRepository;
+    public BBRepository getRepository() {
+        return (BBRepository) bbRepository;
     }
     
     public List<Class<? extends SkysailServerResource<?>>> getMainLinks() {

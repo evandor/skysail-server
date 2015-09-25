@@ -14,9 +14,10 @@ import org.restlet.data.Status;
 import io.skysail.api.responses.SkysailResponse;
 import io.skysail.server.app.bb.AreaOld;
 import io.skysail.server.app.bb.AreasResource;
+import io.skysail.server.app.bb.BBRepository;
 import io.skysail.server.app.bb.BodyboosterApplication;
-import io.skysail.server.app.bb.Repository;
 import io.skysail.server.app.bb.areas.PostAreaResource;
+import io.skysail.server.repo.Repository;
 import io.skysail.server.restlet.resources.SkysailServerResource;
 import io.skysail.server.testsupport.ResourceTestBase;
 
@@ -37,7 +38,7 @@ public abstract class AbstractAreaResourceTest extends ResourceTestBase {
     @Spy
     private BodyboosterApplication application;
 
-    protected Repository repo;
+    protected BBRepository repo;
 
     @Before
     public void setUp() throws Exception {
@@ -48,7 +49,7 @@ public abstract class AbstractAreaResourceTest extends ResourceTestBase {
         super.setUpResource(listsResource);
 //        super.setUpResource(putListResource);
         super.setUpResource(postAreaResource);
-        setUpRepository(new Repository());
+        setUpRepository(new BBRepository());
         setUpSubject("admin");
         
 //        application.setRe(testDb);
@@ -62,7 +63,7 @@ public abstract class AbstractAreaResourceTest extends ResourceTestBase {
         assertThat(entity.getTitle(),is(title));
     }
 
-    public void setUpRepository(Repository rep) {
+    public void setUpRepository(BBRepository rep) {
         repo = rep;
         repo.setDbService(testDb);
         repo.activate();
