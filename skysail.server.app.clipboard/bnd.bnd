@@ -10,7 +10,6 @@ Include-Resource: resources
 	skysail.api.search;version=${skysail.api.search.version},\
 	skysail.api.text;version=${skysail.api.text.version},\
 	skysail.api.validation;version=${skysail.api.validation.version},\
-	skysail.api.documentation;version=${skysail.api.documentation.version},\
 	skysail.server;version=${skysail.server.version},\
 	skysail.server.db;version=${skysail.server.db.version},\
 	de.twentyeleven.skysail.org.hamcrest.hamcrest-all-osgi;version=1.3,\

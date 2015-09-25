@@ -11,8 +11,6 @@ import org.osgi.service.component.annotations.Reference;
 import de.twenty11.skysail.server.app.ApplicationProvider;
 import de.twenty11.skysail.server.core.restlet.ApplicationContextId;
 import de.twenty11.skysail.server.core.restlet.RouteBuilder;
-import de.twenty11.skysail.server.services.MenuItem;
-import de.twenty11.skysail.server.services.MenuItemProvider;
 import de.twenty11.skysail.server.services.SkysailThreadPool;
 import de.twenty11.skysail.server.services.UserManager;
 import de.twenty11.skysail.server.um.domain.SkysailUser;
@@ -24,6 +22,8 @@ import io.skysail.server.app.clipboard.clip.resources.ClipsResource;
 import io.skysail.server.app.clipboard.clip.resources.PostClipResource;
 import io.skysail.server.app.clipboard.clip.resources.PutClipResource;
 import io.skysail.server.app.clipboard.repo.ClipsRepository;
+import io.skysail.server.menus.MenuItem;
+import io.skysail.server.menus.MenuItemProvider;
 import io.skysail.server.repo.DbRepository;
 
 /**
