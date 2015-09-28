@@ -14,10 +14,7 @@ public class WorkAndCareerGoalsResource extends AreaGoalsResource {
     
     @Override
     public List<Link> getLinks() {
-        List<Link> result = super.getLinks(PostWorkAndCareerGoalsResource.class);
-        //result.add(LinkUtils.fromResource(app, PostWorkAndCareerGoalsResource.class));
-        return result;
+        return super.getLinks(mainLinksPlus(PostWorkAndCareerGoalResource.class));
     }
-
 
 }

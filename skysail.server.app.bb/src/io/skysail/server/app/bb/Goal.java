@@ -1,7 +1,9 @@
 package io.skysail.server.app.bb;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -10,6 +12,7 @@ import javax.validation.constraints.Size;
 import io.skysail.api.domain.Identifiable;
 import io.skysail.api.forms.Field;
 import io.skysail.api.forms.InputType;
+import io.skysail.server.app.bb.achievements.Achievement;
 import io.skysail.server.app.bb.areas.Area;
 import io.skysail.server.forms.ListView;
 import lombok.Getter;
@@ -43,10 +46,15 @@ public class Goal implements Identifiable {
     private BigDecimal target = new BigDecimal(10);
 
     private Area area;
+
+    private List<Achievement> achievements = new ArrayList<>();
+    
+    @Field(inputType = InputType.READONLY)
+    @ListView(hide=true)
+    private String owner = "#1";
     
     public Goal(String name, Area area) {
         this.name = name;
         this.area = area;
     }
-
 }

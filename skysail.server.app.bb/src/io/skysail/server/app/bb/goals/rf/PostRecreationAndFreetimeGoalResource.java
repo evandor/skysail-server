@@ -4,7 +4,7 @@ import io.skysail.server.app.bb.Goal;
 import io.skysail.server.app.bb.areas.Area;
 import io.skysail.server.app.bb.goals.PostAreaGoalsResource;
 
-public class PostRecreationAndFreetimeGoalsResource extends PostAreaGoalsResource {
+public class PostRecreationAndFreetimeGoalResource extends PostAreaGoalsResource {
 
     @Override
     public Goal createEntityTemplate() {

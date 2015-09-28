@@ -61,6 +61,7 @@ Import-Package:  \
 
 Private-Package: \
 	io.skysail.server.app.bb.goals.pg,\
+	io.skysail.server.app.bb.achievements,\
 	io.skysail.server.app.bb.goals.f,\
 	io.skysail.server.app.bb.goals.hf,\
 	io.skysail.server.app.bb,\
