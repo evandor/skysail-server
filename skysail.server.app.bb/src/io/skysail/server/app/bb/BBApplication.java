@@ -14,25 +14,32 @@ import io.skysail.server.app.bb.areas.PostAreaResource;
 import io.skysail.server.app.bb.goals.GoalResource;
 import io.skysail.server.app.bb.goals.PostGoalResource;
 import io.skysail.server.app.bb.goals.PutGoalResource;
+import io.skysail.server.app.bb.goals.f.FinanceGoalsResource;
+import io.skysail.server.app.bb.goals.f.PostFinanceGoalsResource;
+import io.skysail.server.app.bb.goals.hf.HealthAndFitnessGoalsResource;
+import io.skysail.server.app.bb.goals.hf.PostHealthAndFitnessGoalsResource;
+import io.skysail.server.app.bb.goals.pg.PersonalGoalsResource;
+import io.skysail.server.app.bb.goals.pg.PostPersonalGoalsResource;
 import io.skysail.server.app.bb.goals.rf.PostRecreationAndFreetimeGoalsResource;
 import io.skysail.server.app.bb.goals.rf.RecreationAndFreetimeGoalsResource;
 import io.skysail.server.app.bb.goals.wc.PostWorkAndCareerGoalsResource;
+import io.skysail.server.app.bb.goals.wc.PutWorkAndCareerGoalsResource;
+import io.skysail.server.app.bb.goals.wc.WorkAndCareerGoalResource;
 import io.skysail.server.app.bb.goals.wc.WorkAndCareerGoalsResource;
 import io.skysail.server.menus.MenuItem;
 import io.skysail.server.menus.MenuItemProvider;
 import io.skysail.server.repo.DbRepository;
-import io.skysail.server.repo.Repository;
 import io.skysail.server.restlet.resources.SkysailServerResource;
 
 @Component(immediate = true)
-public class BodyboosterApplication extends SkysailApplication implements ApplicationProvider, MenuItemProvider {
+public class BBApplication extends SkysailApplication implements ApplicationProvider, MenuItemProvider {
 
     private static final String APP_NAME = "bodybooster";
     
     @Reference(target = "(name=BodyboosterRepository)")
     private DbRepository bbRepository;
 
-    public BodyboosterApplication() {
+    public BBApplication() {
         super(APP_NAME);
     }
     
@@ -50,15 +57,21 @@ public class BodyboosterApplication extends SkysailApplication implements Applic
         
         router.attach(new RouteBuilder("/wc", WorkAndCareerGoalsResource.class));
         router.attach(new RouteBuilder("/wc/", PostWorkAndCareerGoalsResource.class));
+        router.attach(new RouteBuilder("/wc/{id}", WorkAndCareerGoalResource.class));
+        router.attach(new RouteBuilder("/wc/{id}/", PutWorkAndCareerGoalsResource.class));
         
         router.attach(new RouteBuilder("/rf", RecreationAndFreetimeGoalsResource.class));
         router.attach(new RouteBuilder("/rf/", PostRecreationAndFreetimeGoalsResource.class));
 
         router.attach(new RouteBuilder("/f",  FinanceGoalsResource.class));
+        router.attach(new RouteBuilder("/f/",  PostFinanceGoalsResource.class));
+        
         router.attach(new RouteBuilder("/hf", HealthAndFitnessGoalsResource.class));
-        router.attach(new RouteBuilder("/pg", PersonalGoalsResources.class));
-        router.attach(new RouteBuilder("/rg", RelationshipGoalsResource.class));
-        router.attach(new RouteBuilder("/c", ContributionGoalsResource.class));
+        router.attach(new RouteBuilder("/hf/", PostHealthAndFitnessGoalsResource.class));
+
+        router.attach(new RouteBuilder("/pg", PersonalGoalsResource.class));
+        router.attach(new RouteBuilder("/pg/", PostPersonalGoalsResource.class));
+
         
     }
 
@@ -80,9 +93,9 @@ public class BodyboosterApplication extends SkysailApplication implements Applic
         result.add(RecreationAndFreetimeGoalsResource.class);
         result.add(FinanceGoalsResource.class);
         result.add(HealthAndFitnessGoalsResource.class);
-        result.add(PersonalGoalsResources.class);
-        result.add(RelationshipGoalsResource.class);
-        result.add(ContributionGoalsResource.class);
+        result.add(PersonalGoalsResource.class);
+        //result.add(RelationshipGoalsResource.class);
+        //result.add(ContributionGoalsResource.class);
         return result;
     }
 

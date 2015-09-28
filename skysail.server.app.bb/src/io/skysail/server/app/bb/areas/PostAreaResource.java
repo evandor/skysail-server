@@ -6,17 +6,17 @@ import com.orientechnologies.orient.core.id.ORecordId;
 
 import io.skysail.api.responses.SkysailResponse;
 import io.skysail.server.app.bb.AreaOld;
-import io.skysail.server.app.bb.BodyboosterApplication;
+import io.skysail.server.app.bb.BBApplication;
 import io.skysail.server.restlet.resources.PostEntityServerResource;
 
 public class PostAreaResource extends PostEntityServerResource<AreaOld> {
 
-    private BodyboosterApplication app;
+    private BBApplication app;
 
     @Override
     protected void doInit() throws ResourceException {
         super.doInit();
-        app = (BodyboosterApplication)getApplication();
+        app = (BBApplication)getApplication();
     }
     
     @Override

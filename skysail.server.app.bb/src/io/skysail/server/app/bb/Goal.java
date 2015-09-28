@@ -1,5 +1,8 @@
 package io.skysail.server.app.bb;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -8,6 +11,7 @@ import io.skysail.api.domain.Identifiable;
 import io.skysail.api.forms.Field;
 import io.skysail.api.forms.InputType;
 import io.skysail.server.app.bb.areas.Area;
+import io.skysail.server.forms.ListView;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +22,7 @@ import lombok.Setter;
 public class Goal implements Identifiable {
 
     @Id
-    private String id = "17";
+    private String id;
 
     @Field
     @NotNull
@@ -26,7 +30,17 @@ public class Goal implements Identifiable {
     private String name;
 
     @Field(inputType = InputType.TEXTAREA)
+    @ListView(truncate = 60)
     private String remarks;
+    
+    @Field(inputType = InputType.DATE)
+    private Date due;
+
+    @Field
+    private BigDecimal beginn = new BigDecimal(0);
+
+    @Field
+    private BigDecimal target = new BigDecimal(10);
 
     private Area area;
     

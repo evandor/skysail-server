@@ -11,12 +11,12 @@ import io.skysail.server.restlet.resources.ListServerResource;
 
 public class AreasResource extends ListServerResource<AreaOld> {
 
-    private BodyboosterApplication app;
+    private BBApplication app;
 
     @Override
     protected void doInit() throws ResourceException {
         super.doInit();
-        app = (BodyboosterApplication)getApplication();
+        app = (BBApplication)getApplication();
     }
 
     @Override

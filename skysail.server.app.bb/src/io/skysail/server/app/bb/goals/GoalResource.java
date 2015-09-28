@@ -6,18 +6,18 @@ import org.restlet.resource.ResourceException;
 
 import io.skysail.api.links.Link;
 import io.skysail.api.responses.SkysailResponse;
-import io.skysail.server.app.bb.BodyboosterApplication;
+import io.skysail.server.app.bb.BBApplication;
 import io.skysail.server.app.bb.Goal;
 import io.skysail.server.restlet.resources.EntityServerResource;
 
 public class GoalResource extends EntityServerResource<Goal> {
 
-	private BodyboosterApplication app;
+	private BBApplication app;
 
 	@Override
 	protected void doInit() throws ResourceException {
 		super.doInit();
-		app = (BodyboosterApplication)getApplication();
+		app = (BBApplication)getApplication();
 	}
 
 	@Override

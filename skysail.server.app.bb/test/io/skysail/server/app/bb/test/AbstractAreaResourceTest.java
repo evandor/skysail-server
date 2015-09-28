@@ -15,7 +15,7 @@ import io.skysail.api.responses.SkysailResponse;
 import io.skysail.server.app.bb.AreaOld;
 import io.skysail.server.app.bb.AreasResource;
 import io.skysail.server.app.bb.BBRepository;
-import io.skysail.server.app.bb.BodyboosterApplication;
+import io.skysail.server.app.bb.BBApplication;
 import io.skysail.server.app.bb.areas.PostAreaResource;
 import io.skysail.server.repo.Repository;
 import io.skysail.server.restlet.resources.SkysailServerResource;
@@ -36,7 +36,7 @@ public abstract class AbstractAreaResourceTest extends ResourceTestBase {
 //    protected ListResource listResource;
 
     @Spy
-    private BodyboosterApplication application;
+    private BBApplication application;
 
     protected BBRepository repo;
 
@@ -68,7 +68,7 @@ public abstract class AbstractAreaResourceTest extends ResourceTestBase {
         repo.setDbService(testDb);
         repo.activate();
        // ((BodyboosterApplication)application).setRepository(repo);
-        Mockito.when(((BodyboosterApplication)application).getRepository()).thenReturn(repo);
+        Mockito.when(((BBApplication)application).getRepository()).thenReturn(repo);
 
     }
 
