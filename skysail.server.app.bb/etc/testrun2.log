@@ -1,120 +1,120 @@
-test> 08:07:42.127: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - activating io.skysail.server.testsupport.TestDb
-test> 08:07:42.136: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [ine] is registered: [Syntax error: inE([<labels>])]
-test> 08:07:42.137: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [oute] is registered: [Syntax error: outE([<labels>])]
-test> 08:07:42.137: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [in] is registered: [Syntax error: in([<labels>])]
-test> 08:07:42.137: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [dijkstra] is registered: [dijkstra(<sourceVertex>, <destinationVertex>, <weightEdgeFieldName>, [<direction>])]
-test> 08:07:42.137: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [label] is registered: [Syntax error: label()]
-test> 08:07:42.137: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [bothv] is registered: [Syntax error: bothV([<labels>])]
-test> 08:07:42.138: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [out] is registered: [Syntax error: out([<labels>])]
-test> 08:07:42.138: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [both] is registered: [Syntax error: both([<labels>])]
-test> 08:07:42.138: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [inv] is registered: [Syntax error: inV([<labels>])]
-test> 08:07:42.139: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [gremlin] is registered: [gremlin(<gremlin-expression>)]
-test> 08:07:42.139: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [shortestpath] is registered: [shortestPath(<sourceVertex>, <destinationVertex>, [<direction>, [ <edgeTypeAsString> ]])]
-test> 08:07:42.139: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [outv] is registered: [Syntax error: outV([<labels>])]
-test> 08:07:42.140: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [bothe] is registered: [Syntax error: bothE([<labels>])]
-test> 08:07:42.513: DEBUG io.skysail.server.app.SkysailApplication - Instanciating new Skysail Application 'BBApplication'
-test> 08:07:42.748: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - registering class 'class io.skysail.server.app.bb.Goal' @ orientDB
-test> 08:07:42.786: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$8b07b31c @Post('json')
-test> 08:07:42.787: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$8b07b31c @Post('x-www-form-urlencoded:html|json|xml')
-test> 08:07:42.787: INFO  i.s.server.restlet.resources.PostEntityServerResource - calling post(Form), media types '[]'
-test> 08:07:42.846: DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider
-test> 08:07:42.847: INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.1.2.Final
-test> 08:07:42.880: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
-test> 08:07:42.886: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Instantiated JPA aware TraversableResolver of type org.hibernate.validator.internal.engine.resolver.JPATraversableResolver.
-test> 08:07:42.909: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
-test> 08:07:42.914: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
-test> 08:07:42.988: DEBUG i.skysail.server.restlet.filter.ExceptionCatchingFilter - entering ExceptionCatchingFilter#doHandle
-test> 08:07:42.989: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: ExtractStandardQueryParametersResourceFilter
-test> 08:07:42.990: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckInvalidInputFilter
-test> 08:07:42.990: DEBUG i.skysail.server.restlet.filter.CheckInvalidInputFilter - entering CheckInvalidInputFilter#doHandle
-test> 08:07:42.993: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: FormDataExtractingFilter
-test> 08:07:42.994: DEBUG i.s.server.restlet.filter.FormDataExtractingFilter - entering FormDataExtractingFilter#doHandle
-test> 08:07:42.994: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckBusinessViolationsFilter
-test> 08:07:42.994: DEBUG i.s.server.restlet.filter.CheckBusinessViolationsFilter - entering CheckBusinessViolationsFilter#doHandle
-test> 08:07:43.124: DEBUG o.h.v.resourceloading.PlatformResourceBundleLocator - ValidationMessages not found.
-test> 08:07:43.126: DEBUG o.h.v.resourceloading.PlatformResourceBundleLocator - org.hibernate.validator.ValidationMessages found.
-test> 08:07:43.142: WARN  i.s.server.restlet.filter.CheckBusinessViolationsFilter - constraint violations found on io.skysail.server.app.bb.AreaOld@251b4a1f: [ConstraintViolationImpl{interpolatedMessage='may not be null', propertyPath=title, rootBeanClass=class io.skysail.server.app.bb.AreaOld, messageTemplate='{javax.validation.constraints.NotNull.message}'}]
-test> 08:07:43.142: INFO  i.s.server.restlet.filter.CheckBusinessViolationsFilter - found 1 business validation violation(s): [ConstraintViolationImpl{interpolatedMessage='may not be null', propertyPath=title, rootBeanClass=class io.skysail.server.app.bb.AreaOld, messageTemplate='{javax.validation.constraints.NotNull.message}'}]
-test> 08:07:43.146: INFO  io.skysail.server.restlet.filter.AbstractResourceFilter - stopping filter chain at filter CheckBusinessViolationsFilter
-test> 08:07:43.162: DEBUG io.skysail.server.app.SkysailApplication - Instanciating new Skysail Application 'BBApplication'
-test> 08:07:43.167: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - registering class 'class io.skysail.server.app.bb.Goal' @ orientDB
-test> 08:07:43.168: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$8b07b31c @Post('x-www-form-urlencoded:html|json|xml')
-test> 08:07:43.168: INFO  i.s.server.restlet.resources.PostEntityServerResource - calling post(Form), media types '[]'
-test> 08:07:43.169: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
-test> 08:07:43.169: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Instantiated JPA aware TraversableResolver of type org.hibernate.validator.internal.engine.resolver.JPATraversableResolver.
-test> 08:07:43.170: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
-test> 08:07:43.171: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
-test> 08:07:43.173: DEBUG i.skysail.server.restlet.filter.ExceptionCatchingFilter - entering ExceptionCatchingFilter#doHandle
-test> 08:07:43.173: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: ExtractStandardQueryParametersResourceFilter
-test> 08:07:43.173: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckInvalidInputFilter
-test> 08:07:43.174: DEBUG i.skysail.server.restlet.filter.CheckInvalidInputFilter - entering CheckInvalidInputFilter#doHandle
-test> 08:07:43.208: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: FormDataExtractingFilter
-test> 08:07:43.208: DEBUG i.s.server.restlet.filter.FormDataExtractingFilter - entering FormDataExtractingFilter#doHandle
-test> 08:07:43.223: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckBusinessViolationsFilter
-test> 08:07:43.224: DEBUG i.s.server.restlet.filter.CheckBusinessViolationsFilter - entering CheckBusinessViolationsFilter#doHandle
-test> 08:07:43.230: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: OptionalEncryptionFilter
-test> 08:07:43.231: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: PersistEntityFilter
-test> 08:07:43.231: DEBUG io.skysail.server.restlet.filter.PersistEntityFilter - entering PersistEntityFilter#doHandle
-test> 08:07:43.232: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: EntityWasAddedFilter
-test> 08:07:43.232: DEBUG io.skysail.server.restlet.filter.EntityWasAddedFilter - entering EntityWasAddedFilter#doHandle
-test> 08:07:43.232: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: AddLinkheadersFilter
-test> 08:07:43.232: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: PostRedirectGetFilter
-test> 08:07:43.254: DEBUG io.skysail.server.app.SkysailApplication - Instanciating new Skysail Application 'BBApplication'
-test> 08:07:43.258: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - registering class 'class io.skysail.server.app.bb.Goal' @ orientDB
-test> 08:07:43.259: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$8b07b31c @Post('x-www-form-urlencoded:html|json|xml')
-test> 08:07:43.260: INFO  i.s.server.restlet.resources.PostEntityServerResource - calling post(Form), media types '[]'
-test> 08:07:43.260: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
-test> 08:07:43.260: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Instantiated JPA aware TraversableResolver of type org.hibernate.validator.internal.engine.resolver.JPATraversableResolver.
-test> 08:07:43.261: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
-test> 08:07:43.263: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
-test> 08:07:43.265: DEBUG i.skysail.server.restlet.filter.ExceptionCatchingFilter - entering ExceptionCatchingFilter#doHandle
-test> 08:07:43.265: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: ExtractStandardQueryParametersResourceFilter
-test> 08:07:43.266: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckInvalidInputFilter
-test> 08:07:43.266: DEBUG i.skysail.server.restlet.filter.CheckInvalidInputFilter - entering CheckInvalidInputFilter#doHandle
-test> 08:07:43.266: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: FormDataExtractingFilter
-test> 08:07:43.266: DEBUG i.s.server.restlet.filter.FormDataExtractingFilter - entering FormDataExtractingFilter#doHandle
-test> 08:07:43.268: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckBusinessViolationsFilter
-test> 08:07:43.268: DEBUG i.s.server.restlet.filter.CheckBusinessViolationsFilter - entering CheckBusinessViolationsFilter#doHandle
-test> 08:07:43.272: DEBUG o.h.v.resourceloading.PlatformResourceBundleLocator - ValidationMessages not found.
-test> 08:07:43.272: DEBUG o.h.v.resourceloading.PlatformResourceBundleLocator - org.hibernate.validator.ValidationMessages found.
-test> 08:07:43.274: WARN  i.s.server.restlet.filter.CheckBusinessViolationsFilter - constraint violations found on io.skysail.server.app.bb.AreaOld@4b5f89da: [ConstraintViolationImpl{interpolatedMessage='may not be null', propertyPath=title, rootBeanClass=class io.skysail.server.app.bb.AreaOld, messageTemplate='{javax.validation.constraints.NotNull.message}'}]
-test> 08:07:43.274: INFO  i.s.server.restlet.filter.CheckBusinessViolationsFilter - found 1 business validation violation(s): [ConstraintViolationImpl{interpolatedMessage='may not be null', propertyPath=title, rootBeanClass=class io.skysail.server.app.bb.AreaOld, messageTemplate='{javax.validation.constraints.NotNull.message}'}]
-test> 08:07:43.275: INFO  io.skysail.server.restlet.filter.AbstractResourceFilter - stopping filter chain at filter CheckBusinessViolationsFilter
-test> 08:07:43.277: DEBUG io.skysail.server.app.SkysailApplication - Instanciating new Skysail Application 'BBApplication'
-test> 08:07:43.281: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - registering class 'class io.skysail.server.app.bb.Goal' @ orientDB
-test> 08:07:43.282: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$8b07b31c @Post('json')
-test> 08:07:43.282: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$8b07b31c @Post('x-www-form-urlencoded:html|json|xml')
-test> 08:07:43.283: INFO  i.s.server.restlet.resources.PostEntityServerResource - calling post(Form), media types '[]'
-test> 08:07:43.283: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
-test> 08:07:43.283: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Instantiated JPA aware TraversableResolver of type org.hibernate.validator.internal.engine.resolver.JPATraversableResolver.
-test> 08:07:43.284: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
-test> 08:07:43.285: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
-test> 08:07:43.288: DEBUG i.skysail.server.restlet.filter.ExceptionCatchingFilter - entering ExceptionCatchingFilter#doHandle
-test> 08:07:43.288: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: ExtractStandardQueryParametersResourceFilter
-test> 08:07:43.289: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckInvalidInputFilter
-test> 08:07:43.289: DEBUG i.skysail.server.restlet.filter.CheckInvalidInputFilter - entering CheckInvalidInputFilter#doHandle
-test> 08:07:43.290: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: FormDataExtractingFilter
-test> 08:07:43.290: DEBUG i.s.server.restlet.filter.FormDataExtractingFilter - entering FormDataExtractingFilter#doHandle
-test> 08:07:43.291: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckBusinessViolationsFilter
-test> 08:07:43.291: DEBUG i.s.server.restlet.filter.CheckBusinessViolationsFilter - entering CheckBusinessViolationsFilter#doHandle
-test> 08:07:43.296: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: OptionalEncryptionFilter
-test> 08:07:43.297: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: PersistEntityFilter
-test> 08:07:43.297: DEBUG io.skysail.server.restlet.filter.PersistEntityFilter - entering PersistEntityFilter#doHandle
-test> 08:07:43.297: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: EntityWasAddedFilter
-test> 08:07:43.297: DEBUG io.skysail.server.restlet.filter.EntityWasAddedFilter - entering EntityWasAddedFilter#doHandle
-test> 08:07:43.297: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: AddLinkheadersFilter
-test> 08:07:43.298: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: PostRedirectGetFilter
-test> 08:07:43.311: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - activating io.skysail.server.testsupport.TestDb
-test> 08:07:43.311: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [ine] is registered: [Syntax error: inE([<labels>])]
-test> 08:07:43.312: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [oute] is registered: [Syntax error: outE([<labels>])]
-test> 08:07:43.312: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [in] is registered: [Syntax error: in([<labels>])]
-test> 08:07:43.312: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [dijkstra] is registered: [dijkstra(<sourceVertex>, <destinationVertex>, <weightEdgeFieldName>, [<direction>])]
-test> 08:07:43.313: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [label] is registered: [Syntax error: label()]
-test> 08:07:43.313: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [bothv] is registered: [Syntax error: bothV([<labels>])]
-test> 08:07:43.313: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [out] is registered: [Syntax error: out([<labels>])]
-test> 08:07:43.313: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [both] is registered: [Syntax error: both([<labels>])]
-test> 08:07:43.313: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [inv] is registered: [Syntax error: inV([<labels>])]
-test> 08:07:43.314: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [gremlin] is registered: [gremlin(<gremlin-expression>)]
-test> 08:07:43.314: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [shortestpath] is registered: [shortestPath(<sourceVertex>, <destinationVertex>, [<direction>, [ <edgeTypeAsString> ]])]
-test> 08:07:43.314: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [outv] is registered: [Syntax error: outV([<labels>])]
-test> 08:07:43.314: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [bothe] is registered: [Syntax error: bothE([<labels>])]
+test> 10:53:01.693: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - activating io.skysail.server.testsupport.TestDb
+test> 10:53:01.698: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [ine] is registered: [Syntax error: inE([<labels>])]
+test> 10:53:01.698: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [oute] is registered: [Syntax error: outE([<labels>])]
+test> 10:53:01.698: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [in] is registered: [Syntax error: in([<labels>])]
+test> 10:53:01.698: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [dijkstra] is registered: [dijkstra(<sourceVertex>, <destinationVertex>, <weightEdgeFieldName>, [<direction>])]
+test> 10:53:01.698: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [label] is registered: [Syntax error: label()]
+test> 10:53:01.698: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [bothv] is registered: [Syntax error: bothV([<labels>])]
+test> 10:53:01.698: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [out] is registered: [Syntax error: out([<labels>])]
+test> 10:53:01.699: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [both] is registered: [Syntax error: both([<labels>])]
+test> 10:53:01.699: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [inv] is registered: [Syntax error: inV([<labels>])]
+test> 10:53:01.699: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [gremlin] is registered: [gremlin(<gremlin-expression>)]
+test> 10:53:01.699: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [shortestpath] is registered: [shortestPath(<sourceVertex>, <destinationVertex>, [<direction>, [ <edgeTypeAsString> ]])]
+test> 10:53:01.700: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [outv] is registered: [Syntax error: outV([<labels>])]
+test> 10:53:01.700: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [bothe] is registered: [Syntax error: bothE([<labels>])]
+test> 10:53:01.935: DEBUG io.skysail.server.app.SkysailApplication - Instanciating new Skysail Application 'BBApplication'
+test> 10:53:02.063: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - registering class 'class io.skysail.server.app.bb.Goal' @ orientDB
+test> 10:53:02.080: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$1d0a4255 @Post('json')
+test> 10:53:02.081: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$1d0a4255 @Post('x-www-form-urlencoded:html|json|xml')
+test> 10:53:02.082: INFO  i.s.server.restlet.resources.PostEntityServerResource - calling post(Form), media types '[]'
+test> 10:53:02.104: DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider
+test> 10:53:02.105: INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.1.2.Final
+test> 10:53:02.114: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
+test> 10:53:02.115: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Instantiated JPA aware TraversableResolver of type org.hibernate.validator.internal.engine.resolver.JPATraversableResolver.
+test> 10:53:02.124: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+test> 10:53:02.129: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+test> 10:53:02.170: DEBUG i.skysail.server.restlet.filter.ExceptionCatchingFilter - entering ExceptionCatchingFilter#doHandle
+test> 10:53:02.171: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: ExtractStandardQueryParametersResourceFilter
+test> 10:53:02.171: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckInvalidInputFilter
+test> 10:53:02.172: DEBUG i.skysail.server.restlet.filter.CheckInvalidInputFilter - entering CheckInvalidInputFilter#doHandle
+test> 10:53:02.173: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: FormDataExtractingFilter
+test> 10:53:02.174: DEBUG i.s.server.restlet.filter.FormDataExtractingFilter - entering FormDataExtractingFilter#doHandle
+test> 10:53:02.174: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckBusinessViolationsFilter
+test> 10:53:02.174: DEBUG i.s.server.restlet.filter.CheckBusinessViolationsFilter - entering CheckBusinessViolationsFilter#doHandle
+test> 10:53:02.244: DEBUG o.h.v.resourceloading.PlatformResourceBundleLocator - ValidationMessages not found.
+test> 10:53:02.246: DEBUG o.h.v.resourceloading.PlatformResourceBundleLocator - org.hibernate.validator.ValidationMessages found.
+test> 10:53:02.252: WARN  i.s.server.restlet.filter.CheckBusinessViolationsFilter - constraint violations found on io.skysail.server.app.bb.AreaOld@102b17af: [ConstraintViolationImpl{interpolatedMessage='may not be null', propertyPath=title, rootBeanClass=class io.skysail.server.app.bb.AreaOld, messageTemplate='{javax.validation.constraints.NotNull.message}'}]
+test> 10:53:02.253: INFO  i.s.server.restlet.filter.CheckBusinessViolationsFilter - found 1 business validation violation(s): [ConstraintViolationImpl{interpolatedMessage='may not be null', propertyPath=title, rootBeanClass=class io.skysail.server.app.bb.AreaOld, messageTemplate='{javax.validation.constraints.NotNull.message}'}]
+test> 10:53:02.255: INFO  io.skysail.server.restlet.filter.AbstractResourceFilter - stopping filter chain at filter CheckBusinessViolationsFilter
+test> 10:53:02.261: DEBUG io.skysail.server.app.SkysailApplication - Instanciating new Skysail Application 'BBApplication'
+test> 10:53:02.263: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - registering class 'class io.skysail.server.app.bb.Goal' @ orientDB
+test> 10:53:02.264: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$1d0a4255 @Post('x-www-form-urlencoded:html|json|xml')
+test> 10:53:02.264: INFO  i.s.server.restlet.resources.PostEntityServerResource - calling post(Form), media types '[]'
+test> 10:53:02.265: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
+test> 10:53:02.265: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Instantiated JPA aware TraversableResolver of type org.hibernate.validator.internal.engine.resolver.JPATraversableResolver.
+test> 10:53:02.266: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+test> 10:53:02.267: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+test> 10:53:02.268: DEBUG i.skysail.server.restlet.filter.ExceptionCatchingFilter - entering ExceptionCatchingFilter#doHandle
+test> 10:53:02.268: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: ExtractStandardQueryParametersResourceFilter
+test> 10:53:02.269: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckInvalidInputFilter
+test> 10:53:02.269: DEBUG i.skysail.server.restlet.filter.CheckInvalidInputFilter - entering CheckInvalidInputFilter#doHandle
+test> 10:53:02.296: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: FormDataExtractingFilter
+test> 10:53:02.297: DEBUG i.s.server.restlet.filter.FormDataExtractingFilter - entering FormDataExtractingFilter#doHandle
+test> 10:53:02.306: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckBusinessViolationsFilter
+test> 10:53:02.306: DEBUG i.s.server.restlet.filter.CheckBusinessViolationsFilter - entering CheckBusinessViolationsFilter#doHandle
+test> 10:53:02.309: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: OptionalEncryptionFilter
+test> 10:53:02.309: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: PersistEntityFilter
+test> 10:53:02.310: DEBUG io.skysail.server.restlet.filter.PersistEntityFilter - entering PersistEntityFilter#doHandle
+test> 10:53:02.310: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: EntityWasAddedFilter
+test> 10:53:02.310: DEBUG io.skysail.server.restlet.filter.EntityWasAddedFilter - entering EntityWasAddedFilter#doHandle
+test> 10:53:02.310: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: AddLinkheadersFilter
+test> 10:53:02.311: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: PostRedirectGetFilter
+test> 10:53:02.323: DEBUG io.skysail.server.app.SkysailApplication - Instanciating new Skysail Application 'BBApplication'
+test> 10:53:02.325: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - registering class 'class io.skysail.server.app.bb.Goal' @ orientDB
+test> 10:53:02.326: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$1d0a4255 @Post('x-www-form-urlencoded:html|json|xml')
+test> 10:53:02.326: INFO  i.s.server.restlet.resources.PostEntityServerResource - calling post(Form), media types '[]'
+test> 10:53:02.327: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
+test> 10:53:02.327: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Instantiated JPA aware TraversableResolver of type org.hibernate.validator.internal.engine.resolver.JPATraversableResolver.
+test> 10:53:02.328: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+test> 10:53:02.330: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+test> 10:53:02.332: DEBUG i.skysail.server.restlet.filter.ExceptionCatchingFilter - entering ExceptionCatchingFilter#doHandle
+test> 10:53:02.332: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: ExtractStandardQueryParametersResourceFilter
+test> 10:53:02.332: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckInvalidInputFilter
+test> 10:53:02.332: DEBUG i.skysail.server.restlet.filter.CheckInvalidInputFilter - entering CheckInvalidInputFilter#doHandle
+test> 10:53:02.333: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: FormDataExtractingFilter
+test> 10:53:02.333: DEBUG i.s.server.restlet.filter.FormDataExtractingFilter - entering FormDataExtractingFilter#doHandle
+test> 10:53:02.334: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckBusinessViolationsFilter
+test> 10:53:02.334: DEBUG i.s.server.restlet.filter.CheckBusinessViolationsFilter - entering CheckBusinessViolationsFilter#doHandle
+test> 10:53:02.337: DEBUG o.h.v.resourceloading.PlatformResourceBundleLocator - ValidationMessages not found.
+test> 10:53:02.337: DEBUG o.h.v.resourceloading.PlatformResourceBundleLocator - org.hibernate.validator.ValidationMessages found.
+test> 10:53:02.339: WARN  i.s.server.restlet.filter.CheckBusinessViolationsFilter - constraint violations found on io.skysail.server.app.bb.AreaOld@1328f4ab: [ConstraintViolationImpl{interpolatedMessage='may not be null', propertyPath=title, rootBeanClass=class io.skysail.server.app.bb.AreaOld, messageTemplate='{javax.validation.constraints.NotNull.message}'}]
+test> 10:53:02.339: INFO  i.s.server.restlet.filter.CheckBusinessViolationsFilter - found 1 business validation violation(s): [ConstraintViolationImpl{interpolatedMessage='may not be null', propertyPath=title, rootBeanClass=class io.skysail.server.app.bb.AreaOld, messageTemplate='{javax.validation.constraints.NotNull.message}'}]
+test> 10:53:02.339: INFO  io.skysail.server.restlet.filter.AbstractResourceFilter - stopping filter chain at filter CheckBusinessViolationsFilter
+test> 10:53:02.340: DEBUG io.skysail.server.app.SkysailApplication - Instanciating new Skysail Application 'BBApplication'
+test> 10:53:02.343: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - registering class 'class io.skysail.server.app.bb.Goal' @ orientDB
+test> 10:53:02.343: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$1d0a4255 @Post('json')
+test> 10:53:02.344: INFO  i.s.server.restlet.resources.PostEntityServerResource - Request entry point: PostAreaResource$$EnhancerByMockitoWithCGLIB$$1d0a4255 @Post('x-www-form-urlencoded:html|json|xml')
+test> 10:53:02.344: INFO  i.s.server.restlet.resources.PostEntityServerResource - calling post(Form), media types '[]'
+test> 10:53:02.344: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
+test> 10:53:02.344: DEBUG o.h.v.i.engine.resolver.DefaultTraversableResolver - Instantiated JPA aware TraversableResolver of type org.hibernate.validator.internal.engine.resolver.JPATraversableResolver.
+test> 10:53:02.345: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+test> 10:53:02.346: DEBUG o.hibernate.validator.internal.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+test> 10:53:02.348: DEBUG i.skysail.server.restlet.filter.ExceptionCatchingFilter - entering ExceptionCatchingFilter#doHandle
+test> 10:53:02.348: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: ExtractStandardQueryParametersResourceFilter
+test> 10:53:02.349: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckInvalidInputFilter
+test> 10:53:02.349: DEBUG i.skysail.server.restlet.filter.CheckInvalidInputFilter - entering CheckInvalidInputFilter#doHandle
+test> 10:53:02.349: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: FormDataExtractingFilter
+test> 10:53:02.349: DEBUG i.s.server.restlet.filter.FormDataExtractingFilter - entering FormDataExtractingFilter#doHandle
+test> 10:53:02.349: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: CheckBusinessViolationsFilter
+test> 10:53:02.349: DEBUG i.s.server.restlet.filter.CheckBusinessViolationsFilter - entering CheckBusinessViolationsFilter#doHandle
+test> 10:53:02.353: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: OptionalEncryptionFilter
+test> 10:53:02.353: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: PersistEntityFilter
+test> 10:53:02.353: DEBUG io.skysail.server.restlet.filter.PersistEntityFilter - entering PersistEntityFilter#doHandle
+test> 10:53:02.354: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: EntityWasAddedFilter
+test> 10:53:02.354: DEBUG io.skysail.server.restlet.filter.EntityWasAddedFilter - entering EntityWasAddedFilter#doHandle
+test> 10:53:02.354: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: AddLinkheadersFilter
+test> 10:53:02.354: DEBUG io.skysail.server.restlet.filter.AbstractResourceFilter - next filter in chain: PostRedirectGetFilter
+test> 10:53:02.361: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - activating io.skysail.server.testsupport.TestDb
+test> 10:53:02.361: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [ine] is registered: [Syntax error: inE([<labels>])]
+test> 10:53:02.361: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [oute] is registered: [Syntax error: outE([<labels>])]
+test> 10:53:02.361: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [in] is registered: [Syntax error: in([<labels>])]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [dijkstra] is registered: [dijkstra(<sourceVertex>, <destinationVertex>, <weightEdgeFieldName>, [<direction>])]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [label] is registered: [Syntax error: label()]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [bothv] is registered: [Syntax error: bothV([<labels>])]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [out] is registered: [Syntax error: out([<labels>])]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [both] is registered: [Syntax error: both([<labels>])]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [inv] is registered: [Syntax error: inV([<labels>])]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [gremlin] is registered: [gremlin(<gremlin-expression>)]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [shortestpath] is registered: [shortestPath(<sourceVertex>, <destinationVertex>, [<direction>, [ <edgeTypeAsString> ]])]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [outv] is registered: [Syntax error: outV([<labels>])]
+test> 10:53:02.362: DEBUG d.t.skysail.server.db.orientdb.OrientGraphDbService - ODB graph function [bothe] is registered: [Syntax error: bothE([<labels>])]

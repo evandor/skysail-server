@@ -10,9 +10,11 @@ import io.skysail.api.forms.Field;
 import io.skysail.api.forms.InputType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class Achievement implements Identifiable {
 
     @Id
