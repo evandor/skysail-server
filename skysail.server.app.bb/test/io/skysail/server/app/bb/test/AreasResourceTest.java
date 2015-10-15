@@ -3,10 +3,10 @@ package io.skysail.server.app.bb.test;
 import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class AreasResourceTest extends AbstractAreaResourceTest {
 
     @Test
-    @Ignore
     public void todoList_contains_created_todo_list() {
 //        TodoList aList = createList();
 //

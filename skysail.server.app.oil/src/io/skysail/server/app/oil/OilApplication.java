@@ -7,10 +7,10 @@ import org.osgi.service.component.annotations.Reference;
 
 import de.twenty11.skysail.server.app.ApplicationProvider;
 import de.twenty11.skysail.server.core.restlet.RouteBuilder;
+import io.skysail.api.repos.DbRepository;
 import io.skysail.server.app.SkysailApplication;
 import io.skysail.server.menus.MenuItem;
 import io.skysail.server.menus.MenuItemProvider;
-import io.skysail.server.repo.DbRepository;
 
 @org.osgi.service.component.annotations.Component(immediate = true)
 public class OilApplication extends SkysailApplication implements ApplicationProvider, MenuItemProvider {

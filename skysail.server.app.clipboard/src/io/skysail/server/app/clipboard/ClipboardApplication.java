@@ -14,6 +14,7 @@ import de.twenty11.skysail.server.core.restlet.RouteBuilder;
 import de.twenty11.skysail.server.services.SkysailThreadPool;
 import de.twenty11.skysail.server.services.UserManager;
 import de.twenty11.skysail.server.um.domain.SkysailUser;
+import io.skysail.api.repos.DbRepository;
 import io.skysail.api.search.SearchService;
 import io.skysail.server.app.SkysailApplication;
 import io.skysail.server.app.clipboard.clip.resources.ClipResource;
@@ -24,7 +25,6 @@ import io.skysail.server.app.clipboard.clip.resources.PutClipResource;
 import io.skysail.server.app.clipboard.repo.ClipsRepository;
 import io.skysail.server.menus.MenuItem;
 import io.skysail.server.menus.MenuItemProvider;
-import io.skysail.server.repo.DbRepository;
 
 /**
  * The restlet application defined in this bundle.

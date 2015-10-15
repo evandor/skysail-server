@@ -14,10 +14,9 @@ import org.restlet.data.Status;
 import io.skysail.api.responses.SkysailResponse;
 import io.skysail.server.app.bb.AreaOld;
 import io.skysail.server.app.bb.AreasResource;
-import io.skysail.server.app.bb.BBRepository;
 import io.skysail.server.app.bb.BBApplication;
+import io.skysail.server.app.bb.BBRepository;
 import io.skysail.server.app.bb.areas.PostAreaResource;
-import io.skysail.server.repo.Repository;
 import io.skysail.server.restlet.resources.SkysailServerResource;
 import io.skysail.server.testsupport.ResourceTestBase;
 

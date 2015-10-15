@@ -9,6 +9,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import de.twenty11.skysail.server.app.ApplicationProvider;
 import de.twenty11.skysail.server.core.restlet.RouteBuilder;
+import io.skysail.api.repos.DbRepository;
 import io.skysail.server.app.SkysailApplication;
 import io.skysail.server.app.bb.achievements.PostAchievementResource;
 import io.skysail.server.app.bb.areas.PostAreaResource;
@@ -28,7 +29,6 @@ import io.skysail.server.app.bb.goals.wc.WorkAndCareerGoalResource;
 import io.skysail.server.app.bb.goals.wc.WorkAndCareerGoalsResource;
 import io.skysail.server.menus.MenuItem;
 import io.skysail.server.menus.MenuItemProvider;
-import io.skysail.server.repo.DbRepository;
 import io.skysail.server.restlet.resources.SkysailServerResource;
 
 @Component(immediate = true)
