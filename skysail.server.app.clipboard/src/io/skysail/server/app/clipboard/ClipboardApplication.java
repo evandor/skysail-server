@@ -7,6 +7,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.event.EventAdmin;
 
 import de.twenty11.skysail.server.app.ApplicationProvider;
 import de.twenty11.skysail.server.core.restlet.ApplicationContextId;
@@ -14,8 +15,8 @@ import de.twenty11.skysail.server.core.restlet.RouteBuilder;
 import de.twenty11.skysail.server.services.SkysailThreadPool;
 import de.twenty11.skysail.server.services.UserManager;
 import de.twenty11.skysail.server.um.domain.SkysailUser;
-import io.skysail.api.repos.DbRepository;
 import io.skysail.api.search.SearchService;
+import io.skysail.domain.core.repos.DbRepository;
 import io.skysail.server.app.SkysailApplication;
 import io.skysail.server.app.clipboard.clip.resources.ClipResource;
 import io.skysail.server.app.clipboard.clip.resources.ClipboardAboutResource;
@@ -89,6 +90,11 @@ public class ClipboardApplication extends SkysailApplication implements Applicat
     
     public ClipsRepository getClipsRepository() {
         return (ClipsRepository)clipsRepository;
+    }
+
+    @Override
+    public EventAdmin getEventAdmin() {
+        return null;
     }
 
 

@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Id;
 
-import io.skysail.api.domain.Identifiable;
-import io.skysail.api.forms.Field;
+import io.skysail.domain.Identifiable;
+import io.skysail.domain.html.Field;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

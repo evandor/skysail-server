@@ -1,3 +1,5 @@
 osgi:\
-    osgi.cmpn;version='[5.0.0,5.0.1)',\
-    osgi.enterprise;version='[4.2.0,4.2.1)'
+    osgi.core;version=${osgi.version},\
+    org.osgi.util.function;version=1.0,\
+    org.osgi.util.promise;version=1.0,\
+    org.osgi.service.component;version=1.3

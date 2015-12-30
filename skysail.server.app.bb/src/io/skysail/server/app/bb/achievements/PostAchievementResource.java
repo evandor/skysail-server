@@ -23,12 +23,11 @@ public class PostAchievementResource extends PostEntityServerResource<Achievemen
     }
 
     @Override
-    public SkysailResponse<Achievement> addEntity(Achievement entity) {
-    	app.getRepository().save(entity).toString();
-        Goal goal = app.getRepository().getById(getAttribute("id"));
-        goal.getAchievements().add(entity);
-        app.getRepository().update(getAttribute("id"), goal, "achievements");
-        return new SkysailResponse<>(entity);
+    public void addEntity(Achievement entity) {
+        Goal theGoal = app.getRepository().findOne(getAttribute("id"));
+        theGoal.getAchievements().add(entity);
+        //app.getRepository().save(theGoal, "achievements");
+        app.getRepository().update(getAttribute("id"), theGoal, "achievements");
     }
 
 }

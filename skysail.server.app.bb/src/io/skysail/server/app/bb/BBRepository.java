@@ -4,7 +4,8 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import io.skysail.api.repos.DbRepository;
+import io.skysail.domain.core.repos.DbRepository;
+import io.skysail.server.app.bb.achievements.Achievement;
 import io.skysail.server.db.DbService;
 import io.skysail.server.db.GraphDbRepository;
 
@@ -21,7 +22,7 @@ public class BBRepository extends GraphDbRepository<Goal> implements DbRepositor
     }
 
     @Activate
-    public void activate() { // NO_UCD
-        super.activate(Goal.class);
+    public void activate() {
+        super.activate(Goal.class, Achievement.class);
     }
 }

@@ -20,7 +20,7 @@ public class PutAreaGoalsResource extends PutEntityServerResource<Goal> {
 
     @Override
     public Goal getEntity() {
-        return app.getRepository().getById(getAttribute("id"));
+        return null;//app.getRepository().getById(getAttribute("id"));
     }
     
     public SkysailResponse<Goal> updateEntity(Goal entityFromTheWire) {

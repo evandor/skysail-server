@@ -20,13 +20,14 @@ public abstract class AreaGoalResource extends EntityServerResource<Goal> {
     
     @Override
     public Goal getEntity() {
-        return app.getRepository().getById(getAttribute("id"));
+        return null;//app.getRepository().getById(getAttribute("id"));
     }
 
     
     @Override
     public SkysailResponse<?> eraseEntity() {
-        return null;
+        app.getRepository().delete(getAttribute("id"));
+        return new SkysailResponse<>();
     }
 
 }

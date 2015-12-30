@@ -6,18 +6,17 @@ Service-Component: *
 -dsannotations: *
 
 -buildpath:  \
+    ${osgi},\
     osgi.annotation;version=6.0.1,\
 	skysail.api;version=${skysail.api.version},\
 	skysail.api.search;version=${skysail.api.search.version},\
 	skysail.api.text;version=${skysail.api.text.version},\
 	skysail.api.peers;version=${skysail.api.peers.version},\
 	skysail.api.um;version=${skysail.api.um.version},\
-	skysail.api.validation;version=${skysail.api.validation.version},\
+	skysail.domain;version=${skysail.domain.version},\
 	skysail.server;version=${skysail.server.version},\
 	skysail.server.db;version=${skysail.server.db.version},\
-	skysail.server.codegen;version=${skysail.server.codegen.version},\
 	skysail.server.queryfilter;version=${skysail.server.queryfilter.version},\
-	skysail.server.testsupport;version=${skysail.server.testsupport.version},\
 	slf4j.api;version=1.7.7,\
 	com.springsource.org.junit;version=4.11,\
 	de.twentyeleven.skysail.org.hamcrest.hamcrest-all-osgi;version=1.3,\
@@ -60,23 +59,6 @@ Service-Component: *
 	ch.qos.logback.core;version=1.1,\
 	ch.qos.logback.classic;version=1.1
 	
-	org.mockito.mockito-core;version=1.10,\
-	
-	org.objenesis;version=2.1,\
-	io.skysail.bundled.serenity-junit;version=1.0,\
-	io.skysail.bundled.serenity-core;version=1.1,\
-	com.typesafe.config;version=1.3,\
-	com.google.inject;version=4.0,\
-	javax.inject;version=1.0,\
-	org.apache.servicemix.bundles.aopalliance;version=1.0,\
-	joda-time;version=2.7,\
-	org.freemarker.freemarker;version=2.3,\
-	io.skysail.bundled.selenium;version=2.47,\
-	com.google.gson;version=2.2,\
-	io.skysail.bundled.java-client;version=3.2,\
-	io.skysail.bundled.asciidoctorj;version=1.5,\
-	io.skysail.bundled.lambdaj;version=2.3,\
-	org.apache.servicemix.bundles.cglib;version=3.1
 
 Import-Package: org.osgi.framework,\
 	javassist.util.proxy,\

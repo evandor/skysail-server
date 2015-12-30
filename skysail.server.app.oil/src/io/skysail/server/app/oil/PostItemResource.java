@@ -12,11 +12,10 @@ public class PostItemResource extends PostEntityServerResource<OpenItem> {
 	}
 
 	@Override
-	public SkysailResponse<OpenItem> addEntity(OpenItem entity) {
+	public void addEntity(OpenItem entity) {
 		Topic topic = new Topic("firstTopic");
 		entity.setTopic(topic);
-		String id = ((SkysailApplication) getApplication()).getRepository().save(entity).toString();
+		String id = null;//((SkysailApplication) getApplication()).getRepository().save(entity).toString();
 		entity.setId(id);
-		return new SkysailResponse<>(entity);
 	}
 }

@@ -1,21 +1,20 @@
 package io.skysail.server.app.clipboard.domain;
 
-import io.skysail.api.domain.Identifiable;
-import io.skysail.api.forms.Field;
-import io.skysail.api.forms.HtmlPolicy;
-import io.skysail.api.forms.InputType;
-import io.skysail.server.forms.ListView;
-
 import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.skysail.domain.Identifiable;
+import io.skysail.domain.html.Field;
+import io.skysail.domain.html.HtmlPolicy;
+import io.skysail.domain.html.InputType;
+import io.skysail.server.forms.ListView;
 import lombok.Getter;
 import lombok.Setter;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @SuppressWarnings("serial")
 @Getter
