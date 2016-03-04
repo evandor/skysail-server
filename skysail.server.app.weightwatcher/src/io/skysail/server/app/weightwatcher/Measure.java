@@ -7,6 +7,8 @@ import io.skysail.domain.html.Field;
 import io.skysail.domain.html.HtmlPolicy;
 import io.skysail.domain.html.InputType;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Measure implements Identifiable {
 
     @Id
@@ -24,7 +26,7 @@ public class Measure implements Identifiable {
 
     // --- fields ---
 
-    @Field(inputType = InputType.TEXT, htmlPolicy = HtmlPolicy.NO_HTML)
+    @Field(inputType = InputType.NUMBER, htmlPolicy = HtmlPolicy.NO_HTML)
     private String weight;
 
     public void setWeight(String value) {

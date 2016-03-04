@@ -1,10 +1,6 @@
 package io.skysail.server.app.bb;
 
-import org.restlet.resource.ResourceException;
-
-import io.skysail.api.responses.SkysailResponse;
 import io.skysail.server.app.bb.areas.Area;
-import io.skysail.server.restlet.resources.EntityServerResource;
 
 public abstract class AreaGoalResource extends EntityServerResource<Goal> {
 
