@@ -1,12 +1,11 @@
 package io.skysail.server.app.clipboard.clip.resources;
 
+import java.util.List;
+
+import io.skysail.server.ResourceContextId;
 import io.skysail.server.app.clipboard.ClipboardApplication;
 import io.skysail.server.app.clipboard.domain.Clip;
 import io.skysail.server.restlet.resources.ListServerResource;
-
-import java.util.List;
-
-import de.twenty11.skysail.server.core.restlet.ResourceContextId;
 
 /**
  * Restlet Root Resource for notes application.

@@ -1,11 +1,5 @@
 package io.skysail.server.app.clipboard.clip.resources;
 
-import io.skysail.api.links.Link;
-import io.skysail.server.app.clipboard.ClipboardApplication;
-import io.skysail.server.app.clipboard.domain.Clip;
-import io.skysail.server.restlet.resources.ListServerResource;
-import io.skysail.server.utils.HeadersUtils;
-
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -13,7 +7,12 @@ import org.restlet.data.Header;
 import org.restlet.resource.ResourceException;
 import org.restlet.util.Series;
 
-import de.twenty11.skysail.server.core.restlet.ResourceContextId;
+import io.skysail.api.links.Link;
+import io.skysail.server.ResourceContextId;
+import io.skysail.server.app.clipboard.ClipboardApplication;
+import io.skysail.server.app.clipboard.domain.Clip;
+import io.skysail.server.restlet.resources.ListServerResource;
+import io.skysail.server.utils.HeadersUtils;
 
 public class ClipsResource extends ListServerResource<Clip> {
 

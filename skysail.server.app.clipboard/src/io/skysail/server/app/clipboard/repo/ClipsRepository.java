@@ -99,11 +99,11 @@ public class ClipsRepository implements DbRepository {
     }
 
     @Override
-    public Object update(String id, Identifiable entity, String... edges) {
-        return null;
-    }
-
-    @Override
     public void delete(Identifiable identifiable) {
     }
+
+	@Override
+	public Object update(Identifiable entity, ApplicationModel applicationModel) {
+		return null;
+	}
 }
