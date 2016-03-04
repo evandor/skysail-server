@@ -5,9 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Id;
 
-import io.skysail.api.domain.Identifiable;
-import io.skysail.api.forms.Field;
-import io.skysail.api.forms.InputType;
+import io.skysail.domain.Identifiable;
+import io.skysail.domain.html.Field;
+import io.skysail.domain.html.InputType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

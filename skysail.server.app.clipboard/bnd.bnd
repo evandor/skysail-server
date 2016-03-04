@@ -3,13 +3,13 @@ Bundle-Version: 1.0.0.${tstamp}
 -dsannotations: *
 Include-Resource: resources
 -buildpath:  \
-	osgi.core;version=${osgi.core.version},\
-    osgi.cmpn;version=${osgi.cmpn.version},\
+    ${osgi},\
+    osgi.cmpn;version=${osgi.version},\
     osgi.annotation;version=${osgi.annotation.version},\
    	skysail.api;version=${skysail.api.version},\
 	skysail.api.search;version=${skysail.api.search.version},\
 	skysail.api.text;version=${skysail.api.text.version},\
-	skysail.api.validation;version=${skysail.api.validation.version},\
+	skysail.domain;version=${skysail.domain.version},\
 	skysail.server;version=${skysail.server.version},\
 	skysail.server.db;version=${skysail.server.db.version},\
 	de.twentyeleven.skysail.org.hamcrest.hamcrest-all-osgi;version=1.3,\

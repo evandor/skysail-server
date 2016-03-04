@@ -4,13 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.event.EventAdmin;
 
 import de.twenty11.skysail.server.app.ApplicationProvider;
 import de.twenty11.skysail.server.core.restlet.RouteBuilder;
+import io.skysail.domain.core.repos.DbRepository;
 import io.skysail.server.app.SkysailApplication;
 import io.skysail.server.menus.MenuItem;
 import io.skysail.server.menus.MenuItemProvider;
-import io.skysail.server.repo.DbRepository;
 
 @org.osgi.service.component.annotations.Component(immediate = true)
 public class OilApplication extends SkysailApplication implements ApplicationProvider, MenuItemProvider {
@@ -39,4 +40,9 @@ public class OilApplication extends SkysailApplication implements ApplicationPro
 	public OilRepository getRepository() {
 		return (OilRepository) oilRepository;
 	}
+
+    @Override
+    public EventAdmin getEventAdmin() {
+        return null;
+    }
 }

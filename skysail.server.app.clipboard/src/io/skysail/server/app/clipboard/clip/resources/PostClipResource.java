@@ -33,19 +33,13 @@ public class PostClipResource extends PostEntityServerResource<Clip> {
     }
 
 	@Override
-	public SkysailResponse<Clip> addEntity(Clip entity) {
+	public void addEntity(Clip entity) {
 	    entity.setCreated(new Date());
         Subject subject = SecurityUtils.getSubject();
         subject.getPrincipals().getPrimaryPrincipal();
         entity.setOwner(subject.getPrincipal().toString());
         String id = app.getClipsRepository().add(entity).toString();
         entity.setId(id);
-        return new SkysailResponse<>();
-
-        //        Linkheader linkheader = ServerLink.fromResource(app, ClipResource.class);
-        //        if (linkheader != null) {
-        //            index(entity, app.getSearchService(), linkheader.getUri(), id);
-        //        }
 	}
 
 	@Override

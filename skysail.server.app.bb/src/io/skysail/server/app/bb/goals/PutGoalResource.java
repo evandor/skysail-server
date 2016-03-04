@@ -19,7 +19,7 @@ public class PutGoalResource extends PutEntityServerResource<Goal> {
 
 	@Override
 	public Goal getEntity() {
-		return app.getRepository().getById(getAttribute("id"));
+		return null;//app.getRepository().getById(getAttribute("id"));
 	}
 
 	@Override

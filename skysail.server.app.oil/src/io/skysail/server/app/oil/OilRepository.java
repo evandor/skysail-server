@@ -4,9 +4,9 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import io.skysail.domain.core.repos.DbRepository;
 import io.skysail.server.db.DbService;
 import io.skysail.server.db.GraphDbRepository;
-import io.skysail.server.repo.DbRepository;
 
 @Component(immediate = true, property = "name=OilRepository")
 public class OilRepository extends GraphDbRepository<OpenItem>implements DbRepository {

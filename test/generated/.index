@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<repository increment="1446026158061" name="test" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="test"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.0.0.201510280955"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="5f83710db6fc77458e956e83273080503fbba56c64ff2509ba5e5aa3c5ff5333"/>
+      <attribute name="url" value="generated/test.jar"/>
+      <attribute name="size" type="Long" value="2176"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="test"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201510280955"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="test"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201510280955"/>
+    </capability>
+    <capability namespace="bndtools.workspace">
+      <attribute name="bndtools.workspace" value="file:/C:/workspaces/ssa"/>
+      <attribute name="project.path" value="/test"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+    <requirement namespace="osgi.extender">
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+  </resource>
+</repository>

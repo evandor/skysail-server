@@ -9,9 +9,9 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import io.skysail.api.domain.Identifiable;
-import io.skysail.api.forms.Field;
-import io.skysail.api.forms.InputType;
+import io.skysail.domain.Identifiable;
+import io.skysail.domain.html.Field;
+import io.skysail.domain.html.InputType;
 import io.skysail.server.app.bb.achievements.Achievement;
 import io.skysail.server.app.bb.areas.Area;
 import io.skysail.server.forms.ListView;
@@ -37,7 +37,10 @@ public class Goal implements Identifiable {
     @Field(inputType = InputType.TEXTAREA)
     @ListView(truncate = 60)
     private String remarks;
-    
+
+    @Field(inputType = InputType.TEXT)
+    private String goaltype;
+
     @Field(inputType = InputType.DATE)
     private Date due;
 

@@ -28,7 +28,7 @@ public class GoalResource extends EntityServerResource<Goal> {
 
 	@Override
 	public Goal getEntity() {
-		return app.getRepository().getById(getAttribute("id"));
+		return null;//app.getRepository().getById(getAttribute("id"));
 	}
 	
 	@Override

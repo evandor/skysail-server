@@ -8,10 +8,11 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.LogService;
 
-import io.skysail.api.domain.Identifiable;
+import io.skysail.domain.Identifiable;
+import io.skysail.domain.core.ApplicationModel;
+import io.skysail.domain.core.repos.DbRepository;
 import io.skysail.server.app.clipboard.domain.Clip;
 import io.skysail.server.db.DbService;
-import io.skysail.server.repo.DbRepository;
 
 @Component(immediate = true, property = "name=ClipsRepository")
 public class ClipsRepository implements DbRepository {
@@ -24,6 +25,7 @@ public class ClipsRepository implements DbRepository {
 
     @Activate
     public void activate() {
+        //super.ac
         dbService.createWithSuperClass("V", Clip.class.getSimpleName());
         dbService.register(Clip.class);
         //dbService.createUniqueIndex(Clip.class, "name", "owner");
@@ -73,13 +75,35 @@ public class ClipsRepository implements DbRepository {
         return "owner=" + rid;
     }
 
-	@Override
 	public Object save(Identifiable identifiable) {
 		return null;
 	}
 
-	@Override
 	public Object update(String id, Object entity, String... edges) {
 		return null;
 	}
+
+    @Override
+    public Identifiable findOne(String id) {
+        return null;
+    }
+
+    @Override
+    public Class<? extends Identifiable> getRootEntity() {
+        return null;
+    }
+
+    @Override
+    public Object save(Identifiable identifiable, ApplicationModel applicationModel) {
+        return null;
+    }
+
+    @Override
+    public Object update(String id, Identifiable entity, String... edges) {
+        return null;
+    }
+
+    @Override
+    public void delete(Identifiable identifiable) {
+    }
 }
