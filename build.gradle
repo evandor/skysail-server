@@ -1,5 +1,10 @@
 // Available to customize the build
 
+plugins {
+  id "org.asciidoctor.convert" version "1.5.3"
+}
+
 task wrapper(type: Wrapper) {
   jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
 }
+

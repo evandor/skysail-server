@@ -1,0 +1,15 @@
+:source-highlighter: coderay
+
+== skysail-server repository
+This repository hosts the skysail server bundles.
+
+=== Überschriften
+Textformatierungen, Aufzählungen (Listen)
+
+* kennen Sie von Wikis oder Markdown:
+* Formate wie *fett*, _kursiv_
+* Auch Links sind einfach: http://javamagazin.de[JavaMagazin].
+
+.Code-Highlighting
+[source,groovy]
+10.times { println "Hello, AsciiDoc!" }

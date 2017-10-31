@@ -8,6 +8,10 @@ node {
       sh './gradlew clean build'
    }
 
+   stage('document') {
+      sh './gradlew asciidoctor'
+   }
+
    stage('buildJar') {
      //sh './gradlew skysail.core:export.core.int'
    }
