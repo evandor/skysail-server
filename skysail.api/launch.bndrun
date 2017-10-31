@@ -7,7 +7,9 @@
 -runbundles: \
 	org.apache.felix.gogo.command;version='[0.16.0,0.16.1)',\
 	org.apache.felix.gogo.runtime;version='[0.16.2,0.16.3)',\
-	org.apache.felix.gogo.shell;version='[0.12.0,0.12.1)'
+	org.apache.felix.gogo.shell;version='[0.12.0,0.12.1)',\
+	org.scala-lang.scala-library;version='[2.11.11,2.11.12)',\
+	skysail.api;version=snapshot
 
 -runrequires: \
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
