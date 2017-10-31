@@ -1,6 +1,6 @@
 Bundle-Name: SKYSAIL :: api
 
-Bundle-Version: 0.2.0.${tstamp}
+Bundle-Version: 0.2.1.${tstamp}
 
 Bundle-Description: API Bundle for Skysail
 
@@ -9,8 +9,9 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 Bundle-ActivationPolicy: lazy
 
 -buildpath: \
-    osgi.core;version=${osgi.version},\
-    osgi.annotation;version=${osgi.annotation.version},\
+	osgi.core;version=${osgi.version},\
+	osgi.annotation;version=${osgi.annotation.version},\
+	com.typesafe.akka.http;version=10.0
 
 #	${osgi},\
 #    ${akka-compiletime},\
