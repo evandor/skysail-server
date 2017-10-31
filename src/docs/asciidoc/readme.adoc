@@ -13,3 +13,8 @@ Textformatierungen, Aufzählungen (Listen)
 .Code-Highlighting
 [source,groovy]
 10.times { println "Hello, AsciiDoc!" }
+
+=== Links
+
+* https://github.com/evandor/skysail-server[Github]
+* http://jenkins.twentyeleven.de/job/skysail-server.pipeline/[Build Pipeline (CI)]
