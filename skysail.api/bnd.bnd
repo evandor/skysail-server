@@ -1,0 +1,37 @@
+Bundle-Name: SKYSAIL :: api
+
+Bundle-Version: 0.2.0.${tstamp}
+
+Bundle-Description: API Bundle for Skysail
+
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+
+Bundle-ActivationPolicy: lazy
+
+-buildpath: \
+    osgi.core;version=${osgi.version},\
+    osgi.annotation;version=${osgi.annotation.version},\
+
+#	${osgi},\
+#    ${akka-compiletime},\
+#	${testlibs},\
+#    slf4j.api;version=1.7.7,\
+#    javax.validation.api;version=1.1,\
+#    org.hibernate.validator;version=${org.hibernate.validator.version}
+
+Export-Package: \
+	io.skysail.api.text,\
+	io.skysail.api.ddd,\
+	io.skysail.api.um,\
+	io.skysail.api.doc,\
+	io.skysail.api.metrics,\
+	io.skysail.api.persistence,\
+	io.skysail.api.security,\
+	io.skysail.api.validation,\
+	io.skysail.api.weaving
+
+Import-Package: \
+    io.skysail.api.weaving,\
+    *
+
+Private-Package: io.skysail.api.validation.hibernate
