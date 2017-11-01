@@ -1,0 +1,22 @@
+Bundle-Name: SKYSAIL :: server
+
+Bundle-Version: 0.1.0.${tstamp}
+
+Bundle-Description: Server Bundle for Skysail
+
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+
+-buildpath: \
+	osgi.core;version=${osgi.version},\
+	osgi.annotation;version=${osgi.annotation.version},\
+	com.typesafe.akka.http;version=10.0
+
+
+Export-Package: \
+	io.skysail.server,\
+	io.skysail.api.weaving
+
+Import-Package: \
+    io.skysail.api.weaving,\
+    *
+
