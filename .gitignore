@@ -3,5 +3,7 @@
 /generated/
 .metadata
 /.idea/
-/build/
+build/
+out/*
+bin/
 /skysail-server.iml
