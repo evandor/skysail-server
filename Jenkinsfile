@@ -42,7 +42,7 @@ node {
        allowMissing: false, 
        alwaysLinkToLastBuild: false, 
        keepAll: false, 
-       reportDir: 'asciidoc/html5', 
+       reportDir: 'build/asciidoc/html5', 
        reportFiles: 'history.html', 
        reportName: 'Repository History'
      ])
