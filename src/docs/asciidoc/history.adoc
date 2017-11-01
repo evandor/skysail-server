@@ -38,4 +38,8 @@ calling "./gradlew asciidoctor"
 
 === Testing travis CI
 
-* linked github account
+* linked github repo (skysail-server): travis @ https://travis-ci.org/evandor
+
+=== Testing Intellij
+
+* having issue with "https://github.com/bndtools/bndtools/issues/1294"
