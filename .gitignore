@@ -4,6 +4,6 @@
 .metadata
 /.idea/
 build/
-out/*
+out/
 bin/
 /skysail-server.iml
