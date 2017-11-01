@@ -37,6 +37,22 @@ node {
 	  )
    }*/
    
+   stage('publishHTML') {
+     publishHTML([
+       allowMissing: false, 
+       alwaysLinkToLastBuild: false, 
+       keepAll: false, 
+       reportDir: 'asciidoc/html5', 
+       reportFiles: 'history.html', 
+       reportName: 'Repository History'
+     ])
+     /*publishHTML([
+       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, 
+       reportDir: 'skysail.core/generated/reports/scoverage', reportFiles: 'index.html', reportName: 'Scoverage Report'
+     ])*/
+   }
+   
+   
 }
 
 def buildCode() {

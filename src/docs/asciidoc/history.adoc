@@ -28,6 +28,8 @@ plugins {
   id "org.asciidoctor.convert" version "1.5.3"
 }
 
+calling "./gradlew asciidoctor"
+
 === Defining inital build chain
 
 * Created root/Jenkinsfile
