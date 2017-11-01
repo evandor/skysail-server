@@ -1,0 +1,34 @@
+:source-highlighter: coderay
+
+== skysail-server repository: History
+
+This page wraps up the history of this repository, giving information about 
+design decisions, used libraries and tools, the build setup and so on.
+
+=== Initial Setup
+
+* Created using Eclipse with bndtools 3.5, fresh workspace, new repository
+* Removed buildship plugin from eclipse installation (messed up project files)
+* added java nature to cnf project (build did not work otherwise)
+* decision to not add IDE specific files to repository
+* decision to add required bundles to cnf/local repo
+
+=== Initial Version skysail.api
+
+* moved some folders from skysail-core repo
+* increased bundle and folder versions to 0.2
+
+=== adding asciidoctor
+
+in root/buiild.gradle:
+
+.Code-Highlighting
+[source,groovy]
+plugins {
+  id "org.asciidoctor.convert" version "1.5.3"
+}
+
+=== Defining inital build chain
+
+* Created root/Jenkinsfile
+* added build pipeline at http://jenkins.twentyeleven.de/job/skysail-server.pipeline/[jenkins.twentyeleven.de]
