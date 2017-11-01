@@ -6,17 +6,24 @@ Bundle-Description: Server Bundle for Skysail
 
 Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
+Bundle-Activator: io.skysail.server.activator.AkkaServer
+
 -buildpath: \
 	osgi.core;version=${osgi.version},\
 	osgi.annotation;version=${osgi.annotation.version},\
-	com.typesafe.akka.http;version=10.0
+	com.typesafe.akka.http;version=10.0,\
+	com.typesafe.akka.http.core;version=10.0,\
+	com.typesafe.akka.actor;version=2.5,\
+	com.typesafe.akka.stream;version=2.5,\
+	domino_2.11;version=1.1,\
+	slf4j.api;version=1.7,\
+	com.typesafe.akka.osgi;version=2.5,\
+	com.fasterxml.jackson.core.jackson-databind;version=2.9,\
+	com.fasterxml.jackson.core.jackson-core;version=2.9,\
+	io.skysail.bundled.json4s_2.11-3.5.1;version=3.5,\
+	skysail.api;version=latest,\
+	skysail.domain;version=latest,\
+	
+Export-Package: io.skysail.api.weaving
 
-
-Export-Package: \
-	io.skysail.server,\
-	io.skysail.api.weaving
-
-Import-Package: \
-    io.skysail.api.weaving,\
-    *
-
+Private-Package: io.skysail.server.activator

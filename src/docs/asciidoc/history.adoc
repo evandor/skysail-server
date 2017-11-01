@@ -43,3 +43,8 @@ calling "./gradlew asciidoctor"
 === Testing Intellij
 
 * having issue with "https://github.com/bndtools/bndtools/issues/1294"
+
+=== Initial Versions skysail.api and skysail.domain
+
+* created skysail.api to hold API traits definitions and skysail.domain to hold domain objects and models
+
