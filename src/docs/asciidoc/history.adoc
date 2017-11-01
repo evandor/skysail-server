@@ -34,3 +34,8 @@ calling "./gradlew asciidoctor"
 
 * Created root/Jenkinsfile
 * added build pipeline at http://jenkins.twentyeleven.de/job/skysail-server.pipeline/[jenkins.twentyeleven.de]
+* adding publishHTML task: Results at http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.pipeline/Repository_History/
+
+=== Testing travis CI
+
+* linked github account
