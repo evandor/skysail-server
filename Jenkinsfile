@@ -47,6 +47,12 @@ node {
      ])
      publishHTML([
             allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
+            reportDir: 'build/asciidoc/html5',
+            reportFiles: 'master.html',
+            reportName: 'Master Doc'
+          ])
+     publishHTML([
+            allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
             reportDir: 'skysail.api/generated/docs/scaladoc',
             reportFiles: 'index.html',
             reportName: 'API Scaladoc'
