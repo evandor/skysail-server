@@ -48,3 +48,8 @@ calling "./gradlew asciidoctor"
 
 * created skysail.api to hold API traits definitions and skysail.domain to hold domain objects and models
 
+=== Upgrading java jdk (as it is a requirement in akka.http 2.5.6 (> 1.8.0_141)
+
+http://www.lonecpluspluscoder.com/2017/10/08/installing-other-versions-of-the-java-jdk-via-homebrew/
+
+Issue: https://github.com/akka/akka/issues/23795... using akka.http 2.5.3 for now

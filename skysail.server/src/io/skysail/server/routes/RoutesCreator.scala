@@ -14,14 +14,6 @@ import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Flow, Source}
 import akka.util.Timeout
 import io.skysail.api.security.AuthenticationService
-import io.skysail.core.app.{ApplicationProvider, RouteMapping, SkysailApplication}
-import io.skysail.core.resources.Resource
-import io.skysail.core.security.AuthorizeByRole
-import io.skysail.core.server.actors.ApplicationActor.ProcessCommand
-import io.skysail.core.server.actors.{BundleActor, BundlesActor}
-import io.skysail.core.server.directives.MyDirectives._
-import io.skysail.core.server.directives.TunnelDirectives._
-import io.skysail.core.server.routes.RoutesCreator._
 import org.osgi.framework.wiring.BundleCapability
 import org.slf4j.LoggerFactory
 
@@ -29,9 +21,14 @@ import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
 import scala.reflect.ClassTag
 import io.skysail.server.Constants
-import io.skysail.domain.app.SkysailApplication
 import io.skysail.server.actors.BundlesActor
 import io.skysail.server.actors.BundleActor
+import io.skysail.domain.RouteMapping
+import io.skysail.server.app.ApplicationProvider
+import io.skysail.domain.Resource
+import io.skysail.domain.messages.ProcessCommand
+import io.skysail.server.app.SkysailApplication
+import io.skysail.server.app.SkysailApplication._
 
 object RoutesCreator {
 
@@ -66,7 +63,6 @@ class RoutesCreator(system: ActorSystem) {
   val clientClassloader = Await.result(clientClFuture, 3.seconds)
 
   val pathMatcherFactory = PathMatcherFactory
-
 
   def createRoute(mapping: RouteMapping[_], appInfoProvider: ApplicationProvider): Route = {
     val appRoute = appInfoProvider.appModel.appRoute

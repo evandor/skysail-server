@@ -6,4 +6,4 @@
 build/
 out/
 bin/
-/skysail-server.iml
+*.iml

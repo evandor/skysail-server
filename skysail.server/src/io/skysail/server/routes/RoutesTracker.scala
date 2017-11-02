@@ -5,7 +5,8 @@ import akka.http.scaladsl.server.Route
 import io.skysail.api.security.AuthenticationService
 import org.slf4j.LoggerFactory
 import io.skysail.server.app.ApplicationProvider
-import io.skysail.domain.app.SkysailApplication
+import io.skysail.server.app.SkysailApplication
+import io.skysail.server.app.SkysailApplication._
 
 class RoutesTracker(system: ActorSystem) {
 

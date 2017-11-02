@@ -17,11 +17,11 @@ import org.osgi.framework.BundleContext
 import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Success}
 import io.skysail.domain.model.ApplicationModel
-import io.skysail.domain.app.SkysailApplication
 import io.skysail.domain.Resource
 import io.skysail.server.app.ApplicationProvider
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.ResponseEventBase
+import io.skysail.server.app.SkysailApplication
 
 object ApplicationActor {
 

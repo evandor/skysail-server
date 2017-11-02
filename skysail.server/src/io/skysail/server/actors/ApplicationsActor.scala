@@ -18,6 +18,7 @@ import scala.concurrent.Future
 import scala.util.{ Success, Failure }
 import akka.event.LoggingReceive
 import io.skysail.domain.Application
+import io.skysail.server.app.SkysailApplication._
 
 object ApplicationsActor {
   case class GetAllApplications()
@@ -37,7 +38,7 @@ class ApplicationsActor extends Actor with ActorLogging {
     case caa: CreateApplicationActor => createApplicationActor(caa)
     case daa: DeleteApplicationActor => deleteApplicationActor(daa)
     case gaa: GetAllApplications => getAllApplications(gaa)
-    case _: GetMenus => getMenus()
+    //case _: GetMenus => getMenus()
     case msg: Any => log info s"received unknown message '$msg' of type '${msg.getClass().getName}' in ${this.getClass.getName}"
   }
 
