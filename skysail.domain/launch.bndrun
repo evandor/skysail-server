@@ -4,7 +4,6 @@
 -runsystempackages: ${runsystempackages}
 -runtrace: false
 
-
 -resolve.effective: active;skip:="osgi.service"
 
 -runbundles: \
