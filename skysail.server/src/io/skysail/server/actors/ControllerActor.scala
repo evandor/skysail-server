@@ -7,6 +7,7 @@ import akka.http.scaladsl.marshalling.Marshal
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.MediaTypeNegotiator
 import akka.util.Timeout
+import de.heikoseeberger.akkahttpjson4s.Json4sSupport._
 import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
 import org.json4s.{DefaultFormats, Extraction, JObject, jackson}
@@ -16,11 +17,14 @@ import play.twirl.api.HtmlFormat
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
 import io.skysail.domain.model.ApplicationModel
-import io.skysail.server.RepresentationModel
-import io.skysail.domain.ResponseEvent
-import io.skysail.domain.RequestEvent
-import io.skysail.domain.ListResponseEvent
 import io.skysail.domain.messages.ProcessCommand
+import io.skysail.domain.resources.AsyncResource
+import io.skysail.domain.PostSupport
+import io.skysail.domain.ListResponseEvent
+import io.skysail.server.actors.ApplicationActor._
+import io.skysail.domain.RequestEvent
+import io.skysail.domain.ResponseEvent
+import io.skysail.server.RepresentationModel
 
 object ControllerActor {
 
@@ -118,7 +122,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       val resEvent = ListResponseEvent(reqEvent, null)
       applicationActor ! resEvent.copy(httpResponse = resEvent.httpResponse.copy(entity = msg.entity))
     }
-    case msg: T => {
+    /*case msg: T => {
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: T"
       val reqEvent = RequestEvent(null, null)
       val resEvent = ListResponseEvent(reqEvent, null)
@@ -127,7 +131,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       val written = write(e)
       val r = HttpEntity(ContentTypes.`application/json`, written)
       applicationActor ! resEvent.copy(entity = msg, httpResponse = resEvent.httpResponse.copy(entity = r))
-    }
+    }*/
     case msg: Any => log info s">>> OUT >>>: received unknown message '$msg' in ${this.getClass.getName}"
   }
 

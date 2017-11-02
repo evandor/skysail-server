@@ -5,3 +5,5 @@ akka-build: \
 	com.typesafe.akka.stream;version=2.5,\
 	com.typesafe.akka.osgi;version=2.5,\
 	com.typesafe.config;version=1.3,\
+    io.skysail.bundled.akka-http-json4s_2.11;version=1.17,\
+	

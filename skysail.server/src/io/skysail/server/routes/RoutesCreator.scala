@@ -2,6 +2,7 @@ package io.skysail.server.routes
 
 import java.lang.annotation.Annotation
 import java.util.concurrent.atomic.AtomicInteger
+import io.skysail.server.TunnelDirectives._
 
 import akka.actor.{ActorRef, ActorSelection, ActorSystem}
 import akka.http.scaladsl.model.StatusCodes._
@@ -112,12 +113,12 @@ class RoutesCreator(system: ActorSystem) {
         getFromResource("client/index.html", ContentTypes.`text/html(UTF-8)`, getClientClassloader)
       }
     } ~
-      path("v2") {
+      /*path("v2") {
         get {
           val r = io.skysail.core.app.resources.html.index4.apply()
           complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, r.body))
         }
-      } ~
+      } ~*/
       path("c4") {
         parameterMap { map =>
           println("MAP: " + map)
@@ -245,15 +246,15 @@ class RoutesCreator(system: ActorSystem) {
   private def createRoute(mapping: RouteMapping[_], appProvider: ApplicationProvider, urlParameter: List[String] = List()): Route
 
   = {
-    test() {
+    //test() {
       authenticationDirective(authentication) { username =>
         optionalHeaderValueByName("Accept") { acceptHeader =>
           get {
             extractRequestContext {
               ctx =>
-                test1("test1str") { f =>
+               // test1("test1str") { f =>
                   routeWithUnmatchedPath2(ctx, mapping, appProvider, urlParameter)
-                }
+               // }
             }
           } ~
             post {
@@ -264,7 +265,7 @@ class RoutesCreator(system: ActorSystem) {
             }
         }
       }
-    }
+    //}
   }
 
   private def routeWithUnmatchedPath2(
@@ -291,7 +292,8 @@ class RoutesCreator(system: ActorSystem) {
   private def requestAnnotationForGet(cls: Class[_ <: Resource[_]]): Option[Annotation] = {
     try {
       val getMethod = cls.getMethod("get", classOf[ActorRef], classOf[ClassTag[_]])
-      Some(getMethod.getAnnotation(classOf[AuthorizeByRole]))
+      //Some(getMethod.getAnnotation(classOf[AuthorizeByRole]))
+      None
     } catch {
       case e: Throwable => None //log.error(e.getMessage(), e)
     }

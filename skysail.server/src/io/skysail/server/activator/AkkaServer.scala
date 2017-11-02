@@ -15,8 +15,6 @@ import domino.service_watching.ServiceWatcherContext
 import domino.service_watching.ServiceWatcherEvent.{AddingService, ModifiedService, RemovedService}
 import io.skysail.api.security.AuthenticationService
 import io.skysail.server.Constants
-import io.skysail.core.app.SkysailApplication.CreateApplicationActor
-import io.skysail.domain.{ApplicationProvider, SkysailApplication, SkysailRootApplication}
 import io.skysail.server.actors.{ApplicationsActor, BundlesActor}
 import io.skysail.server.routes.RoutesTracker
 import org.osgi.framework.BundleContext
@@ -25,6 +23,8 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
 import io.skysail.server.app.ApplicationProvider
+import io.skysail.server.app.SkysailApplication
+import io.skysail.server.app.SkysailApplication._
 
 case class ServerConfig(port: Integer, binding: String)
 
@@ -96,8 +96,8 @@ class AkkaServer extends DominoActivator {
       serverConfig = ServerConfig(port, binding)
       routesTracker = new RoutesTracker(actorSystem)
 
-      val app = new SkysailRootApplication()
-      app.providesService[ApplicationProvider]
+      //val app = new SkysailRootApplication()
+      //app.providesService[ApplicationProvider]
 
     }
 
