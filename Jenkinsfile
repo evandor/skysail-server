@@ -10,6 +10,7 @@ node {
 
    stage('document') {
       sh './gradlew asciidoctor'
+      sh './gradlew scaladoc'
    }
 
    stage('buildJar') {
@@ -46,6 +47,14 @@ node {
        reportFiles: 'history.html', 
        reportName: 'Repository History'
      ])
+     publishHTML([
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: false,
+            reportDir: 'skysail.api/generated/docs/scaladoc',
+            reportFiles: 'index.html',
+            reportName: 'API Scaladoc'
+          ])
      /*publishHTML([
        allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, 
        reportDir: 'skysail.core/generated/reports/scoverage', reportFiles: 'index.html', reportName: 'Scoverage Report'

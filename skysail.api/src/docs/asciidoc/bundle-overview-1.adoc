@@ -1,0 +1,19 @@
+ifndef::imagesDir[:imagesDir: ../images]
+
+== Bundle Overview
+
+This chapter provides an overview of the skysail.api bundle.
+
+=== Namespace
+
+io.skysail.api
+
+=== Purpose
+
+
+Eine Übersicht ist immer nützlich.
+
+Und Bilder sind auch fein, besonders mit schönen Bildunterschriften:
+
+.Module unserer Dokumentation
+image::uebersicht.png[]
