@@ -53,3 +53,7 @@ calling "./gradlew asciidoctor"
 http://www.lonecpluspluscoder.com/2017/10/08/installing-other-versions-of-the-java-jdk-via-homebrew/
 
 Issue: https://github.com/akka/akka/issues/23795... using akka.http 2.5.3 for now
+
+=== Branching
+
+starting "marketing version" release/0.0 for the whole project
