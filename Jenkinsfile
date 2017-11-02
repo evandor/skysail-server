@@ -9,7 +9,7 @@ node {
    }
 
    stage('document') {
-      sh './gradlew asciidoctor'
+      sh './gradlew asciidoctor --info'
       sh './gradlew scaladoc'
    }
 
