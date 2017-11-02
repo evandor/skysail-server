@@ -40,20 +40,22 @@ node {
    
    stage('publishHTML') {
      publishHTML([
-       allowMissing: false, 
-       alwaysLinkToLastBuild: false, 
-       keepAll: false, 
+       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
        reportDir: 'build/asciidoc/html5', 
        reportFiles: 'history.html', 
        reportName: 'Repository History'
      ])
      publishHTML([
-            allowMissing: false,
-            alwaysLinkToLastBuild: false,
-            keepAll: false,
+            allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
             reportDir: 'skysail.api/generated/docs/scaladoc',
             reportFiles: 'index.html',
             reportName: 'API Scaladoc'
+          ])
+     publishHTML([
+            allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
+            reportDir: 'skysail.domain/generated/docs/scaladoc',
+            reportFiles: 'index.html',
+            reportName: 'Domain Scaladoc'
           ])
      /*publishHTML([
        allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, 
