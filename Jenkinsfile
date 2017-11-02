@@ -42,27 +42,27 @@ node {
      publishHTML([
        allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
        reportDir: 'build/asciidoc/html5', 
-       reportFiles: 'history.html', 
+       reportFiles: 'history.html',
        reportName: 'Repository History'
      ])
      publishHTML([
-            allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
-            reportDir: 'build/asciidoc/html5',
-            reportFiles: 'master.html',
-            reportName: 'Master Doc'
-          ])
+       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
+       reportDir: 'build/asciidoc/html5',
+       reportFiles: 'master.html',
+       reportName: 'Master Doc'
+     ])
      publishHTML([
-            allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
-            reportDir: 'skysail.api/generated/docs/scaladoc',
-            reportFiles: 'index.html',
-            reportName: 'API Scaladoc'
-          ])
+       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
+       reportDir: 'skysail.api/generated/docs/scaladoc',
+       reportFiles: 'index.html',
+       reportName: 'API Scaladoc'
+     ])
      publishHTML([
-            allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
-            reportDir: 'skysail.domain/generated/docs/scaladoc',
-            reportFiles: 'index.html',
-            reportName: 'Domain Scaladoc'
-          ])
+       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
+       reportDir: 'skysail.domain/generated/docs/scaladoc',
+       reportFiles: 'index.html',
+       reportName: 'Domain Scaladoc'
+     ])
      /*publishHTML([
        allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, 
        reportDir: 'skysail.core/generated/reports/scoverage', reportFiles: 'index.html', reportName: 'Scoverage Report'
