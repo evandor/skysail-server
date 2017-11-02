@@ -1,0 +1,21 @@
+:source-highlighter: coderay
+
+== Branches
+
+The bundles contained in this repository follow the usual "semantic-versioning" scheme.
+
+Nevertheless, the repository as a whole has its own versioning scheme, which
+is "marketing-driven". The current "repository-release" is developed in the
+branch "release/0.0"
+
+=== Branches
+
+==== Master
+
+==== release/0.0
+
+The current head.
+
+http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/API_Scaladoc/[API Scaladoc]
+
+http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Domain_Scaladoc/[Domain Scaladoc]
