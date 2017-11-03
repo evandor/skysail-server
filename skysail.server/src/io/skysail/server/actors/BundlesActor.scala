@@ -63,7 +63,7 @@ class BundlesActor(bundleContext: BundleContext) extends Actor with ActorLogging
     // log debug s"creating BundleActor ${cb.b.getSymbolicName}..."
     val a = context.actorOf(Props.apply(classOf[BundleActor], cb.b), cb.b.getBundleId.toString)
     bundleActors += cb.b.getBundleId.toString -> a
-    //log info s"added new ${cb.b.getBundleId.toString} actor to bundlesActor Map, size is now ${bundleActors.size}"
+    log debug s"added new ${cb.b.getBundleId.toString} actor to bundlesActor Map, size is now ${bundleActors.size}"
     a
   }
 

@@ -1,0 +1,5 @@
+:source-highlighter: coderay
+
+== Open Issues
+
+* cannot build master.adoc properly on CI (Jenkins) (404 for publishHtml)

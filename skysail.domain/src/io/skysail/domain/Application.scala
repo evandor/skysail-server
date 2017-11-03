@@ -9,4 +9,4 @@ object Application {
   }
 }
 
-case class Application(name: String, context: String, description: String) extends DddElement
+case class Application(name: String, context: String, description: String)

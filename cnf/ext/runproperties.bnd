@@ -1,0 +1,11 @@
+runproperties:\
+    logback.configurationFile=${logback.configurationFile.path}/logback.xml,\
+    org.osgi.framework.bootdelegation=sun.misc
+
+#    felix.fileinstall.dir='${skysail.config.path}',\
+#    felix.fileinstall.filter=.*\\.jar|.*\\.cfg,\
+#    felix.fileinstall.noInitialDelay=true,\
+#    felix.fileinstall.poll=1000,\
+#    org.apache.felix.log.storeDebug=true,\
+#    felix.fileinstall.log.level=4,\
+#    java.net.preferIPv4Stack=true,\

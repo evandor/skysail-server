@@ -1,6 +1,6 @@
 package io.skysail.api.ddd
 
-trait DddElement
+sealed trait DddElement
 
 trait Entity[T] extends DddElement {
   def id: Option[T]

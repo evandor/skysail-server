@@ -54,16 +54,20 @@ class RoutesCreator(system: ActorSystem) {
   implicit val timeout: Timeout = 3.seconds
 
   val capabilitiesFuture = (SkysailApplication.getBundlesActor(system) ? BundlesActor.GetCapabilities()).mapTo[Map[Long, List[BundleCapability]]]
-  val capabilities = Await.result(capabilitiesFuture, 1.seconds)
+  val capabilities = Await.result(capabilitiesFuture, 3.seconds)
 
   val bundleIdsWithClientCapabilities = capabilities.filter {
     entry => entry._2.filter { cap => Constants.CLIENT_CAPABILITY.equals(cap.getNamespace) }.size > 0
   }.map { m => m._1 }
 
-  val clientClFuture = (SkysailApplication.getBundleActor(system, bundleIdsWithClientCapabilities.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
-  val clientClassloader = Await.result(clientClFuture, 3.seconds)
+  val clientClassloader = if (bundleIdsWithClientCapabilities.size > 0) {
+    val clientClFuture = (SkysailApplication.getBundleActor(system, bundleIdsWithClientCapabilities.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
+    Await.result(clientClFuture, 3.seconds)
+  } else {
+    null
+  }
 
-  val pathMatcherFactory = PathMatcherFactory
+  //val pathMatcherFactory = PathMatcherFactory
 
   def createRoute(mapping: RouteMapping[_], appInfoProvider: ApplicationProvider): Route = {
     val appRoute = appInfoProvider.appModel.appRoute

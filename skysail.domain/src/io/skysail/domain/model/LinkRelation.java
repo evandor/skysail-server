@@ -76,10 +76,10 @@ public enum LinkRelation {
             
     DELETE_FORM   ("delete-form", "non-standard relation indicating a link to a form issuing a DELETE request");
 
-    private String identifier;
-    private String desc;
+    private final String identifier;
+    private final String desc;
 
-    private LinkRelation(String name, String desc) {
+    LinkRelation(String name, String desc) {
         this.identifier = name;
         this.desc = desc;
     }

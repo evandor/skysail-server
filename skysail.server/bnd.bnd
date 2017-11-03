@@ -8,6 +8,10 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Bundle-Activator: io.skysail.server.activator.AkkaServer
 
+#Require-Capability: skysail.capability.client
+Require-Capability: skysail.capability.auth 
+
+
 -buildpath: \
 	osgi.core;version=${osgi.version},\
 	osgi.annotation;version=${osgi.annotation.version},\
@@ -23,6 +27,7 @@ Bundle-Activator: io.skysail.server.activator.AkkaServer
 	org.scala-lang.scala-reflect;version=2.11,\
 	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
 	com.typesafe.akka.http.jackson;version=10.0
+	
 Private-Package: \
 	io.skysail.server.activator,\
 	io.skysail.server,\
