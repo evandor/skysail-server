@@ -45,6 +45,6 @@ node {
     sh "./gradlew scaladoc"
 
     stage 'Publish Documentation'
-    sh "cp -r build/asciidoc/html5/ /var/www/downloads.skysail.io/skysail/doc/asciidoc/html5/"
+    sh "cp -r build/asciidoc/html5/ /var/www/downloads.skysail.io/skysail/doc/asciidoc/"
 
 }
