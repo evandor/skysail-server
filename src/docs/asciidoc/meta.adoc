@@ -18,8 +18,8 @@ skysail.
 
 === Bundles
 
-file://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Api Bundle]
+http://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Api Bundle]
 
-file://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Domain Bundle]
+http://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Domain Bundle]
 
-file://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Server Bundle]
+http://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Server Bundle]
