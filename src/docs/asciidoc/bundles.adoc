@@ -1,0 +1,15 @@
+:source-highlighter: coderay
+:imagesdir: images
+
+= skysail server repository bundles
+Carsten Gräf <evandor@gmail.com>
+v0.0, 2017-11-03
+:toc:
+
+== About
+
+This document lists all bundles contained in the skysail server repository.
+
+== Bundles
+
+include::../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[leveloffset=+1]

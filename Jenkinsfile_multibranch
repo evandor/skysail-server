@@ -54,6 +54,12 @@ node {
     publishHTML([
        allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
        reportDir: 'build/asciidoc/html5',
+       reportFiles: 'bundles.html',
+       reportName: 'Contained Bundles'
+    ])
+    publishHTML([
+       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
+       reportDir: 'build/asciidoc/html5',
        reportFiles: 'meta.html',
        reportName: 'All Documentation'
     ])
