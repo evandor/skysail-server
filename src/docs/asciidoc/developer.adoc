@@ -1,14 +1,22 @@
 :source-highlighter: coderay
 :imagesdir: images
 
-= skysail server repository bundles
+= skysail server developer documentation
 Carsten Gräf <evandor@gmail.com>
 v0.0, 2017-11-03
 :toc:
 
 == About
 
-This document lists all bundles contained in the skysail server repository.
+This document is the entry point for the skysail documentation if you are
+an developer. There are other entry points to read the skysail documentation,
+for example if you just want to use skysail as a service.
+
+== Intended audience
+
+Developers who want to understand the principles behind skysail.
+
+include::aboutskysail.adoc[leveloffset=+1]
 
 == Bundles
 

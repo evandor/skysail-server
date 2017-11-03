@@ -1,10 +1,7 @@
 :source-highlighter: coderay
 :imagesdir: images
 
-= about skysail
-Carsten Gräf <evandor@gmail.com>
-v0.0, 2017-11-03
-:toc:
+= About skysail
 
 == Introduction: skysail...
 
