@@ -34,9 +34,17 @@ Please note that this version is not a (semantic) bundle version,
 but a kind of tag for the whole repository. The release 0.0 corresponds
 to the branch "release/0.0".
 
-=== About skysail
+=== Developer Documentation
 
-Find out about the idea and the cocepts behind skysail http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[here].
+Find out about the idea and the concepts behind skysail http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[here].
+
+=== User Documentation
+
+Find out about the idea and the concepts behind skysail http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[here].
+
+=== Products Documentation
+
+...
 
 === Bundles
 

@@ -45,41 +45,6 @@ node {
     sh "./gradlew scaladoc"
 
     stage 'Publish Documentation'
-    publishHTML([
-       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
-       reportDir: 'build/asciidoc/html5',
-       reportFiles: 'history.html',
-       reportName: 'Repository History'
-    ])
-    publishHTML([
-       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
-       reportDir: 'build/asciidoc/html5',
-       reportFiles: 'bundles.html',
-       reportName: 'Contained Bundles'
-    ])
-    publishHTML([
-       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
-       reportDir: 'build/asciidoc/html5',
-       reportFiles: 'aboutskysail.html',
-       reportName: 'About Skysail'
-    ])
-    publishHTML([
-       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
-       reportDir: 'build/asciidoc/html5',
-       reportFiles: 'meta.html',
-       reportName: 'All Documentation'
-    ])
-    publishHTML([
-       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
-       reportDir: 'skysail.api/generated/docs/scaladoc',
-       reportFiles: 'index.html',
-       reportName: 'API Scaladoc'
-    ])
-    publishHTML([
-       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
-       reportDir: 'skysail.domain/generated/docs/scaladoc',
-       reportFiles: 'index.html',
-       reportName: 'Domain Scaladoc'
-    ])
+    sh "cp -r build/asciidoc/html5/ /var/www/downloads.skysail.io/skysail/doc/asciidoc/html5/"
 
 }
