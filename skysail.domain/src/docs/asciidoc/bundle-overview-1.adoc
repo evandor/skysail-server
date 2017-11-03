@@ -1,13 +1,19 @@
 ifndef::imagesDir[:imagesDir: ../images]
 
-== skysail.api bundle Overview
+== skysail.domain
 
-This chapter provides an overview of the skysail.api bundle.
+This chapter provides an overview of the skysail.domain bundle.
 
 === Namespace
 
-io.skysail.api
+io.skysail.domain
 
 === Purpose
 
-The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).
+The skysail.domain bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).
+
+=== Packages
+
+* A
+* B
+* C

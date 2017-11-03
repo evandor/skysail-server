@@ -11,15 +11,47 @@ v0.0, 2017-11-03
 This document contains references to all available documentation about
 skysail.
 
+While this is currently served at http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/All_Documentation/,
+this location is likely to change.
+
+The complete documentation is a collection of many documents, bundled together
+for various audiences. So, for example, the _developer documentation_ is a subset of
+all documents which are relevant for developers, whereas skysail users will have
+their own "subset", the _skysail user documentation_. Like this, it is easy to reuse
+and maintain documentation for different audiences.
+
+You, as a reader, have to choose the kind of documentation you are interested in
+(that is, you have to decide about your type of role as a reader).
+
+If you are interested in the current version, check the next paragraph for the
+available types of documentation.
+
 == Current Repository Release 0.0
+
+The *current version of the skysail server repository is 0.0*.
+
+Please note that this version is not a (semantic) bundle version,
+but a kind of tag for the whole repository. The release 0.0 corresponds
+to the branch "release/0.0".
+
 
 === Bundles
 
-http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[Bundle Documention]
+You can find the document summarizing all available bundles in the
+repository here: http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[Bundle Documention]
 
 == Next Repository Release 0.1
 
 Nothing yet to document
 
-=== Bundles
+== Older repostitory releases
 
+Nothing yet to document
+
+== Links
+
+include::links.adoc[leveloffset=+1]
+
+== History
+
+include::history.adoc[leveloffset=+1]

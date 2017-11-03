@@ -24,3 +24,7 @@ include::branches.adoc[leveloffset=+1]
 include::openissues.adoc[leveloffset=+1]
 
 include::../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[leveloffset=+1]
+
+== Links
+
+include::links.adoc[leveloffset=+1]

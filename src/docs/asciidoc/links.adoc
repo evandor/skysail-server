@@ -1,0 +1,5 @@
+:source-highlighter: coderay
+:imagesdir: images
+
+ * The *source* for this repository can be found at https://github.com/evandor/skysail-server/[github].
+ * http://jenkins.twentyeleven.de/[Jenkins] is used to *build* the sources using gradle.
