@@ -54,8 +54,8 @@ node {
     publishHTML([
        allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
        reportDir: 'build/asciidoc/html5',
-       reportFiles: 'master.html',
-       reportName: 'Master Doc'
+       reportFiles: 'meta.html',
+       reportName: 'All Documentation'
     ])
     publishHTML([
        allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,

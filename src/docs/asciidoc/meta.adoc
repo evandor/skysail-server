@@ -1,0 +1,25 @@
+:source-highlighter: coderay
+:imagesdir: images
+
+= skysail server meta documentation
+Carsten Gräf <evandor@gmail.com>
+v0.0, 2017-11-03
+:toc:
+
+== About
+
+This document contains references to all available documentation about
+skysail.
+
+== Current Repository Release 0.0
+
+=== Entry Points
+
+
+=== Bundles
+
+file://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Api Bundle]
+
+file://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Domain Bundle]
+
+file://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Server Bundle]

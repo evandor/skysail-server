@@ -1,13 +1,23 @@
 :source-highlighter: coderay
 :imagesdir: images
 
-== Dies ist das Hauptdokument
+= skysail server meta documentation
+Carsten Gräf <evandor@gmail.com>
+v0.0, 2017-11-03
+:toc:
 
-Durch verschiedene `include`-Anweisungen modularisieren wir die Dokumentation:
+== About
+
+This document contains references to all available documentation about
+skysail.
+
+== Entry Points
 
 include::kapitel/kapitel-1.adoc[leveloffset=+1]
 
 include::kapitel/kapitel-2.adoc[leveloffset=+1]
+
+== Various Docs
 
 include::branches.adoc[leveloffset=+1]
 
