@@ -40,4 +40,8 @@ node {
    //sh "${mvnHome}/bin/mvn clean install"
    sh "./gradlew -Pversion=${env.BUILD_VERSION} --stacktrace --continue clean build"
 
+    stage 'Document'
+    sh "./gradlew asciidoctor"
+    sh "./gradlew scaladoc"
+
 }
