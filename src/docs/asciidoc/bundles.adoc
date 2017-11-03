@@ -13,3 +13,5 @@ This document lists all bundles contained in the skysail server repository.
 == Bundles
 
 include::../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[leveloffset=+1]
+
+include::../../../skysail.domain/src/docs/asciidoc/bundle-overview-1.adoc[leveloffset=+1]
