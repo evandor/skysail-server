@@ -13,13 +13,13 @@ skysail.
 
 == Current Repository Release 0.0
 
-=== Entry Points
+=== Bundles
 
+http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[Bundle Documention]
+
+== Next Repository Release 0.1
+
+Nothing yet to document
 
 === Bundles
 
-http://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Api Bundle]
-
-http://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Domain Bundle]
-
-http://../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[Server Bundle]
