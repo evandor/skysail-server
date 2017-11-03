@@ -6,7 +6,7 @@ Carsten Gräf <evandor@gmail.com>
 v0.0, 2017-11-03
 :toc:
 
-== About
+== About this document
 
 This document contains references to all available documentation about
 skysail.
@@ -34,6 +34,9 @@ Please note that this version is not a (semantic) bundle version,
 but a kind of tag for the whole repository. The release 0.0 corresponds
 to the branch "release/0.0".
 
+=== About skysail
+
+Find out about the idea and the cocepts behind skysail http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[here].
 
 === Bundles
 
@@ -48,10 +51,6 @@ Nothing yet to document
 
 Nothing yet to document
 
-== Links
+== General Links
 
 include::links.adoc[leveloffset=+1]
-
-== History
-
-include::history.adoc[leveloffset=+1]

@@ -60,6 +60,12 @@ node {
     publishHTML([
        allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
        reportDir: 'build/asciidoc/html5',
+       reportFiles: 'aboutskysail.html',
+       reportName: 'About Skysail'
+    ])
+    publishHTML([
+       allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false,
+       reportDir: 'build/asciidoc/html5',
        reportFiles: 'meta.html',
        reportName: 'All Documentation'
     ])
