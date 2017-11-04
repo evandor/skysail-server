@@ -19,14 +19,13 @@ include::../../io/skysail/api/persistence/DbService.scala[tag=methods]
 ----
 
 
-[plantuml, diagram-classes, png]
+[plantuml, ./diagram, png]
+.Diagram Title
 ....
-class BlockProcessor
-class DiagramBlock
-class DitaaBlock
-class PlantUmlBlock
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
 
-BlockProcessor <|-- DiagramBlock
-DiagramBlock <|-- DitaaBlock
-DiagramBlock <|-- PlantUmlBlock
-....
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+@enduml
