@@ -50,13 +50,13 @@ public class SkysailServerIntegrationTest {
     };
 
     @Test
-    public void retrieves_json_representation_containing_the_root_application_for_the_appsEndpoint() throws Exception {
-        String responseBody = get("http://localhost:7999/root/apps");
-        assertTrue(responseBody.contains("{\"name\":\"root\",\"context\":\"/root\""));
+    public void retrieves_json_representation_containing_the_greeting_if_no_apps_resource() throws Exception {
+        String responseBody = get("http://localhost:7999/root");
+        assertTrue(responseBody.contains("you are seeing this as no applications have been deployed yet"));
     }
 
     @Test
-    //@Ignore // maybe test https://github.com/dpishchukhin/org.knowhowlab.osgi.testing
+    @Ignore // maybe test https://github.com/dpishchukhin/org.knowhowlab.osgi.testing
     public void stopping_and_starting_demo_bundle_does_not_break_anything() throws Exception {
         stopAndStartBundle("skysail.app.demo");
         Thread.sleep(2000);

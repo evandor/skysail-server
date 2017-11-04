@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.14" icons="true" automaticImage="PNG">  
+  <object id="1" language="java" name="io.skysail.server.activator.AkkaServer.AkkaCapsule" project="skysail.server" 
+    file="/skysail.server/src/io/skysail/server/activator/AkkaServer.scala" binary="false" label="akkaCapsule" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="153" y="0"/>    
+    <execution id="2">      
+      <position height="84" width="0" x="0" y="102"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="21" width="0" x="0" y="144"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="io.skysail.server.activator.AkkaServer" project="skysail.server" 
+    file="/skysail.server/src/io/skysail/server/activator/AkkaServer.scala" binary="false" label="akkaServer" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="153" y="0"/>  
+  </object>  
+  <object id="6" language="java" name="io.skysail.server.activator.ServerConfig" project="skysail.server" 
+    file="/skysail.server/src/io/skysail/server/activator/AkkaServer.scala" binary="false" label="serverConfig" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="153" y="0"/>  
+  </object>  
+  <message id="3" operation="configure(org.osgi.framework.BundleContext,akka.actor.ActorSystem):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>
+</sequence-diagram>

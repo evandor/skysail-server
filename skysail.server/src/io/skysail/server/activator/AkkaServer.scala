@@ -1,6 +1,6 @@
 package io.skysail.server.activator
 
-import akka.actor.{ActorRef, ActorSystem, Props}
+import akka.actor.{ ActorRef, ActorSystem, Props }
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
@@ -9,13 +9,13 @@ import akka.osgi.ActorSystemActivator
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
 import domino.DominoActivator
-import domino.bundle_watching.BundleWatcherEvent.{AddingBundle, ModifiedBundle, RemovedBundle}
+import domino.bundle_watching.BundleWatcherEvent.{ AddingBundle, ModifiedBundle, RemovedBundle }
 import domino.capsule.Capsule
 import domino.service_watching.ServiceWatcherContext
-import domino.service_watching.ServiceWatcherEvent.{AddingService, ModifiedService, RemovedService}
+import domino.service_watching.ServiceWatcherEvent.{ AddingService, ModifiedService, RemovedService }
 import io.skysail.api.security.AuthenticationService
 import io.skysail.server.Constants
-import io.skysail.server.actors.{ApplicationsActor, BundlesActor}
+import io.skysail.server.actors.{ ApplicationsActor, BundlesActor }
 import io.skysail.server.routes.RoutesTracker
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
@@ -53,27 +53,34 @@ class AkkaServer extends DominoActivator {
 
     def configure(osgiContext: BundleContext, system: ActorSystem): Unit = {
       log info "Registering Actor System as Service."
-      //registerService(osgiContext, system)
+      registerService(osgiContext, system)
+
       log info s"ActorSystem [${system.name}] initialized."
       actorSystem = system
       applicationsActor = system.actorOf(Props[ApplicationsActor], Constants.APPLICATIONS_ACTOR_NAME)
-      log info s"created ApplicationsActor with path ${applicationsActor.path}"
+      log debug s"created ApplicationsActor with path ${applicationsActor.path}"
 
       bundlesActor = system.actorOf(Props(new BundlesActor(bundleContext)), Constants.BUNDLES_ACTOR_NAME)
-      log info s"created BundlesActor with path ${bundlesActor.path}"
+      log debug s"created BundlesActor with path ${bundlesActor.path}"
 
       //routesTracker = new RoutesTracker(system, serverConfig.authentication)
+      routesTracker = new RoutesTracker(actorSystem)
+
     }
 
     override def getActorSystemName(context: BundleContext): String = "SkysailActorSystem"
   }
 
   whenBundleActive({
+
+    log info ""
+    log info s"bundle skysail.server became active"
     addCapsule(new AkkaCapsule(bundleContext))
 
     watchServices[ApplicationProvider] {
       case AddingService(service, context) => addApplicationProvider(service, context)
-      case ModifiedService(service, context) => log info s"Service '$service' modified"; addApplicationProvider(service, context)
+      case ModifiedService(service, context) =>
+        log info s"Service '$service' modified"; addApplicationProvider(service, context)
       case RemovedService(service, _) => removeApplicationProvider(service)
     }
 
@@ -95,7 +102,7 @@ class AkkaServer extends DominoActivator {
       var binding = conf.getOrElse("binding", defaultBinding).asInstanceOf[String]
       //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
       serverConfig = ServerConfig(port, binding)
-      routesTracker = new RoutesTracker(actorSystem)
+      //routesTracker = new RoutesTracker(actorSystem)
 
       val app = new RootApplication()
       app.providesService[ApplicationProvider]

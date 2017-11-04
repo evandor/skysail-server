@@ -11,6 +11,8 @@ import io.skysail.server.app.SkysailApplication._
 class RoutesTracker(system: ActorSystem) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
+  
+  log info s"instanciating new $this.getClass.getName"
 
   private var routesBuffer = scala.collection.mutable.ListBuffer[Route]()
   private var routesMap = scala.collection.mutable.Map[String,List[Route]]()
@@ -32,6 +34,9 @@ class RoutesTracker(system: ActorSystem) {
     routesMap.remove(appInfoProvider.appModel().id)
   }
 
-  def setAuthentication(a: AuthenticationService): Unit = routesCreator.authentication = a
+  def setAuthentication(a: AuthenticationService): Unit = {
+    log info s"setting authenticataion to $a"
+    routesCreator.authentication = a
+  }
 
 }

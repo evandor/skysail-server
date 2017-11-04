@@ -30,7 +30,10 @@ class Activator extends DominoActivator {
       def directive() = AuthenticateDirective
     }
     
-    myService.providesService[AuthenticationService]
+    myService.providesService[AuthenticationService](
+      "desc" -> "Noop Authentication Bundle for skysail",
+      "info" -> "Use only for testing"
+    )
 
   })
 

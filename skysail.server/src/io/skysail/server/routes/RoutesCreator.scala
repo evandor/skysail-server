@@ -45,7 +45,7 @@ class RoutesCreator(system: ActorSystem) {
 
   private val log = LoggerFactory.getLogger(this.getClass())
 
-  log info s"instanciating new RoutesCreator"
+  log info s"instanciating new $this.getClass.getName"
 
   var authentication: AuthenticationService = null
 
