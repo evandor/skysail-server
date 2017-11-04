@@ -11,3 +11,22 @@ io.skysail.api
 === Purpose
 
 The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).
+
+[source,scala]
+.DbService.scala
+----
+include::../../io/skysail/api/persistence/DbService.scala[tag=methods]
+----
+
+
+[plantuml, diagram-classes, png]
+....
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+....

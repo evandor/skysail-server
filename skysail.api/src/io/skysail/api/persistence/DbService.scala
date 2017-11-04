@@ -4,9 +4,9 @@ object DbService {
   def tableNameFor(cls: Class[_]): String = cls.getName().replace(".", "_")
 }
 
-// tag::signatur[]
 trait DbService {
 
+  // tag::methods[]
   def createWithSuperClass(superClass: String, vertices: String*)
 
   def register(classes: Class[_]*)
@@ -14,5 +14,5 @@ trait DbService {
   def persist(entity: Any): String
   
   def findGraphs[T:Manifest](cls: Class[T], sql: String /*, Map<String, Object> params*/ ): List[T]
+  // end::methods[]
 }
-// end::signatur[]
