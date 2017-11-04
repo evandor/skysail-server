@@ -25,6 +25,7 @@ import scala.concurrent.duration.DurationInt
 import io.skysail.server.app.ApplicationProvider
 import io.skysail.server.app.SkysailApplication
 import io.skysail.server.app.SkysailApplication._
+import io.skysail.server.app.RootApplication
 
 case class ServerConfig(port: Integer, binding: String)
 
@@ -96,8 +97,8 @@ class AkkaServer extends DominoActivator {
       serverConfig = ServerConfig(port, binding)
       routesTracker = new RoutesTracker(actorSystem)
 
-      //val app = new SkysailRootApplication()
-      //app.providesService[ApplicationProvider]
+      val app = new RootApplication()
+      app.providesService[ApplicationProvider]
 
     }
 

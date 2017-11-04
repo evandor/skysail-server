@@ -33,4 +33,5 @@ Private-Package: \
 	io.skysail.server,\
 	io.skysail.server.actors,\
 	io.skysail.server.app,\
-	io.skysail.server.routes
+	io.skysail.server.routes,\
+	io.skysail.server.app.resources

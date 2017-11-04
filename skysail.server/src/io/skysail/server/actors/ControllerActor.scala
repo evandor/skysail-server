@@ -122,7 +122,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       val resEvent = ListResponseEvent(reqEvent, null)
       applicationActor ! resEvent.copy(httpResponse = resEvent.httpResponse.copy(entity = msg.entity))
     }
-    /*case msg: T => {
+    case msg: T => {
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: T"
       val reqEvent = RequestEvent(null, null)
       val resEvent = ListResponseEvent(reqEvent, null)
@@ -131,7 +131,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       val written = write(e)
       val r = HttpEntity(ContentTypes.`application/json`, written)
       applicationActor ! resEvent.copy(entity = msg, httpResponse = resEvent.httpResponse.copy(entity = r))
-    }*/
+    }
     case msg: Any => log info s">>> OUT >>>: received unknown message '$msg' in ${this.getClass.getName}"
   }
 

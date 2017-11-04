@@ -2,4 +2,6 @@
 
 == Open Issues
 
-* cannot build master.adoc properly on CI (Jenkins) (404 for publishHtml)
+* cannot build master.adoc properly on CI (Jenkins) (404 for publishHtml) - fixed
+* problem with launcher in Intellij (http://bnd.bndtools.org/chapters/300-launching.html)
+

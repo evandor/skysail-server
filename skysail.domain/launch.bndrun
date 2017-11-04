@@ -26,8 +26,8 @@
 	org.scala-lang.modules.scala-parser-combinators;version='[1.0.6,1.0.7)',\
 	org.scala-lang.scala-library;version='[2.11.11,2.11.12)',\
 	org.scala-lang.scala-reflect;version='[2.11.11,2.11.12)',\
-	skysail.api;version=snapshot,\
-	slf4j.api;version='[1.7.25,1.7.26)'
+	slf4j.api;version='[1.7.25,1.7.26)',\
+	org.apache.felix.gogo.shell;version='[1.0.0,1.0.1)'
 
 -runrequires: \
 	osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\
