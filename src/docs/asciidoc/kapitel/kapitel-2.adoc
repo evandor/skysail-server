@@ -13,6 +13,11 @@ Ein Beispiel:
 
 include::{sourcedir}main/java/demo/SampleAILibrary.java[tag=signatur]
 
+Und noch eins:
+
+include::../../../../skysail.api/src/io/skysail/api/persistence/DbService.scala[tag=signatur]
+
+
 mit Demo:
 
 include::{sourcedir}test/groovy/demo/SampleAILibrarySpec.groovy[tag=example]
