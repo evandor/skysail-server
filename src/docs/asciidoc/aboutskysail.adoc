@@ -1,7 +1,11 @@
 :source-highlighter: coderay
 :imagesdir: images
 
-= About skysail
+= About skysail (server)
+Carsten Gräf <evandor@gmail.com>
+v0.0, 2017-11-04
+:toc:
+
 
 == Introduction: skysail...
 
@@ -9,12 +13,13 @@
 
 (that you can host yourself)
 
-The overall goal of skysail is to provide you with an environment where you can create
-typical backend logic in a generic, quick way with as little dependencies as possible.
-This makes skysail suited for prototypes, first of all, but I hope that this approach - even
-if generic - is good enough for production ready applications as well.
+The overall goal of skysail is to provide you with an environment where you can
+create typical backend logic in a generic, quick way with as little dependencies
+as possible. This makes skysail suited for prototypes, first of all, but I hope
+that this approach - even though very generic - is good enough for production
+ready applications as well.
 
-Typical backend logic covered by skysail:
+*Typical backend logic covered by skysail*:
 
 * Authentication / Authorization
 * Security aspects (like injections)
@@ -31,17 +36,25 @@ We have some more things skysail could help you with:
 * Prototyping
 * and - calling other APIs
 
-A skysail backend does not only serve JSON to be used by some client, it creates a generic web GUI so that you can actually use and validate your implementation directly with a browser.
+A skysail backend does not only serve JSON to be used by some client, it creates
+a generic web GUI so that you can actually use and validate your implementation
+directly with a browser.
 
-Please check this site for the current implementation status of the above features.
+Please check this site for the current implementation status of the above
+features (todo).
 
 Now, let's explain the main buzz-words from the definition above:
 
 === Modularity
-skysail is a collection of OSGi bundles, depending on other bundles, and defining an API for domains like authentication, security, persistence and so on. If some API implementation does not fulfil your needs, it is easy to replace it with your own implementation.
+skysail is a collection of OSGi bundles, depending on other bundles, and
+defining an API for domains like authentication, security, persistence and
+so on. If some API implementation does not fulfil your needs, it is easy to
+replace it with your own implementation.
 
 === Domain-Centric
-skysail lets you concentrate on your business (or domain) logic. Http Server, database, configuration setup and the like are already there. Just use them. Or replace them with an implementation more suited for your needs.
+skysail lets you concentrate on your business (or domain) logic. Http Server,
+database, configuration setup and the like are already there. Just use them.
+Or replace them with an implementation more suited for your needs.
 
 === RESTful
 skysail concentrates on the backend and tries to stick to RESTful principles.
@@ -50,5 +63,38 @@ skysail concentrates on the backend and tries to stick to RESTful principles.
 skysail is a Backend-as-a-Service.
 
 === Self-Hosting
-The difference to many other BaaS, you can download and run skysail on your own machines.
+The difference to many other BaaS, you can download and run skysail on your
+own machines.
+
+== Why not use X/Y/Z?
+
+Apart from being deployable as a *single jar* file, skysail supports *true modularity*.
+That means, contrary to for example _Spring_, you have dynamic class and service
+discovery, not just a static one (when the application is started). Replacing a
+bundle with a new version or even a new implementation becomes trivial (apart
+from writing the new bundle maybe ;)). The system can react to changes, which
+could be a new additional bundle, or stopping a bundle, so that its services
+will become unavailable.
+
+
+
+== Concepts
+
+include::aboutskysail/concepts.adoc[leveloffset=+1]
+
+== Resources
+
+include::aboutskysail/resources.adoc[leveloffset=+1]
+
+== Request Processing
+
+include::aboutskysail/requestprocessing.adoc[leveloffset=+1]
+
+== Domain and Business Logic
+
+include::aboutskysail/domainlogic.adoc[leveloffset=+1]
+
+== Transformations
+
+include::aboutskysail/transformations.adoc[leveloffset=+1]
 

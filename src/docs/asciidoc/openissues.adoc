@@ -4,4 +4,4 @@
 
 * cannot build master.adoc properly on CI (Jenkins) (404 for publishHtml) - fixed
 * problem with launcher in Intellij (http://bnd.bndtools.org/chapters/300-launching.html)
-
+* "No Scala SDK in module": https://youtrack.jetbrains.com/issue/SCL-12718
