@@ -13,8 +13,8 @@ import io.skysail.server.Constants
 import io.skysail.domain.Resource
 import io.skysail.domain.model.ApplicationModel
 import org.osgi.framework.BundleContext
-import io.skysail.domain.ApiVersion
-import io.skysail.domain.RouteMapping
+import io.skysail.domain.app.ApiVersion
+import io.skysail.domain.routes.RouteMapping
 
 object SkysailApplication {
   val log = LoggerFactory.getLogger(classOf[SkysailApplication])

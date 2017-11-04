@@ -18,8 +18,11 @@ Bundle-ActivationPolicy: lazy
 	skysail.api;version=latest,\
 	org.scala-lang.scala-reflect;version=2.11
 
-Private-Package: io.skysail.domain
+Private-Package: \
+	io.skysail.domain,\
+	io.skysail.domain.app
 Export-Package: \
 	io.skysail.domain.messages,\
 	io.skysail.domain.model,\
-	io.skysail.domain.resources
+	io.skysail.domain.resources,\
+	io.skysail.domain.routes

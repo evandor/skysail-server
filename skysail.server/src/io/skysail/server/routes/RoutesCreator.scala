@@ -24,7 +24,7 @@ import scala.reflect.ClassTag
 import io.skysail.server.Constants
 import io.skysail.server.actors.BundlesActor
 import io.skysail.server.actors.BundleActor
-import io.skysail.domain.RouteMapping
+import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.app.ApplicationProvider
 import io.skysail.domain.Resource
 import io.skysail.domain.messages.ProcessCommand

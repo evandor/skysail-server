@@ -1,6 +1,5 @@
-package io.skysail.domain
+package io.skysail.domain.app
 
-import io.skysail.api.ddd.DddElement
 import io.skysail.domain.model.ApplicationModel
 
 object Application {

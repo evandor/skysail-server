@@ -5,7 +5,7 @@ import akka.http.scaladsl.server.PathMatcher
 import io.skysail.domain.model.ApplicationModel
 import org.osgi.framework.Bundle
 import org.osgi.framework.BundleContext
-import io.skysail.domain.RouteMapping
+import io.skysail.domain.routes.RouteMapping
 
 trait ApplicationProvider {
   def appModel(): ApplicationModel

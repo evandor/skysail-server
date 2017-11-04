@@ -1,9 +1,10 @@
-package io.skysail.domain
+package io.skysail.domain.routes
 
 import akka.http.scaladsl.server.PathMatcher
 import io.skysail.domain.Resource._
 
 import scala.reflect.runtime.universe._
+import io.skysail.domain.Resource
 
 case class RouteMapping[T /*<: DddElement*/: TypeTag](
                                  //                      path: String, resourceClass: Class[_ <: Resource[T]]

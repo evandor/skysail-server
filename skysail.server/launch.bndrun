@@ -25,9 +25,9 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.0.0))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2))',\
-	osgi.identity;filter:='(osgi.identity=skysail.server)',\
-	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.configadmin)(version>=1.8.16))',\
-	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.3))'
+	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.3))',\
+	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
+	osgi.identity;filter:='(osgi.identity=skysail.server)'
 
 -runbundles: \
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
@@ -64,4 +64,5 @@ logback.configurationFile.path = config/local
 	osgi.enterprise;version='[5.0.0,5.0.1)',\
 	skysail.api;version=snapshot,\
 	skysail.server;version=snapshot,\
-	com.typesafe.akka.slf4j;version='[2.5.3,2.5.4)'
+	com.typesafe.akka.slf4j;version='[2.5.3,2.5.4)',\
+	skysail.server.auth.none;version=snapshot

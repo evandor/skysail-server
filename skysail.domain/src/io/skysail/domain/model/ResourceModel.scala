@@ -1,6 +1,6 @@
 package io.skysail.domain.model
 
-import io.skysail.domain.RouteMapping
+import io.skysail.domain.routes.RouteMapping
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe._

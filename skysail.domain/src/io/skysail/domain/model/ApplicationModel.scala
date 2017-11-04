@@ -3,13 +3,13 @@ package io.skysail.domain.model
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatcher
 import com.fasterxml.jackson.annotation.{JsonGetter, JsonInclude}
-import io.skysail.domain.{ApiVersion, RouteMapping}
+import io.skysail.domain.routes.RouteMapping
+import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.Resource
 import org.slf4j.LoggerFactory
-
 import scala.collection.mutable.LinkedHashMap
 import scala.reflect.runtime.universe._
-import io.skysail.domain.ApiVersion
+import io.skysail.domain.app.ApiVersion
 
 /**
   * This is the root class of skysail's core domain, providing models of "skysail applications",
