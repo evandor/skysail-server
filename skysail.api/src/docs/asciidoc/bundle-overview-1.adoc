@@ -22,16 +22,9 @@ include::../../io/skysail/api/persistence/DbService.scala[tag=methods]
 [plantuml, ./diagram, png]
 .Diagram Title
 ....
-@startuml
 Alice -> Bob: Authentication Request
 Bob --> Alice: Authentication Response
 
 Alice -> Bob: Another authentication Request
 Alice <-- Bob: another authentication Response
-@enduml
-....
-
-[plantuml, diagram-classes, png]
-....
-testdot
 ....
