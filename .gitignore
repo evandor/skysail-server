@@ -2,6 +2,8 @@
 /bin_test/
 !generated/
 generated/*
+generated/
+/generated/
 /.cache-main
 /.classpath
 /.project
