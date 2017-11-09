@@ -8,6 +8,7 @@ generated/
 /.classpath
 /.project
 /.settings/
+.settings/
 .DS_Store
 .gradle/
 .metadata
