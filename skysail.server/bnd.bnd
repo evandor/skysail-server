@@ -11,6 +11,8 @@ Bundle-Activator: io.skysail.server.activator.AkkaServer
 #Require-Capability: skysail.capability.client
 Require-Capability: skysail.capability.auth 
 
+#OSGI-OPT/src=src/,
+-includeresource: resources
 
 -buildpath: \
 	osgi.core;version=${osgi.version},\

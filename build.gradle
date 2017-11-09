@@ -6,7 +6,8 @@ plugins {
 }
 
 dependencies {
-  gems 'rubygems:asciidoctor-diagram:1.5.4'
+    //gems 'rubygems:asciidoctor-diagram:1.5.4'
+    gems files('gradle/gems/asciidoctor-diagram-1.5.4.gem')
 }
 
 asciidoctorj {

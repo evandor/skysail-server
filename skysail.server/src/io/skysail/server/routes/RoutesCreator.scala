@@ -117,6 +117,12 @@ class RoutesCreator(system: ActorSystem) {
         getFromResource("client/index.html", ContentTypes.`text/html(UTF-8)`, getClientClassloader)
       }
     } ~
+      path("v2") {
+        get {
+          getFromResource("assets/index.html", ContentTypes.`text/html(UTF-8)`, this.getClass.getClassLoader)
+          //complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "yeah!"))
+        }
+      } ~
       /*path("v2") {
         get {
           val r = io.skysail.core.app.resources.html.index4.apply()
