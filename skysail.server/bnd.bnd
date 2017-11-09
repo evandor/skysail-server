@@ -26,8 +26,13 @@ Require-Capability: skysail.capability.auth
 	skysail.domain;version=latest,\
 	org.scala-lang.scala-reflect;version=2.11,\
 	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
-	com.typesafe.akka.http.jackson;version=10.0
-	
+	com.typesafe.akka.http.jackson;version=10.0,\
+	org.scalatest;version=3.0,\
+	org.scalactic;version=3.0,\
+	com.springsource.org.junit,\
+    org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
+    com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
+
 Private-Package: \
 	io.skysail.server.activator,\
 	io.skysail.server,\

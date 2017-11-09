@@ -64,3 +64,10 @@ starting "marketing version" release/0.0 for the whole project
 
 === Initial versions of skysail.server.auth.none and .basic
 
+
+=== Creating eclipse project and classpath files with gradle
+
+* https://docs.gradle.org/current/userguide/eclipse_plugin.html
+
+
+=== First Spec-Tests inside skysail.server

@@ -3,6 +3,7 @@
 /generated/
 .metadata
 /.idea/
+/.settings/
 build/
 out/
 bin/

@@ -1,3 +1,4 @@
+apply plugin: 'eclipse'
 apply plugin: 'scala'
 
 repositories {
@@ -25,4 +26,14 @@ sourceSets {
             srcDirs = []
         }*/
     }
+}
+
+eclipse {
+  project {
+    buildCommand 'bndtools.core.bndbuilder'
+    natures 'bndtools.core.bndnature'
+  }
+  classpath {
+    defaultOutputDir = file('bin')
+  }
 }
