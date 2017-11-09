@@ -1,0 +1,27 @@
+products:
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> skysail.server.auth.none/bin/io/skysail/server/auth/none/Activator$$anonfun$1$$anon$1.class
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> skysail.server.auth.none/bin/io/skysail/server/auth/none/Activator$$anonfun$1$$typecreator1$1.class
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> skysail.server.auth.none/bin/io/skysail/server/auth/none/Activator$$anonfun$1.class
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> skysail.server.auth.none/bin/io/skysail/server/auth/none/Activator.class
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> skysail.server.auth.none/bin/io/skysail/server/auth/none/AuthenticateDirective$.class
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> skysail.server.auth.none/bin/io/skysail/server/auth/none/AuthenticateDirective$class.class
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> skysail.server.auth.none/bin/io/skysail/server/auth/none/AuthenticateDirective.class
+binary dependencies:
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> /Users/carsten/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.8/ddd5a8bced249bedd86fb4578a39b9fb71480573/scala-library-2.11.8.jar
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> /Users/carsten/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-reflect/2.11.8/b74530deeba742ab4f3134de0c2da0edc49ca361/scala-reflect-2.11.8.jar
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> cnf/local/com.typesafe.akka.http/com.typesafe.akka.http-10.0.10.jar
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> cnf/local/domino_2.11/domino_2.11-1.1.2.jar
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> cnf/local/osgi.core/osgi.core-6.0.0.jar
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> cnf/local/slf4j.api/slf4j.api-1.7.25.jar
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> skysail.api/generated/skysail.api.jar
+source dependencies:
+external dependencies:
+class names:
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> io.skysail.server.auth.none.Activator
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> io.skysail.server.auth.none.Activator$$anonfun$1
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> io.skysail.server.auth.none.Activator$$anonfun$1$$anon$1
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> io.skysail.server.auth.none.Activator$$anonfun$1$$typecreator1$1
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> io.skysail.server.auth.none.AuthenticateDirective
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> io.skysail.server.auth.none.AuthenticateDirective$
+   skysail.server.auth.none/src/io/skysail/server/auth/none/Activator.scala -> io.skysail.server.auth.none.AuthenticateDirective$class

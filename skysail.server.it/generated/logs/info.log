@@ -1,0 +1,34 @@
+2017-11-09 17:21:57,042 INFO  [io.skysail.server.activator.AkkaServer       ] - 
+2017-11-09 17:21:57,052 INFO  [io.skysail.server.activator.AkkaServer       ] - bundle skysail.server became active
+2017-11-09 17:21:57,675 INFO  [io.skysail.server.activator.AkkaServer       ] - Registering Actor System as Service.
+2017-11-09 17:21:57,676 INFO  [io.skysail.server.activator.AkkaServer       ] - ActorSystem [SkysailActorSystem] initialized.
+2017-11-09 17:21:57,681 INFO  [io.skysail.server.routes.RoutesTracker       ] - instanciating new io.skysail.server.routes.RoutesTracker@53b98ff6.getClass.getName
+2017-11-09 17:21:57,683 INFO  [io.skysail.server.routes.RoutesCreator       ] - instanciating new io.skysail.server.routes.RoutesCreator@6a9287b1.getClass.getName
+2017-11-09 17:21:58,806 INFO  [io.skysail.server.activator.AkkaServer       ] - received configuration for 'server': Map()
+2017-11-09 17:21:58,816 INFO  [io.skysail.domain.model.ApplicationModel     ] - attaching root with apiVersion null
+2017-11-09 17:21:59,375 INFO  [io.skysail.server.activator.AkkaServer       ] - adding ApplicationProvider: io.skysail.server.app.RootApplication@7f4701b1; ServiceWatcherContext(domino.service_watching.ServiceWatcherCapsule$$anon$1@3a2e9f5b,[io.skysail.server.app.ApplicationProvider])
+2017-11-09 17:21:59,389 INFO  [io.skysail.server.routes.RoutesTracker       ] -  >>> >>> >>> Adding routes from io.skysail.server.app.RootApplication
+2017-11-09 17:21:59,395 INFO  [io.skysail.server.routes.RoutesCreator       ] -  >>> creating route from [/root] -> RootResource[scala.List[io.skysail.server.app.resources.RootInfo]]
+2017-11-09 17:21:59,492 INFO  [io.skysail.server.activator.AkkaServer       ] - (re)starting server with binding localhost:8080 with #1 routes.
+2017-11-09 17:22:00,426 WARN  [io.skysail.server.auth.none.Activator        ] - 
+2017-11-09 17:22:00,427 WARN  [io.skysail.server.auth.none.Activator        ] -   ==================================================
+2017-11-09 17:22:00,431 WARN  [io.skysail.server.auth.none.Activator        ] -   |                                                |
+2017-11-09 17:22:00,432 WARN  [io.skysail.server.auth.none.Activator        ] -   |  Bundle 'SKYSAIL SERVER AUTH NONE' active      |
+2017-11-09 17:22:00,432 WARN  [io.skysail.server.auth.none.Activator        ] -   |                                                |
+2017-11-09 17:22:00,432 WARN  [io.skysail.server.auth.none.Activator        ] -   | ---------------------------------------------- |
+2017-11-09 17:22:00,433 WARN  [io.skysail.server.auth.none.Activator        ] -   |                                                |
+2017-11-09 17:22:00,434 WARN  [io.skysail.server.auth.none.Activator        ] -   |  no authentication or authorization available. |
+2017-11-09 17:22:00,435 WARN  [io.skysail.server.auth.none.Activator        ] -   |  Every user can do everything.                 |
+2017-11-09 17:22:00,436 WARN  [io.skysail.server.auth.none.Activator        ] -   |                                                |
+2017-11-09 17:22:00,437 WARN  [io.skysail.server.auth.none.Activator        ] -   ==================================================
+2017-11-09 17:22:00,437 WARN  [io.skysail.server.auth.none.Activator        ] - 
+2017-11-09 17:22:00,469 INFO  [io.skysail.server.routes.RoutesTracker       ] - setting authenticataion to io.skysail.server.auth.none.Activator$$anonfun$1$$anon$1@12fcb2c3
+2017-11-09 17:22:00,611 INFO  [io.skysail.server.routes.RoutesTracker       ] -  <<< <<< <<< Removing routes from io.skysail.server.app.RootApplication
+2017-11-09 17:22:00,614 INFO  [io.skysail.server.activator.AkkaServer       ] - received configuration for 'server': Map(binding -> localhost, felix.fileinstall.filename -> file:/Users/carsten/git/skysail-server/skysail.server.it/config/server.cfg, authentication -> NONE, port -> 7999, service.pid -> server)
+2017-11-09 17:22:00,616 INFO  [io.skysail.domain.model.ApplicationModel     ] - attaching root with apiVersion null
+2017-11-09 17:22:00,621 INFO  [io.skysail.server.activator.AkkaServer       ] - (re)starting server with binding localhost:7999 with #0 routes.
+2017-11-09 17:22:00,622 WARN  [io.skysail.server.activator.AkkaServer       ] - Akka HTTP Server not started as no routes are defined
+2017-11-09 17:22:00,744 INFO  [io.skysail.server.activator.AkkaServer       ] - adding ApplicationProvider: io.skysail.server.app.RootApplication@665c3a9b; ServiceWatcherContext(domino.service_watching.ServiceWatcherCapsule$$anon$1@3a2e9f5b,[io.skysail.server.app.ApplicationProvider])
+2017-11-09 17:22:00,746 INFO  [io.skysail.server.routes.RoutesTracker       ] -  >>> >>> >>> Adding routes from io.skysail.server.app.RootApplication
+2017-11-09 17:22:00,748 INFO  [io.skysail.server.routes.RoutesCreator       ] -  >>> creating route from [/root] -> RootResource[scala.List[io.skysail.server.app.resources.RootInfo]]
+2017-11-09 17:22:00,750 INFO  [io.skysail.server.activator.AkkaServer       ] - (re)starting server with binding localhost:7999 with #1 routes.

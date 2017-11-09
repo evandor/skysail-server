@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name='test.skysail.server.it' tests='0' time='0.6' failures='0' target='reference:file:/Users/carsten/git/skysail-server/skysail.server.it/generated/skysail.server.it.jar' timestamp='2017-11-09T17:22:00' hostname='carstensmac.local' framework='org.apache.felix.framework [0]' errors='1' framework-version='5.6.2'>
+  <properties>
+    <property name='java.vendor' value='Oracle Corporation'/>
+    <property name='sun.java.launcher' value='SUN_STANDARD'/>
+    <property name='sun.management.compiler' value='HotSpot 64-Bit Tiered Compilers'/>
+    <property name='os.name' value='Mac OS X'/>
+    <property name='sun.boot.class.path' value='/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/classes'/>
+    <property name='tester.continuous' value='false'/>
+    <property name='user.country.format' value='DE'/>
+    <property name='felix.fileinstall.poll' value='1000'/>
+    <property name='java.vm.specification.vendor' value='Oracle Corporation'/>
+    <property name='java.runtime.version' value='1.8.0_121-b13'/>
+    <property name='org.apache.felix.log.storeDebug' value='true'/>
+    <property name='launch.services' value='true'/>
+    <property name='launch.notificationPort' value='-1'/>
+    <property name='launcher.properties' value='"/Users/carsten/git/skysail-server/skysail.server.it/generated/launch8486315603842698545.properties"'/>
+    <property name='user.name' value='carsten'/>
+    <property name='launch.bundles' value='/Users/carsten/git/skysail-server/cnf/local/org.apache.felix.gogo.command/org.apache.felix.gogo.command-1.0.2.jar,/Users/carsten/git/skysail-server/cnf/local/org.apache.felix.gogo.runtime/org.apache.felix.gogo.runtime-1.0.10.jar,/Users/carsten/git/skysail-server/cnf/local/ch.qos.logback.classic/ch.qos.logback.classic-1.2.3.jar,/Users/carsten/git/skysail-server/cnf/local/ch.qos.logback.core/ch.qos.logback.core-1.2.3.jar,/Users/carsten/git/skysail-server/cnf/local/com.fasterxml.jackson.core.jackson-annotations/com.fasterxml.jackson.core.jackson-annotations-2.9.2.jar,/Users/carsten/git/skysail-server/cnf/local/com.fasterxml.jackson.core.jackson-core/com.fasterxml.jackson.core.jackson-core-2.9.2.jar,/Users/carsten/git/skysail-server/cnf/local/com.fasterxml.jackson.core.jackson-databind/com.fasterxml.jackson.core.jackson-databind-2.9.2.jar,/Users/carsten/git/skysail-server/cnf/local/com.thoughtworks.paranamer/com.thoughtworks.paranamer-2.8.0.jar,/Users/carsten/git/skysail-server/cnf/local/com.typesafe.akka.actor/com.typesafe.akka.actor-2.5.3.jar,/Users/carsten/git/skysail-server/cnf/local/com.typesafe.akka.http/com.typesafe.akka.http-10.0.10.jar,/Users/carsten/git/skysail-server/cnf/local/com.typesafe.akka.http.core/com.typesafe.akka.http.core-10.0.10.jar,/Users/carsten/git/skysail-server/cnf/local/com.typesafe.akka.osgi/com.typesafe.akka.osgi-2.5.3.jar,/Users/carsten/git/skysail-server/cnf/local/com.typesafe.akka.parsing/com.typesafe.akka.parsing-10.0.10.jar,/Users/carsten/git/skysail-server/cnf/local/com.typesafe.akka.slf4j/com.typesafe.akka.slf4j-2.5.3.jar,/Users/carsten/git/skysail-server/cnf/local/com.typesafe.akka.stream/com.typesafe.akka.stream-2.5.3.jar,/Users/carsten/git/skysail-server/cnf/local/com.typesafe.config/com.typesafe.config-1.3.2.jar,/Users/carsten/git/skysail-server/cnf/local/com.typesafe.sslconfig/com.typesafe.sslconfig-0.2.2.jar,/Users/carsten/git/skysail-server/cnf/local/domino_2.11/domino_2.11-1.1.2.jar,/Users/carsten/git/skysail-server/cnf/local/io.skysail.bundled.akka-http-json4s_2.11/io.skysail.bundled.akka-http-json4s_2.11-1.17.0.jar,/Users/carsten/git/skysail-server/cnf/local/io.skysail.bundled.json4s_2.11-3.5.1/io.skysail.bundled.json4s_2.11-3.5.1-3.5.1.jar,/Users/carsten/git/skysail-server/cnf/local/io.skysail.bundled.twirl-api_2.11/io.skysail.bundled.twirl-api_2.11-1.3.12.jar,/Users/carsten/git/skysail-server/cnf/local/org.apache.commons.logging/org.apache.commons.logging-1.1.3.jar,/Users/carsten/git/skysail-server/cnf/local/org.apache.felix.configadmin/org.apache.felix.configadmin-1.8.16.jar,/Users/carsten/git/skysail-server/cnf/local/org.apache.felix.gogo.shell/org.apache.felix.gogo.shell-1.0.0.jar,/Users/carsten/git/skysail-server/cnf/local/org.apache.httpcomponents.httpclient/org.apache.httpcomponents.httpclient-4.5.3.jar,/Users/carsten/git/skysail-server/cnf/local/org.apache.httpcomponents.httpcore/org.apache.httpcomponents.httpcore-4.4.8.jar,/Users/carsten/git/skysail-server/cnf/local/org.reactivestreams.reactive-streams/org.reactivestreams.reactive-streams-1.0.1.jar,/Users/carsten/git/skysail-server/cnf/local/org.scala-lang.modules.scala-java8-compat/org.scala-lang.modules.scala-java8-compat-0.8.0.jar,/Users/carsten/git/skysail-server/cnf/local/org.scala-lang.modules.scala-parser-combinators/org.scala-lang.modules.scala-parser-combinators-1.0.6.jar,/Users/carsten/git/skysail-server/cnf/local/org.scala-lang.modules.scala-xml/org.scala-lang.modules.scala-xml-1.0.6.jar,/Users/carsten/git/skysail-server/cnf/local/org.scala-lang.scala-library/org.scala-lang.scala-library-2.11.11.jar,/Users/carsten/git/skysail-server/cnf/local/org.scala-lang.scala-reflect/org.scala-lang.scala-reflect-2.11.11.jar,/Users/carsten/git/skysail-server/cnf/local/osgi.enterprise/osgi.enterprise-5.0.0.jar,/Users/carsten/git/skysail-server/skysail.api/generated/skysail.api.jar,/Users/carsten/git/skysail-server/skysail.domain/generated/skysail.domain.jar,/Users/carsten/git/skysail-server/skysail.server/generated/skysail.server.jar,/Users/carsten/git/skysail-server/skysail.server.auth.none/generated/skysail.server.auth.none.jar,/Users/carsten/git/skysail-server/cnf/local/slf4j.api/slf4j.api-1.7.25.jar,/Users/carsten/git/skysail-server/cnf/local/webconsole.all/webconsole.all-0.1.18.jar,/Users/carsten/git/skysail-server/cnf/local/de.twentyeleven.skysail.org.hamcrest.hamcrest-all-osgi/de.twentyeleven.skysail.org.hamcrest.hamcrest-all-osgi-1.3.0.jar,/Users/carsten/git/skysail-server/cnf/local/osgi.enroute.junit.wrapper/osgi.enroute.junit.wrapper-4.12.0.jar,/Users/carsten/git/skysail-server/cnf/local/org.apache.felix.fileinstall/org.apache.felix.fileinstall-3.6.4.jar,/Users/carsten/git/skysail-server/skysail.server.it/generated/skysail.server.it.jar,/Users/carsten/git/skysail-server/cnf/cache/3.4.0/bnd-cache/biz.aQute.tester/biz.aQute.tester-3.4.0.jar'/>
+    <property name='felix.fileinstall.log.level' value='4'/>
+    <property name='user.language' value='en'/>
+    <property name='sun.boot.library.path' value='/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib'/>
+    <property name='felix.fileinstall.noInitialDelay' value='true'/>
+    <property name='org.osgi.framework.bootdelegation' value='sun.misc'/>
+    <property name='java.version' value='1.8.0_121'/>
+    <property name='user.timezone' value='Europe/Berlin'/>
+    <property name='tester.dir' value='/Users/carsten/git/skysail-server/skysail.server.it/generated/test-reports/testOSGi'/>
+    <property name='sun.arch.data.model' value='64'/>
+    <property name='tester.unresolved' value='true'/>
+    <property name='java.endorsed.dirs' value='/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/endorsed'/>
+    <property name='sun.cpu.isalist' value=''/>
+    <property name='sun.jnu.encoding' value='UTF-8'/>
+    <property name='file.encoding.pkg' value='sun.io'/>
+    <property name='launch.noreferences' value='false'/>
+    <property name='file.separator' value='/'/>
+    <property name='java.specification.name' value='Java Platform API Specification'/>
+    <property name='jsse.enableSNIExtension' value='false'/>
+    <property name='java.class.version' value='52.0'/>
+    <property name='user.country' value='US'/>
+    <property name='java.home' value='/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre'/>
+    <property name='felix.fileinstall.dir' value='config'/>
+    <property name='java.vm.info' value='mixed mode'/>
+    <property name='os.version' value='10.12.6'/>
+    <property name='logback.configurationFile' value='config/logback.xml'/>
+    <property name='path.separator' value=':'/>
+    <property name='java.vm.version' value='25.121-b13'/>
+    <property name='java.awt.printerjob' value='sun.lwawt.macosx.CPrinterJob'/>
+    <property name='sun.io.unicode.encoding' value='UnicodeBig'/>
+    <property name='awt.toolkit' value='sun.lwawt.macosx.LWCToolkit'/>
+    <property name='user.home' value='/Users/carsten'/>
+    <property name='java.specification.vendor' value='Oracle Corporation'/>
+    <property name='java.library.path' value='/Users/carsten/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.'/>
+    <property name='java.vendor.url' value='http://java.oracle.com/'/>
+    <property name='java.vm.vendor' value='Oracle Corporation'/>
+    <property name='gopherProxySet' value='false'/>
+    <property name='java.runtime.name' value='Java(TM) SE Runtime Environment'/>
+    <property name='sun.java.command' value='aQute.launcher.Launcher'/>
+    <property name='java.class.path' value='/Users/carsten/git/skysail-server/cnf/local/org.apache.felix.framework/org.apache.felix.framework-5.6.2.jar:/Users/carsten/git/skysail-server/cnf/cache/3.4.0/bnd-cache/biz.aQute.launcher/biz.aQute.launcher-3.4.0.jar'/>
+    <property name='launch.system.capabilities' value='osgi.native;osgi.native.osname:List&lt;String&gt;="MacOSX,Mac OS X";osgi.native.osversion:Version="10.12.6";osgi.native.processor:List&lt;String&gt;="x86-64,amd64,em64t,x86_64";osgi.native.language=en_US'/>
+    <property name='launch.name' value='skysail.server.it'/>
+    <property name='launch.timeout' value='0'/>
+    <property name='launch.storage.dir' value='/Users/carsten/git/skysail-server/skysail.server.it/generated/fw'/>
+    <property name='launch.keep' value='false'/>
+    <property name='java.vm.specification.name' value='Java Virtual Machine Specification'/>
+    <property name='java.vm.specification.version' value='1.8'/>
+    <property name='sun.cpu.endian' value='little'/>
+    <property name='sun.os.patch.level' value='unknown'/>
+    <property name='gosh.args' value='--nointeractive'/>
+    <property name='java.io.tmpdir' value='/var/folders/6h/l_z7dfrn5ngbm0lf8__3zhvm0000gn/T/'/>
+    <property name='java.vendor.url.bug' value='http://bugreport.sun.com/bugreport/'/>
+    <property name='os.arch' value='x86_64'/>
+    <property name='java.awt.graphicsenv' value='sun.awt.CGraphicsEnvironment'/>
+    <property name='java.ext.dirs' value='/Users/carsten/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java'/>
+    <property name='user.dir' value='/Users/carsten/git/skysail-server/skysail.server.it'/>
+    <property name='launch.trace' value='false'/>
+    <property name='felix.fileinstall.filter' value='.*\.jar|.*\.cfg'/>
+    <property name='line.separator' value='
+'/>
+    <property name='java.vm.name' value='Java HotSpot(TM) 64-Bit Server VM'/>
+    <property name='launch.embedded' value='false'/>
+    <property name='launch.activators' value=''/>
+    <property name='file.encoding' value='UTF-8'/>
+    <property name='launch.system.packages' value='com.sun.image.codec.jpeg,com.sun.management,com.sun.net.httpserver,javafx.application,javafx.fxml,javafx.scene,javafx.scene.control,javafx.scene.layout,javafx.stage,javafx.beans.property,javafx.collections,javafx.beans.value,javafx.concurrent,javafx.event,javafx.geometry,javafx.scene.image,javafx.scene.web,javafx.util,javafx.scene.paint,javax.annotation.meta,javax.crypto,javax.crypto.spec,javax.imageio.spi,javax.script,javax.net,javax.net.ssl,javax.security.auth.x500,javax.sql,javax.mail,javax.mail.internet,javax.naming,javax.naming.directory,javax.naming.ldap,javax.xml.bind,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,javax.xml.stream,javax.activation,javax.security.auth.callback,javax.naming.spi,javax.management,javax.management.openmbean,javax.swing.tree,javax.transaction,javax.transaction.xa,javax.xml.transform.stax,sun.reflect,sun.misc,sun.net,org.ietf.jgss,netscape.javascript,sun.nio.ch,org.osgi.framework;version="1.8",org.osgi.framework.dto;version="1.8";uses:="org.osgi.dto",org.osgi.framework.hooks.bundle;version="1.1";uses:="org.osgi.framework",org.osgi.framework.hooks.resolver;version="1.0";uses:="org.osgi.framework.wiring",org.osgi.framework.hooks.service;version="1.1";uses:="org.osgi.framework",org.osgi.framework.hooks.weaving;version="1.1";uses:="org.osgi.framework.wiring",org.osgi.framework.launch;version="1.2";uses:="org.osgi.framework",org.osgi.framework.namespace;version="1.1";uses:="org.osgi.resource",org.osgi.framework.startlevel;version="1.0";uses:="org.osgi.framework",org.osgi.framework.startlevel.dto;version="1.0";uses:="org.osgi.dto",org.osgi.framework.wiring;version="1.2";uses:="org.osgi.framework,org.osgi.resource",org.osgi.framework.wiring.dto;version="1.2";uses:="org.osgi.dto,org.osgi.resource.dto",org.osgi.resource;version="1.0",org.osgi.resource.dto;version="1.0";uses:="org.osgi.dto",org.osgi.service.packageadmin;version="1.2";uses:="org.osgi.framework",org.osgi.service.startlevel;version="1.1";uses:="org.osgi.framework",org.osgi.service.url;version="1.0",org.osgi.service.resolver;version="1.0";uses:="org.osgi.resource",org.osgi.util.tracker;version="1.5.1";uses:="org.osgi.framework",org.osgi.dto;version="1.0"'/>
+    <property name='java.specification.version' value='1.8'/>
+  </properties>
+  <error type='java.lang.Exception' message='Cannot load class io.skysail.server.it.SkysailServerIntegrationTest, was it included in the test bundle?'><![CDATA[java.lang.Exception: Cannot load class io.skysail.server.it.SkysailServerIntegrationTest, was it included in the test bundle?
+ at aQute.junit.Activator.addTest(Activator.java:444)
+ at aQute.junit.Activator.createSuite(Activator.java:418)
+ at aQute.junit.Activator.test(Activator.java:333)
+ at aQute.junit.Activator.automatic(Activator.java:234)
+ at aQute.junit.Activator.run(Activator.java:175)
+ at aQute.launcher.Launcher$5.call(Launcher.java:1201)
+ at aQute.launcher.Launcher$5.call(Launcher.java:1199)
+ at aQute.launcher.Launcher.run(Launcher.java:328)
+ at aQute.launcher.Launcher.main(Launcher.java:138)
+]]>
+  </error>
+</testsuite>
