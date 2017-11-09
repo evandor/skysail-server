@@ -5,8 +5,8 @@ generated/*
 generated/
 /generated/
 /.cache-main
-/.classpath
-/.project
+.classpath
+.project
 /.settings/
 .settings/
 .DS_Store
