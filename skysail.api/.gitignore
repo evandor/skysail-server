@@ -1,8 +1,0 @@
-/bin/
-/generated/
-/.cache-main
-/.classpath
-/.project
-/.settings/
-/skysail.api.iml
-*.jar

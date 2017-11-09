@@ -1,0 +1,29 @@
+products:
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> skysail.api/bin/io/skysail/api/ddd/DddElement.class
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> skysail.api/bin/io/skysail/api/ddd/Entity$class.class
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> skysail.api/bin/io/skysail/api/ddd/Entity.class
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> skysail.api/bin/io/skysail/api/ddd/ValueObject.class
+   skysail.api/src/io/skysail/api/persistence/DbService.scala -> skysail.api/bin/io/skysail/api/persistence/DbService$.class
+   skysail.api/src/io/skysail/api/persistence/DbService.scala -> skysail.api/bin/io/skysail/api/persistence/DbService.class
+   skysail.api/src/io/skysail/api/security/AuthenticationService.scala -> skysail.api/bin/io/skysail/api/security/AuthenticationService.class
+   skysail.api/src/io/skysail/api/security/AuthorizationService.scala -> skysail.api/bin/io/skysail/api/security/AuthorizationService.class
+binary dependencies:
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> /Users/carsten/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.8/ddd5a8bced249bedd86fb4578a39b9fb71480573/scala-library-2.11.8.jar
+   skysail.api/src/io/skysail/api/persistence/DbService.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar
+   skysail.api/src/io/skysail/api/persistence/DbService.scala -> /Users/carsten/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.8/ddd5a8bced249bedd86fb4578a39b9fb71480573/scala-library-2.11.8.jar
+   skysail.api/src/io/skysail/api/security/AuthenticationService.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar
+   skysail.api/src/io/skysail/api/security/AuthenticationService.scala -> /Users/carsten/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.8/ddd5a8bced249bedd86fb4578a39b9fb71480573/scala-library-2.11.8.jar
+   skysail.api/src/io/skysail/api/security/AuthenticationService.scala -> cnf/local/com.typesafe.akka.http/com.typesafe.akka.http-10.0.10.jar
+   skysail.api/src/io/skysail/api/security/AuthorizationService.scala -> /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/rt.jar
+source dependencies:
+external dependencies:
+class names:
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> io.skysail.api.ddd.DddElement
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> io.skysail.api.ddd.Entity
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> io.skysail.api.ddd.Entity$class
+   skysail.api/src/io/skysail/api/ddd/ddd.scala -> io.skysail.api.ddd.ValueObject
+   skysail.api/src/io/skysail/api/persistence/DbService.scala -> io.skysail.api.persistence.DbService
+   skysail.api/src/io/skysail/api/persistence/DbService.scala -> io.skysail.api.persistence.DbService$
+   skysail.api/src/io/skysail/api/security/AuthenticationService.scala -> io.skysail.api.security.AuthenticationService
+   skysail.api/src/io/skysail/api/security/AuthorizationService.scala -> io.skysail.api.security.AuthorizationService

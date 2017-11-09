@@ -7,14 +7,15 @@ import akka.http.scaladsl.model._
 import akka.http.scaladsl.unmarshalling.Unmarshaller.UnsupportedContentTypeException
 import akka.http.scaladsl.unmarshalling.{Unmarshal, Unmarshaller}
 import akka.stream.ActorMaterializer
+import de.heikoseeberger.akkahttpjson4s.Json4sSupport
+import org.json4s.jackson.Serialization
 import org.json4s.{DefaultFormats, jackson, native}
-import org.scalatest.{AsyncWordSpec, BeforeAndAfterAll, Matchers, WordSpec}
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
+import org.scalatest.{AsyncWordSpec, BeforeAndAfterAll, Matchers}
 
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
-import de.heikoseeberger.akkahttpjson4s.Json4sSupport
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 object Json4sSupportSpec {
 
@@ -36,7 +37,7 @@ final class ControllerActorSpec extends AsyncWordSpec with Matchers with BeforeA
 
   "Json4sSupport" should {
     "enable marshalling and unmarshalling objects for `DefaultFormats` and `jackson.Serialization`" in {
-      implicit val serialization = jackson.Serialization
+      implicit val serialization: Serialization.type = jackson.Serialization
       Marshal(foo)
         .to[RequestEntity]
         .flatMap(Unmarshal(_).to[Foo])

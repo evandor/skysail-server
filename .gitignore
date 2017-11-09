@@ -1,9 +1,14 @@
+/bin/
+/bin_test/
+/generated/
+/.cache-main
+/.classpath
+/.project
+/.settings/
 .DS_Store
 .gradle/
-/generated/
 .metadata
 /.idea/
-/.settings/
 build/
 out/
 bin/
