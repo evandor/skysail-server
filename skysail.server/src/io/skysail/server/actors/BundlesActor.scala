@@ -98,7 +98,7 @@ class BundlesActor(bundleContext: BundleContext) extends Actor with ActorLogging
 
   private def getBundle(symbolicName: String) = {
     println(bundleContext.getBundles.map(b => b.getSymbolicName).mkString(","))
-    val bundle = bundleContext.getBundle(37)
+    val bundle = bundleContext.getBundle(symbolicName)
     sender ! bundle
   }
 
