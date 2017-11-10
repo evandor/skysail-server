@@ -1,7 +1,7 @@
 package io.skysail.server.doc
 
 import domino.DominoActivator
-import io.skysail.domain.ApplicationProvider
+import io.skysail.server.app.ApplicationProvider
 
 class DocActivator extends DominoActivator {
 

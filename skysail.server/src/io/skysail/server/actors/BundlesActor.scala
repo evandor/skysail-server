@@ -14,6 +14,8 @@ object BundlesActor {
 
   case class GetBundle(id: Long)
 
+  case class GetBundleBySymbolicName(symbolicName: String)
+
   case class GetServices()
 
   case class CreateBundleActor(b: Bundle)
@@ -34,6 +36,7 @@ class BundlesActor(bundleContext: BundleContext) extends Actor with ActorLogging
     case gr: GetResource => getResource(gr)
     case gb: GetBundles => getBundles(gb)
     case GetBundle(id: Long) => getBundle(id)
+    case GetBundleBySymbolicName(symbolicName: String) => getBundle(symbolicName)
     case GetServices() => getServices()
     case gc: GetCapabilities => getCapabilities()
     case cb: CreateBundleActor => createBundleActor(cb)
@@ -91,6 +94,12 @@ class BundlesActor(bundleContext: BundleContext) extends Actor with ActorLogging
 
   private def getBundle(id: Long) = {
     sender ! bundleContext.getBundle(id)
+  }
+
+  private def getBundle(symbolicName: String) = {
+    println(bundleContext.getBundles.map(b => b.getSymbolicName).mkString(","))
+    val bundle = bundleContext.getBundle(37)
+    sender ! bundle
   }
 
 }

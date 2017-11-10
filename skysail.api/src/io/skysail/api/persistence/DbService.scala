@@ -1,7 +1,7 @@
 package io.skysail.api.persistence
 
 object DbService {
-  def tableNameFor(cls: Class[_]): String = cls.getName().replace(".", "_")
+  def tableNameFor(cls: Class[_]): String = cls.getName.replace(".", "_")
 }
 
 trait DbService {

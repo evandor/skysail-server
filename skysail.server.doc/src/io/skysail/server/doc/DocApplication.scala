@@ -1,9 +1,8 @@
 package io.skysail.server.doc
 
 import akka.http.scaladsl.server.PathMatcher
-import io.skysail.domain.ApplicationProvider
 import io.skysail.domain.routes.RouteMapping
-import io.skysail.server.app.SkysailApplication
+import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
 import io.skysail.server.doc.DocApplication._
 
 object DocApplication {
@@ -27,7 +26,7 @@ class DocApplication extends SkysailApplication(APPLICATION_NAME, "Skysail Doc A
   //  }
 
   override def routesMappings = {
-    val root: PathMatcher[Unit] = PathMatcher("root")
+    val root: PathMatcher[Unit] = PathMatcher("doc")
     List(
       RouteMapping("", root, classOf[MetaDocResource]),
       RouteMapping("_info", root / "_info", classOf[DocInfoResource])

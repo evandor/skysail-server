@@ -10,7 +10,7 @@ sealed trait DddElement
 
 /**
   *
-  * @tparam T
+  * @tparam T the type of the id attribute for this entity, e.g. Int or String
   */
 trait Entity[T] extends DddElement {
   def id: Option[T]
@@ -25,10 +25,10 @@ trait Entity[T] extends DddElement {
     if (id == null || otherEntity.id == null) {
       return false
     }
-    if (id == None || otherEntity.id == None) {
+    if (id.isEmpty || otherEntity.id.isEmpty) {
       return false
     }
-    return otherEntity.id == id
+    otherEntity.id == id
   }
 }
 

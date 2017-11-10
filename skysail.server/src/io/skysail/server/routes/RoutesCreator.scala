@@ -2,8 +2,8 @@ package io.skysail.server.routes
 
 import java.lang.annotation.Annotation
 import java.util.concurrent.atomic.AtomicInteger
-import io.skysail.server.TunnelDirectives._
 
+import io.skysail.server.TunnelDirectives._
 import akka.actor.{ActorRef, ActorSelection, ActorSystem}
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.model.ws.{BinaryMessage, Message, TextMessage}
@@ -15,10 +15,10 @@ import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Flow, Source}
 import akka.util.Timeout
 import io.skysail.api.security.AuthenticationService
-import org.osgi.framework.wiring.BundleCapability
+import org.osgi.framework.wiring.{BundleCapability, BundleWiring}
 import org.slf4j.LoggerFactory
 
-import scala.concurrent.Await
+import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.DurationInt
 import scala.reflect.ClassTag
 import io.skysail.server.Constants
@@ -30,6 +30,7 @@ import io.skysail.domain.Resource
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.server.app.SkysailApplication
 import io.skysail.server.app.SkysailApplication._
+import org.osgi.framework.Bundle
 
 object RoutesCreator {
 
@@ -67,6 +68,13 @@ class RoutesCreator(system: ActorSystem) {
     null
   }
 
+  val docClassloader = {
+    val bundlesActor = SkysailApplication.getBundlesActor(system)
+    val docBundle: Future[Bundle] = (bundlesActor ? BundlesActor.GetBundleBySymbolicName("skysail.server.doc")).mapTo[Bundle]
+    val b: Bundle = Await.result(docBundle, 3.seconds)
+    b.adapt(classOf[BundleWiring]).getClassLoader
+  }
+
   //val pathMatcherFactory = PathMatcherFactory
 
   def createRoute(mapping: RouteMapping[_], appInfoProvider: ApplicationProvider): Route = {
@@ -84,7 +92,14 @@ class RoutesCreator(system: ActorSystem) {
         PathMatcherFactory.matcherFor(appRoute, mapping.path.trim())
 
     val appSelector = getApplicationActorSelection(system, appInfoProvider.getClass.getName)
-    val route: Route = staticResources() ~ matcher(pathMatcherTypeTuple, mapping, appInfoProvider) ~ clientPath() ~ indexPath() ~ websocketPath()
+
+    val route: Route =
+      staticResources() ~
+        matcher(pathMatcherTypeTuple, mapping, appInfoProvider) ~
+        clientPath() ~
+        docPath() ~
+        indexPath() ~
+        websocketPath()
 
     def myRejectionHandler =
       RejectionHandler.newBuilder()
@@ -158,6 +173,15 @@ class RoutesCreator(system: ActorSystem) {
       get {
         getFromResourceDirectory("client", getClientClassloader)
         getFromResource("client/index.html", ContentTypes.`text/html(UTF-8)`, getClientClassloader)
+      }
+    }
+  }
+
+  private def docPath(): Route = {
+    pathPrefix("ddd") {
+      get {
+        getFromResourceDirectory("html5", getDocClassloader)
+        getFromResource("html5/index.html", ContentTypes.`text/html(UTF-8)`, getDocClassloader)
       }
     }
   }
@@ -310,5 +334,7 @@ class RoutesCreator(system: ActorSystem) {
   }
 
   private def getClientClassloader() = clientClassloader
+
+  private def getDocClassloader() = docClassloader
 
 }

@@ -15,6 +15,7 @@ import io.skysail.domain.model.ApplicationModel
 import org.osgi.framework.BundleContext
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMapping
+import io.skysail.server.actors.BundlesActor
 
 object SkysailApplication {
   val log = LoggerFactory.getLogger(classOf[SkysailApplication])
@@ -47,6 +48,16 @@ object SkysailApplication {
     system.actorSelection(actorSelection)
   }
 
+//  def getBundleActor(system: ActorSystem, symbolicName: String): Option[ActorSelection] = {
+//
+//    val bundlesActor = getBundlesActor(system)
+//
+//    bundlesActor ? BundlesActor.GetBundleBySymbolicName
+//
+//    val actorSelection = "/user/" + Constants.BUNDLES_ACTOR_NAME + "/" + bundleId.toString
+//    println("searching for actorSelection " + actorSelection)
+//    system.actorSelection(actorSelection)
+//  }
 }
 
 abstract class SkysailApplication(name: String, val apiVersion: ApiVersion, description: String) extends ApplicationProvider {

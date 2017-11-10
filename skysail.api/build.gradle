@@ -12,6 +12,8 @@ dependencies {
 sourceSets {
     main {
         scala {
+            //noinspection GroovyAssignabilityCheck
+            //noinspection PackageAccessibility
             srcDirs = ['src']
         }
         /*java {
@@ -20,6 +22,8 @@ sourceSets {
     }
     test {
         scala {
+            //noinspection GroovyAssignabilityCheck
+            //noinspection PackageAccessibility
             srcDirs = ['test']
         }
         /*java {
