@@ -29,7 +29,8 @@ class DocApplication extends SkysailApplication(APPLICATION_NAME, "Skysail Doc A
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("root")
     List(
-      RouteMapping("", root, classOf[MetaDocResource])
+      RouteMapping("", root, classOf[MetaDocResource]),
+      RouteMapping("_info", root / "_info", classOf[DocInfoResource])
     )
   }
 
