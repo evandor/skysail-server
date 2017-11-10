@@ -1,7 +1,17 @@
 package io.skysail.api.ddd
 
+/**
+  * DDD stands for the concepts of "Domain Driven Design".
+  *
+  * This sealed trait defines various elements to characterize
+  * these concepts.
+  */
 sealed trait DddElement
 
+/**
+  *
+  * @tparam T
+  */
 trait Entity[T] extends DddElement {
   def id: Option[T]
 

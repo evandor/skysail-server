@@ -1,15 +1,12 @@
-Bundle-Name: SKYSAIL :: server
+Bundle-Name: SKYSAIL :: server :: doc
 
 Bundle-Version: 0.1.0.${tstamp}
 
-Bundle-Description: Server Bundle for Skysail
+Bundle-Description: Documentation Bundle for skysail server
 
 Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
-Bundle-Activator: io.skysail.server.activator.AkkaServer
-
-#Require-Capability: skysail.capability.client
-Require-Capability: skysail.capability.auth 
+Bundle-Activator: io.skysail.server.doc.DocActivator
 
 #OSGI-OPT/src=src/,
 -includeresource: resources
@@ -26,6 +23,7 @@ Require-Capability: skysail.capability.auth
 	io.skysail.bundled.json4s_2.11-3.5.1;version=3.5,\
 	skysail.api;version=latest,\
 	skysail.domain;version=latest,\
+	skysail.server;version=latest,\
 	org.scala-lang.scala-reflect;version=2.11,\
 	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
 	com.typesafe.akka.http.jackson;version=10.0,\
@@ -35,21 +33,5 @@ Require-Capability: skysail.capability.auth
     org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
     com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
 
-Export-Package: \
-	io.skysail.api.ddd,\
-	io.skysail.api.persistence,\
-	io.skysail.api.security,\
-	io.skysail.domain,\
-	io.skysail.domain.app,\
-	io.skysail.domain.messages,\
-	io.skysail.domain.model,\
-	io.skysail.domain.resources,\
-	io.skysail.domain.routes,\
-    io.skysail.server.app
-
 Private-Package: \
-	io.skysail.server.activator,\
-	io.skysail.server,\
-	io.skysail.server.actors,\
-	io.skysail.server.routes,\
-	io.skysail.server.app.resources
+	io.skysail.server.doc
