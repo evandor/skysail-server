@@ -45,19 +45,3 @@ configure(createAndCopyDocumentationToDocBundle) {
     group = 'documentation'
     description = 'Creates Asciidoc html5 documentation and copies it to skysail.server.doc'
 }
-
-eclipse {
-    project {
-        buildCommand 'bndtools.core.bndbuilder'
-        natures 'bndtools.core.bndnature'
-    }
-    classpath {
-        defaultOutputDir = file('bin')
-        containers 'org.scala-ide.sdt.launching.SCALA_CONTAINER', 'aQute.bnd.classpath.container'
-        file {
-            whenMerged {
-                entries.removeAll { it.kind == 'lib' }
-            }
-        }
-    }
-}

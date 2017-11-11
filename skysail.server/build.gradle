@@ -14,16 +14,26 @@ sourceSets {
         scala {
             srcDirs = ['src']
         }
-        /*java {
-            srcDirs = []
-        }*/
     }
     test {
         scala {
             srcDirs = ['test']
         }
-        /*java {
-            srcDirs = []
-        }*/
+    }
+}
+
+eclipse {
+    project {
+        buildCommand 'bndtools.core.bndbuilder'
+        natures 'bndtools.core.bndnature'
+    }
+    classpath {
+        defaultOutputDir = file('bin')
+        containers 'org.scala-ide.sdt.launching.SCALA_CONTAINER', 'aQute.bnd.classpath.container'
+        file {
+            whenMerged {
+                entries.removeAll { it.kind == 'lib' }
+            }
+        }
     }
 }
