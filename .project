@@ -3,16 +3,8 @@
 	<name>skysail-server</name>
 	<comment></comment>
 	<projects/>
-	<natures>
-		<nature>org.scala-ide.sdt.core.scalanature</nature>
-		<nature>org.eclipse.jdt.core.javanature</nature>
-	</natures>
-	<buildSpec>
-		<buildCommand>
-			<name>org.scala-ide.sdt.core.scalabuilder</name>
-			<arguments/>
-		</buildCommand>
-	</buildSpec>
+	<natures/>
+	<buildSpec/>
 	<linkedResources/>
 	<filteredResources/>
 </projectDescription>

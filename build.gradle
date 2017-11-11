@@ -5,6 +5,8 @@ plugins {
     id 'com.github.jruby-gradle.base' version '1.4.0'
 }
 
+apply plugin: 'eclipse'
+
 //apply plugin: "org.asciidoctor.convert"
 
 dependencies {
