@@ -1,19 +1,21 @@
 // Available to customize the build
 
 plugins {
-    id "org.asciidoctor.convert" version "1.5.3"
-    id 'com.github.jruby-gradle.base' version '1.4.0'
+    //id "org.asciidoctor.convert" version "1.5.3"
+    //id 'com.github.jruby-gradle.base' version '1.4.0'
 }
+
+//apply plugin: 'org.asciidoctor.convert'
 
 dependencies {
-    gems files('gradle/gems/asciidoctor-diagram-1.5.4.gem')
+    //gems files('gradle/gems/asciidoctor-diagram-1.5.4.gem')
 }
 
-asciidoctorj {
+/*asciidoctorj {
     version = '1.5.5'
-}
+}*/
 
-asciidoctor {
+/*asciidoctor {
     dependsOn jrubyPrepare
     requires = ['asciidoctor-diagram']
     gemPath = jrubyPrepare.outputDir
@@ -28,12 +30,12 @@ asciidoctor {
             'idseparator': '-',
             'docinfo1': ''
 }
-
+*/
 task wrapper(type: Wrapper) {
     jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
 }
 
-task createAndCopyDocumentationToDocBundle(dependsOn: asciidoctor, type: Copy) {
+/*task createAndCopyDocumentationToDocBundle(dependsOn: asciidoctor, type: Copy) {
     from 'build/asciidoc/html5'
     into 'skysail.server.doc/resources/assets/html5'
 }
@@ -41,4 +43,5 @@ task createAndCopyDocumentationToDocBundle(dependsOn: asciidoctor, type: Copy) {
 configure(createAndCopyDocumentationToDocBundle) {
     group = 'documentation'
     description = 'Creates Asciidoc html5 documentation and copies it to skysail.server.doc'
-}
+}*/
+
