@@ -7,7 +7,7 @@ import io.skysail.server.app.resources.RootInfo
 case class DocInfoResource() extends AsyncEntityResource {
 
   override def get(requestEvent: RequestEvent): Unit = {
-    requestEvent.controllerActor ! RootInfo("skysail doc","powered by skysail.")
+    requestEvent.controllerActor ! RootInfo("skysail doc!!!","powered by skysail.")
   }
 
 }

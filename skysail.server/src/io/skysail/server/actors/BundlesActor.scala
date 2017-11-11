@@ -97,8 +97,14 @@ class BundlesActor(bundleContext: BundleContext) extends Actor with ActorLogging
   }
 
   private def getBundle(symbolicName: String) = {
-    println(bundleContext.getBundles.map(b => b.getSymbolicName).mkString(","))
-    val bundle = bundleContext.getBundle(symbolicName)
+    println(bundleContext.getBundles.map(b => b.getSymbolicName).mkString(",\n"))
+//    try {
+//      val bundle = bundleContext.getBundle(symbolicName)
+//      sender ! bundle
+//    } catch {
+//      case e: Throwable => e.printStackTrace()
+//    }
+    val bundle = bundleContext.getBundles.filter(_.getSymbolicName == symbolicName).head
     sender ! bundle
   }
 

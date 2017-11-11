@@ -18,7 +18,7 @@ object RootApplication {
   val CONFIG_IDENTIFIER_LANDINGPAGE_AUTHENTICATED = "landingPage.authenticated"
 
 }
-class RootApplication extends SkysailApplication(ROOT_APPLICATION_NAME, null, "backend root")
+class RootApplication extends SkysailApplication(ROOT_APPLICATION_NAME, null, null, "backend root")
   with ApplicationProvider {
 
   def routesMappings: List[RouteMapping[_]] = {

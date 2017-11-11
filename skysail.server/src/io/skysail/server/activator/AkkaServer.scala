@@ -157,9 +157,7 @@ class AkkaServer extends DominoActivator {
       val appClass = appInfoProvider.getClass.asInstanceOf[Class[SkysailApplication]]
       val appModel = appInfoProvider.appModel()
       val application = appInfoProvider.application()
-      val optionalBundleContext = appInfoProvider.getBundleContext()
-
-      appsActor ! CreateApplicationActor(appClass, appModel, application, optionalBundleContext)
+      appsActor ! CreateApplicationActor(appClass, appModel, application, appInfoProvider.bundleContext)
     }
   }
 }

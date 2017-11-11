@@ -5,23 +5,17 @@ import java.util.concurrent.atomic.AtomicInteger
 import akka.actor.SupervisorStrategy.{Restart, Stop}
 import akka.actor.{Actor, ActorInitializationException, ActorKilledException, ActorLogging, DeathPactException, OneForOneStrategy, Props}
 import akka.event.LoggingReceive
-import akka.http.scaladsl.model.Uri
-import akka.http.scaladsl.server.RequestContext
 import akka.pattern.ask
 import akka.util.Timeout
+import io.skysail.domain.{Resource, ResponseEventBase}
+import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
-import io.skysail.domain.Resource
 import io.skysail.server.actors.ApplicationActor._
+import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
 import org.osgi.framework.BundleContext
 
 import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Success}
-import io.skysail.domain.model.ApplicationModel
-import io.skysail.domain.Resource
-import io.skysail.server.app.ApplicationProvider
-import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.ResponseEventBase
-import io.skysail.server.app.SkysailApplication
 
 object ApplicationActor {
 
@@ -29,7 +23,7 @@ object ApplicationActor {
 
   case class GetApplication()
 
-  case class SkysailContext(cmd: ProcessCommand, appModel: ApplicationModel, resource: Resource[_], bundleContext: Option[BundleContext])
+  case class SkysailContext(cmd: ProcessCommand, appModel: ApplicationModel, resource: Resource[_], bundleContext: BundleContext)
 
   case class GetMenu()
 
@@ -48,7 +42,7 @@ object ApplicationActor {
   * instance of the specific resource mentioned above.
   *
   */
-class ApplicationActor(appModel: ApplicationModel, application: SkysailApplication, bundleContext: Option[BundleContext]) extends Actor with ActorLogging {
+class ApplicationActor(appModel: ApplicationModel, application: SkysailApplication, bundleContext: BundleContext) extends Actor with ActorLogging {
 
   implicit val askTimeout: Timeout = 1.seconds
 

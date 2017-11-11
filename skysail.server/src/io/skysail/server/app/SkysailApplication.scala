@@ -1,27 +1,26 @@
 package io.skysail.server.app
 
-import java.util.{Collections, ResourceBundle}
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.{Collections, ResourceBundle}
 
 import akka.actor.{ActorRef, ActorSelection, ActorSystem, Props}
 import akka.http.scaladsl.server.{Route, _}
+import io.skysail.domain.Resource
+import io.skysail.domain.app.ApiVersion
+import io.skysail.domain.model.ApplicationModel
+import io.skysail.domain.routes.RouteMapping
+import io.skysail.server.Constants
+import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
-import io.skysail.server.Constants
-import io.skysail.domain.Resource
-import io.skysail.domain.model.ApplicationModel
-import org.osgi.framework.BundleContext
-import io.skysail.domain.app.ApiVersion
-import io.skysail.domain.routes.RouteMapping
-import io.skysail.server.actors.BundlesActor
 
 object SkysailApplication {
   val log = LoggerFactory.getLogger(classOf[SkysailApplication])
 
   case class InitResourceActorChain(val requestContext: RequestContext, val cls: Class[_ <: Resource[_]])
-  case class CreateApplicationActor(val cls: Class[_ <: SkysailApplication], val appModel: ApplicationModel, val application: SkysailApplication, bundleContext: Option[BundleContext])
+  case class CreateApplicationActor(val cls: Class[_ <: SkysailApplication], val appModel: ApplicationModel, val application: SkysailApplication, bundleContext: BundleContext)
   case class DeleteApplicationActor(val cls: Class[_ <: SkysailApplication])
 
   def getApplicationsActor(system: ActorSystem): ActorRef = {
@@ -60,11 +59,12 @@ object SkysailApplication {
 //  }
 }
 
-abstract class SkysailApplication(name: String, val apiVersion: ApiVersion, description: String) extends ApplicationProvider {
+abstract class SkysailApplication(name: String, val apiVersion: ApiVersion, val bundleContext: BundleContext, description: String) extends ApplicationProvider {
 
   val log = LoggerFactory.getLogger(classOf[SkysailApplication])
 
-  def this(name: String, description: String) = this(name, new ApiVersion(1), description)
+  def this(name: String, bundleContext: BundleContext, description: String) =
+    this(name, new ApiVersion(1), bundleContext, description)
 
   val appModel = new ApplicationModel(name, apiVersion, description)
 
@@ -118,13 +118,6 @@ abstract class SkysailApplication(name: String, val apiVersion: ApiVersion, desc
 //    log info s"deactivating ${this.getClass.getName}"
 //    this.componentContext = null;
 //  }
-
-  def getBundleContext(): Option[BundleContext] = {
-//    if (componentContext != null) {
-//      return Some(componentContext.getBundleContext())
-//    }
-    None
-  }
 
   def getSkysailApplication() = this
 

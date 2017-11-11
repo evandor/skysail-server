@@ -1,15 +1,17 @@
 package io.skysail.server.doc
 
-import akka.http.scaladsl.server.PathMatcher
+import akka.http.scaladsl.server.{PathMatcher, PathMatchers}
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
 import io.skysail.server.doc.DocApplication._
+import org.osgi.framework.BundleContext
 
 object DocApplication {
   val APPLICATION_NAME = "doc"
 }
 
-class DocApplication extends SkysailApplication(APPLICATION_NAME, "Skysail Doc Application") with ApplicationProvider {
+class DocApplication(bundleContext: BundleContext) extends
+  SkysailApplication(APPLICATION_NAME, bundleContext, "Skysail Doc Application") with ApplicationProvider {
 
 
   //  @Activate
@@ -28,8 +30,8 @@ class DocApplication extends SkysailApplication(APPLICATION_NAME, "Skysail Doc A
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("doc")
     List(
-      RouteMapping("", root, classOf[MetaDocResource]),
-      RouteMapping("_info", root / "_info", classOf[DocInfoResource])
+      RouteMapping("_info", root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[DocInfoResource]),
+      RouteMapping("", root ~ PathMatchers.PathEnd, classOf[MetaDocResource])
     )
   }
 

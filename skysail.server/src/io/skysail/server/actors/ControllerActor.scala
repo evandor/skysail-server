@@ -1,13 +1,18 @@
 package io.skysail.server.actors
 
-import akka.actor.SupervisorStrategy.{Restart, Stop}
-import akka.actor.{Actor, ActorInitializationException, ActorKilledException, ActorLogging, ActorRef, DeathPactException, OneForOneStrategy}
+import akka.actor.{Actor, ActorLogging, ActorRef}
 import akka.event.LoggingReceive
 import akka.http.scaladsl.marshalling.Marshal
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.MediaTypeNegotiator
 import akka.util.Timeout
 import de.heikoseeberger.akkahttpjson4s.Json4sSupport._
+import io.skysail.domain._
+import io.skysail.domain.messages.ProcessCommand
+import io.skysail.domain.model.ApplicationModel
+import io.skysail.domain.resources.AsyncResource
+import io.skysail.server.RepresentationModel
+import io.skysail.server.actors.ApplicationActor._
 import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
 import org.json4s.{DefaultFormats, Extraction, JObject, jackson}
@@ -16,15 +21,6 @@ import play.twirl.api.HtmlFormat
 
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
-import io.skysail.domain.model.ApplicationModel
-import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.resources.AsyncResource
-import io.skysail.domain.PostSupport
-import io.skysail.domain.ListResponseEvent
-import io.skysail.server.actors.ApplicationActor._
-import io.skysail.domain.RequestEvent
-import io.skysail.domain.ResponseEvent
-import io.skysail.server.RepresentationModel
 
 object ControllerActor {
 
@@ -52,11 +48,12 @@ class ControllerActor[T]() extends Actor with ActorLogging {
   def receive = in
 
   def in: Receive = LoggingReceive {
-    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[T], _: Option[BundleContext]) => {
+    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[T], bc: BundleContext) => {
       applicationActor = sender
       applicationModel = model
       resource.setActorContext(context)
       resource.setApplicationModel(model)
+      resource.setBundleContext(bc)
       cmd.ctx.request.method match {
         case HttpMethods.GET => resource.get(RequestEvent(cmd, self))
         case HttpMethods.POST => resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
@@ -103,6 +100,9 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       } else {
         applicationActor ! response
       }
+    case response: HtmlResponseEvent =>
+      val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, response.entity)
+      applicationActor ! response.copy(entity = response.entity, httpResponse = response.httpResponse.copy(entity = answer))
     case msg: List[T] => {
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: List[T]"
       implicit val formats = DefaultFormats
@@ -123,7 +123,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       applicationActor ! resEvent.copy(httpResponse = resEvent.httpResponse.copy(entity = msg.entity))
     }
     case msg: T => {
-      log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: T"
+      log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: T [msg:${msg.getClass.getName}]"
       val reqEvent = RequestEvent(null, null)
       val resEvent = ListResponseEvent(reqEvent, null)
       implicit val formats = DefaultFormats

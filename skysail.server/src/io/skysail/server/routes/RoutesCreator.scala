@@ -3,7 +3,6 @@ package io.skysail.server.routes
 import java.lang.annotation.Annotation
 import java.util.concurrent.atomic.AtomicInteger
 
-import io.skysail.server.TunnelDirectives._
 import akka.actor.{ActorRef, ActorSelection, ActorSystem}
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.model.ws.{BinaryMessage, Message, TextMessage}
@@ -11,26 +10,24 @@ import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpResponse}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server._
 import akka.pattern.ask
-import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Flow, Source}
 import akka.util.Timeout
 import io.skysail.api.security.AuthenticationService
+import io.skysail.domain.Resource
+import io.skysail.domain.messages.ProcessCommand
+import io.skysail.domain.routes.RouteMapping
+import io.skysail.server.Constants
+import io.skysail.server.TunnelDirectives._
+import io.skysail.server.actors.{BundleActor, BundlesActor}
+import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
+import io.skysail.server.app.SkysailApplication._
+import org.osgi.framework.Bundle
 import org.osgi.framework.wiring.{BundleCapability, BundleWiring}
 import org.slf4j.LoggerFactory
 
-import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.DurationInt
+import scala.concurrent.{Await, Future}
 import scala.reflect.ClassTag
-import io.skysail.server.Constants
-import io.skysail.server.actors.BundlesActor
-import io.skysail.server.actors.BundleActor
-import io.skysail.domain.routes.RouteMapping
-import io.skysail.server.app.ApplicationProvider
-import io.skysail.domain.Resource
-import io.skysail.domain.messages.ProcessCommand
-import io.skysail.server.app.SkysailApplication
-import io.skysail.server.app.SkysailApplication._
-import org.osgi.framework.Bundle
 
 object RoutesCreator {
 
@@ -68,12 +65,7 @@ class RoutesCreator(system: ActorSystem) {
     null
   }
 
-  val docClassloader = {
-    val bundlesActor = SkysailApplication.getBundlesActor(system)
-    val docBundle: Future[Bundle] = (bundlesActor ? BundlesActor.GetBundleBySymbolicName("skysail.server.doc")).mapTo[Bundle]
-    val b: Bundle = Await.result(docBundle, 3.seconds)
-    b.adapt(classOf[BundleWiring]).getClassLoader
-  }
+  var docClassloader: ClassLoader = _
 
   //val pathMatcherFactory = PathMatcherFactory
 
@@ -180,8 +172,8 @@ class RoutesCreator(system: ActorSystem) {
   private def docPath(): Route = {
     pathPrefix("ddd") {
       get {
-        getFromResourceDirectory("html5", getDocClassloader)
-        getFromResource("html5/index.html", ContentTypes.`text/html(UTF-8)`, getDocClassloader)
+        //getFromResourceDirectory("assets/html5", getDocClassloader)
+        getFromResource("assets/html5/meta.html", ContentTypes.`text/html(UTF-8)`, getDocClassloader)
       }
     }
   }
@@ -281,24 +273,24 @@ class RoutesCreator(system: ActorSystem) {
 
   = {
     //test() {
-      authenticationDirective(authentication) { username =>
-        optionalHeaderValueByName("Accept") { acceptHeader =>
-          get {
+    authenticationDirective(authentication) { username =>
+      optionalHeaderValueByName("Accept") { acceptHeader =>
+        get {
+          extractRequestContext {
+            ctx =>
+              // test1("test1str") { f =>
+              routeWithUnmatchedPath2(ctx, mapping, appProvider, urlParameter)
+            // }
+          }
+        } ~
+          post {
             extractRequestContext {
               ctx =>
-               // test1("test1str") { f =>
-                  routeWithUnmatchedPath2(ctx, mapping, appProvider, urlParameter)
-               // }
+                routeWithUnmatchedPath2(ctx, mapping, appProvider, urlParameter)
             }
-          } ~
-            post {
-              extractRequestContext {
-                ctx =>
-                  routeWithUnmatchedPath2(ctx, mapping, appProvider, urlParameter)
-              }
-            }
-        }
+          }
       }
+    }
     //}
   }
 
@@ -335,6 +327,15 @@ class RoutesCreator(system: ActorSystem) {
 
   private def getClientClassloader() = clientClassloader
 
-  private def getDocClassloader() = docClassloader
+  private def getDocClassloader() = {
+    if (docClassloader == null) {
+      val bundlesActor = SkysailApplication.getBundlesActor(system)
+      val docBundle: Future[Bundle] = (bundlesActor ? BundlesActor.GetBundleBySymbolicName("skysail.server.doc")).mapTo[Bundle]
+      val b: Bundle = Await.result(docBundle, 3.seconds)
+      docClassloader = b.adapt(classOf[BundleWiring]).getClassLoader
+    }
+
+    docClassloader
+  }
 
 }

@@ -1,8 +1,8 @@
 package io.skysail.domain.resources
 
+import io.skysail.domain.{RequestEvent, Resource}
+
 import scala.reflect.runtime.universe._
-import io.skysail.domain.Resource
-import io.skysail.domain.RequestEvent
 
 abstract class AsyncResource[T: TypeTag] extends Resource[List[T]] with ActorContextAware {
 
