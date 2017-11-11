@@ -1,5 +1,9 @@
 :source-highlighter: coderay
 
+== Up
+
+link:meta[here]
+
 == Branches
 
 The bundles contained in this repository follow the usual "semantic-versioning" scheme.

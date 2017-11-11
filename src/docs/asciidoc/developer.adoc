@@ -9,7 +9,7 @@ v0.0, 2017-11-03
 == About
 
 This document is the entry point for the skysail documentation if you are
-an developer. There are other entry points to read the skysail documentation,
+an developer. There are link:meta[other entry points] to read the skysail documentation,
 for example if you just want to use skysail as a service.
 
 == Intended audience

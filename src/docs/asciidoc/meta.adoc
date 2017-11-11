@@ -8,11 +8,8 @@ v0.0, 2017-11-03
 
 == About this document
 
-This document contains references to all available documentation about
-skysail.
-
-While this is currently served at http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/All_Documentation/,
-this location is likely to change.
+*This document contains references to all available documentation about
+skysail.*
 
 The complete documentation is a collection of many documents, bundled together
 for various audiences. So, for example, the _developer documentation_ is a subset of
@@ -36,7 +33,7 @@ to the branch "release/0.0".
 
 === Developer Documentation
 
-Find out about the idea and the concepts behind skysail http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[here].
+Find out about the idea and the concepts behind skysail link:dev[here].
 
 === User Documentation
 
