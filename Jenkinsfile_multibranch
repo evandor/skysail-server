@@ -41,10 +41,10 @@ node {
    sh "./gradlew -Pversion=${env.BUILD_VERSION} --stacktrace --continue clean build"
 
     stage 'Document'
-    sh "./gradlew asciidoctor"
+    //sh "./gradlew asciidoctor"
     sh "./gradlew scaladoc"
 
-    stage 'Publish Documentation'
-    sh "cp -r build/asciidoc/html5/ /var/www/downloads.skysail.io/skysail/doc/asciidoc/"
+    //stage 'Publish Documentation'
+    //sh "cp -r build/asciidoc/html5/ /var/www/downloads.skysail.io/skysail/doc/asciidoc/"
 
 }
