@@ -20,7 +20,9 @@ object SkysailApplication {
   val log = LoggerFactory.getLogger(classOf[SkysailApplication])
 
   case class InitResourceActorChain(val requestContext: RequestContext, val cls: Class[_ <: Resource[_]])
+
   case class CreateApplicationActor(val cls: Class[_ <: SkysailApplication], val appModel: ApplicationModel, val application: SkysailApplication, bundleContext: BundleContext)
+
   case class DeleteApplicationActor(val cls: Class[_ <: SkysailApplication])
 
   def getApplicationsActor(system: ActorSystem): ActorRef = {
@@ -47,19 +49,23 @@ object SkysailApplication {
     system.actorSelection(actorSelection)
   }
 
-//  def getBundleActor(system: ActorSystem, symbolicName: String): Option[ActorSelection] = {
-//
-//    val bundlesActor = getBundlesActor(system)
-//
-//    bundlesActor ? BundlesActor.GetBundleBySymbolicName
-//
-//    val actorSelection = "/user/" + Constants.BUNDLES_ACTOR_NAME + "/" + bundleId.toString
-//    println("searching for actorSelection " + actorSelection)
-//    system.actorSelection(actorSelection)
-//  }
+  //  def getBundleActor(system: ActorSystem, symbolicName: String): Option[ActorSelection] = {
+  //
+  //    val bundlesActor = getBundlesActor(system)
+  //
+  //    bundlesActor ? BundlesActor.GetBundleBySymbolicName
+  //
+  //    val actorSelection = "/user/" + Constants.BUNDLES_ACTOR_NAME + "/" + bundleId.toString
+  //    println("searching for actorSelection " + actorSelection)
+  //    system.actorSelection(actorSelection)
+  //  }
 }
 
-abstract class SkysailApplication(name: String, val apiVersion: ApiVersion, val bundleContext: BundleContext, description: String) extends ApplicationProvider {
+abstract class SkysailApplication(
+                                   name: String,
+                                   val apiVersion: ApiVersion,
+                                   val bundleContext: BundleContext,
+                                   description: String) extends ApplicationProvider {
 
   val log = LoggerFactory.getLogger(classOf[SkysailApplication])
 
@@ -76,10 +82,10 @@ abstract class SkysailApplication(name: String, val apiVersion: ApiVersion, val 
     routesMappings.foreach(m => {
       appModel.addResourceModel(m)
     })
-    routesMappings// ++ List(RouteMapping("/_model", classOf[ModelResource]))
+    routesMappings // ++ List(RouteMapping("/_model", classOf[ModelResource]))
   }
-  
-  def application():SkysailApplication = this
+
+  def application(): SkysailApplication = this
 
   //val associatedResourceClasses = scala.collection.mutable.ListBuffer[Tuple2[ResourceAssociationType, Class[_ <: SkysailServerResource[_]]]]()
 
@@ -87,6 +93,7 @@ abstract class SkysailApplication(name: String, val apiVersion: ApiVersion, val 
   //def getComponentContext() = componentContext
 
   var host = "localhost"
+
   def getHost = host
 
   var appRoutes: List[Route] = _
@@ -101,32 +108,32 @@ abstract class SkysailApplication(name: String, val apiVersion: ApiVersion, val 
     Collections.emptyList()
   }
 
-//  @Activate
-//  def activate(componentContext: ComponentContext) = {
-//    log info s"activating ${this.getClass.getName}"
-//    this.componentContext = componentContext;
-//  }
-//
-//  @Activate
-//  def activate(appConfig: ApplicationConfiguration, componentContext: ComponentContext): Unit = {
-//    activate(componentContext);
-//    host = appConfig.host();
-//  }
-//
-//  @Deactivate
-//  def deactivate(componentContext: ComponentContext): Unit = {
-//    log info s"deactivating ${this.getClass.getName}"
-//    this.componentContext = null;
-//  }
+  //  @Activate
+  //  def activate(componentContext: ComponentContext) = {
+  //    log info s"activating ${this.getClass.getName}"
+  //    this.componentContext = componentContext;
+  //  }
+  //
+  //  @Activate
+  //  def activate(appConfig: ApplicationConfiguration, componentContext: ComponentContext): Unit = {
+  //    activate(componentContext);
+  //    host = appConfig.host();
+  //  }
+  //
+  //  @Deactivate
+  //  def deactivate(componentContext: ComponentContext): Unit = {
+  //    log info s"deactivating ${this.getClass.getName}"
+  //    this.componentContext = null;
+  //  }
 
   def getSkysailApplication() = this
 
-//  def getBundle(): Bundle = {
-//    if (componentContext == null) {
-//      return null;
-//    }
-//    return componentContext.getBundleContext().getBundle();
-//  }
+  //  def getBundle(): Bundle = {
+  //    if (componentContext == null) {
+  //      return null;
+  //    }
+  //    return componentContext.getBundleContext().getBundle();
+  //  }
 
   private def getResourceActor(cls: Class[_ <: Resource[_]]) = actorRefsMap get cls.getName getOrElse {
     log info s"creating new actor for ${cls.getName}"

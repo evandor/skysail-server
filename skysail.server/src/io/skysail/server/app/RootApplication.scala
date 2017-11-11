@@ -4,6 +4,7 @@ import io.skysail.domain.routes.RouteMapping
 import akka.http.scaladsl.server.PathMatcher
 import io.skysail.server.app.RootApplication._
 import io.skysail.server.app.resources.RootResource
+import org.osgi.framework.BundleContext
 
 object RootApplication {
   val ROOT_APPLICATION_NAME = "root"
@@ -18,7 +19,7 @@ object RootApplication {
   val CONFIG_IDENTIFIER_LANDINGPAGE_AUTHENTICATED = "landingPage.authenticated"
 
 }
-class RootApplication extends SkysailApplication(ROOT_APPLICATION_NAME, null, null, "backend root")
+class RootApplication(bundleContext: BundleContext) extends SkysailApplication(ROOT_APPLICATION_NAME, null, bundleContext, "backend root")
   with ApplicationProvider {
 
   def routesMappings: List[RouteMapping[_]] = {

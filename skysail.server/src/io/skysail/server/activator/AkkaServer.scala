@@ -104,7 +104,7 @@ class AkkaServer extends DominoActivator {
       serverConfig = ServerConfig(port, binding)
       //routesTracker = new RoutesTracker(actorSystem)
 
-      val app = new RootApplication()
+      val app = new RootApplication(bundleContext)
       app.providesService[ApplicationProvider]
 
     }
