@@ -31,12 +31,3 @@ sourceSets {
     }
 }
 
-/*eclipse {
-  project {
-    buildCommand 'bndtools.core.bndbuilder'
-    natures 'bndtools.core.bndnature'
-  }
-  classpath {
-    defaultOutputDir = file('bin')
-  }
-}*/
