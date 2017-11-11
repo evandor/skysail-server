@@ -46,7 +46,7 @@ task wrapper(type: Wrapper) {
     jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
 }
 
-/*task createAndCopyDocumentationToDocBundle(dependsOn: asciidoctor, type: Copy) {
+task createAndCopyDocumentationToDocBundle(dependsOn: asciidoctor, type: Copy) {
     from 'build/asciidoc/html5'
     into 'skysail.server.doc/resources/assets/html5'
 }
@@ -54,5 +54,5 @@ task wrapper(type: Wrapper) {
 configure(createAndCopyDocumentationToDocBundle) {
     group = 'documentation'
     description = 'Creates Asciidoc html5 documentation and copies it to skysail.server.doc'
-}*/
+}
 
