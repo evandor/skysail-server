@@ -45,7 +45,7 @@ node {
     sh './gradlew skysail.server:export.server.int'
 
     stage 'Build Docker Image'
-    sh './gradlew skysail.server:runnable skysail.server:buildImage'
+    sh 'sudo ./gradlew skysail.server:runnable skysail.server:buildImage'
 
     stage 'Restart Container'
     /*script{
