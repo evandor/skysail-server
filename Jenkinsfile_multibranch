@@ -48,11 +48,11 @@ node {
     sh 'sudo ./gradlew skysail.server:runnable skysail.server:buildImage'
 
     stage 'Restart Container'
-    /*script{
+    script{
        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
          sh "sudo ./skysail.core/deployment/scripts/run_docker.sh &"
        }
-    }*/
+    }
 
 
     stage 'Document'
