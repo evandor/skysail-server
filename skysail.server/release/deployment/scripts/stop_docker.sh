@@ -1,3 +1,7 @@
+
+not used yet
+============
+
 #!/bin/bash
 
 stop_del(){

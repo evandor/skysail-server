@@ -50,7 +50,7 @@ node {
     stage 'Restart Container'
     script{
        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-         sh "sudo ./skysail.core/deployment/scripts/run_docker.sh &"
+         sh "sudo ./skysail.server/release/deployment/scripts/run_docker.sh &"
        }
     }
 
