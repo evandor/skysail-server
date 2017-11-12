@@ -44,6 +44,17 @@ node {
     stage 'Export Jar'
     sh './gradlew skysail.server:export.server.int'
 
+    stage 'Build Docker Image'
+    sh './gradlew skysail.server:runnable skysail.server:buildImage'
+
+    stage 'Restart Container'
+    /*script{
+       withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
+         sh "sudo ./skysail.core/deployment/scripts/run_docker.sh &"
+       }
+    }*/
+
+
     stage 'Document'
     //sh "./gradlew asciidoctor"
     sh "./gradlew scaladoc"

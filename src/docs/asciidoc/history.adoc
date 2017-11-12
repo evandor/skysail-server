@@ -75,3 +75,5 @@ starting "marketing version" release/0.0 for the whole project
 
 
 === First Spec-Tests inside skysail.server
+
+=== Creating docker image in gradle build
