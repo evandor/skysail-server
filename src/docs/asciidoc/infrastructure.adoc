@@ -37,3 +37,16 @@ carsten ALL = NOPASSWD: /home/carsten/.hudson/jobs/skysail-server.multibranch/br
 
 
 === Travis
+
+== Monitoring
+
+=== Graylog @ twentyeleven.de
+
+Installation as in http://docs.graylog.org/en/2.3/pages/installation/operating_system_packages.html
+
+sudo systemctl stop graylog-server
+sudo vi /etc/graylog/server/server.conf
+sudo systemctl start graylog-server
+tail -f /var/log/graylog-server/server.log
+
+http://log.skysail.io/
