@@ -25,4 +25,15 @@ Currently, there are two build systems, jenkins@twentyeleven und Travis CI
 Jenkins is using the multibranch pipeline plugin and evaluates the file
 *Jenkinsfile_multibranch* from the root folder.
 
+==== specific setup
+
+In order to create docker images, the following change was made in /etc/sudoers using
+sudo visudo:
+
+
+./etc/sudoers
+[source]
+carsten ALL = NOPASSWD: /home/carsten/.hudson/jobs/skysail-server.multibranch/branches/release-0-0.6lhvn9/workspace/gradlew
+
+
 === Travis
