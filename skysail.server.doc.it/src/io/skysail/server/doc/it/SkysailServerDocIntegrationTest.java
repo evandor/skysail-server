@@ -91,9 +91,9 @@ public class SkysailServerDocIntegrationTest {
 
         };
         String responseBody = httpclient.execute(httpget, responseHandler);
-        System.out.println("--------------------------------------------------------");
-        System.out.println(responseBody);
-        System.out.println("--------------------------------------------------------");
+//        System.out.println("--------------------------------------------------------");
+//        System.out.println(responseBody);
+//        System.out.println("--------------------------------------------------------");
         return responseBody;
     }
 
