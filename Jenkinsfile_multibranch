@@ -1,9 +1,10 @@
 node {
-   stage 'Checkout'
 
-   checkout scm
+    stage 'Checkout'
 
-   if ("${env.BRANCH_NAME}".startsWith("release")) {
+    checkout scm
+
+    if ("${env.BRANCH_NAME}".startsWith("release")) {
        def branchMajorMinorVersion = "${env.BRANCH_NAME}".substring("${env.BRANCH_NAME}".lastIndexOf("/") + 1)
 
            /*withCredentials([usernamePassword(credentialsId: '629c9138-7aa6-4c46-ace8-bc39b4251356',
@@ -27,18 +28,21 @@ node {
 
        env.BUILD_VERSION = "${branchMajorMinorVersion}.${env.BUILD_NUMBER}"//"${nextPatchVersion}"
        currentBuild.displayName = "${env.BUILD_VERSION}"
-   }
+    }
 
-   // Get the maven tool.
-   // ** NOTE: This 'M3' maven tool must be configured
-   // **       in the global configuration.
-   //def mvnHome = tool 'M3'
+    // Get the maven tool.
+    // ** NOTE: This 'M3' maven tool must be configured
+    // **       in the global configuration.
+    //def mvnHome = tool 'M3'
 
-   // Mark the code build 'stage'....
-   stage 'Build'
-   // Run the maven build
-   //sh "${mvnHome}/bin/mvn clean install"
-   sh "./gradlew -Pversion=${env.BUILD_VERSION} --stacktrace --continue clean build"
+    // Mark the code build 'stage'....
+    stage 'Build'
+    // Run the maven build
+    //sh "${mvnHome}/bin/mvn clean install"
+    sh "./gradlew -Pversion=${env.BUILD_VERSION} --stacktrace --continue clean build"
+
+    stage 'Export Jar'
+    sh './gradlew skysail.server:export.server.int'
 
     stage 'Document'
     //sh "./gradlew asciidoctor"
