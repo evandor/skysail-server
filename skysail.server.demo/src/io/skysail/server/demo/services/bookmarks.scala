@@ -10,9 +10,5 @@ class BookmarksService {
 
   def getApplication(id: String): Future[Option[Bookmark]] = ???
 
-  def getApplications(): Seq[Bookmark] = List(
-    Bookmark(None,"skysail","http://www.skysail.io"),
-    Bookmark(null,"pline","http://www.pline.one")
-  )
 
 }
