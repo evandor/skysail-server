@@ -27,12 +27,12 @@ trait TunnelDirectives {
     req: HttpRequest => req.copy(method = newMethod)
   }
 
-  private def mapRequestContext(f: RequestContext ⇒ RequestContext): Directive0 = {
-    mapInnerRoute { inner ⇒ ctx ⇒ inner(f(ctx)) }
+  private def mapRequestContext(f: RequestContext => RequestContext): Directive0 = {
+    mapInnerRoute { inner => ctx => inner(f(ctx)) }
   }
 
-  private def mapInnerRoute(f: Route ⇒ Route): Directive0 =
-    Directive { inner ⇒ f(inner(())) }
+  private def mapInnerRoute(f: Route => Route): Directive0 =
+    Directive { inner => f(inner(())) }
 }
 
 object TunnelDirectives extends TunnelDirectives {}

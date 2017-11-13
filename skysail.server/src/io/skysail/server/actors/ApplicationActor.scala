@@ -75,11 +75,11 @@ class ApplicationActor(appModel: ApplicationModel, application: SkysailApplicati
 
   override val supervisorStrategy =
     OneForOneStrategy() {
-      case _: ClassNotFoundException       ⇒ Stop
-      case _: ActorInitializationException ⇒ Stop
-      case _: ActorKilledException         ⇒ Stop
-      case _: DeathPactException           ⇒ Stop
-      case _: Exception                    ⇒ Restart
+      case _: ClassNotFoundException       => Stop
+      case _: ActorInitializationException => Stop
+      case _: ActorKilledException         => Stop
+      case _: DeathPactException           => Stop
+      case _: Exception                    => Restart
     }
 
   def getMenuIfExistent() = {

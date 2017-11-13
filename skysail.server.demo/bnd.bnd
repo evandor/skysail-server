@@ -33,4 +33,9 @@ Bundle-Activator: io.skysail.server.demo.DemoActivator
     org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
     com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
 
-Private-Package: io.skysail.server.demo
+Private-Package: \
+    io.skysail.server.demo,\
+    io.skysail.server.demo.domain,\
+    io.skysail.server.demo.resources,\
+    io.skysail.server.demo.services,\
+    io.skysail.server.demo.repositories

@@ -1,26 +1,29 @@
 package io.skysail.server.demo
 
 import akka.http.scaladsl.server.{PathMatcher, PathMatchers}
+import io.skysail.api.persistence.DbService
+import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
 import io.skysail.server.demo.DemoApplication._
+import io.skysail.server.demo.repositories.BookmarksRepository
+import io.skysail.server.demo.resources.BookmarksResource
 import org.osgi.framework.BundleContext
-import io.skysail.domain.app.ApiVersion
 
 object DemoApplication {
   val APPLICATION_NAME = "demo"
   val APP_VERSION = ApiVersion(1)
 }
 
-class DemoApplication(bundleContext: BundleContext) extends
-  SkysailApplication(APPLICATION_NAME,APP_VERSION, bundleContext, "Skysail Doc Application") with ApplicationProvider {
+class DemoApplication(bundleContext: BundleContext, dbService: DbService) extends
+  SkysailApplication(APPLICATION_NAME, APP_VERSION, bundleContext, "Skysail Doc Application") with ApplicationProvider {
 
 
   //  @Activate
   //  override def activate(appConfig: ApplicationConfiguration, componentContext: ComponentContext): Unit = {
   //    super.activate(appConfig, componentContext)
   //    println("NEW DemoRepository")
-  //    repo = new DemoRepository(dbService)
+  val repo = new BookmarksRepository(dbService)
   //  }
   //
   //  @Deactivate
@@ -30,12 +33,12 @@ class DemoApplication(bundleContext: BundleContext) extends
   //  }
 
   override def routesMappings = {
-    val root: PathMatcher[Unit] = PathMatcher("doc")
+    val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
     List(
-      RouteMapping("_info", root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[InfoResource]),
-      RouteMapping("dev",   root / PathMatcher("dev")   ~ PathMatchers.PathEnd, classOf[DevDocResource]),
-      RouteMapping("history",   root / PathMatcher("history")   ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
-      RouteMapping("meta",  root / PathMatcher("meta")  ~ PathMatchers.PathEnd, classOf[MetaDocResource])
+      RouteMapping("bm", root / PathMatcher("bm") ~ PathMatchers.PathEnd, classOf[BookmarksResource]),
+      RouteMapping("dev", root / PathMatcher("dev") ~ PathMatchers.PathEnd, classOf[DevDocResource]),
+      RouteMapping("history", root / PathMatcher("history") ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
+      RouteMapping("meta", root / PathMatcher("meta") ~ PathMatchers.PathEnd, classOf[MetaDocResource])
     )
   }
 
