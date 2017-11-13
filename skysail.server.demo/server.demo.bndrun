@@ -1,0 +1,76 @@
+########################################################################################
+### --- general settings, do not change unless you know what you are doing --------- ###
+########################################################################################
+
+-runfw: org.apache.felix.framework;version=5.6.2
+-runee: JavaSE-1.8
+-runtrace: false
+-runvm: -Xmx256M
+-runsystemcapabilities: ${native_capability}
+-runsystempackages: ${runsystempackages}
+-runproperties: ${runproperties},\
+    config.file=config/application.conf
+
+-resolve.effective: active;skip:="osgi.service"
+
+########################################################################################
+### --- run-file-specific settings ------------------------------------------------- ###
+########################################################################################
+
+skysail.config.path            = config,config/local,plugins
+logback.configurationFile.path = config/local
+
+
+-runrequires: \
+	osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.0.0))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.log)(version>=1.0.1))',\
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.fileinstall)(version>=3.6.4))',\
+	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.3))',\
+	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
+	osgi.identity;filter:='(osgi.identity=skysail.server)',\
+	osgi.identity;filter:='(osgi.identity=skysail.server.demo)'
+
+-runbundles: \
+	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
+	ch.qos.logback.core;version='[1.2.3,1.2.4)',\
+	com.fasterxml.jackson.core.jackson-annotations;version='[2.9.2,2.9.3)',\
+	com.fasterxml.jackson.core.jackson-core;version='[2.9.2,2.9.3)',\
+	com.fasterxml.jackson.core.jackson-databind;version='[2.9.2,2.9.3)',\
+	com.springsource.org.junit;version='[4.11.0,4.11.1)',\
+	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
+	com.typesafe.akka.actor;version='[2.5.3,2.5.4)',\
+	com.typesafe.akka.http;version='[10.0.10,10.0.11)',\
+	com.typesafe.akka.http.core;version='[10.0.10,10.0.11)',\
+	com.typesafe.akka.osgi;version='[2.5.3,2.5.4)',\
+	com.typesafe.akka.parsing;version='[10.0.10,10.0.11)',\
+	com.typesafe.akka.slf4j;version='[2.5.3,2.5.4)',\
+	com.typesafe.akka.stream;version='[2.5.3,2.5.4)',\
+	com.typesafe.config;version='[1.3.2,1.3.3)',\
+	com.typesafe.sslconfig;version='[0.2.2,0.2.3)',\
+	domino_2.11;version='[1.1.2,1.1.3)',\
+	io.skysail.bundled.akka-http-json4s_2.11;version='[1.17.0,1.17.1)',\
+	io.skysail.bundled.json4s_2.11-3.5.1;version='[3.5.1,3.5.2)',\
+	io.skysail.bundled.twirl-api_2.11;version='[1.3.12,1.3.13)',\
+	org.apache.felix.configadmin;version='[1.8.16,1.8.17)',\
+	org.apache.felix.fileinstall;version='[3.6.4,3.6.5)',\
+	org.apache.felix.gogo.command;version='[1.0.2,1.0.3)',\
+	org.apache.felix.gogo.runtime;version='[1.0.10,1.0.11)',\
+	org.apache.felix.gogo.shell;version='[1.0.0,1.0.1)',\
+	org.apache.felix.log;version='[1.0.1,1.0.2)',\
+	org.reactivestreams.reactive-streams;version='[1.0.1,1.0.2)',\
+	org.scala-lang.modules.scala-java8-compat;version='[0.8.0,0.8.1)',\
+	org.scala-lang.modules.scala-parser-combinators;version='[1.0.6,1.0.7)',\
+	org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
+	org.scala-lang.scala-compiler;version='[2.11.11,2.11.12)',\
+	org.scala-lang.scala-library;version='[2.11.11,2.11.12)',\
+	org.scala-lang.scala-reflect;version='[2.11.11,2.11.12)',\
+	org.scalactic;version='[3.0.1,3.0.2)',\
+	org.scalatest;version='[3.0.1,3.0.2)',\
+	osgi.enterprise;version='[5.0.0,5.0.1)',\
+	skysail.server;version=snapshot,\
+	skysail.server.auth.none;version=snapshot,\
+	skysail.server.demo;version=snapshot,\
+	slf4j.api;version='[1.7.25,1.7.26)',\
+	webconsole.all;version='[0.1.18,0.1.19)'
