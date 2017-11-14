@@ -18,6 +18,8 @@ apply plugin: 'java'
 apply plugin: 'com.moowork.node'
 apply plugin: 'com.bmuschko.docker-remote-api'
 apply plugin: 'eclipse'
+apply plugin: 'io.skysail.twirl.osgi'
+
 
 repositories {
     mavenCentral()

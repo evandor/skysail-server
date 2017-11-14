@@ -7,7 +7,7 @@ import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
 import io.skysail.server.demo.DemoApplication._
 import io.skysail.server.demo.repositories.BookmarksRepository
-import io.skysail.server.demo.resources.BookmarksResource
+import io.skysail.server.demo.resources.{BookmarksResource, PostBookmarkResource}
 import org.osgi.framework.BundleContext
 
 object DemoApplication {
@@ -36,6 +36,7 @@ class DemoApplication(bundleContext: BundleContext, dbService: DbService) extend
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
     List(
       RouteMapping("bm", root / PathMatcher("bm") ~ PathMatchers.PathEnd, classOf[BookmarksResource]),
+      RouteMapping("bm/", root / PathMatcher("bm") ~ PathMatchers.Slash ~ PathMatchers.PathEnd, classOf[PostBookmarkResource]),
       RouteMapping("dev", root / PathMatcher("dev") ~ PathMatchers.PathEnd, classOf[DevDocResource]),
       RouteMapping("history", root / PathMatcher("history") ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
       RouteMapping("meta", root / PathMatcher("meta") ~ PathMatchers.PathEnd, classOf[MetaDocResource])
