@@ -48,7 +48,8 @@ Export-Package: \
 	io.skysail.domain.routes,\
 	io.skysail.server.actors,\
     io.skysail.server.app,\
-	io.skysail.server.app.resources
+	io.skysail.server.app.resources,\
+	html
 
 Private-Package: \
 	io.skysail.server.activator,\
