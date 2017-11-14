@@ -3,7 +3,7 @@ package html
 
 import play.twirl.api.Html
 import html.main
-import io.skysail.core.model.RepresentationModel
+import io.skysail.server.RepresentationModel
 
 object main extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[Html,play.twirl.api.HtmlFormat.Appendable] {
 
@@ -50,10 +50,10 @@ Seq[Any](format.raw/*1.17*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Tue Nov 14 09:02:26 CET 2017
-                  SOURCE: /Users/carsten/git/skysail-server/skysail.server/./resources/templates/main.scala.html
-                  HASH: 889198d64e9361f4d444babe4065a3827a46e8d1
-                  MATRIX: 409->1|519->16|546->17|640->86|666->92|693->93|741->115|770->123|803->130|831->137|864->143
+                  DATE: Tue Nov 14 14:07:31 CET 2017
+                  SOURCE: C:/git/skysail-server/skysail.server/./resources/templates/main.scala.html
+                  HASH: 40c93d218cd6fd8b690e94a3c1416be9b19c5024
+                  MATRIX: 405->1|515->16|542->17|636->86|662->92|689->93|737->115|766->123|799->130|827->137|860->143
                   LINES: 11->1|16->1|17->2|21->6|21->6|22->7|26->11|26->11|28->13|28->13|30->15
                   -- GENERATED --
               */

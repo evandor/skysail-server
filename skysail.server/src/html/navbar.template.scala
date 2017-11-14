@@ -3,7 +3,7 @@ package html
 
 import play.twirl.api.Html
 import html.main
-import io.skysail.core.model.RepresentationModel
+import io.skysail.server.RepresentationModel
 
 object navbar extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template0[play.twirl.api.HtmlFormat.Appendable] {
 
@@ -61,10 +61,10 @@ Seq[Any](format.raw/*1.1*/("""<nav class="navbar navbar-expand-md navbar-dark bg
 
               /*
                   -- GENERATED --
-                  DATE: Tue Nov 14 09:02:26 CET 2017
-                  SOURCE: /Users/carsten/git/skysail-server/skysail.server/./resources/templates/navbar.scala.html
-                  HASH: e612a1dba59c949469b7744540b658c506d871c6
-                  MATRIX: 495->0
+                  DATE: Tue Nov 14 14:07:31 CET 2017
+                  SOURCE: C:/git/skysail-server/skysail.server/./resources/templates/navbar.scala.html
+                  HASH: 4a0b0b88d6b185df129e71ed1460eb3773b6544b
+                  MATRIX: 491->0
                   LINES: 16->1
                   -- GENERATED --
               */
