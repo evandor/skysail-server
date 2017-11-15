@@ -20,7 +20,7 @@ class RepresentationModel(/*responseEvent: ListResponseEvent[_]*/
 
   def linkFor(clsName: String, id: Option[Any]): String = {
     val link: Option[String] = model.linkFor(clsName)
-    link.getOrElse("unknown").replace(":id", id.getOrElse("").toString)
+    link.getOrElse("").replace(":id", id.getOrElse("").toString)
   }
 
   private def deriveRawData(): List[Map[String, Any]] = {

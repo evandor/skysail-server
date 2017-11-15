@@ -2,8 +2,15 @@ package io.skysail.server.doc
 
 import java.net.URL
 
-import io.skysail.domain.resources.AsyncStaticResource
-import io.skysail.domain.{HtmlResponseEvent, RequestEvent}
+import io.skysail.domain.resources.{AsyncEntityResource, AsyncStaticResource}
+import io.skysail.domain.{HtmlResponseEvent, RequestEvent, ResponseEvent}
+
+
+class DocIndexResource() extends AsyncEntityResource {
+  override def get(requestEvent: RequestEvent): Unit = {
+    requestEvent.controllerActor ! ResponseEvent(requestEvent, "hi")
+  }
+}
 
 abstract case class DocResource() extends AsyncStaticResource {
   protected def getHtml(requestEvent: RequestEvent, path: String) = {
@@ -12,7 +19,6 @@ abstract case class DocResource() extends AsyncStaticResource {
     val content = scala.io.Source.fromInputStream(is).mkString
     requestEvent.controllerActor ! HtmlResponseEvent(requestEvent, content)
   }
-
 }
 
 class MetaDocResource() extends DocResource {

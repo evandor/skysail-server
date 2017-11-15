@@ -33,7 +33,8 @@ class DocApplication(bundleContext: BundleContext) extends
       RouteMapping("_info", root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[DocInfoResource]),
       RouteMapping("dev",   root / PathMatcher("dev")   ~ PathMatchers.PathEnd, classOf[DevDocResource]),
       RouteMapping("history",   root / PathMatcher("history")   ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
-      RouteMapping("meta",  root / PathMatcher("meta")  ~ PathMatchers.PathEnd, classOf[MetaDocResource])
+      RouteMapping("meta",  root / PathMatcher("meta")  ~ PathMatchers.PathEnd, classOf[MetaDocResource]),
+      RouteMapping("index.html",  root / PathMatcher("index.html")  ~ PathMatchers.PathEnd, classOf[DocIndexResource])
     )
   }
 

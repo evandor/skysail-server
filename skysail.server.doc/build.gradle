@@ -1,5 +1,17 @@
 apply plugin: 'scala'
 apply plugin: 'eclipse'
+apply plugin: 'io.skysail.twirl.osgi'
+
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.io.skysail.gradle:twirlosgi-gradle-plugin:0.1.2"
+    }
+}
 
 repositories {
     mavenCentral()

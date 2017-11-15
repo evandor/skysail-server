@@ -46,6 +46,7 @@ Export-Package: \
 	io.skysail.domain.model,\
 	io.skysail.domain.resources,\
 	io.skysail.domain.routes,\
+	io.skysail.server,\
 	io.skysail.server.actors,\
     io.skysail.server.app,\
 	io.skysail.server.app.resources,\
@@ -53,5 +54,4 @@ Export-Package: \
 
 Private-Package: \
 	io.skysail.server.activator,\
-	io.skysail.server,\
 	io.skysail.server.routes,\

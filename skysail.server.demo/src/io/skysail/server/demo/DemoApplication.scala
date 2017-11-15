@@ -35,11 +35,8 @@ class DemoApplication(bundleContext: BundleContext, dbService: DbService) extend
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
     List(
-      RouteMapping("bm", root / PathMatcher("bm") ~ PathMatchers.PathEnd, classOf[BookmarksResource]),
-      RouteMapping("bm/", root / PathMatcher("bm") ~ PathMatchers.Slash ~ PathMatchers.PathEnd, classOf[PostBookmarkResource]),
-      RouteMapping("dev", root / PathMatcher("dev") ~ PathMatchers.PathEnd, classOf[DevDocResource]),
-      RouteMapping("history", root / PathMatcher("history") ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
-      RouteMapping("meta", root / PathMatcher("meta") ~ PathMatchers.PathEnd, classOf[MetaDocResource])
+      RouteMapping("/bms", root / PathMatcher("bms") ~ PathMatchers.PathEnd, classOf[BookmarksResource]),
+      RouteMapping("/bms/", root / PathMatcher("bms") ~ PathMatchers.Slash ~ PathMatchers.PathEnd, classOf[PostBookmarkResource])
     )
   }
 

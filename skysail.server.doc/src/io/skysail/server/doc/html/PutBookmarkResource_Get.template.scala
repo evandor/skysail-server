@@ -1,5 +1,5 @@
 
-package io.skysail.server.demo.html
+package io.skysail.server.doc.html
 
 import play.twirl.api.Html
 import html.main
@@ -71,10 +71,10 @@ Seq[Any](format.raw/*6.28*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Tue Nov 14 16:30:36 CET 2017
-                  SOURCE: C:/git/skysail-server/skysail.server.demo/./resources/templates/io/skysail/server/demo/PutBookmarkResource_Get.scala.html
+                  DATE: Wed Nov 15 08:58:04 CET 2017
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server.doc/./resources/templates/io/skysail/server/doc/PutBookmarkResource_Get.scala.html
                   HASH: 80a92cb4e723bd05204b2ca4b550062fa4e4e453
-                  MATRIX: 649->193|770->219|798->222|809->226|847->228|876->230|1063->390|1075->393|1104->401|1162->432|1174->435|1280->519|1660->872|1672->875|1720->901|1817->971|1829->974|1874->998
+                  MATRIX: 648->193|769->219|797->222|808->226|846->228|875->230|1062->390|1074->393|1103->401|1161->432|1173->435|1279->519|1659->872|1671->875|1719->901|1816->971|1828->974|1873->998
                   LINES: 15->6|20->6|22->8|22->8|22->8|24->10|30->16|30->16|30->16|31->17|31->17|31->17|42->28|42->28|42->28|43->29|43->29|43->29
                   -- GENERATED --
               */
