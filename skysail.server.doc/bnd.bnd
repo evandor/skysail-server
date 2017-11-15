@@ -34,4 +34,5 @@ Bundle-Activator: io.skysail.server.doc.DocActivator
     com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
 
 Private-Package: \
-	io.skysail.server.doc
+	io.skysail.server.doc,\
+	io.skysail.server.doc.html

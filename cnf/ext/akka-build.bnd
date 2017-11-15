@@ -2,6 +2,7 @@ akka-build: \
 	com.typesafe.akka.http;version=10.0,\
 	com.typesafe.akka.http.core;version=10.0,\
 	com.typesafe.akka.actor;version=2.5,\
+	com.typesafe.akka.parsing;version=10.0,\
 	com.typesafe.akka.stream;version=2.5,\
 	com.typesafe.akka.osgi;version=2.5,\
 	com.typesafe.config;version=1.3,\

@@ -21,7 +21,7 @@ Seq[Any](format.raw/*1.17*/("""
     """),_display_(/*6.6*/head()),format.raw/*6.12*/("""
 """),format.raw/*7.1*/("""</head>
 
-<body>
+<body style="height:100%">
 
     """),_display_(/*11.6*/navbar()),format.raw/*11.14*/("""
 
@@ -50,10 +50,10 @@ Seq[Any](format.raw/*1.17*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Tue Nov 14 14:07:31 CET 2017
+                  DATE: Wed Nov 15 13:20:05 CET 2017
                   SOURCE: C:/git/skysail-server/skysail.server/./resources/templates/main.scala.html
-                  HASH: 40c93d218cd6fd8b690e94a3c1416be9b19c5024
-                  MATRIX: 405->1|515->16|542->17|636->86|662->92|689->93|737->115|766->123|799->130|827->137|860->143
+                  HASH: e802b8d6a63c1eefb239112705c739c29513a373
+                  MATRIX: 405->1|515->16|542->17|636->86|662->92|689->93|757->135|786->143|819->150|847->157|880->163
                   LINES: 11->1|16->1|17->2|21->6|21->6|22->7|26->11|26->11|28->13|28->13|30->15
                   -- GENERATED --
               */

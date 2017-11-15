@@ -51,7 +51,7 @@ public class SkysailServerIntegrationTest {
 
     @Test
     public void root_resources_returns_info_message_if_no_apps_have_been_deployed_yet() throws Exception {
-        String responseBody = get("http://localhost:7999/root");
+        String responseBody = get("http://localhost:7999/_root");
         assertTrue(responseBody.contains("you are seeing this as no applications have been deployed yet"));
     }
 
@@ -61,7 +61,7 @@ public class SkysailServerIntegrationTest {
     public void stopping_and_starting_server_bundle_still_serves_root_resource() throws Exception {
         stopAndStartBundle("skysail.server");
         Thread.sleep(2000);
-        String responseBody = get("http://localhost:7999/root");
+        String responseBody = get("http://localhost:7999/_root");
         assertTrue(responseBody.contains("you are seeing this as no applications have been deployed yet"));
     }
 

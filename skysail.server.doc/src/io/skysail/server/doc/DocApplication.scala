@@ -30,11 +30,11 @@ class DocApplication(bundleContext: BundleContext) extends
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("doc")
     List(
-      RouteMapping("_info", root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[DocInfoResource]),
-      RouteMapping("dev",   root / PathMatcher("dev")   ~ PathMatchers.PathEnd, classOf[DevDocResource]),
-      RouteMapping("history",   root / PathMatcher("history")   ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
-      RouteMapping("meta",  root / PathMatcher("meta")  ~ PathMatchers.PathEnd, classOf[MetaDocResource]),
-      RouteMapping("index.html",  root / PathMatcher("index.html")  ~ PathMatchers.PathEnd, classOf[DocIndexResource])
+      RouteMapping("_info",   root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[DocInfoResource]),
+      RouteMapping("dev",     root / PathMatcher("dev")   ~ PathMatchers.PathEnd, classOf[DevDocResource]),
+      RouteMapping("history", root / PathMatcher("history")   ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
+      RouteMapping("meta",    root / PathMatcher("meta")  ~ PathMatchers.PathEnd, classOf[MetaDocResource]),
+      RouteMapping("index.html",   root / PathMatcher("index.html")  ~ PathMatchers.PathEnd, classOf[DocIndexResource])
     )
   }
 

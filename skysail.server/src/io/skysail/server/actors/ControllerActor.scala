@@ -13,6 +13,8 @@ import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.AsyncResource
 import io.skysail.server.RepresentationModel
 import io.skysail.server.actors.ApplicationActor._
+import org.json4s.JsonAST.JString
+import org.json4s.jackson.JsonMethods.{compact, render}
 import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
 import org.json4s.{DefaultFormats, Extraction, JObject, jackson}
@@ -79,7 +81,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
         handleJson(m, response)
       }
-    case response: ResponseEvent[T] =>
+    case response: ResponseEvent[T] => {
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
 
@@ -88,21 +90,41 @@ class ControllerActor[T]() extends Actor with ActorLogging {
 
       val e1 = Extraction.decompose(response.entity)
 
-      if (e1.isInstanceOf[JObject]) {
-        val e = e1.asInstanceOf[JObject]
-        val written = write(e)
+      e1 match {
+        case a: JObject => {
+          val written: String = write(a)
+          val b: String = compact(render(a))
 
-        if (negotiator.isAccepted(MediaTypes.`text/html`)) {
-          handleHtmlWithFallback(response, e)
-        } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
-          handleJson(response, e)
+          if (negotiator.isAccepted(MediaTypes.`text/html`)) {
+            handleHtmlWithFallback(response, b)
+          } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
+            handleJson(response, b)
+          }
         }
-      } else {
-        applicationActor ! response
+        case a: JString => {
+          //val e = e1.asInstanceOf[JObject]
+          val written: String = write(a)
+          val b: String = compact(render(a))
+
+          if (negotiator.isAccepted(MediaTypes.`text/html`)) {
+           handleHtmlWithFallback(response,b)
+          } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
+           handleJson(response,b)
+          }
+        }
+        case _: Any =>  applicationActor ! response
       }
+    }
     case response: HtmlResponseEvent =>
       val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, response.entity)
       applicationActor ! response.copy(entity = response.entity, httpResponse = response.httpResponse.copy(entity = answer))
+    case response: RedirectResponseEvent =>
+      val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, response.entity)
+      applicationActor ! response.copy(
+        entity = response.entity, httpResponse = response.httpResponse.copy(
+          status = StatusCodes.TemporaryRedirect,
+          headers = headers.Location(akka.http.scaladsl.model.Uri("/_root")) :: Nil,
+          entity = answer))
     case msg: List[T] => {
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: List[T]"
       implicit val formats = DefaultFormats
@@ -154,7 +176,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
     }
   }
 
-  private def handleHtmlWithFallback(response: ResponseEvent[T], e: JObject): Unit = {
+  private def handleHtmlWithFallback(response: ResponseEvent[T], e: String): Unit = {
     val resourceClassAsString = getHtmlTemplate(response.req)
     try {
       val loader = response.req.cmd.cls.getClassLoader
@@ -182,10 +204,10 @@ class ControllerActor[T]() extends Actor with ActorLogging {
     }
   }
 
-  private def handleJson(response: ResponseEvent[T], e: JObject) = {
+  private def handleJson(response: ResponseEvent[T], e: String) = {
     import org.json4s.jackson.JsonMethods._
     applicationActor ! response.copy(entity = response.entity,
-      httpResponse = response.httpResponse.copy(entity = compact(render(e))))
+      httpResponse = response.httpResponse.copy(entity = e))
   }
 
   override def preRestart(reason: Throwable, message: Option[Any]) {

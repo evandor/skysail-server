@@ -27,7 +27,7 @@ import io.skysail.server.app.SkysailApplication
 import io.skysail.server.app.SkysailApplication._
 import io.skysail.server.app.RootApplication
 
-case class ServerConfig(port: Integer, binding: String)
+case class ServerConfig(port: Integer, binding: String, conf: Map[String, Any])
 
 class AkkaServer extends DominoActivator {
 
@@ -41,7 +41,7 @@ class AkkaServer extends DominoActivator {
   val defaultPort = 8080
   val defaultBinding = "localhost"
   val defaultAuthentication = "HTTP_BASIC"
-  var serverConfig = new ServerConfig(defaultPort, defaultBinding)
+  var serverConfig = new ServerConfig(defaultPort, defaultBinding, Map())
 
   var routesTracker: RoutesTracker = null
 
@@ -101,10 +101,10 @@ class AkkaServer extends DominoActivator {
       val port = Integer.parseInt(conf.getOrElse("port", defaultPort.toString).asInstanceOf[String])
       var binding = conf.getOrElse("binding", defaultBinding).asInstanceOf[String]
       //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
-      serverConfig = ServerConfig(port, binding)
+      serverConfig = ServerConfig(port, binding, conf)
       //routesTracker = new RoutesTracker(actorSystem)
 
-      val app = new RootApplication(bundleContext)
+      val app = new RootApplication(bundleContext, conf)
       app.providesService[ApplicationProvider]
 
     }
