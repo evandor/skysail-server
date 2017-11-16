@@ -21,7 +21,7 @@
 # access running container on sofia
 # sudo docker exec -i -t skysail-server /bin/bash
 FROM java
-RUN echo "building docker image from directory '${pwd}'"
+RUN echo "building docker image from directory '$pwd'"
 RUN echo "executing 'useradd -d /home/skysail -m -s /bin/bash skysail'"
 RUN useradd -d /home/skysail -m -s /bin/bash skysail
 USER skysail
