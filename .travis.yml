@@ -17,4 +17,4 @@ after_success:
   - docker --version
   - docker build -t evandor/skysail-server skysail.server/release
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker push evandor/skysail-server;
+  - docker push evandor/skysail-server
