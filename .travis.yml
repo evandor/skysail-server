@@ -12,13 +12,10 @@ install: ./gradlew --version
 
 script: ./gradlew clean build asciidoctor scaladoc
 script: ./gradlew skysail.server:export.server.int
-script: pwd
-script: cd skysail.server/release
-script: pwd
 
 after_success:
   - docker --version
-  - docker build -t evandor/skysail-server .
+  - cd skysail.server/release; docker build -t evandor/skysail-server .
   - docker images
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker push $DOCKER_USERNAME/skysail-server:latest
