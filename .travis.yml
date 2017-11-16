@@ -1,11 +1,17 @@
-sudo: false
+sudo: required
 
 language: java
 
 jdk:
   - oraclejdk8
 
+services:
+  - docker
+
 install: ./gradlew --version
 
 script: ./gradlew clean build asciidoctor scaladoc
 script: ./gradlew skysail.server:export.server.int
+
+after_install:
+  - docker build -t evandor/skysail-server .skysail.server/release

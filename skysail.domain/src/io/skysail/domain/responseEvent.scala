@@ -14,4 +14,4 @@ case class ListResponseEvent[T](req: RequestEvent, entity: T, httpResponse: Http
 
 case class HtmlResponseEvent(req: RequestEvent, entity: String, httpResponse: HttpResponse = HttpResponse(200)) extends ResponseEventBase
 
-case class RedirectResponseEvent(req: RequestEvent, entity: String, httpResponse: HttpResponse = HttpResponse(301)) extends ResponseEventBase
+case class RedirectResponseEvent(req: RequestEvent, entity: String, redirectTo: Option[Any], httpResponse: HttpResponse = HttpResponse(301)) extends ResponseEventBase

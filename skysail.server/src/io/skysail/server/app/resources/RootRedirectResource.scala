@@ -8,6 +8,6 @@ class RootRedirectResource() extends AsyncEntityResource {
   override def get(requestEvent: RequestEvent): Unit = {
     val app = application.asInstanceOf[RootApplication]
     val redirectTo = app.conf.get("landingPage.notAuthenticated")
-    requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "")
+    requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "", redirectTo)
   }
 }

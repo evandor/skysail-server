@@ -121,10 +121,11 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       applicationActor ! response.copy(entity = response.entity, httpResponse = response.httpResponse.copy(entity = answer))
     case response: RedirectResponseEvent =>
       val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, response.entity)
+      val uri = response.redirectTo.getOrElse("/").toString
       applicationActor ! response.copy(
         entity = response.entity, httpResponse = response.httpResponse.copy(
           status = StatusCodes.TemporaryRedirect,
-          headers = headers.Location(akka.http.scaladsl.model.Uri("/_root")) :: Nil,
+          headers = headers.Location(akka.http.scaladsl.model.Uri(uri)) :: Nil,
           entity = answer))
     case msg: List[T] => {
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: List[T]"
