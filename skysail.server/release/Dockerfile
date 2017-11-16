@@ -21,7 +21,7 @@
 # access running container on sofia
 # sudo docker exec -i -t skysail-server /bin/bash
 FROM java
-
+RUN echo "building docker image from directory '${pwd}'"
 RUN echo "executing 'useradd -d /home/skysail -m -s /bin/bash skysail'"
 RUN useradd -d /home/skysail -m -s /bin/bash skysail
 USER skysail
@@ -30,8 +30,8 @@ WORKDIR /home/skysail
 
 RUN mkdir -p /home/skysail/products/demo/plugins
 
-COPY ../config/ /home/skysail/products/demo/config/
-COPY ../server.int.jar /home/skysail/products/demo/server.int.jar
+COPY config/ /home/skysail/products/demo/config/
+COPY server.int.jar /home/skysail/products/demo/server.int.jar
 
 
 WORKDIR /home/skysail/products/demo
