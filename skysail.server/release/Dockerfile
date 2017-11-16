@@ -30,8 +30,8 @@ WORKDIR /home/skysail
 
 RUN mkdir -p /home/skysail/products/demo/plugins
 
-COPY skysail.server/release/config/ /home/skysail/products/demo/config/
-COPY skysail.server/release/server.int.jar /home/skysail/products/demo/server.int.jar
+COPY skysail.server/config/ /home/skysail/products/demo/config/
+COPY skysail.server/server.int.jar /home/skysail/products/demo/server.int.jar
 
 
 WORKDIR /home/skysail/products/demo
