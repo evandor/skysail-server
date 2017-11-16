@@ -6,6 +6,7 @@ import akka.http.scaladsl.server.Directives.{complete, onComplete}
 import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
+import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.model.ApplicationModel
 import org.osgi.framework.BundleContext
 
@@ -27,14 +28,13 @@ abstract class Resource[T /*<: DddElement */ : TypeTag] {
 
   var applicationModel: ApplicationModel = null
   var bundleContext: BundleContext = null
-  //var application: SkysailApplication = null
+  var application: ApplicationApi = null
 
   def setApplicationModel(model: ApplicationModel) = this.applicationModel = model
 
   def setBundleContext(bc: BundleContext) = this.bundleContext = bc
 
-
-  //def setApplication(app: SkysailApplication) = this.application = app
+  def setApplication(app: ApplicationApi) = this.application = app
 
   def createRoute(applicationActor: ActorSelection, processCommand: io.skysail.domain.messages.ProcessCommand)(implicit system: ActorSystem): Route = {
     val t = (applicationActor ? processCommand).mapTo[ResponseEventBase]

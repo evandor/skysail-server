@@ -22,7 +22,7 @@ object RootApplication {
 
 class RootApplication(
                        bundleContext: BundleContext,
-                       conf: Map[String, Any]) extends SkysailApplication(ROOT_APPLICATION_NAME, null, bundleContext, "backend root")
+                       val conf: Map[String, Any]) extends SkysailApplication(ROOT_APPLICATION_NAME, null, bundleContext, "backend root")
   with ApplicationProvider {
 
   def routesMappings: List[RouteMapping[_]] = {

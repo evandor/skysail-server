@@ -305,7 +305,7 @@ class RoutesCreator(system: ActorSystem) {
       val applicationActor = getApplicationActorSelection(system, appProvider.getClass.getName)
       val clazz = mapping.resourceClass
       val resourceInstance = clazz.newInstance().asInstanceOf[Resource[_]]
-      val processCommand = ProcessCommand(ctx, clazz, urlParameter, unmatchedPath)
+      val processCommand = ProcessCommand(ctx, clazz, appProvider.application(), urlParameter, unmatchedPath)
 
       resourceInstance.createRoute(applicationActor, processCommand)(system)
     }

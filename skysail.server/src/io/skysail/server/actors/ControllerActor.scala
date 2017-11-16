@@ -55,6 +55,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       applicationModel = model
       resource.setActorContext(context)
       resource.setApplicationModel(model)
+      resource.setApplication(cmd.application)
       resource.setBundleContext(bc)
       cmd.ctx.request.method match {
         case HttpMethods.GET => resource.get(RequestEvent(cmd, self))
@@ -205,7 +206,6 @@ class ControllerActor[T]() extends Actor with ActorLogging {
   }
 
   private def handleJson(response: ResponseEvent[T], e: String) = {
-    import org.json4s.jackson.JsonMethods._
     applicationActor ! response.copy(entity = response.entity,
       httpResponse = response.httpResponse.copy(entity = e))
   }

@@ -6,7 +6,7 @@ import java.util.{Collections, ResourceBundle}
 import akka.actor.{ActorRef, ActorSelection, ActorSystem, Props}
 import akka.http.scaladsl.server.{Route, _}
 import io.skysail.domain.Resource
-import io.skysail.domain.app.ApiVersion
+import io.skysail.domain.app.{ApiVersion, ApplicationApi}
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.Constants
@@ -21,7 +21,7 @@ object SkysailApplication {
 
   case class InitResourceActorChain(val requestContext: RequestContext, val cls: Class[_ <: Resource[_]])
 
-  case class CreateApplicationActor(val cls: Class[_ <: SkysailApplication], val appModel: ApplicationModel, val application: SkysailApplication, bundleContext: BundleContext)
+  case class CreateApplicationActor(val cls: Class[_ <: SkysailApplication], val appModel: ApplicationModel, val application: ApplicationApi, bundleContext: BundleContext)
 
   case class DeleteApplicationActor(val cls: Class[_ <: SkysailApplication])
 
@@ -65,7 +65,7 @@ abstract class SkysailApplication(
                                    name: String,
                                    val apiVersion: ApiVersion,
                                    val bundleContext: BundleContext,
-                                   description: String) extends ApplicationProvider {
+                                   description: String) extends ApplicationProvider with ApplicationApi {
 
   val log = LoggerFactory.getLogger(classOf[SkysailApplication])
 
