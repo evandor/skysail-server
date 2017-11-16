@@ -10,7 +10,11 @@ services:
 
 install: ./gradlew --version
 
-script: ./gradlew clean build asciidoctor scaladoc skysail.server:export.server.int copyConf copyRunnables
+script:
+  - ./gradlew clean build -x check
+  - ./gradlew asciidoctor scaladoc
+  - ./gradlew skysail.server:export.server.int
+  - ./gradlew copyConf copyRunnables
 
 after_success:
   - docker --version
