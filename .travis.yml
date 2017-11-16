@@ -16,5 +16,7 @@ script: ./gradlew skysail.server:export.server.int
 after_success:
   - docker --version
   - docker build -t evandor/skysail-server skysail.server/release
+  - docker images
+  - docker tag skysail-server $DOCKER_USERNAME/skysail-server
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker push evandor/skysail-server:latest
+  - docker push $DOCKER_USERNAME/skysail-server:latest
