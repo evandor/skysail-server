@@ -13,5 +13,6 @@ install: ./gradlew --version
 script: ./gradlew clean build asciidoctor scaladoc
 script: ./gradlew skysail.server:export.server.int
 
-after_install:
+after_success:
+  - docker --version
   - docker build -t evandor/skysail-server .skysail.server/release
