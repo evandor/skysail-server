@@ -32,9 +32,9 @@ Require-Capability: skysail.capability.auth
 	org.scalatest;version=3.0,\
 	org.scalactic;version=3.0,\
 	com.springsource.org.junit,\
-    org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
-    com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
-    
+	org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
+	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
+	io.skysail.bundled.kamon-core_2.11;version=0.6
 
 Export-Package: \
 	io.skysail.api.ddd,\

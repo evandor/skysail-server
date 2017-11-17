@@ -7,5 +7,4 @@ runproperties:\
     felix.fileinstall.log.level=4,\
     logback.configurationFile=${logback.configurationFile.path}/logback.xml,\
     org.osgi.framework.bootdelegation=sun.misc
-
 #    java.net.preferIPv4Stack=true,\

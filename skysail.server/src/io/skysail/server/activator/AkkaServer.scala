@@ -26,8 +26,14 @@ import io.skysail.server.app.ApplicationProvider
 import io.skysail.server.app.SkysailApplication
 import io.skysail.server.app.SkysailApplication._
 import io.skysail.server.app.RootApplication
+import kamon.Kamon
 
 case class ServerConfig(port: Integer, binding: String, conf: Map[String, Any])
+
+object AkkaServer {
+  Kamon.start()  
+  //val serverRestartsCounter = Kamon.metrics.counter("server.restarts")
+}
 
 class AkkaServer extends DominoActivator {
 
@@ -44,6 +50,8 @@ class AkkaServer extends DominoActivator {
   var serverConfig = new ServerConfig(defaultPort, defaultBinding, Map())
 
   var routesTracker: RoutesTracker = null
+  
+  
 
   private class AkkaCapsule(bundleContext: BundleContext) extends ActorSystemActivator with Capsule {
 
@@ -130,6 +138,7 @@ class AkkaServer extends DominoActivator {
   private def startServer(arg: List[Route]) = {
     implicit val materializer = ActorMaterializer()
     log info s"(re)starting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
+    //AkkaServer.serverRestartsCounter.increment()
     arg.size match {
       case 0 =>
         log warn "Akka HTTP Server not started as no routes are defined"; null
