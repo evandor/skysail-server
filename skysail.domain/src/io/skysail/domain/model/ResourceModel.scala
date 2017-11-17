@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe._
 /**
-  * A ResourceModel connects a pathDefinition with a ResourceController class
-  * which will handle specific requests to this path.
+  * A ResourceModel uses the provided RouteMapping to determine the associated entity.
   *
   * The HTTP verbs which will be handled depend on the concrete subclass of the ResourceController provided.
   *

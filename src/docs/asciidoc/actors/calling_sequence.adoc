@@ -1,0 +1,11 @@
+[plantuml, ./diagram, png]
+.Calling Sequence
+....
+RoutesCreator -> ApplicationActor: ProcessCommand
+ApplicationActor -> ControllerActor: SkysailContext
+ControllerActor -> Resource: get(RequestEvent)
+
+Resource --> ControllerActor
+ControllerActor -> ApplicationActor
+ApplicationActor -> RoutesCreator
+....

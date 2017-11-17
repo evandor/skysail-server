@@ -161,7 +161,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
 
   private def handleHtmlWithFallback(response: ListResponseEvent[T], m: Future[MessageEntity]) = {
     try {
-      val loader = response.req.cmd.cls.getClassLoader
+      val loader = response.req.cmd.resourceClass.getClassLoader
       val resourceHtmlClass = loader.loadClass(getHtmlTemplate(response.req))
       val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel])
 
@@ -181,7 +181,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
   private def handleHtmlWithFallback(response: ResponseEvent[T], e: String): Unit = {
     val resourceClassAsString = getHtmlTemplate(response.req)
     try {
-      val loader = response.req.cmd.cls.getClassLoader
+      val loader = response.req.cmd.resourceClass.getClassLoader
       val resourceHtmlClass = loader.loadClass(resourceClassAsString)
       val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel])
 
@@ -216,7 +216,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
   }
 
   private def getHtmlTemplate(req: RequestEvent) = {
-    s"${req.cmd.cls.getPackage.getName}.html.${req.cmd.cls.getSimpleName}_Get"
+    s"${req.cmd.resourceClass.getPackage.getName}.html.${req.cmd.resourceClass.getSimpleName}_Get"
   }
 
 }

@@ -17,3 +17,30 @@ The skysail.domain bundle is a collection of core traits, to be implemented in s
 * A
 * B
 * C
+
+include::../../../../src/docs/asciidoc/actors/calling_sequence.adoc[leveloffset=+1]
+
+=== Model
+
+[plantuml, ./diagram2, png]
+.Calling Sequence2
+....
+
+class ApplicationModel {
+  id: String
+  resourceModels:List
+  addResourceModel(routeMapping: RouteMapping[_])
+}
+
+together {
+  class ResourceModel
+  class EntityModel
+  class LinkModel
+}
+
+
+ApplicationModel -- ResourceModel
+ApplicationModel -- "0..m" EntityModel
+ResourceModel "n" .. "1" EntityModel
+ResourceModel .. LinkModel
+....

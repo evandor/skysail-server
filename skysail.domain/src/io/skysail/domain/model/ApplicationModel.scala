@@ -13,10 +13,10 @@ import scala.reflect.runtime.universe._
 
 /**
   * This is the root class of skysail's core domain, providing models of "skysail applications",
-  * which aggregate controllers, their associated entities (together with the entities' fields),
+  * which aggregate resources, their associated entities (together with the entities' fields),
   * links between the resources and many more.
   *
-  * A real-life ApplictionModel is created by creating an instance and then adding controller models
+  * A real-life ApplicationModel is setup by creating an instance and then adding resource models
   * together with their respective paths using "addControllerModel". A controller model describes the
   * controller responsible for the associated path together with relations amongst controllers. Furthermore,
   * it knows about the entity class related with the controller.
@@ -24,7 +24,6 @@ import scala.reflect.runtime.universe._
   * @constructor create a new application model, identified by its name.
   * @param name                      the application's (unique and descriptive) name
   * @param apiVersion                the applications API version, can be null
-  * @param associatedResourceClasses a list of associated Resource Classes together with the relation type.
   *
   */
 // TODO case class or not? Use copies when adding resourceModels etc
@@ -32,13 +31,6 @@ case class ApplicationModel(
                              name: String,
                              apiVersion: ApiVersion,
                              description: String) {
-
-  val id: String = if (apiVersion == null) name else s"$name/${apiVersion.toString()}"
-
-  def linkFor(clsName: String): Option[String] = {
-    val res = resourceModels.map(m => m.linkFor(clsName)).filter(l => l.isDefined).map(l => l.get)
-    if (res.size == 0) None else Some("/" + id + res.head)
-  }
 
   require(name != null, "The application's name should be unique and must not be null")
   require(name.trim().length() > 0, "The application's name must not be empty")
@@ -53,13 +45,20 @@ case class ApplicationModel(
   /** The map between */
   private val entityModelsMap: LinkedHashMap[String, EntityModel] = scala.collection.mutable.LinkedHashMap()
 
+  val id: String = if (apiVersion == null) name else s"$name/${apiVersion.toString()}"
+
+  def linkFor(clsName: String): Option[String] = {
+    val res = resourceModels.map(m => m.linkFor(clsName)).filter(l => l.isDefined).map(l => l.get)
+    if (res.size == 0) None else Some("/" + id + res.head)
+  }
+
   val appRoute: PathMatcher[Unit] = {
     log info s"attaching $name with apiVersion $apiVersion"
     if (apiVersion == null) PathMatcher(name) else name / apiVersion.toString()
   }
 
   /**
-    * Adds a controller model for a given path.
+    * Adds a resource model for a given route mapping.
     *
     * @param routeMapping the mapping is used to create the ResourceModel
     * @return
@@ -85,7 +84,7 @@ case class ApplicationModel(
     Some(resourceModel.entityClass)
   }
 
-  def controllerModelFor(cls: Class[_ <: Resource[_]]): Option[ResourceModel] = {
+  private def controllerModelFor(cls: Class[_ <: Resource[_]]): Option[ResourceModel] = {
     resourceModels.filter { model => model.routeMapping.resourceClass == cls }.headOption
   }
 

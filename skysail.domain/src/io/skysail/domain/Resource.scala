@@ -22,6 +22,15 @@ object Resource {
 
 }
 
+/**
+  * The abstract base class for skysail resources, which define how to handle requests to
+  * predefined endpoints.
+  *
+  * Those endpoints are specified using @link{RouteMapping}s, which get "collected" during
+  * bundle activation.
+  *
+  * @tparam T
+  */
 abstract class Resource[T /*<: DddElement */ : TypeTag] {
 
   implicit val askTimeout: Timeout = 1.seconds
