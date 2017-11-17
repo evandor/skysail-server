@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -15,8 +16,10 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +32,7 @@ public class SkysailServerDocIntegrationTest {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
+    private final BundleContext context = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
     protected Bundle thisBundle = FrameworkUtil.getBundle(this.getClass());
 
     private CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -47,6 +51,18 @@ public class SkysailServerDocIntegrationTest {
             log.info("");
         }
     };
+
+    @Before
+    public void init() throws InterruptedException {
+        getService(io.skysail.server.app.ApplicationProvider.class);
+    }
+
+    <T> T getService(Class<T> clazz) throws InterruptedException {
+        ServiceTracker<T,T> st = new ServiceTracker<>(context, clazz, null);
+        st.open();
+        return st.waitForService(1000);
+    }
+
 
     @Test
     public void metadoc_resources_returns_meta_documentation() throws Exception {
