@@ -58,9 +58,12 @@ public class SkysailServerDocIntegrationTest {
     }
 
     <T> T getService(Class<T> clazz) throws InterruptedException {
-        ServiceTracker<T,T> st = new ServiceTracker<>(context, clazz, null);
+        ServiceTracker<T, T> st = new ServiceTracker<>(context, clazz, null);
         st.open();
-        return st.waitForService(1000);
+        log.info("wating for service " + clazz + " for 3000 ms...");
+        T s = st.waitForService(3000);
+        log.info("waited for service " + clazz + " for 3000 ms");
+        return s;
     }
 
 

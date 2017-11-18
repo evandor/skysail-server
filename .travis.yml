@@ -11,7 +11,7 @@ services:
 install: ./gradlew --version
 
 script:
-  - ./gradlew clean build -x check
+  - ./gradlew clean build
   - ./gradlew asciidoctor scaladoc
   - ./gradlew skysail.server:export.server.int
   - ./gradlew copyConf copyRunnables
