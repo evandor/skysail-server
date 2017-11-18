@@ -1,6 +1,6 @@
 package io.skysail.server.activator
 
-import akka.actor.{ ActorRef, ActorSystem, Props }
+import akka.actor.{ActorRef, ActorSystem, Props}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
@@ -9,30 +9,30 @@ import akka.osgi.ActorSystemActivator
 import akka.stream.ActorMaterializer
 import akka.util.Timeout
 import domino.DominoActivator
-import domino.bundle_watching.BundleWatcherEvent.{ AddingBundle, ModifiedBundle, RemovedBundle }
+import domino.bundle_watching.BundleWatcherEvent.{AddingBundle, ModifiedBundle, RemovedBundle}
 import domino.capsule.Capsule
 import domino.service_watching.ServiceWatcherContext
-import domino.service_watching.ServiceWatcherEvent.{ AddingService, ModifiedService, RemovedService }
+import domino.service_watching.ServiceWatcherEvent.{AddingService, ModifiedService, RemovedService}
+import io.skysail.api.metrics.{CounterMetric, Metrics}
 import io.skysail.api.security.AuthenticationService
-import io.skysail.server.Constants
-import io.skysail.server.actors.{ ApplicationsActor, BundlesActor }
+import io.skysail.server.actors.{ApplicationsActor, BundlesActor}
+import io.skysail.server.app.{ApplicationProvider, RootApplication, SkysailApplication}
+import io.skysail.server.app.SkysailApplication._
+import io.skysail.server.metrics.SimpleMetrics
 import io.skysail.server.routes.RoutesTracker
+import io.skysail.server.{Constants, SystemPropertiesCommand}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
-import io.skysail.server.app.ApplicationProvider
-import io.skysail.server.app.SkysailApplication
-import io.skysail.server.app.SkysailApplication._
-import io.skysail.server.app.RootApplication
-import kamon.Kamon
 
 case class ServerConfig(port: Integer, binding: String, conf: Map[String, Any])
 
 object AkkaServer {
-  Kamon.start()  
-  //val serverRestartsCounter = Kamon.metrics.counter("server.restarts")
+  val metricsImpls = scala.collection.mutable.ListBuffer[Metrics]()
+  val simpleMetrics = new SimpleMetrics()
+  metricsImpls += simpleMetrics
 }
 
 class AkkaServer extends DominoActivator {
@@ -50,8 +50,9 @@ class AkkaServer extends DominoActivator {
   var serverConfig = new ServerConfig(defaultPort, defaultBinding, Map())
 
   var routesTracker: RoutesTracker = null
-  
-  
+
+
+  var serverRestartsCounter = CounterMetric(this.getClass, "server.restarts")
 
   private class AkkaCapsule(bundleContext: BundleContext) extends ActorSystemActivator with Capsule {
 
@@ -85,6 +86,9 @@ class AkkaServer extends DominoActivator {
     log info s"bundle skysail.server became active"
     addCapsule(new AkkaCapsule(bundleContext))
 
+    //Kamon.start()
+    //serverRestartsCounter = Kamon.metrics.counter("server.restarts")
+
     watchServices[ApplicationProvider] {
       case AddingService(service, context) => addApplicationProvider(service, context)
       case ModifiedService(service, context) =>
@@ -98,11 +102,27 @@ class AkkaServer extends DominoActivator {
       case RemovedService(service, _) => removeAuthenticationService(service)
     }
 
+    watchServices[Metrics] {
+      case AddingService(service, context) => AkkaServer.metricsImpls += service
+      case ModifiedService(service, _) =>
+      case RemovedService(service, _) => AkkaServer.metricsImpls -= service
+    }
+
     watchBundles {
       case AddingBundle(b, context) => bundlesActor ! BundlesActor.CreateBundleActor(b)
       case ModifiedBundle(b, _) => //log info s"Bundle ${b.getSymbolicName} modified"
       case RemovedBundle(b, _) => log info s"Bundle ${b.getSymbolicName} removed"
     }
+
+    new SystemPropertiesCommand().providesService[Object](
+      "osgi.command.scope" -> Constants.SKYSAIL_COMMAND_SCOPE,
+      "osgi.command.function" -> "systemProperties"
+    )
+
+    AkkaServer.simpleMetrics.providesService[Object](
+      "osgi.command.scope" -> Constants.SKYSAIL_COMMAND_SCOPE,
+      "osgi.command.function" -> "dumpMetrics"
+    )
 
     whenConfigurationActive("server") { conf =>
       log info s"received configuration for 'server': ${conf}"
@@ -138,7 +158,7 @@ class AkkaServer extends DominoActivator {
   private def startServer(arg: List[Route]) = {
     implicit val materializer = ActorMaterializer()
     log info s"(re)starting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
-    //AkkaServer.serverRestartsCounter.increment()
+    AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
     arg.size match {
       case 0 =>
         log warn "Akka HTTP Server not started as no routes are defined"; null

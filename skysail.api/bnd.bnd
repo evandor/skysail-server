@@ -15,5 +15,6 @@ Bundle-ActivationPolicy: lazy
 
 Export-Package: \
 	io.skysail.api.ddd,\
+	io.skysail.api.metrics,\
 	io.skysail.api.persistence,\
 	io.skysail.api.security

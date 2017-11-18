@@ -19,4 +19,7 @@ object Constants {
   val COOKIE_NAME_STYLING = "styling";
 
   val CLASS_FIELD_NAMES_SEPARATOR = "|";
+
+  val SKYSAIL_COMMAND_SCOPE = "skysail"
+
 }

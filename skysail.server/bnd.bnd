@@ -33,11 +33,11 @@ Require-Capability: skysail.capability.auth
 	org.scalactic;version=3.0,\
 	com.springsource.org.junit,\
 	org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
-	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
-	io.skysail.bundled.kamon-core_2.11;version=0.6
+	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)'
 
 Export-Package: \
 	io.skysail.api.ddd,\
+	io.skysail.api.metrics,\
 	io.skysail.api.persistence,\
 	io.skysail.api.security,\
 	io.skysail.domain,\
@@ -54,4 +54,5 @@ Export-Package: \
 
 Private-Package: \
 	io.skysail.server.activator,\
+    io.skysail.server.metrics,\
 	io.skysail.server.routes,\

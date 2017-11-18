@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1510928261534" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1510988724000" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="ch.qos.logback.classic"/>
@@ -3888,99 +3888,220 @@
   </resource>
   <resource>
     <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="io.skysail.bundled.kamon-core_2.11"/>
+      <attribute name="osgi.identity" value="io.skysail.bundled.kamon-akka_2.11"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="version" type="Version" value="0.6.8.201711180659"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="a88a058a2e4d225b139a14fb9ee7495aa176da7483850cf79ea65d3eeaa482b4"/>
+      <attribute name="osgi.content" value="485528771cb0961ce47c7de4af93ea31972fd80148312bf9382cafb78c733383"/>
+      <attribute name="url" value="io.skysail.bundled.kamon-akka_2.11/io.skysail.bundled.kamon-akka_2.11-0.6.8.jar"/>
+      <attribute name="size" type="Long" value="148548"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="io.skysail.bundled.kamon-akka_2.11"/>
+      <attribute name="bundle-version" type="Version" value="0.6.8.201711180659"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="io.skysail.bundled.kamon-akka_2.11"/>
+      <attribute name="bundle-version" type="Version" value="0.6.8.201711180659"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="kamon.akka"/>
+      <attribute name="version" type="Version" value="0.6.8"/>
+      <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-akka_2.11"/>
+      <attribute name="bundle-version" type="Version" value="0.6.8.201711180659"/>
+      <directive name="uses" value="com.typesafe.config,kamon.metric,kamon.metric.instrument,kamon.util,scala,scala.collection,scala.collection.immutable,scala.reflect,scala.runtime"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="akka.kamon.instrumentation"/>
+      <attribute name="version" type="Version" value="0.6.8"/>
+      <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-akka_2.11"/>
+      <attribute name="bundle-version" type="Version" value="0.6.8.201711180659"/>
+      <directive name="uses" value="akka.actor,akka.dispatch,akka.dispatch.forkjoin,akka.dispatch.sysmsg,akka.routing,akka.util,kamon.akka,kamon.metric,kamon.trace,kamon.trace.logging,kamon.util,kamon.util.executors,kamon.util.logger,scala,scala.collection,scala.collection.immutable,scala.concurrent,scala.reflect,scala.runtime"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=akka.actor)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=akka.dispatch)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=akka.dispatch.forkjoin)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=akka.dispatch.sysmsg)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=akka.pattern)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=akka.routing)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=akka.util)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.typesafe.config)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kamon)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=kamon.akka)(version&gt;=0.6.0)(!(version&gt;=1.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kamon.metric)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kamon.metric.instrument)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kamon.trace)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kamon.trace.logging)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kamon.util)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kamon.util.executors)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=kamon.util.logger)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.collection)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.collection.convert)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.collection.generic)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.collection.immutable)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.collection.mutable)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.compat)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.concurrent)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.concurrent.duration)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.reflect)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.runtime)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.sys)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=scala.util)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="io.skysail.bundled.kamon-core_2.11"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.6.7.201711180704"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="88846c003e61fd531fdef3617bec20a00c9c45fe22fdbd2810313de70672aacb"/>
       <attribute name="url" value="io.skysail.bundled.kamon-core_2.11/io.skysail.bundled.kamon-core_2.11-0.6.7.jar"/>
-      <attribute name="size" type="Long" value="704335"/>
+      <attribute name="size" type="Long" value="706023"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
       <directive name="uses" value="akka.actor,com.typesafe.config,kamon.metric,kamon.trace,kamon.util.logger,scala,scala.collection,scala.collection.immutable,scala.reflect,scala.runtime"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon.jsr166"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon.metric"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
       <directive name="uses" value="akka.actor,com.typesafe.config,kamon.metric.instrument,kamon.util,scala,scala.collection,scala.collection.immutable,scala.collection.mutable,scala.concurrent.duration,scala.reflect,scala.runtime"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon.metric.instrument"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
       <directive name="uses" value="akka.actor,com.typesafe.config,kamon.util.logger,org.HdrHistogram,scala,scala.collection,scala.collection.concurrent,scala.collection.generic,scala.collection.immutable,scala.collection.mutable,scala.concurrent,scala.concurrent.duration,scala.math,scala.reflect,scala.runtime"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon.trace"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
       <directive name="uses" value="akka.actor,akka.event,com.typesafe.config,kamon.metric,kamon.util,scala,scala.collection,scala.collection.concurrent,scala.collection.immutable,scala.concurrent,scala.concurrent.duration,scala.reflect,scala.runtime,scala.util"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon.trace.logging"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
       <directive name="uses" value="ch.qos.logback.classic.pattern,ch.qos.logback.classic.spi,kamon.trace,kamon.util,scala,scala.collection,scala.collection.immutable,scala.reflect,scala.runtime"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon.util"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
       <directive name="uses" value="akka.actor,com.typesafe.config,kamon.metric.instrument,kamon.util.logger,scala,scala.collection,scala.collection.concurrent,scala.collection.immutable,scala.collection.mutable,scala.concurrent,scala.concurrent.duration,scala.reflect,scala.runtime"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon.util.executors"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
       <directive name="uses" value="kamon.metric,kamon.metric.instrument,scala,scala.collection,scala.collection.immutable,scala.concurrent.forkjoin,scala.reflect,scala.runtime,scala.util.control"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon.util.http"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
       <directive name="uses" value="kamon.metric,kamon.metric.instrument,scala.reflect"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="kamon.util.logger"/>
       <attribute name="version" type="Version" value="0.6.7"/>
       <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
+      <attribute name="bundle-version" type="Version" value="0.6.7.201711180704"/>
       <directive name="uses" value="org.slf4j,scala,scala.reflect"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.HdrHistogram"/>
-      <attribute name="version" type="Version" value="0.6.7"/>
-      <attribute name="bundle-symbolic-name" value="io.skysail.bundled.kamon-core_2.11"/>
-      <attribute name="bundle-version" type="Version" value="0.6.7.201711171348"/>
-      <directive name="uses" value="scala.reflect"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=akka.actor)"/>
@@ -4019,7 +4140,7 @@
       <directive name="filter" value="(&amp;(osgi.wiring.package=kamon.util.logger)(version&gt;=0.6.0)(!(version&gt;=1.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.HdrHistogram)(version&gt;=0.6.0)(!(version&gt;=1.0.0)))"/>
+      <directive name="filter" value="(osgi.wiring.package=org.HdrHistogram)"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=org.slf4j)"/>
