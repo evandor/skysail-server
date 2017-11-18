@@ -9,6 +9,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -52,6 +53,13 @@ public class SkysailServerDocIntegrationTest {
         }
     };
 
+    @BeforeClass
+    public static void setup2() throws InterruptedException {
+        System.out.println("wating for service  for 3000 ms...");
+        Thread.sleep(3000);
+        System.out.println("waited for service  for 3000 ms");
+    }
+
     @Before
     public void init() throws InterruptedException {
         getService(io.skysail.server.app.ApplicationProvider.class);
@@ -60,10 +68,7 @@ public class SkysailServerDocIntegrationTest {
     <T> T getService(Class<T> clazz) throws InterruptedException {
         ServiceTracker<T, T> st = new ServiceTracker<>(context, clazz, null);
         st.open();
-        log.info("wating for service " + clazz + " for 3000 ms...");
-        T s = st.waitForService(3000);
-        log.info("waited for service " + clazz + " for 3000 ms");
-        return s;
+        return st.waitForService(3000);
     }
 
 
