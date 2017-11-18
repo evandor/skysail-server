@@ -24,13 +24,14 @@ import io.skysail.server.{Constants, SystemPropertiesCommand}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 
-import scala.concurrent.Future
+import scala.collection.mutable.ListBuffer
+import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.concurrent.duration.DurationInt
 
 case class ServerConfig(port: Integer, binding: String, conf: Map[String, Any])
 
 object AkkaServer {
-  val metricsImpls = scala.collection.mutable.ListBuffer[Metrics]()
+  val metricsImpls: ListBuffer[Metrics] = scala.collection.mutable.ListBuffer[Metrics]()
   val simpleMetrics = new SimpleMetrics()
   metricsImpls += simpleMetrics
 }
@@ -45,7 +46,7 @@ class AkkaServer extends DominoActivator {
   var bundlesActor: ActorRef = _
 
   val defaultPort = 8080
-  val defaultBinding = "localhost"
+  val defaultBinding = "0.0.0.0"
   val defaultAuthentication = "HTTP_BASIC"
   var serverConfig = new ServerConfig(defaultPort, defaultBinding, Map())
 
@@ -110,7 +111,7 @@ class AkkaServer extends DominoActivator {
 
     watchBundles {
       case AddingBundle(b, context) => bundlesActor ! BundlesActor.CreateBundleActor(b)
-      case ModifiedBundle(b, _) => //log info s"Bundle ${b.getSymbolicName} modified"
+      case ModifiedBundle(b, _) =>
       case RemovedBundle(b, _) => log info s"Bundle ${b.getSymbolicName} removed"
     }
 
@@ -125,7 +126,7 @@ class AkkaServer extends DominoActivator {
     )
 
     whenConfigurationActive("server") { conf =>
-      log info s"received configuration for 'server': ${conf}"
+      log info s"received configuration for 'server': $conf"
       val port = Integer.parseInt(conf.getOrElse("port", defaultPort.toString).asInstanceOf[String])
       var binding = conf.getOrElse("binding", defaultBinding).asInstanceOf[String]
       //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
@@ -146,17 +147,17 @@ class AkkaServer extends DominoActivator {
     restartServer(routesTracker.routes())
   }
 
-  private def removeApplicationProvider(appInfoProvider: ApplicationProvider) = {
+  private def removeApplicationProvider(appInfoProvider: ApplicationProvider): Unit = {
     routesTracker.removeRoutesFrom(appInfoProvider)
     restartServer(routesTracker.routes())
   }
 
-  private def removeAuthenticationService(authenticationService: AuthenticationService) = {
+  private def removeAuthenticationService(authenticationService: AuthenticationService): Unit = {
     routesTracker.setAuthentication(null)
   }
 
   private def startServer(arg: List[Route]) = {
-    implicit val materializer = ActorMaterializer()
+    implicit val materializer: ActorMaterializer = ActorMaterializer()
     log info s"(re)starting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
     AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
     arg.size match {
@@ -167,17 +168,17 @@ class AkkaServer extends DominoActivator {
     }
   }
 
-  private def restartServer(routes: List[Route]) = {
-    implicit val materializer = ActorMaterializer()
+  private def restartServer(routes: List[Route]): Unit = {
+    implicit val materializer: ActorMaterializer = ActorMaterializer()
     if (futureBinding != null) {
-      implicit val executionContext = actorSystem.dispatcher
+      implicit val executionContext: ExecutionContextExecutor = actorSystem.dispatcher
       futureBinding.flatMap(_.unbind()).onComplete { _ => futureBinding = startServer(routes) }
     } else {
       futureBinding = startServer(routes)
     }
   }
 
-  private def createApplicationActor(appInfoProvider: ApplicationProvider) = {
+  private def createApplicationActor(appInfoProvider: ApplicationProvider): Unit = {
     if (appInfoProvider == null) {
       log warn "provided ApplicationProvider was null!"
     } else {
