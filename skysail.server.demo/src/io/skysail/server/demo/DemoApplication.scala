@@ -7,7 +7,7 @@ import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
 import io.skysail.server.demo.DemoApplication._
 import io.skysail.server.demo.repositories.BookmarksRepository
-import io.skysail.server.demo.resources.{BookmarksResource, PostBookmarkResource}
+import io.skysail.server.demo.resources.{BookmarksResource, PostBookmarkResource, PutBookmarkResource}
 import org.osgi.framework.BundleContext
 
 object DemoApplication {
@@ -16,27 +16,16 @@ object DemoApplication {
 }
 
 class DemoApplication(bundleContext: BundleContext, dbService: DbService) extends
-  SkysailApplication(APPLICATION_NAME, APP_VERSION, bundleContext, "Skysail Doc Application") with ApplicationProvider {
+  SkysailApplication(APPLICATION_NAME, APP_VERSION, bundleContext, "Skysail Demo Application") with ApplicationProvider {
 
-
-  //  @Activate
-  //  override def activate(appConfig: ApplicationConfiguration, componentContext: ComponentContext): Unit = {
-  //    super.activate(appConfig, componentContext)
-  //    println("NEW DemoRepository")
   val repo = new BookmarksRepository(dbService)
-  //  }
-  //
-  //  @Deactivate
-  //  override def deactivate(componentContext: ComponentContext): Unit = {
-  //    super.deactivate(componentContext)
-  //    repo = null
-  //  }
 
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
     List(
-      RouteMapping("/bms", root / PathMatcher("bms") ~ PathMatchers.PathEnd, classOf[BookmarksResource]),
-      RouteMapping("/bms/", root / PathMatcher("bms") ~ PathMatchers.Slash ~ PathMatchers.PathEnd, classOf[PostBookmarkResource])
+      RouteMapping("/bms",     root / PathMatcher("bms") ~ PathMatchers.PathEnd, classOf[BookmarksResource]),
+      RouteMapping("/bms/",    root / PathMatcher("bms") ~ PathMatchers.Slash ~ PathMatchers.PathEnd, classOf[PostBookmarkResource]),
+      RouteMapping("/bms/:id", root / PathMatcher("bms") ~ PathMatchers.Slash ~ PathMatchers.Segment ~ PathMatchers.PathEnd, classOf[PutBookmarkResource])
     )
   }
 

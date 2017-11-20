@@ -1,21 +1,24 @@
-:source-highlighter: coderay
-:imagesdir: images
-
 = skysail server repository bundles
 Carsten Gräf <evandor@gmail.com>
 v0.0, 2017-11-03
-:toc:
-
-== Up
-
-link:meta[here]
+:toc-title: Bundles
+:toclevels: 1
+include::config/config.adoc[]
+include::homelink.adoc[]
 
 == About
 
-This document lists all bundles contained in the skysail server repository.
+This document lists all available bundles of the skysail repostitory with their
+documentation.
 
 == Bundles
 
-include::../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[leveloffset=+1]
+todo: description
 
-include::../../../skysail.domain/src/docs/asciidoc/bundle-overview-1.adoc[leveloffset=+1]
+include::../../../skysail.api/src/docs/asciidoc/skysail.api.bundle.adoc[]
+
+include::../../../skysail.domain/src/docs/asciidoc/bundle-overview-1.adoc[]
+
+include::../../../skysail.server/src/docs/asciidoc/bundle-overview-1.adoc[]
+
+include::../../../skysail.db.orientdb/src/docs/asciidoc/bundle-overview-1.adoc[]

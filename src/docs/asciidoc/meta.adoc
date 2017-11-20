@@ -1,60 +1,27 @@
-:source-highlighter: coderay
-:imagesdir: images
-
-= skysail server meta documentation
+= skysail server documentation home
 Carsten Gräf <evandor@gmail.com>
-v0.0, 2017-11-03
-:toc:
+v0.1, 2017-11-13
+:toc-title: documentation overview
+include::config/config.adoc[]
 
 == About this document
 
-*This document contains references to all available documentation about
-skysail.*
+*This document contains _references to all available documentation_ about
+skysail* as well as *relevant links* to build systems, issue trackers, source code
+and so on.
 
-The complete documentation is a collection of many documents, bundled together
-for various audiences. So, for example, the _developer documentation_ is a subset of
-all documents which are relevant for developers, whereas skysail users will have
-their own "subset", the _skysail user documentation_. Like this, it is easy to reuse
-and maintain documentation for different audiences.
+== Current Repository Release: 0.0
 
-You, as a reader, have to choose the kind of documentation you are interested in
-(that is, you have to decide about your type of role as a reader).
-
-If you are interested in the current version, check the next paragraph for the
-available types of documentation.
-
-== Current Repository Release 0.0
-
-The *current version of the skysail server repository is 0.0*.
-
-Please note that this version is not a (semantic) bundle version,
-but a kind of tag for the whole repository. The release 0.0 corresponds
+Please note that _this version is not a (semantic) bundle version_,
+but a kind of _tag for the whole repository_ . The release 0.0 corresponds
 to the branch "release/0.0".
 
-=== Developer Documentation
-
-Find out about the idea and the concepts behind skysail link:dev[here].
-
-=== User Documentation
-
-Find out about the idea and the concepts behind skysail http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[here].
-
-=== Products Documentation
-
-...
-
-=== Bundles
-
-You can find the document summarizing all available bundles in the
-repository here: http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Contained_Bundles/[Bundle Documention]
-
-== Next Repository Release 0.1
-
-Nothing yet to document
-
-== Older repostitory releases
-
-Nothing yet to document
+|===
+| link:developer.html[Developer Documentation] | Everything you need to know as a developer
+who is working with skysail
+| link:bundles.html[Bundle Documention] | Overview and details about all contained bundles.
+| user documentation | to be done
+|===
 
 == General Links
 

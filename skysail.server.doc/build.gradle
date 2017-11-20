@@ -9,7 +9,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "gradle.plugin.io.skysail.gradle:twirlosgi-gradle-plugin:0.1.2"
+        classpath "gradle.plugin.io.skysail.gradle:twirlosgi-gradle-plugin:0.1.3"
     }
 }
 

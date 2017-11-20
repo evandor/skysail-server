@@ -532,6 +532,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#creating-eclipse-project-and-classpath-files-with-gradle">Creating eclipse project and classpath files with gradle</a></li>
 <li><a href="#first-spec-tests-inside-skysail-server">First Spec-Tests inside skysail.server</a></li>
 <li><a href="#creating-docker-image-in-gradle-build">Creating docker image in gradle build</a></li>
+<li><a href="#kamon-io">Kamon.io</a></li>
 </ul>
 </li>
 </ul>
@@ -698,12 +699,27 @@ design decisions, used libraries and tools, the build setup and so on.</p>
 <h3 id="creating-docker-image-in-gradle-build">Creating docker image in gradle build</h3>
 
 </div>
+<div class="sect2">
+<h3 id="kamon-io">Kamon.io</h3>
+<div class="paragraph">
+<p>jmx: need agent?
+make abstraction for various metric systems?
+need system property even for local jmx?</p>
+</div>
+<div class="paragraph">
+<p>Problems setting up akka reference.conf files in OSGi environment</p>
+</div>
+<div class="paragraph">
+<p>Decision: create metrics abstraction API in skysail.api and implement
+trivial in-memory implementation.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 08:05:24 CET
+Last updated 2017-11-18 08:37:58 CET
 </div>
 </div>
 </body>

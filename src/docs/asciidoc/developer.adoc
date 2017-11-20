@@ -1,26 +1,23 @@
-:source-highlighter: coderay
-:imagesdir: images
-
 = skysail server developer documentation
 Carsten Gräf <evandor@gmail.com>
 v0.0, 2017-11-03
-:toc:
+:toc-title: Developer Docs
+:toclevels: 4
+include::config/config.adoc[]
+include::homelink.adoc[]
 
-== About
+== About & Intended Audience
 
 This document is the entry point for the skysail documentation if you are
-an developer. There are link:meta[other entry points] to read the skysail documentation,
+an developer. There are link:meta.html[other entry points] to read the skysail documentation,
 for example if you just want to use skysail as a service.
 
-== Intended audience
-
-Developers who want to understand the principles behind skysail.
 
 include::aboutskysail.adoc[leveloffset=+1]
 
 == Bundles
 
-include::../../../skysail.api/src/docs/asciidoc/bundle-overview-1.adoc[leveloffset=+1]
+include::../../../skysail.api/src/docs/asciidoc/skysail.api.bundle.adoc[leveloffset=+1]
 
 and
 

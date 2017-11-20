@@ -8,11 +8,8 @@ trait DbService {
 
   // tag::methods[]
   def createWithSuperClass(superClass: String, vertices: String*)
-
   def register(classes: Class[_]*)
-
   def persist(entity: Any): String
-  
-  def findGraphs[T:Manifest](cls: Class[T], sql: String /*, Map<String, Object> params*/ ): List[T]
+  def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]
   // end::methods[]
 }

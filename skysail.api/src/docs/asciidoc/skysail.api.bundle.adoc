@@ -1,0 +1,75 @@
+ifndef::imagesDir[:imagesDir: ../images]
+
+== skysail.api
+
+This chapter provides an overview of the skysail.api bundle.
+
+=== Purpose
+
+The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).
+
+=== Packages
+
+|===
+| *io.skysail.api.ddd* | Domain Driven Design | link to scaladoc
+| *io.skysail.api.metrics* | Metrics API | link to scaladoc
+| *io.skysail.api.persistence* | Persistence | link to scaladoc
+| *io.skysail.api.security* | security related | link to scaladoc
+|===
+
+==== io.skysail.api.ddd
+
+This package defines the following trait
+
+[source,scala]
+.DddElement.scala
+----
+include::../../io/skysail/api/ddd/ddd.scala[tag=methods]
+----
+
+which serves as the common parent for various derived elements which are
+used to characterize the tactical patterns of "Domain Driven Design".
+
+For example, there is an Entity and ValueObject class extening the DddElement trait.
+
+==== io.skysail.api.metrics
+
+==== io.skysail.api.persistence
+
+This package contains the _DbService_ trait which defines the API to be
+implemented to provide persistence mechanisms in skysail.
+
+[source,scala]
+.DbService.scala
+----
+include::../../io/skysail/api/persistence/DbService.scala[tag=methods]
+----
+
+Right now, there is only one implementation of this trait, provided in the
+skysail.db.orientdb bundle.
+
+==== io.skysail.api.security
+
+[plantuml, ./diagram, png]
+.Diagram Title
+....
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+....
+
+test
+
+[plantuml, ./cs, png]
+.Calling Sequence
+....
+RoutesCreator -> ApplicationActor: ProcessCommand
+ApplicationActor -> ControllerActor: SkysailContext
+ControllerActor -> Resource: get(RequestEvent)
+
+Resource --> ControllerActor
+ControllerActor -> ApplicationActor
+ApplicationActor -> RoutesCreator
+....

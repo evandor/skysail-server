@@ -6,7 +6,9 @@ package io.skysail.api.ddd
   * This sealed trait defines various elements to characterize
   * these concepts.
   */
+// tag::methods[]
 sealed trait DddElement
+// end::methods[]
 
 /**
   *
