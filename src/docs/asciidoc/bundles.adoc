@@ -4,7 +4,7 @@ v0.0, 2017-11-03
 :toc-title: Bundles
 :toclevels: 1
 include::config/config.adoc[]
-include::homelink.adoc[]
+include::nav/homelink.adoc[]
 
 == About
 

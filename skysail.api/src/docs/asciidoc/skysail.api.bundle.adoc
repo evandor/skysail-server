@@ -2,13 +2,39 @@ ifndef::imagesDir[:imagesDir: ../images]
 
 == skysail.api
 
+
+//[abstract]
+//.Abstract
+//Documentation is a distillation of many long, squiggly adventures.
+
 This chapter provides an overview of the skysail.api bundle.
 
-=== Purpose
+==== Purpose
 
 The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).
 
-=== Packages
+.AsciiDoc history
+****
+AsciiDoc was first released in Nov 2002 by Stuart Rackham.
+It was designed from the start to be a shorthand syntax
+for producing professional documents like DocBook and LaTeX.
+****
+
+NOTE: Asciidoctor supports font-based admonition icons, powered by Font Awesome!
+
+[source,ruby]
+----
+require 'sinatra' <1>
+
+get '/hi' do <2> <3>
+  "Hello World!"
+end
+----
+<1> Library import
+<2> URL mapping
+<3> Response block
+
+==== Packages
 
 |===
 | *io.skysail.api.ddd* | Domain Driven Design | link to scaladoc
@@ -17,7 +43,7 @@ The skysail.api bundle is a collection of core traits, to be implemented in skys
 | *io.skysail.api.security* | security related | link to scaladoc
 |===
 
-==== io.skysail.api.ddd
+===== io.skysail.api.ddd
 
 This package defines the following trait
 
@@ -32,9 +58,9 @@ used to characterize the tactical patterns of "Domain Driven Design".
 
 For example, there is an Entity and ValueObject class extening the DddElement trait.
 
-==== io.skysail.api.metrics
+===== io.skysail.api.metrics
 
-==== io.skysail.api.persistence
+===== io.skysail.api.persistence
 
 This package contains the _DbService_ trait which defines the API to be
 implemented to provide persistence mechanisms in skysail.
@@ -48,7 +74,7 @@ include::../../io/skysail/api/persistence/DbService.scala[tag=methods]
 Right now, there is only one implementation of this trait, provided in the
 skysail.db.orientdb bundle.
 
-==== io.skysail.api.security
+===== io.skysail.api.security
 
 [plantuml, ./diagram, png]
 .Diagram Title
@@ -73,3 +99,9 @@ Resource --> ControllerActor
 ControllerActor -> ApplicationActor
 ApplicationActor -> RoutesCreator
 ....
+
+[appendix]
+== Test
+
+[appendix]
+== Test2

@@ -3,8 +3,10 @@ Carsten Gräf <evandor@gmail.com>
 v0.0, 2017-11-03
 :toc-title: Developer Docs
 :toclevels: 4
+:doctype: book
+:sectnums:
 include::config/config.adoc[]
-include::homelink.adoc[]
+include::nav/homelink.adoc[]
 
 == About & Intended Audience
 
@@ -12,8 +14,14 @@ This document is the entry point for the skysail documentation if you are
 an developer. There are link:meta.html[other entry points] to read the skysail documentation,
 for example if you just want to use skysail as a service.
 
+****
+sidebar block
+****
 
-include::aboutskysail.adoc[leveloffset=+1]
+[.lead]
+This is the ultimate paragraph.
+
+include::aboutskysail/aboutskysail.adoc[leveloffset=+1]
 
 == Bundles
 

@@ -14,3 +14,5 @@
 
 // where are images located?
 :imagesdir: images
+
+:icons: font

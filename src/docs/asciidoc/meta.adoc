@@ -4,6 +4,10 @@ v0.1, 2017-11-13
 :toc-title: documentation overview
 include::config/config.adoc[]
 
+this is the preamble
+
+test
+
 == About this document
 
 *This document contains _references to all available documentation_ about
@@ -25,4 +29,24 @@ who is working with skysail
 
 == General Links
 
-include::links.adoc[leveloffset=+1]
+include::various/links.adoc[leveloffset=+1]
+
+
+[glossary]
+== Glossary
+
+[glossary]
+mud:: wet, cold dirt
+rain::
+	water falling from the sky
+
+_The Pragmatic Programmer_ <<pp>> should be required reading for all developers.
+To learn all about design patterns, refer to the book by the "`Gang of Four`" <<gof>>.
+
+[bibliography]
+== References
+
+- [[[pp]]] Andy Hunt & Dave Thomas. The Pragmatic Programmer:
+  From Journeyman to Master. Addison-Wesley. 1999.
+- [[[gof,2]]] Erich Gamma, Richard Helm, Ralph Johnson & John Vlissides. Design Patterns:
+  Elements of Reusable Object-Oriented Software. Addison-Wesley. 1994.

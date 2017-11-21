@@ -80,21 +80,21 @@ will become unavailable.
 
 == Concepts
 
-include::aboutskysail/concepts.adoc[leveloffset=+1]
+include::concepts.adoc[leveloffset=+1]
 
 == Resources
 
-include::aboutskysail/resources.adoc[leveloffset=+1]
+include::resources.adoc[leveloffset=+1]
 
 == Request Processing
 
-include::aboutskysail/requestprocessing.adoc[leveloffset=+1]
+include::requestprocessing.adoc[leveloffset=+1]
 
 == Domain and Business Logic
 
-include::aboutskysail/domainlogic.adoc[leveloffset=+1]
+include::domainlogic.adoc[leveloffset=+1]
 
 == Transformations
 
-include::aboutskysail/transformations.adoc[leveloffset=+1]
+include::transformations.adoc[leveloffset=+1]
 
