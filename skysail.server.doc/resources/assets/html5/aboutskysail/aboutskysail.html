@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Carsten Gräf">
-<title>skysail server repository bundles</title>
+<title>About skysail (server)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -513,353 +513,299 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>skysail server repository bundles</h1>
+<h1>About skysail (server)</h1>
 <div class="details">
 <span id="author" class="author">Carsten Gräf</span><br>
 <span id="email" class="email"><a href="mailto:evandor@gmail.com">evandor@gmail.com</a></span><br>
 <span id="revnumber">version 0.0,</span>
-<span id="revdate">2017-11-03</span>
+<span id="revdate">2017-11-04</span>
 </div>
 <div id="toc" class="toc2">
-<div id="toctitle">Bundles</div>
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#about">About</a></li>
-<li><a href="#bundles">Bundles</a></li>
-<li><a href="#skysail-api">skysail.api</a></li>
-<li><a href="#test">Anhang A: Test</a></li>
-<li><a href="#test2">Anhang B: Test2</a></li>
-<li><a href="#skysail-domain">skysail.domain</a></li>
-<li><a href="#skysail-server-bundle-overview">skysail.server bundle Overview</a></li>
-<li><a href="#skysail-db-orientdb">skysail.db.orientdb</a></li>
+<li><a href="#introduction-skysail">Introduction: skysail&#8230;&#8203;</a>
+<ul class="sectlevel2">
+<li><a href="#modularity">Modularity</a></li>
+<li><a href="#domain-centric">Domain-Centric</a></li>
+<li><a href="#restful">RESTful</a></li>
+<li><a href="#baas">BaaS</a></li>
+<li><a href="#self-hosting">Self-Hosting</a></li>
+</ul>
+</li>
+<li><a href="#why-not-use-x-y-z">Why not use X/Y/Z?</a></li>
+<li><a href="#concepts">Concepts</a>
+<ul class="sectlevel2">
+<li><a href="#applications">Applications</a></li>
+</ul>
+</li>
+<li><a href="#resources">Resources</a>
+<ul class="sectlevel2">
+<li><a href="#resources-2">Resources</a></li>
+</ul>
+</li>
+<li><a href="#request-processing">Request Processing</a>
+<ul class="sectlevel2">
+<li><a href="#resources-3">Resources</a></li>
+</ul>
+</li>
+<li><a href="#domain-and-business-logic">Domain and Business Logic</a>
+<ul class="sectlevel2">
+<li><a href="#resources-4">Resources</a></li>
+</ul>
+</li>
+<li><a href="#transformations">Transformations</a>
+<ul class="sectlevel2">
+<li><a href="#transformations-2">Transformations</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Click <a href="meta.html">here</a> to get to the documention root.</p>
-</div>
-<hr>
-</div>
-</div>
 <div class="sect1">
-<h2 id="about">About</h2>
+<h2 id="introduction-skysail">Introduction: skysail&#8230;&#8203;</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This document lists all available bundles of the skysail repostitory with their
-documentation.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bundles">Bundles</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>todo: description</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-api">skysail.api</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.api bundle.</p>
-</div>
-<div class="sect3">
-<h4 id="purpose">Purpose</h4>
-<div class="paragraph">
-<p>The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">AsciiDoc history</div>
-<div class="paragraph">
-<p>AsciiDoc was first released in Nov 2002 by Stuart Rackham.
-It was designed from the start to be a shorthand syntax
-for producing professional documents like DocBook and LaTeX.</p>
-</div>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Hinweis"></i>
-</td>
-<td class="content">
-Asciidoctor supports font-based admonition icons, powered by Font Awesome!
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">sinatra</span><span class="delimiter">'</span></span> <i class="conum" data-value="1"></i><b>(1)</b>
-
-get <span class="string"><span class="delimiter">'</span><span class="content">/hi</span><span class="delimiter">'</span></span> <span class="keyword">do</span>  <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
-  <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello World!</span><span class="delimiter">&quot;</span></span>
-<span class="keyword">end</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Library import</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>URL mapping</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Response block</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="packages">Packages</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.ddd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Driven Design</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.metrics</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metrics API</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.persistence</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Persistence</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.security</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">security related</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-</tbody>
-</table>
-<div class="sect4">
-<h5 id="io-skysail-api-ddd">io.skysail.api.ddd</h5>
-<div class="paragraph">
-<p>This package defines the following trait</p>
-</div>
-<div class="listingblock">
-<div class="title">DddElement.scala</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">sealed trait DddElement</code></pre>
-</div>
+<p>&#8230;&#8203;is: a <strong>modular</strong>, <strong>domain-centric</strong> and <strong>RESTful BaaS</strong> (Backend as a Service)</p>
 </div>
 <div class="paragraph">
-<p>which serves as the common parent for various derived elements which are
-used to characterize the tactical patterns of "Domain Driven Design".</p>
+<p>(that you can host yourself)</p>
 </div>
 <div class="paragraph">
-<p>For example, there is an Entity and ValueObject class extening the DddElement trait.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="io-skysail-api-metrics">io.skysail.api.metrics</h5>
-
-</div>
-<div class="sect4">
-<h5 id="io-skysail-api-persistence">io.skysail.api.persistence</h5>
-<div class="paragraph">
-<p>This package contains the <em>DbService</em> trait which defines the API to be
-implemented to provide persistence mechanisms in skysail.</p>
-</div>
-<div class="listingblock">
-<div class="title">DbService.scala</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">  def createWithSuperClass(superClass: String, vertices: String*)
-  def register(classes: Class[_]*)
-  def persist(entity: Any): String
-  def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]</code></pre>
-</div>
+<p>The overall goal of skysail is to provide you with an environment where you can
+create typical backend logic in a generic, quick way with as little dependencies
+as possible. This makes skysail suited for prototypes, first of all, but I hope
+that this approach - even though very generic - is good enough for production
+ready applications as well.</p>
 </div>
 <div class="paragraph">
-<p>Right now, there is only one implementation of this trait, provided in the
-skysail.db.orientdb bundle.</p>
+<p><strong>Typical backend logic covered by skysail</strong>:</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="io-skysail-api-security">io.skysail.api.security</h5>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram.png" alt="Diagram Title" width="293" height="216">
-</div>
-<div class="title">Abbildung 1. Diagram Title</div>
-</div>
-<div class="paragraph">
-<p>test</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/cs.png" alt="Calling Sequence" width="525" height="228">
-</div>
-<div class="title">Abbildung 2. Calling Sequence</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="test">Anhang A: Test</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="test2">Anhang B: Test2</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-domain">skysail.domain</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.domain bundle.</p>
-</div>
-<div class="sect2">
-<h3 id="namespace">Namespace</h3>
-<div class="paragraph">
-<p>io.skysail.domain</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="purpose-2">Purpose</h3>
-<div class="paragraph">
-<p>The skysail.domain bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="packages-2">Packages</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>A</p>
+<p>Authentication / Authorization</p>
 </li>
 <li>
-<p>B</p>
+<p>Security aspects (like injections)</p>
 </li>
 <li>
-<p>C</p>
+<p>Configuration</p>
+</li>
+<li>
+<p>Validation</p>
+</li>
+<li>
+<p>Documentation</p>
+</li>
+<li>
+<p>Persistence</p>
 </li>
 </ul>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
-</div>
-<div class="title">Abbildung 3. Calling Sequence</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="model">Model</h3>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
-</div>
-<div class="title">Abbildung 4. Calling Sequence2</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-server-bundle-overview">skysail.server bundle Overview</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>This chapter provides an overview of the skysail.api bundle.</p>
+<p>We have some more things skysail could help you with:</p>
 </div>
-<div class="sect2">
-<h3 id="namespace-2">Namespace</h3>
-<div class="paragraph">
-<p>io.skysail.api</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="purpose-3">Purpose</h3>
-<div class="paragraph">
-<p>The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-db-orientdb">skysail.db.orientdb</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.db.orientdb bundle.</p>
-</div>
-<div class="sect2">
-<h3 id="namespace-3">Namespace</h3>
-<div class="paragraph">
-<p>io.skysail.db.orientdb</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="purpose-4">Purpose</h3>
-
-</div>
-<div class="sect2">
-<h3 id="configuration">Configuration</h3>
-<div class="paragraph">
-<p>url = memory:test</p>
-</div>
-<div class="paragraph">
-<p>url = plocal:etc/db</p>
-</div>
-<div class="paragraph">
-<p>url = remote:localhost/skysailcrm</p>
-</div>
-<div class="paragraph">
-<p>user = admin</p>
-</div>
-<div class="paragraph">
-<p>pass = admin</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="packages-3">Packages</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>A</p>
+<p>User Management</p>
 </li>
 <li>
-<p>B</p>
+<p>HTML Rendering (Template Engine)</p>
 </li>
 <li>
-<p>C</p>
+<p>Generic Client GUI</p>
+</li>
+<li>
+<p>Prototyping</p>
+</li>
+<li>
+<p>and - calling other APIs</p>
 </li>
 </ul>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
+<div class="paragraph">
+<p>A skysail backend does not only serve JSON to be used by some client, it creates
+a generic web GUI so that you can actually use and validate your implementation
+directly with a browser.</p>
 </div>
-<div class="title">Abbildung 5. Calling Sequence</div>
+<div class="paragraph">
+<p>Please check this site for the current implementation status of the above
+features (todo).</p>
+</div>
+<div class="paragraph">
+<p>Now, let&#8217;s explain the main buzz-words from the definition above:</p>
+</div>
+<div class="sect2">
+<h3 id="modularity">Modularity</h3>
+<div class="paragraph">
+<p>skysail is a collection of OSGi bundles, depending on other bundles, and
+defining an API for domains like authentication, security, persistence and
+so on. If some API implementation does not fulfil your needs, it is easy to
+replace it with your own implementation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="model-2">Model</h3>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
+<h3 id="domain-centric">Domain-Centric</h3>
+<div class="paragraph">
+<p>skysail lets you concentrate on your business (or domain) logic. Http Server,
+database, configuration setup and the like are already there. Just use them.
+Or replace them with an implementation more suited for your needs.</p>
 </div>
-<div class="title">Abbildung 6. Calling Sequence2</div>
+</div>
+<div class="sect2">
+<h3 id="restful">RESTful</h3>
+<div class="paragraph">
+<p>skysail concentrates on the backend and tries to stick to RESTful principles.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="baas">BaaS</h3>
+<div class="paragraph">
+<p>skysail is a Backend-as-a-Service.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="self-hosting">Self-Hosting</h3>
+<div class="paragraph">
+<p>The difference to many other BaaS, you can download and run skysail on your
+own machines.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="why-not-use-x-y-z">Why not use X/Y/Z?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Apart from being deployable as a <strong>single jar</strong> file, skysail supports <strong>true modularity</strong>.
+That means, contrary to for example <em>Spring</em>, you have dynamic class and service
+discovery, not just a static one (when the application is started). Replacing a
+bundle with a new version or even a new implementation becomes trivial (apart
+from writing the new bundle maybe ;)). The system can react to changes, which
+could be a new additional bundle, or stopping a bundle, so that its services
+will become unavailable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="concepts">Concepts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In some way, skysail is just a set of concepts.</p>
+</div>
+<div class="paragraph">
+<p>When you create something like a library or any kind of software others might want to use, you have to make a lot of decisions. Some of those might be easy - for example, picking a specific programming language. Others, like deciding if you really want to depend on other libraries and/or frameworks (and which ones) are harder. And, of course, you have some kind of problem in mind you want to solve.</p>
+</div>
+<div class="paragraph">
+<p>So, in the end, you decide about a lot of things and create something which (hopefully) is useful - but only to people having this kind of problem, using that specific programming language and have a similar set of dependencies as you.</p>
+</div>
+<div class="paragraph">
+<p>This chapter is about the decisions I&#8217;ve made.</p>
+</div>
+<div class="paragraph">
+<p>All the concepts like "Applications", "Business Logic" and "Request Processing" - they might be valuable to only a small set of people. Still, I think these concepts are useful to solve problems I am confronted with, and I am happy to discuss (and adjust) them. Maybe they are useful to somebody else as well - hopefully, as this is the reason I started this in the first place.</p>
+</div>
+<div class="paragraph">
+<p>The two big decisions right at the beginning were:</p>
+</div>
+<div class="paragraph">
+<p>the programming language (Scala (although the first versions of skysail have been created using Java))
+and the "framework" (OSGi [with bndtools])
+For those still reading on ;):</p>
+</div>
+<div class="paragraph">
+<p>Picking this combination has a few implications: Actually, the programming language is not really restricted to Scala: You can use any language running on the Java Virtual Machine (like Java, Groovy, Clojure, &#8230;&#8203;). And, there is a clean modularization between the various parts. New Applications can be deployed into a running installation without restarting. If you are afraid to do this in production, you&#8217;ll still love it in development. Dependencies are well-expressed and clean.</p>
+</div>
+<div class="paragraph">
+<p>Round about a hundred bundles for a typical skysail installation seem a lot. But it&#8217;s not: you&#8217;ll get the server (jetty), a database (orientdb), serialization features (jackson) and validation stuff (hibernate). And more. Using OSGi let&#8217;s you pick between various implements of specific features easily (for example, where do you store your users, if at all) - and, if you don&#8217;t find what you are looking for - implement it yourself. Replace the implementation you are not happy with, and it will work.</p>
+</div>
+<div class="paragraph">
+<p>And: your deployable, it&#8217;s just a single jar file. You start it like "java -jar myskysail.installation.jar". That&#8217;s it. Database and server included.</p>
+</div>
+<div class="sect2">
+<h3 id="applications">Applications</h3>
+<div class="paragraph">
+<p>When it comes to skysail, as a developer, you can extend (and/or) fix its core functionality, or you can create Applications.</p>
+</div>
+<div class="paragraph">
+<p>An application is a cohesive unit (in DDD: a bounded context) of functionality, expressed as a domain model, the associated business logic and made available to the outside world as a set of RESTful endpoints. And, it is an OSGi bundle.</p>
+</div>
+<div class="paragraph">
+<p>This bundle can be deployed into the skysail server, and, given its dependencies are matched, its endpoints will be available for provisioning and consumption.</p>
+</div>
+<div class="paragraph">
+<p>Overview
+to be done</p>
+</div>
+<div class="paragraph">
+<p>Configuration
+There are (at least) two ways to configure an application: There&#8217;s the general one, which can be applied to all applications and contains definitions, for example, for CORS configuration. And then, often, you might need application-specific configurations, for example file paths or database access tokens.</p>
+</div>
+<div class="paragraph">
+<p>General Configuration
+This kind of config is described here.</p>
+</div>
+<div class="paragraph">
+<p>Application-Specific Configuration
+Let&#8217;s use an example here: let&#8217;s assume we have an application which utilizes the spotify API. So we need to configure a clientId, a clientSecret and the redirectUrl. This information should not be hardcoded, we don&#8217;t even want to put it in version control. What we do is to define a configuration description and a configuration provider:</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources">Resources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect2">
+<h3 id="resources-2">Resources</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="request-processing">Request Processing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect2">
+<h3 id="resources-3">Resources</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="domain-and-business-logic">Domain and Business Logic</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect2">
+<h3 id="resources-4">Resources</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="transformations">Transformations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect2">
+<h3 id="transformations-2">Transformations</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
 </div>
 </div>
 </div>

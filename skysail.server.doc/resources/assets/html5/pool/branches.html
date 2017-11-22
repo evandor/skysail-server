@@ -5,8 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<meta name="author" content="Carsten Gräf">
-<title>skysail server repository bundles</title>
+<title>Up</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -513,353 +512,55 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>skysail server repository bundles</h1>
-<div class="details">
-<span id="author" class="author">Carsten Gräf</span><br>
-<span id="email" class="email"><a href="mailto:evandor@gmail.com">evandor@gmail.com</a></span><br>
-<span id="revnumber">version 0.0,</span>
-<span id="revdate">2017-11-03</span>
-</div>
 <div id="toc" class="toc2">
-<div id="toctitle">Bundles</div>
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#about">About</a></li>
-<li><a href="#bundles">Bundles</a></li>
-<li><a href="#skysail-api">skysail.api</a></li>
-<li><a href="#test">Anhang A: Test</a></li>
-<li><a href="#test2">Anhang B: Test2</a></li>
-<li><a href="#skysail-domain">skysail.domain</a></li>
-<li><a href="#skysail-server-bundle-overview">skysail.server bundle Overview</a></li>
-<li><a href="#skysail-db-orientdb">skysail.db.orientdb</a></li>
+<li><a href="#up">Up</a></li>
+<li><a href="#branches">Branches</a>
+<ul class="sectlevel2">
+<li><a href="#branches-2">Branches</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Click <a href="meta.html">here</a> to get to the documention root.</p>
-</div>
-<hr>
-</div>
-</div>
 <div class="sect1">
-<h2 id="about">About</h2>
+<h2 id="up">Up</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This document lists all available bundles of the skysail repostitory with their
-documentation.</p>
+<p><a href="meta">here</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="bundles">Bundles</h2>
+<h2 id="branches">Branches</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>todo: description</p>
+<p>The bundles contained in this repository follow the usual "semantic-versioning" scheme.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-api">skysail.api</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>This chapter provides an overview of the skysail.api bundle.</p>
+<p>Nevertheless, the repository as a whole has its own versioning scheme, which
+is "marketing-driven". The current "repository-release" is developed in the
+branch "release/0.0"</p>
+</div>
+<div class="sect2">
+<h3 id="branches-2">Branches</h3>
+<div class="sect3">
+<h4 id="master">Master</h4>
+
 </div>
 <div class="sect3">
-<h4 id="purpose">Purpose</h4>
+<h4 id="release-0-0">release/0.0</h4>
 <div class="paragraph">
-<p>The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">AsciiDoc history</div>
-<div class="paragraph">
-<p>AsciiDoc was first released in Nov 2002 by Stuart Rackham.
-It was designed from the start to be a shorthand syntax
-for producing professional documents like DocBook and LaTeX.</p>
-</div>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Hinweis"></i>
-</td>
-<td class="content">
-Asciidoctor supports font-based admonition icons, powered by Font Awesome!
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">sinatra</span><span class="delimiter">'</span></span> <i class="conum" data-value="1"></i><b>(1)</b>
-
-get <span class="string"><span class="delimiter">'</span><span class="content">/hi</span><span class="delimiter">'</span></span> <span class="keyword">do</span>  <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
-  <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello World!</span><span class="delimiter">&quot;</span></span>
-<span class="keyword">end</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Library import</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>URL mapping</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Response block</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="packages">Packages</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.ddd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Driven Design</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.metrics</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metrics API</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.persistence</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Persistence</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.security</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">security related</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-</tbody>
-</table>
-<div class="sect4">
-<h5 id="io-skysail-api-ddd">io.skysail.api.ddd</h5>
-<div class="paragraph">
-<p>This package defines the following trait</p>
-</div>
-<div class="listingblock">
-<div class="title">DddElement.scala</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">sealed trait DddElement</code></pre>
-</div>
+<p>The current head.</p>
 </div>
 <div class="paragraph">
-<p>which serves as the common parent for various derived elements which are
-used to characterize the tactical patterns of "Domain Driven Design".</p>
+<p><a href="http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/API_Scaladoc/">API Scaladoc</a></p>
 </div>
 <div class="paragraph">
-<p>For example, there is an Entity and ValueObject class extening the DddElement trait.</p>
+<p><a href="http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.multibranch/job/release%252F0.0/Domain_Scaladoc/">Domain Scaladoc</a></p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="io-skysail-api-metrics">io.skysail.api.metrics</h5>
-
-</div>
-<div class="sect4">
-<h5 id="io-skysail-api-persistence">io.skysail.api.persistence</h5>
-<div class="paragraph">
-<p>This package contains the <em>DbService</em> trait which defines the API to be
-implemented to provide persistence mechanisms in skysail.</p>
-</div>
-<div class="listingblock">
-<div class="title">DbService.scala</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">  def createWithSuperClass(superClass: String, vertices: String*)
-  def register(classes: Class[_]*)
-  def persist(entity: Any): String
-  def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Right now, there is only one implementation of this trait, provided in the
-skysail.db.orientdb bundle.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="io-skysail-api-security">io.skysail.api.security</h5>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram.png" alt="Diagram Title" width="293" height="216">
-</div>
-<div class="title">Abbildung 1. Diagram Title</div>
-</div>
-<div class="paragraph">
-<p>test</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/cs.png" alt="Calling Sequence" width="525" height="228">
-</div>
-<div class="title">Abbildung 2. Calling Sequence</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="test">Anhang A: Test</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="test2">Anhang B: Test2</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-domain">skysail.domain</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.domain bundle.</p>
-</div>
-<div class="sect2">
-<h3 id="namespace">Namespace</h3>
-<div class="paragraph">
-<p>io.skysail.domain</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="purpose-2">Purpose</h3>
-<div class="paragraph">
-<p>The skysail.domain bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="packages-2">Packages</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>A</p>
-</li>
-<li>
-<p>B</p>
-</li>
-<li>
-<p>C</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
-</div>
-<div class="title">Abbildung 3. Calling Sequence</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="model">Model</h3>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
-</div>
-<div class="title">Abbildung 4. Calling Sequence2</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-server-bundle-overview">skysail.server bundle Overview</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.api bundle.</p>
-</div>
-<div class="sect2">
-<h3 id="namespace-2">Namespace</h3>
-<div class="paragraph">
-<p>io.skysail.api</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="purpose-3">Purpose</h3>
-<div class="paragraph">
-<p>The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-db-orientdb">skysail.db.orientdb</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.db.orientdb bundle.</p>
-</div>
-<div class="sect2">
-<h3 id="namespace-3">Namespace</h3>
-<div class="paragraph">
-<p>io.skysail.db.orientdb</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="purpose-4">Purpose</h3>
-
-</div>
-<div class="sect2">
-<h3 id="configuration">Configuration</h3>
-<div class="paragraph">
-<p>url = memory:test</p>
-</div>
-<div class="paragraph">
-<p>url = plocal:etc/db</p>
-</div>
-<div class="paragraph">
-<p>url = remote:localhost/skysailcrm</p>
-</div>
-<div class="paragraph">
-<p>user = admin</p>
-</div>
-<div class="paragraph">
-<p>pass = admin</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="packages-3">Packages</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>A</p>
-</li>
-<li>
-<p>B</p>
-</li>
-<li>
-<p>C</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
-</div>
-<div class="title">Abbildung 5. Calling Sequence</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="model-2">Model</h3>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
-</div>
-<div class="title">Abbildung 6. Calling Sequence2</div>
 </div>
 </div>
 </div>
@@ -867,8 +568,7 @@ skysail.db.orientdb bundle.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.0<br>
-Last updated 2017-11-20 19:50:06 CET
+Last updated 2017-11-11 11:56:41 CET
 </div>
 </div>
 </body>

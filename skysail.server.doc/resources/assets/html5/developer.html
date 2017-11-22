@@ -511,7 +511,7 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .head .head{color:#f4f}
 </style>
 </head>
-<body class="article toc2 toc-left">
+<body class="book toc2 toc-left">
 <div id="header">
 <h1>skysail server developer documentation</h1>
 <div class="details">
@@ -521,53 +521,104 @@ table.CodeRay td.code>pre{padding:0}
 <span id="revdate">2017-11-03</span>
 </div>
 <div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle">Developer Docs</div>
 <ul class="sectlevel1">
-<li><a href="#about">About</a></li>
-<li><a href="#intended-audience">Intended audience</a></li>
-<li><a href="#about-skysail-server">About skysail (server)</a>
+<li><a href="#about-intended-audience">1. About &amp; Intended Audience</a></li>
+<li><a href="#about-skysail-server">2. About skysail (server)</a>
 <ul class="sectlevel2">
-<li><a href="#introduction-skysail">Introduction: skysail&#8230;&#8203;</a></li>
-<li><a href="#why-not-use-x-y-z">Why not use X/Y/Z?</a></li>
-<li><a href="#concepts">Concepts</a></li>
-<li><a href="#resources">Resources</a></li>
-<li><a href="#request-processing">Request Processing</a></li>
-<li><a href="#domain-and-business-logic">Domain and Business Logic</a></li>
-<li><a href="#transformations">Transformations</a></li>
+<li><a href="#introduction-skysail">2.1. Introduction: skysail&#8230;&#8203;</a>
+<ul class="sectlevel3">
+<li><a href="#modularity">2.1.1. Modularity</a></li>
+<li><a href="#domain-centric">2.1.2. Domain-Centric</a></li>
+<li><a href="#restful">2.1.3. RESTful</a></li>
+<li><a href="#baas">2.1.4. BaaS</a></li>
+<li><a href="#self-hosting">2.1.5. Self-Hosting</a></li>
 </ul>
 </li>
-<li><a href="#bundles">Bundles</a>
-<ul class="sectlevel2">
-<li><a href="#skysail-api-bundle-overview">skysail.api bundle Overview</a></li>
-<li><a href="#skysail-domain">skysail.domain</a></li>
+<li><a href="#why-not-use-x-y-z">2.2. Why not use X/Y/Z?</a></li>
+<li><a href="#concepts">2.3. Concepts</a>
+<ul class="sectlevel3">
+<li><a href="#applications">2.3.1. Applications</a></li>
 </ul>
 </li>
-<li><a href="#actors">Actors</a></li>
-<li><a href="#todo">TODO</a></li>
+<li><a href="#resources">2.4. Resources</a>
+<ul class="sectlevel3">
+<li><a href="#resources-2">2.4.1. Resources</a></li>
+</ul>
+</li>
+<li><a href="#request-processing">2.5. Request Processing</a>
+<ul class="sectlevel3">
+<li><a href="#resources-3">2.5.1. Resources</a></li>
+</ul>
+</li>
+<li><a href="#domain-and-business-logic">2.6. Domain and Business Logic</a>
+<ul class="sectlevel3">
+<li><a href="#resources-4">2.6.1. Resources</a></li>
+</ul>
+</li>
+<li><a href="#transformations">2.7. Transformations</a>
+<ul class="sectlevel3">
+<li><a href="#transformations-2">2.7.1. Transformations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#bundles">3. Bundles</a>
+<ul class="sectlevel2">
+<li><a href="#skysail-api">3.1. skysail.api</a>
+<ul class="sectlevel4">
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#packages">Packages</a></li>
+</ul>
+</li>
+<li><a href="#test">Anhang A: Test</a></li>
+<li><a href="#test2">Anhang B: Test2</a></li>
+<li><a href="#skysail-domain">3.2. skysail.domain</a>
+<ul class="sectlevel3">
+<li><a href="#namespace">3.2.1. Namespace</a></li>
+<li><a href="#purpose-2">3.2.2. Purpose</a></li>
+<li><a href="#packages-2">3.2.3. Packages</a></li>
+<li><a href="#model">3.2.4. Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#actors">4. Actors</a></li>
+<li><a href="#todo">5. TODO</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Click <a href="meta.html">here</a> to get to the documention root.</p>
+</div>
+<hr>
+</div>
+</div>
 <div class="sect1">
-<h2 id="about">About</h2>
+<h2 id="about-intended-audience">1. About &amp; Intended Audience</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This document is the entry point for the skysail documentation if you are
-an developer. There are <a href="meta">other entry points</a> to read the skysail documentation,
+an developer. There are <a href="meta.html">other entry points</a> to read the skysail documentation,
 for example if you just want to use skysail as a service.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="intended-audience">Intended audience</h2>
-<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>Developers who want to understand the principles behind skysail.</p>
+<p>sidebar block</p>
+</div>
+</div>
+</div>
+<div class="paragraph lead">
+<p>This is the ultimate paragraph.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="about-skysail-server">About skysail (server)</h2>
+<h2 id="about-skysail-server">2. About skysail (server)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Carsten Gräf &lt;<a href="mailto:evandor@gmail.com">evandor@gmail.com</a>&gt;
@@ -575,7 +626,7 @@ v0.0, 2017-11-04
 :toc:</p>
 </div>
 <div class="sect2">
-<h3 id="introduction-skysail">Introduction: skysail&#8230;&#8203;</h3>
+<h3 id="introduction-skysail">2.1. Introduction: skysail&#8230;&#8203;</h3>
 <div class="paragraph">
 <p>&#8230;&#8203;is: a <strong>modular</strong>, <strong>domain-centric</strong> and <strong>RESTful BaaS</strong> (Backend as a Service)</p>
 </div>
@@ -649,7 +700,7 @@ features (todo).</p>
 <p>Now, let&#8217;s explain the main buzz-words from the definition above:</p>
 </div>
 <div class="sect3">
-<h4 id="modularity">Modularity</h4>
+<h4 id="modularity">2.1.1. Modularity</h4>
 <div class="paragraph">
 <p>skysail is a collection of OSGi bundles, depending on other bundles, and
 defining an API for domains like authentication, security, persistence and
@@ -658,7 +709,7 @@ replace it with your own implementation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="domain-centric">Domain-Centric</h4>
+<h4 id="domain-centric">2.1.2. Domain-Centric</h4>
 <div class="paragraph">
 <p>skysail lets you concentrate on your business (or domain) logic. Http Server,
 database, configuration setup and the like are already there. Just use them.
@@ -666,19 +717,19 @@ Or replace them with an implementation more suited for your needs.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="restful">RESTful</h4>
+<h4 id="restful">2.1.3. RESTful</h4>
 <div class="paragraph">
 <p>skysail concentrates on the backend and tries to stick to RESTful principles.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="baas">BaaS</h4>
+<h4 id="baas">2.1.4. BaaS</h4>
 <div class="paragraph">
 <p>skysail is a Backend-as-a-Service.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="self-hosting">Self-Hosting</h4>
+<h4 id="self-hosting">2.1.5. Self-Hosting</h4>
 <div class="paragraph">
 <p>The difference to many other BaaS, you can download and run skysail on your
 own machines.</p>
@@ -686,7 +737,7 @@ own machines.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="why-not-use-x-y-z">Why not use X/Y/Z?</h3>
+<h3 id="why-not-use-x-y-z">2.2. Why not use X/Y/Z?</h3>
 <div class="paragraph">
 <p>Apart from being deployable as a <strong>single jar</strong> file, skysail supports <strong>true modularity</strong>.
 That means, contrary to for example <em>Spring</em>, you have dynamic class and service
@@ -698,7 +749,7 @@ will become unavailable.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="concepts">Concepts</h3>
+<h3 id="concepts">2.3. Concepts</h3>
 <div class="paragraph">
 <p>In some way, skysail is just a set of concepts.</p>
 </div>
@@ -732,7 +783,7 @@ For those still reading on ;):</p>
 <p>And: your deployable, it&#8217;s just a single jar file. You start it like "java -jar myskysail.installation.jar". That&#8217;s it. Database and server included.</p>
 </div>
 <div class="sect3">
-<h4 id="applications">Applications</h4>
+<h4 id="applications">2.3.1. Applications</h4>
 <div class="paragraph">
 <p>When it comes to skysail, as a developer, you can extend (and/or) fix its core functionality, or you can create Applications.</p>
 </div>
@@ -761,48 +812,48 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 </div>
 </div>
 <div class="sect2">
-<h3 id="resources">Resources</h3>
+<h3 id="resources">2.4. Resources</h3>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="resources-2">Resources</h4>
+<h4 id="resources-2">2.4.1. Resources</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="request-processing">Request Processing</h3>
+<h3 id="request-processing">2.5. Request Processing</h3>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="resources-3">Resources</h4>
+<h4 id="resources-3">2.5.1. Resources</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="domain-and-business-logic">Domain and Business Logic</h3>
+<h3 id="domain-and-business-logic">2.6. Domain and Business Logic</h3>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="resources-4">Resources</h4>
+<h4 id="resources-4">2.6.1. Resources</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="transformations">Transformations</h3>
+<h3 id="transformations">2.7. Transformations</h3>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="transformations-2">Transformations</h4>
+<h4 id="transformations-2">2.7.1. Transformations</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
@@ -811,66 +862,189 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 </div>
 </div>
 <div class="sect1">
-<h2 id="bundles">Bundles</h2>
+<h2 id="bundles">3. Bundles</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="skysail-api-bundle-overview">skysail.api bundle Overview</h3>
+<h3 id="skysail-api">3.1. skysail.api</h3>
 <div class="paragraph">
 <p>This chapter provides an overview of the skysail.api bundle.</p>
 </div>
-<div class="sect3">
-<h4 id="namespace">Namespace</h4>
-<div class="paragraph">
-<p>io.skysail.api</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="purpose">Purpose</h4>
+<div class="sect4">
+<h5 id="purpose">Purpose</h5>
 <div class="paragraph">
 <p>The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">AsciiDoc history</div>
+<div class="paragraph">
+<p>AsciiDoc was first released in Nov 2002 by Stuart Rackham.
+It was designed from the start to be a shorthand syntax
+for producing professional documents like DocBook and LaTeX.</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Hinweis"></i>
+</td>
+<td class="content">
+Asciidoctor supports font-based admonition icons, powered by Font Awesome!
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">sinatra</span><span class="delimiter">'</span></span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+get <span class="string"><span class="delimiter">'</span><span class="content">/hi</span><span class="delimiter">'</span></span> <span class="keyword">do</span>  <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
+  <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello World!</span><span class="delimiter">&quot;</span></span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Library import</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>URL mapping</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Response block</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="packages">Packages</h5>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.ddd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Driven Design</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.metrics</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metrics API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.persistence</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Persistence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.security</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">security related</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect5">
+<h6 id="io-skysail-api-ddd">io.skysail.api.ddd</h6>
+<div class="paragraph">
+<p>This package defines the following trait</p>
+</div>
+<div class="listingblock">
+<div class="title">DddElement.scala</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">sealed trait DddElement</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which serves as the common parent for various derived elements which are
+used to characterize the tactical patterns of "Domain Driven Design".</p>
+</div>
+<div class="paragraph">
+<p>For example, there is an Entity and ValueObject class extening the DddElement trait.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="io-skysail-api-metrics">io.skysail.api.metrics</h6>
+
+</div>
+<div class="sect5">
+<h6 id="io-skysail-api-persistence">io.skysail.api.persistence</h6>
+<div class="paragraph">
+<p>This package contains the <em>DbService</em> trait which defines the API to be
+implemented to provide persistence mechanisms in skysail.</p>
 </div>
 <div class="listingblock">
 <div class="title">DbService.scala</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="scala">  def createWithSuperClass(superClass: String, vertices: String*)
-
   def register(classes: Class[_]*)
-
   def persist(entity: Any): String
-
-  def findGraphs[T:Manifest](cls: Class[T], sql: String /*, Map&lt;String, Object&gt; params*/ ): List[T]</code></pre>
+  def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Right now, there is only one implementation of this trait, provided in the
+skysail.db.orientdb bundle.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="io-skysail-api-security">io.skysail.api.security</h6>
 <div class="imageblock">
 <div class="content">
 <img src="images/diagram.png" alt="Diagram Title" width="293" height="216">
 </div>
-<div class="title">Figure 1. Diagram Title</div>
+<div class="title">Abbildung 1. Diagram Title</div>
 </div>
 <div class="paragraph">
-<p>and</p>
+<p>test</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/cs.png" alt="Calling Sequence" width="525" height="228">
+</div>
+<div class="title">Abbildung 2. Calling Sequence</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="skysail-domain">skysail.domain</h3>
+<h3 id="test">Anhang A: Test</h3>
+
+</div>
+<div class="sect2">
+<h3 id="test2">Anhang B: Test2</h3>
+<div class="paragraph">
+<p>and</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="skysail-domain">3.2. skysail.domain</h3>
 <div class="paragraph">
 <p>This chapter provides an overview of the skysail.domain bundle.</p>
 </div>
 <div class="sect3">
-<h4 id="namespace-2">Namespace</h4>
+<h4 id="namespace">3.2.1. Namespace</h4>
 <div class="paragraph">
 <p>io.skysail.domain</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="purpose-2">Purpose</h4>
+<h4 id="purpose-2">3.2.2. Purpose</h4>
 <div class="paragraph">
 <p>The skysail.domain bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="packages">Packages</h4>
+<h4 id="packages-2">3.2.3. Packages</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -888,34 +1062,34 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 <div class="content">
 <img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
 </div>
-<div class="title">Figure 2. Calling Sequence</div>
+<div class="title">Abbildung 3. Calling Sequence</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="model">Model</h4>
+<h4 id="model">3.2.4. Model</h4>
 <div class="imageblock">
 <div class="content">
 <img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
 </div>
-<div class="title">Figure 3. Calling Sequence2</div>
+<div class="title">Abbildung 4. Calling Sequence2</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="actors">Actors</h2>
+<h2 id="actors">4. Actors</h2>
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
 <img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
 </div>
-<div class="title">Figure 4. Calling Sequence</div>
+<div class="title">Abbildung 5. Calling Sequence</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="todo">TODO</h2>
+<h2 id="todo">5. TODO</h2>
 <div class="sectionbody">
 
 </div>
@@ -924,7 +1098,7 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 <div id="footer">
 <div id="footer-text">
 Version 0.0<br>
-Last updated 2017-11-16 18:09:16 CET
+Last updated 2017-11-21 09:10:46 CET
 </div>
 </div>
 </body>

@@ -13,6 +13,7 @@ class Activator extends DominoActivator {
 
     whenConfigurationActive("db") { conf =>
       log info s"received configuration for OrientDbGraphService Bundle, applying..."
+      log info s"$conf"
       val url = conf.getOrElse("url", "memory:testdb").toString
       val user = conf.getOrElse("user", "admin").toString
       val pass = conf.getOrElse("pass", "admin").toString

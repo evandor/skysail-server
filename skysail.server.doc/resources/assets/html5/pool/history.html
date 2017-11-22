@@ -5,8 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<meta name="author" content="Carsten Gräf">
-<title>skysail server repository bundles</title>
+<title>Up</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -513,353 +512,206 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>skysail server repository bundles</h1>
-<div class="details">
-<span id="author" class="author">Carsten Gräf</span><br>
-<span id="email" class="email"><a href="mailto:evandor@gmail.com">evandor@gmail.com</a></span><br>
-<span id="revnumber">version 0.0,</span>
-<span id="revdate">2017-11-03</span>
-</div>
 <div id="toc" class="toc2">
-<div id="toctitle">Bundles</div>
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#about">About</a></li>
-<li><a href="#bundles">Bundles</a></li>
-<li><a href="#skysail-api">skysail.api</a></li>
-<li><a href="#test">Anhang A: Test</a></li>
-<li><a href="#test2">Anhang B: Test2</a></li>
-<li><a href="#skysail-domain">skysail.domain</a></li>
-<li><a href="#skysail-server-bundle-overview">skysail.server bundle Overview</a></li>
-<li><a href="#skysail-db-orientdb">skysail.db.orientdb</a></li>
+<li><a href="#up">Up</a></li>
+<li><a href="#skysail-server-repository-history">skysail-server repository: History</a>
+<ul class="sectlevel2">
+<li><a href="#initial-setup">Initial Setup</a></li>
+<li><a href="#initial-version-skysail-api">Initial Version skysail.api</a></li>
+<li><a href="#adding-asciidoctor">adding asciidoctor</a></li>
+<li><a href="#defining-inital-build-chain">Defining inital build chain</a></li>
+<li><a href="#testing-travis-ci">Testing travis CI</a></li>
+<li><a href="#testing-intellij">Testing Intellij</a></li>
+<li><a href="#initial-versions-skysail-api-and-skysail-domain">Initial Versions skysail.api and skysail.domain</a></li>
+<li><a href="#upgrading-java-jdk-as-it-is-a-requirement-in-akka-http-2-5-6-1-8-0_141">Upgrading java jdk (as it is a requirement in akka.http 2.5.6 (&gt; 1.8.0_141)</a></li>
+<li><a href="#branching">Branching</a></li>
+<li><a href="#starting-open-issues-document">Starting open issues document</a></li>
+<li><a href="#initial-versions-of-skysail-server-auth-none-and-basic">Initial versions of skysail.server.auth.none and .basic</a></li>
+<li><a href="#creating-eclipse-project-and-classpath-files-with-gradle">Creating eclipse project and classpath files with gradle</a></li>
+<li><a href="#first-spec-tests-inside-skysail-server">First Spec-Tests inside skysail.server</a></li>
+<li><a href="#creating-docker-image-in-gradle-build">Creating docker image in gradle build</a></li>
+<li><a href="#kamon-io">Kamon.io</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Click <a href="meta.html">here</a> to get to the documention root.</p>
-</div>
-<hr>
-</div>
-</div>
 <div class="sect1">
-<h2 id="about">About</h2>
+<h2 id="up">Up</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This document lists all available bundles of the skysail repostitory with their
-documentation.</p>
+<p><a href="meta">here</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="bundles">Bundles</h2>
+<h2 id="skysail-server-repository-history">skysail-server repository: History</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>todo: description</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-api">skysail.api</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.api bundle.</p>
-</div>
-<div class="sect3">
-<h4 id="purpose">Purpose</h4>
-<div class="paragraph">
-<p>The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">AsciiDoc history</div>
-<div class="paragraph">
-<p>AsciiDoc was first released in Nov 2002 by Stuart Rackham.
-It was designed from the start to be a shorthand syntax
-for producing professional documents like DocBook and LaTeX.</p>
-</div>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Hinweis"></i>
-</td>
-<td class="content">
-Asciidoctor supports font-based admonition icons, powered by Font Awesome!
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">sinatra</span><span class="delimiter">'</span></span> <i class="conum" data-value="1"></i><b>(1)</b>
-
-get <span class="string"><span class="delimiter">'</span><span class="content">/hi</span><span class="delimiter">'</span></span> <span class="keyword">do</span>  <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
-  <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello World!</span><span class="delimiter">&quot;</span></span>
-<span class="keyword">end</span></code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Library import</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>URL mapping</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Response block</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="packages">Packages</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.ddd</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Driven Design</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.metrics</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metrics API</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.persistence</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Persistence</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.security</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">security related</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
-</tr>
-</tbody>
-</table>
-<div class="sect4">
-<h5 id="io-skysail-api-ddd">io.skysail.api.ddd</h5>
-<div class="paragraph">
-<p>This package defines the following trait</p>
-</div>
-<div class="listingblock">
-<div class="title">DddElement.scala</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">sealed trait DddElement</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>which serves as the common parent for various derived elements which are
-used to characterize the tactical patterns of "Domain Driven Design".</p>
-</div>
-<div class="paragraph">
-<p>For example, there is an Entity and ValueObject class extening the DddElement trait.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="io-skysail-api-metrics">io.skysail.api.metrics</h5>
-
-</div>
-<div class="sect4">
-<h5 id="io-skysail-api-persistence">io.skysail.api.persistence</h5>
-<div class="paragraph">
-<p>This package contains the <em>DbService</em> trait which defines the API to be
-implemented to provide persistence mechanisms in skysail.</p>
-</div>
-<div class="listingblock">
-<div class="title">DbService.scala</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">  def createWithSuperClass(superClass: String, vertices: String*)
-  def register(classes: Class[_]*)
-  def persist(entity: Any): String
-  def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Right now, there is only one implementation of this trait, provided in the
-skysail.db.orientdb bundle.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="io-skysail-api-security">io.skysail.api.security</h5>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram.png" alt="Diagram Title" width="293" height="216">
-</div>
-<div class="title">Abbildung 1. Diagram Title</div>
-</div>
-<div class="paragraph">
-<p>test</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/cs.png" alt="Calling Sequence" width="525" height="228">
-</div>
-<div class="title">Abbildung 2. Calling Sequence</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="test">Anhang A: Test</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="test2">Anhang B: Test2</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-domain">skysail.domain</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.domain bundle.</p>
+<p>This page wraps up the history of this repository, giving information about
+design decisions, used libraries and tools, the build setup and so on.</p>
 </div>
 <div class="sect2">
-<h3 id="namespace">Namespace</h3>
-<div class="paragraph">
-<p>io.skysail.domain</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="purpose-2">Purpose</h3>
-<div class="paragraph">
-<p>The skysail.domain bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="packages-2">Packages</h3>
+<h3 id="initial-setup">Initial Setup</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>A</p>
+<p>Created using Eclipse with bndtools 3.5, fresh workspace, new repository</p>
 </li>
 <li>
-<p>B</p>
+<p>Removed buildship plugin from eclipse installation (messed up project files)</p>
 </li>
 <li>
-<p>C</p>
+<p>added java nature to cnf project (build did not work otherwise)</p>
+</li>
+<li>
+<p>decision to not add IDE specific files to repository</p>
+</li>
+<li>
+<p>decision to add required bundles to cnf/local repo</p>
 </li>
 </ul>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
-</div>
-<div class="title">Abbildung 3. Calling Sequence</div>
-</div>
 </div>
 <div class="sect2">
-<h3 id="model">Model</h3>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
-</div>
-<div class="title">Abbildung 4. Calling Sequence2</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-server-bundle-overview">skysail.server bundle Overview</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.api bundle.</p>
-</div>
-<div class="sect2">
-<h3 id="namespace-2">Namespace</h3>
-<div class="paragraph">
-<p>io.skysail.api</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="purpose-3">Purpose</h3>
-<div class="paragraph">
-<p>The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skysail-db-orientdb">skysail.db.orientdb</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter provides an overview of the skysail.db.orientdb bundle.</p>
-</div>
-<div class="sect2">
-<h3 id="namespace-3">Namespace</h3>
-<div class="paragraph">
-<p>io.skysail.db.orientdb</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="purpose-4">Purpose</h3>
-
-</div>
-<div class="sect2">
-<h3 id="configuration">Configuration</h3>
-<div class="paragraph">
-<p>url = memory:test</p>
-</div>
-<div class="paragraph">
-<p>url = plocal:etc/db</p>
-</div>
-<div class="paragraph">
-<p>url = remote:localhost/skysailcrm</p>
-</div>
-<div class="paragraph">
-<p>user = admin</p>
-</div>
-<div class="paragraph">
-<p>pass = admin</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="packages-3">Packages</h3>
+<h3 id="initial-version-skysail-api">Initial Version skysail.api</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>A</p>
+<p>moved some folders from skysail-core repo</p>
 </li>
 <li>
-<p>B</p>
-</li>
-<li>
-<p>C</p>
+<p>increased bundle and folder versions to 0.2</p>
 </li>
 </ul>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
 </div>
-<div class="title">Abbildung 5. Calling Sequence</div>
+<div class="sect2">
+<h3 id="adding-asciidoctor">adding asciidoctor</h3>
+<div class="paragraph">
+<p>in root/buiild.gradle:</p>
+</div>
+<div class="listingblock">
+<div class="title">Code-Highlighting</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">plugins {
+  id <span class="string"><span class="delimiter">&quot;</span><span class="content">org.asciidoctor.convert</span><span class="delimiter">&quot;</span></span> version <span class="string"><span class="delimiter">&quot;</span><span class="content">1.5.3</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>calling "./gradlew asciidoctor"</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="model-2">Model</h3>
-<div class="imageblock">
-<div class="content">
-<img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
+<h3 id="defining-inital-build-chain">Defining inital build chain</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Created root/Jenkinsfile</p>
+</li>
+<li>
+<p>added build pipeline at <a href="http://jenkins.twentyeleven.de/job/skysail-server.pipeline/">jenkins.twentyeleven.de</a></p>
+</li>
+<li>
+<p>adding publishHTML task: Results at <a href="http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.pipeline/Repository_History/" class="bare">http://jenkins.twentyeleven.de/view/skysail-core/job/skysail-server.pipeline/Repository_History/</a></p>
+</li>
+</ul>
 </div>
-<div class="title">Abbildung 6. Calling Sequence2</div>
+</div>
+<div class="sect2">
+<h3 id="testing-travis-ci">Testing travis CI</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>linked github repo (skysail-server): travis @ <a href="https://travis-ci.org/evandor" class="bare">https://travis-ci.org/evandor</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="testing-intellij">Testing Intellij</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>having issue with "https://github.com/bndtools/bndtools/issues/1294"</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="initial-versions-skysail-api-and-skysail-domain">Initial Versions skysail.api and skysail.domain</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>created skysail.api to hold API traits definitions and skysail.domain to hold domain objects and models</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="upgrading-java-jdk-as-it-is-a-requirement-in-akka-http-2-5-6-1-8-0_141">Upgrading java jdk (as it is a requirement in akka.http 2.5.6 (&gt; 1.8.0_141)</h3>
+<div class="paragraph">
+<p><a href="http://www.lonecpluspluscoder.com/2017/10/08/installing-other-versions-of-the-java-jdk-via-homebrew/" class="bare">http://www.lonecpluspluscoder.com/2017/10/08/installing-other-versions-of-the-java-jdk-via-homebrew/</a></p>
+</div>
+<div class="paragraph">
+<p>Issue: <a href="https://github.com/akka/akka/issues/23795&#8230;&#8203" class="bare">https://github.com/akka/akka/issues/23795&#8230;&#8203</a>; using akka.http 2.5.3 for now</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="branching">Branching</h3>
+<div class="paragraph">
+<p>starting "marketing version" release/0.0 for the whole project</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="starting-open-issues-document">Starting open issues document</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>openissues.adoc</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="initial-versions-of-skysail-server-auth-none-and-basic">Initial versions of skysail.server.auth.none and .basic</h3>
+
+</div>
+<div class="sect2">
+<h3 id="creating-eclipse-project-and-classpath-files-with-gradle">Creating eclipse project and classpath files with gradle</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.gradle.org/current/userguide/eclipse_plugin.html" class="bare">https://docs.gradle.org/current/userguide/eclipse_plugin.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="first-spec-tests-inside-skysail-server">First Spec-Tests inside skysail.server</h3>
+
+</div>
+<div class="sect2">
+<h3 id="creating-docker-image-in-gradle-build">Creating docker image in gradle build</h3>
+
+</div>
+<div class="sect2">
+<h3 id="kamon-io">Kamon.io</h3>
+<div class="paragraph">
+<p>jmx: need agent?
+make abstraction for various metric systems?
+need system property even for local jmx?</p>
+</div>
+<div class="paragraph">
+<p>Problems setting up akka reference.conf files in OSGi environment</p>
+</div>
+<div class="paragraph">
+<p>Decision: create metrics abstraction API in skysail.api and implement
+trivial in-memory implementation.</p>
 </div>
 </div>
 </div>
@@ -867,8 +719,7 @@ skysail.db.orientdb bundle.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.0<br>
-Last updated 2017-11-20 19:50:06 CET
+Last updated 2017-11-18 08:37:58 CET
 </div>
 </div>
 </body>
