@@ -188,7 +188,8 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       val rep = new RepresentationModel(response, applicationModel)
       val r2 = applyMethod.invoke(resourceHtmlClass, rep).asInstanceOf[HtmlFormat.Appendable]
       val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body)
-      applicationActor ! response.copy(entity = response.entity, httpResponse = response.httpResponse.copy(entity = answer))
+      val theResponse = response.copy(entity = response.entity, httpResponse = response.httpResponse.copy(entity = answer))
+      applicationActor ! theResponse
 
     } catch {
       case ex: Exception =>

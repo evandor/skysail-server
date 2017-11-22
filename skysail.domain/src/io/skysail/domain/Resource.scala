@@ -9,6 +9,7 @@ import akka.util.Timeout
 import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.model.ApplicationModel
 import org.osgi.framework.BundleContext
+import org.slf4j.LoggerFactory
 
 import scala.concurrent.duration.DurationInt
 import scala.reflect.runtime.universe._
@@ -33,6 +34,8 @@ object Resource {
   */
 abstract class Resource[T /*<: DddElement */ : TypeTag] {
 
+  private val log = LoggerFactory.getLogger(this.getClass)
+
   implicit val askTimeout: Timeout = 1.seconds
 
   var applicationModel: ApplicationModel = null
@@ -48,7 +51,9 @@ abstract class Resource[T /*<: DddElement */ : TypeTag] {
   def createRoute(applicationActor: ActorSelection, processCommand: io.skysail.domain.messages.ProcessCommand)(implicit system: ActorSystem): Route = {
     val t = (applicationActor ? processCommand).mapTo[ResponseEventBase]
     onComplete(t) {
-      case Success(result) => complete(result.httpResponse)
+      case Success(result) =>
+        val response = result.httpResponse
+        complete(response)
       case Failure(failure) => /*log error s"Failure>>> ${failure}"; */ complete(StatusCodes.BadRequest, failure)
     }
   }
