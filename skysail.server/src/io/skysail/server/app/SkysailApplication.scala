@@ -111,8 +111,7 @@ abstract class SkysailApplication(
   def getSkysailApplication() = this
 
   override final def route(): Option[Route] = {
-    val optionalRoute = optionalRoute()
-    if (optionalRoute == null) Some(optionalRoute) else None
+    if (optionalRoute() == null) Some(optionalRoute()) else None
   }
 
   def optionalRoute(): Route = null
