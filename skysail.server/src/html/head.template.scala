@@ -38,8 +38,9 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
     <link rel="stylesheet" type="text/css" href="/webapp/css/hover/hover-min.css">-->
 
-  <!-- Custom styles for this template -->
-  <link href="custom.css" rel="stylesheet">"""))
+  <!-- Custom styles for this template
+  <link href="custom.css" rel="stylesheet">
+  -->"""))
       }
     }
   }
@@ -55,9 +56,9 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
               /*
                   -- GENERATED --
-                  DATE: Tue Nov 14 14:07:31 CET 2017
+                  DATE: Thu Nov 23 09:33:45 CET 2017
                   SOURCE: C:/git/skysail-server/skysail.server/./resources/templates/head.scala.html
-                  HASH: 35f0c86ec0c17f584b11db551d88160d651913b0
+                  HASH: 346e3881202d85219ef32fe64c569b7e30340d26
                   MATRIX: 489->2
                   LINES: 16->1
                   -- GENERATED --
