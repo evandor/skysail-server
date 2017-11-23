@@ -1,15 +1,16 @@
 package io.skysail.server.doc
 
+import akka.actor.ActorSystem
 import domino.DominoActivator
 import io.skysail.server.app.ApplicationProvider
 
 class DocActivator extends DominoActivator {
 
   whenBundleActive {
-    //whenServicePresent[DbService] { s =>
-      val app = new DocApplication(bundleContext)
+    whenServicePresent[ActorSystem] { system =>
+      val app = new DocApplication(bundleContext, system)
       //app.dbService = s
       app.providesService[ApplicationProvider]
-    //}
+    }
   }
 }

@@ -20,11 +20,11 @@ class RoutesTracker(system: ActorSystem) {
 
   def routes(): List[Route] = routesMap.values.flatMap(_.toList).toList
 
-  def addRoutesFor(appInfoProvider: ApplicationProvider): Unit = {
-    log info s" >>> >>> >>> Adding routes from ${appInfoProvider.getClass.getName}"
-    val routesFromProvider = appInfoProvider.routes()
-    val  valueList = routesFromProvider.map { prt => routesCreator.createRoute(prt, appInfoProvider) }.toList
-    routesMap += appInfoProvider.appModel().id -> valueList
+  def addRoutesFor(appProvider: ApplicationProvider): Unit = {
+    log info s" >>> >>> >>> Adding routes from ${appProvider.getClass.getName}"
+    val routesFromProvider = appProvider.routes()
+    val  valueList = routesFromProvider.map { prt => routesCreator.createRoute(prt, appProvider) }.toList
+    routesMap += appProvider.appModel().id -> valueList
   }
 
   def removeRoutesFrom(appInfoProvider: ApplicationProvider): Unit = {

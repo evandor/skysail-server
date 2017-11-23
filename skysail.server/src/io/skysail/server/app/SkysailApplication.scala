@@ -108,32 +108,14 @@ abstract class SkysailApplication(
     Collections.emptyList()
   }
 
-  //  @Activate
-  //  def activate(componentContext: ComponentContext) = {
-  //    log info s"activating ${this.getClass.getName}"
-  //    this.componentContext = componentContext;
-  //  }
-  //
-  //  @Activate
-  //  def activate(appConfig: ApplicationConfiguration, componentContext: ComponentContext): Unit = {
-  //    activate(componentContext);
-  //    host = appConfig.host();
-  //  }
-  //
-  //  @Deactivate
-  //  def deactivate(componentContext: ComponentContext): Unit = {
-  //    log info s"deactivating ${this.getClass.getName}"
-  //    this.componentContext = null;
-  //  }
-
   def getSkysailApplication() = this
 
-  //  def getBundle(): Bundle = {
-  //    if (componentContext == null) {
-  //      return null;
-  //    }
-  //    return componentContext.getBundleContext().getBundle();
-  //  }
+  override final def route(): Option[Route] = {
+    val optionalRoute = optionalRoute()
+    if (optionalRoute == null) Some(optionalRoute) else None
+  }
+
+  def optionalRoute(): Route = null
 
   private def getResourceActor(cls: Class[_ <: Resource[_]]) = actorRefsMap get cls.getName getOrElse {
     log info s"creating new actor for ${cls.getName}"

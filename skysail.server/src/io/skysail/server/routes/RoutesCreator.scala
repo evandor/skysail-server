@@ -69,9 +69,9 @@ class RoutesCreator(system: ActorSystem) {
 
   //val pathMatcherFactory = PathMatcherFactory
 
-  def createRoute(mapping: RouteMapping[_], appInfoProvider: ApplicationProvider): Route = {
-    val appRoute = appInfoProvider.appModel.appRoute
-    log info s" >>> creating route from [${appInfoProvider.appModel.appPath()}]${mapping.path} -> ${mapping.resourceClass.getSimpleName}[${mapping.getEntityType()}]"
+  def createRoute(mapping: RouteMapping[_], appProvider: ApplicationProvider): Route = {
+    val appRoute = appProvider.appModel.appRoute
+    log info s" >>> creating route from [${appProvider.appModel.appPath()}]${mapping.path} -> ${mapping.resourceClass.getSimpleName}[${mapping.getEntityType()}]"
     val pathMatcherTypeTuple: MyRoute =
       if (mapping.pathMatcher != null) {
         mapping.classes.size match {
@@ -83,11 +83,11 @@ class RoutesCreator(system: ActorSystem) {
       else
         PathMatcherFactory.matcherFor(appRoute, mapping.path.trim())
 
-    val appSelector = getApplicationActorSelection(system, appInfoProvider.getClass.getName)
+    val appSelector = getApplicationActorSelection(system, appProvider.getClass.getName)
 
     val route: Route =
       staticResources() ~
-        matcher(pathMatcherTypeTuple, mapping, appInfoProvider) ~
+        matcher(pathMatcherTypeTuple, mapping, appProvider) ~
         clientPath() ~
         docPath() ~
         indexPath() ~
@@ -114,7 +114,7 @@ class RoutesCreator(system: ActorSystem) {
         .result()
 
     handleRejections(myRejectionHandler) {
-      route
+      if (appProvider.route().isDefined) appProvider.route().get ~ route else route
     }
   }
 
