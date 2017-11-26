@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.{Collections, ResourceBundle}
 
 import akka.actor.{ActorRef, ActorSelection, ActorSystem, Props}
+import akka.http.scaladsl.server.Directives.pathPrefix
 import akka.http.scaladsl.server.{Route, _}
 import io.skysail.domain.Resource
 import io.skysail.domain.app.{ApiVersion, ApplicationApi}
@@ -17,13 +18,12 @@ import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
 
 object SkysailApplication {
-  val log = LoggerFactory.getLogger(classOf[SkysailApplication])
 
-  case class InitResourceActorChain(val requestContext: RequestContext, val cls: Class[_ <: Resource[_]])
+  case class InitResourceActorChain(requestContext: RequestContext, cls: Class[_ <: Resource[_]])
 
-  case class CreateApplicationActor(val cls: Class[_ <: SkysailApplication], val appModel: ApplicationModel, val application: ApplicationApi, bundleContext: BundleContext)
+  case class CreateApplicationActor(cls: Class[_ <: SkysailApplication], appModel: ApplicationModel, application: ApplicationApi, bundleContext: BundleContext)
 
-  case class DeleteApplicationActor(val cls: Class[_ <: SkysailApplication])
+  case class DeleteApplicationActor(cls: Class[_ <: SkysailApplication])
 
   def getApplicationsActor(system: ActorSystem): ActorRef = {
     val applicationsActorPath = "/user/" + Constants.APPLICATIONS_ACTOR_NAME
@@ -49,16 +49,6 @@ object SkysailApplication {
     system.actorSelection(actorSelection)
   }
 
-  //  def getBundleActor(system: ActorSystem, symbolicName: String): Option[ActorSelection] = {
-  //
-  //    val bundlesActor = getBundlesActor(system)
-  //
-  //    bundlesActor ? BundlesActor.GetBundleBySymbolicName
-  //
-  //    val actorSelection = "/user/" + Constants.BUNDLES_ACTOR_NAME + "/" + bundleId.toString
-  //    println("searching for actorSelection " + actorSelection)
-  //    system.actorSelection(actorSelection)
-  //  }
 }
 
 abstract class SkysailApplication(
@@ -67,18 +57,18 @@ abstract class SkysailApplication(
                                    val bundleContext: BundleContext,
                                    description: String) extends ApplicationProvider with ApplicationApi {
 
-  val log = LoggerFactory.getLogger(classOf[SkysailApplication])
+  private val log = LoggerFactory.getLogger(classOf[SkysailApplication])
 
   def this(name: String, bundleContext: BundleContext, description: String) =
-    this(name, new ApiVersion(1), bundleContext, description)
+    this(name, ApiVersion(1), bundleContext, description)
 
-  val appModel = new ApplicationModel(name, apiVersion, description)
+  val appModel = ApplicationModel(name, apiVersion, description)
 
   def routesMappings: List[RouteMapping[_]]
 
   var actorRefsMap = Map.empty[String, ActorRef]
 
-  val routes = {
+  val routes: List[RouteMapping[_]] = {
     routesMappings.foreach(m => {
       appModel.addResourceModel(m)
     })
@@ -87,31 +77,30 @@ abstract class SkysailApplication(
 
   def application(): SkysailApplication = this
 
-  //val associatedResourceClasses = scala.collection.mutable.ListBuffer[Tuple2[ResourceAssociationType, Class[_ <: SkysailServerResource[_]]]]()
-
-  //var componentContext: ComponentContext = null
-  //def getComponentContext() = componentContext
-
   var host = "localhost"
 
-  def getHost = host
+  def getHost: String = host
 
   var appRoutes: List[Route] = _
   var system: ActorSystem = _
   val cnt = new AtomicInteger(0)
 
-  //val stringContextMap = new java.util.HashMap[ApplicationContextId, String]()
-
-  def getResourceBundles() = List[ResourceBundle]()
+  def getResourceBundles: List[ResourceBundle] = List[ResourceBundle]()
 
   def getTemplatePaths[T](x$1: Class[T]): java.util.List[String] = {
     Collections.emptyList()
   }
 
-  def getSkysailApplication() = this
+  def getSkysailApplication: SkysailApplication = this
 
   override final def route(): Option[Route] = {
-    if (optionalRoute() == null) Some(optionalRoute()) else None
+    val or = optionalRoute()
+    if (or != null) {
+      log info s" >>> adding route to $appModel"
+      Some(pathPrefix(appModel.appRoute) {
+        or
+      })
+    } else None
   }
 
   def optionalRoute(): Route = null

@@ -1,7 +1,6 @@
 package io.skysail.server.doc
 
 import akka.actor.ActorSystem
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives.{get, pathPrefix, _}
 import akka.http.scaladsl.server.{PathMatcher, PathMatchers, Route}
 import io.skysail.domain.routes.RouteMapping
@@ -35,7 +34,9 @@ class DocApplication(bundleContext: BundleContext, system: ActorSystem) extends
     implicit val executionContext: ExecutionContextExecutor = system.dispatcher
     pathPrefix("xxx") {
       get {
-        complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Say hello to akka-http</h1>"))
+        //complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Say hello to akka-http</h1>"))
+        //getFromResource("assets/html5/meta.html", ContentTypes.`text/html(UTF-8)`, this.getClass.getClassLoader)
+        getFromResourceDirectory("assets/html5", this.getClass.getClassLoader)
       }
     }
   }
