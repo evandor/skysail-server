@@ -1,10 +1,10 @@
 package io.skysail.domain.routes
 
 import akka.http.scaladsl.server.PathMatcher
-import io.skysail.domain.Resource._
+import io.skysail.domain.SkysailResource._
 
 import scala.reflect.runtime.universe._
-import io.skysail.domain.Resource
+import io.skysail.domain.SkysailResource
 
 /**
   * A RouteMapping defines a connection between a path (like "/bookmarks/:id") and a
@@ -21,7 +21,7 @@ import io.skysail.domain.Resource
 case class RouteMapping[T /*<: DddElement*/: TypeTag](
                                  path: String,
                                  pathMatcher: PathMatcher[_],
-                                 resourceClass: Class[_ <: Resource[T]]                    ) {
+                                 resourceClass: Class[_ <: SkysailResource[T]]                    ) {
 
   var classes: Seq[Class[_]] = List()
 

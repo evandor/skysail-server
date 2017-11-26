@@ -6,7 +6,7 @@ import java.util.{Collections, ResourceBundle}
 import akka.actor.{ActorRef, ActorSelection, ActorSystem, Props}
 import akka.http.scaladsl.server.Directives.pathPrefix
 import akka.http.scaladsl.server.{Route, _}
-import io.skysail.domain.Resource
+import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.{ApiVersion, ApplicationApi}
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.routes.RouteMapping
@@ -19,7 +19,7 @@ import scala.concurrent.duration.DurationInt
 
 object SkysailApplication {
 
-  case class InitResourceActorChain(requestContext: RequestContext, cls: Class[_ <: Resource[_]])
+  case class InitResourceActorChain(requestContext: RequestContext, cls: Class[_ <: SkysailResource[_]])
 
   case class CreateApplicationActor(cls: Class[_ <: SkysailApplication], appModel: ApplicationModel, application: ApplicationApi, bundleContext: BundleContext)
 
@@ -105,7 +105,7 @@ abstract class SkysailApplication(
 
   def optionalRoute(): Route = null
 
-  private def getResourceActor(cls: Class[_ <: Resource[_]]) = actorRefsMap get cls.getName getOrElse {
+  private def getResourceActor(cls: Class[_ <: SkysailResource[_]]) = actorRefsMap get cls.getName getOrElse {
     log info s"creating new actor for ${cls.getName}"
     val c = system.actorOf(Props.apply(cls), cls.getName)
     actorRefsMap += cls.getName -> c

@@ -7,7 +7,7 @@ import scala.util.{Failure, Success}
 import io.skysail.domain.RequestEvent
 import io.skysail.domain.ListResponseEvent
 
-abstract class AsyncListResource[T: TypeTag] extends AsyncResource[List[T]] {
+abstract class ListResource[T: TypeTag] extends AsyncResource[List[T]] {
 
   def get(requestEvent: RequestEvent): Unit
 

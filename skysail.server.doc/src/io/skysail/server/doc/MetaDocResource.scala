@@ -2,11 +2,11 @@ package io.skysail.server.doc
 
 import java.net.URL
 
-import io.skysail.domain.resources.{AsyncEntityResource, AsyncStaticResource}
+import io.skysail.domain.resources.{EntityResource, AsyncStaticResource}
 import io.skysail.domain.{HtmlResponseEvent, RequestEvent, ResponseEvent}
 
 
-class DocIndexResource() extends AsyncEntityResource {
+class DocIndexResource() extends EntityResource {
   override def get(requestEvent: RequestEvent): Unit = {
     requestEvent.controllerActor ! ResponseEvent(requestEvent, "hi")
   }

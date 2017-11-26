@@ -15,9 +15,9 @@ import scala.concurrent.duration.DurationInt
 import scala.reflect.runtime.universe._
 import scala.util.{Failure, Success}
 
-object Resource {
+object SkysailResource {
 
-  implicit class TypeDetector[T: TypeTag](related: Resource[T]) {
+  implicit class TypeDetector[T: TypeTag](related: SkysailResource[T]) {
     def getType(): Type = typeOf[T]
   }
 
@@ -32,7 +32,7 @@ object Resource {
   *
   * @tparam T
   */
-abstract class Resource[T /*<: DddElement */ : TypeTag] {
+abstract class SkysailResource[T: TypeTag] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 

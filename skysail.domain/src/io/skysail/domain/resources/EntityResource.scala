@@ -8,7 +8,7 @@ import io.skysail.domain.RequestEvent
 import io.skysail.domain.ListResponseEvent
 import io.skysail.domain.ResponseEvent
 
-abstract class AsyncEntityResource[T: TypeTag] extends AsyncResource[T] {
+abstract class EntityResource[T: TypeTag] extends AsyncResource[T] {
   
   def get(requestEvent: RequestEvent): Unit
 

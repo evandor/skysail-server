@@ -6,7 +6,7 @@ import akka.stream.ActorMaterializer
 import akka.util.ByteString
 import de.heikoseeberger.akkahttpjson4s.Json4sSupport._
 import io.skysail.domain.RequestEvent
-import io.skysail.domain.resources.AsyncListResource
+import io.skysail.domain.resources.ListResource
 import org.apache.http.HttpResponse
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.{ClientProtocolException, ResponseHandler}
@@ -28,7 +28,7 @@ case class EsIndex(health: String, status: String, index: String, pri: String, r
 case class Mapping()
 
 
-class IndicesResource extends AsyncListResource[EsIndex] {
+class IndicesResource extends ListResource[EsIndex] {
 
   private val httpclient = HttpClients.createDefault
 

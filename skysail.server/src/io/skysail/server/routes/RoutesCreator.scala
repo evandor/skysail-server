@@ -13,7 +13,7 @@ import akka.pattern.ask
 import akka.stream.scaladsl.{Flow, Source}
 import akka.util.Timeout
 import io.skysail.api.security.AuthenticationService
-import io.skysail.domain.Resource
+import io.skysail.domain.SkysailResource
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.Constants
@@ -304,7 +304,7 @@ class RoutesCreator(system: ActorSystem) {
     extractUnmatchedPath { unmatchedPath =>
       val applicationActor = getApplicationActorSelection(system, appProvider.getClass.getName)
       val clazz = mapping.resourceClass
-      val resourceInstance = clazz.newInstance().asInstanceOf[Resource[_]]
+      val resourceInstance = clazz.newInstance().asInstanceOf[SkysailResource[_]]
       val processCommand = ProcessCommand(ctx, clazz, appProvider.application(), urlParameter, unmatchedPath)
 
       resourceInstance.createRoute(applicationActor, processCommand)(system)
@@ -315,7 +315,7 @@ class RoutesCreator(system: ActorSystem) {
 
   = auth.directive
 
-  private def requestAnnotationForGet(cls: Class[_ <: Resource[_]]): Option[Annotation] = {
+  private def requestAnnotationForGet(cls: Class[_ <: SkysailResource[_]]): Option[Annotation] = {
     try {
       val getMethod = cls.getMethod("get", classOf[ActorRef], classOf[ClassTag[_]])
       //Some(getMethod.getAnnotation(classOf[AuthorizeByRole]))

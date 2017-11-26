@@ -2,7 +2,7 @@ package io.skysail.server.app.resources
 
 import io.skysail.api.ddd.DddElement
 import io.skysail.domain.RequestEvent
-import io.skysail.domain.resources.AsyncListResource
+import io.skysail.domain.resources.ListResource
 import io.skysail.server.actors.ApplicationsActor
 import io.skysail.server.app.SkysailApplication
 import org.slf4j.LoggerFactory
@@ -13,7 +13,7 @@ import scala.util.{Failure, Success}
 
 case class Application(name: String, context: String, description: String)
 
-class AppsResource() extends AsyncListResource[Application] {
+class AppsResource() extends ListResource[Application] {
 
   private val log = LoggerFactory.getLogger(this.getClass())
 

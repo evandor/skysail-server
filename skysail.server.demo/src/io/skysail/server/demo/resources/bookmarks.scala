@@ -7,7 +7,7 @@ import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.ContentTypes
 import akka.http.scaladsl.unmarshalling.Unmarshaller
 import akka.pattern.ask
-import io.skysail.domain.resources.{AsyncListResource, AsyncPostResource, AsyncPutResource, AsyncResource}
+import io.skysail.domain.resources.{ListResource, PostResource, PutResource, AsyncResource}
 import io.skysail.domain.{ListResponseEvent, RequestEvent, ResponseEvent}
 import io.skysail.server.actors.ApplicationActor
 import io.skysail.server.app.SkysailApplication
@@ -26,7 +26,7 @@ trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val bookmarkFormat = jsonFormat3(Bookmark)
 }
 
-class BookmarksResource extends AsyncListResource[Bookmark] {
+class BookmarksResource extends ListResource[Bookmark] {
 
   //val appService = new ApplicationService()
 
@@ -42,7 +42,7 @@ class BookmarksResource extends AsyncListResource[Bookmark] {
   }
 }
 
-class PostBookmarkResource extends AsyncPostResource[Bookmark] with JsonSupport {
+class PostBookmarkResource extends PostResource[Bookmark] with JsonSupport {
 
   def get(requestEvent: RequestEvent): Unit = {
     val entityModel = applicationModel.entityModelFor(classOf[Bookmark])
@@ -83,7 +83,7 @@ class PostBookmarkResource extends AsyncPostResource[Bookmark] with JsonSupport 
   }
 }
 
-class PutBookmarkResource extends AsyncPutResource[Bookmark] with JsonSupport {
+class PutBookmarkResource extends PutResource[Bookmark] with JsonSupport {
 
   override def get(requestEvent: RequestEvent): Unit = {
     val id = requestEvent.cmd.urlParameter.head

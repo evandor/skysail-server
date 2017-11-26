@@ -19,7 +19,7 @@ import io.skysail.domain.app.ApplicationApi
   */
 case class ProcessCommand(
                            ctx: RequestContext,
-                           resourceClass: Class[_ <: io.skysail.domain.Resource[_]],
+                           resourceClass: Class[_ <: io.skysail.domain.SkysailResource[_]],
                            application: ApplicationApi,
                            urlParameter: List[String],
                            unmatchedPath: Uri.Path,
