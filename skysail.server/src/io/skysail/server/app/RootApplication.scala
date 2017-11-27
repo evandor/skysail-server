@@ -25,6 +25,8 @@ class RootApplication(
                        val conf: Map[String, Any]) extends SkysailApplication(ROOT_APPLICATION_NAME, null, bundleContext, "backend root")
   with ApplicationProvider {
 
+  val appService = new ApplicationService()
+
   def routesMappings: List[RouteMapping[_]] = {
     val root: PathMatcher[Unit] = PathMatcher(ROOT_APPLICATION_NAME)
 
@@ -35,4 +37,7 @@ class RootApplication(
       RouteMapping("/apps", root / PathMatcher("apps") ~ PathMatchers.PathEnd, classOf[AppsResource])
     )
   }
+
+
+
 }
