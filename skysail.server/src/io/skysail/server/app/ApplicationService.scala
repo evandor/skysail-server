@@ -3,8 +3,8 @@ package io.skysail.server.app
 import akka.actor.ActorSystem
 import akka.pattern.ask
 import akka.util.Timeout
+import io.skysail.domain.app.Application
 import io.skysail.server.actors.ApplicationsActor
-import io.skysail.server.app.resources.Application
 
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt

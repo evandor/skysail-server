@@ -14,15 +14,15 @@ class RootResource extends EntityResource[RootInfo] {
 
   override def get(requestEvent: RequestEvent) {
     val appService = application.asInstanceOf[RootApplication].appService
-    val apps: Future[List[Application]] = appService.getAllApplications(this.actorContext.system)
+    val apps = appService.getAllApplications(this.actorContext.system)
     apps.onComplete {
       case Success(s) => {
         val skysailServerBundle = bundleContext.getBundles.filter(_.getSymbolicName == "skysail.server").head
         val desc = "powered by skysail " + skysailServerBundle.getVersion
-        val msg = if (s.size == 0)
+        val msg = if (s.size <= 1)
           RootInfo("skysail server", desc)
         else
-          RootInfo("skysail server", desc, s"${s.size} app(s) deployed")
+          RootInfo("skysail server", desc, s"${s.size} app(s) deployed: " + s.map(_.name).mkString(", "))
         requestEvent.controllerActor ! msg
       }
     }

@@ -17,7 +17,7 @@ class AppsResource() extends ListResource[Application] {
 
   def get(requestEvent: RequestEvent) {
     val appService = application.asInstanceOf[RootApplication].appService
-    val apps: Future[List[Application]] = appService.getAllApplications(this.actorContext.system)
+    val apps = appService.getAllApplications(this.actorContext.system)
     apps.onComplete {
       case Success(s) => requestEvent.controllerActor ! s
       case Failure(f) => log error s"failure $f"
