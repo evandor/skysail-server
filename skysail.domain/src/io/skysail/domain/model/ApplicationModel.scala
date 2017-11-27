@@ -63,7 +63,7 @@ case class ApplicationModel(
     * @param routeMapping the mapping is used to create the ResourceModel
     * @return
     */
-  def addResourceModel(routeMapping: RouteMapping[_]): Option[Type] = {
+  def addResourceModel(routeMapping: RouteMapping[_,_]): Option[Type] = {
     //require(routeMapping.path != null, "The resource's path must not be null")
     require(routeMapping.resourceClass != null, "The resource's controller class must not be null")
 

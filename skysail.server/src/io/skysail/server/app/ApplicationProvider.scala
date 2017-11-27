@@ -8,7 +8,7 @@ import org.osgi.framework.BundleContext
 
 trait ApplicationProvider {
   def appModel(): ApplicationModel
-  def routes(): List[RouteMapping[_]]
+  def routes(): List[RouteMapping[_,_]]
   val bundleContext: BundleContext
   def application(): ApplicationApi
   //def menu(): Option[MenuItem] = None

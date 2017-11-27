@@ -19,7 +19,7 @@ class DocApplication(bundleContext: BundleContext, system: ActorSystem) extends
   with ApplicationProvider {
 
 
-  override def routesMappings: List[RouteMapping[_ >: List[Nothing] <: List[Any]]] = {
+  override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("doc")
     List(
       RouteMapping("_info", root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[DocInfoResource]),

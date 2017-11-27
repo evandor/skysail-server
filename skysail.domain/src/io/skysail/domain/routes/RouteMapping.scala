@@ -6,6 +6,8 @@ import io.skysail.domain.SkysailResource._
 import scala.reflect.runtime.universe._
 import io.skysail.domain.SkysailResource
 
+import scala.reflect.runtime.universe
+
 /**
   * A RouteMapping defines a connection between a path (like "/bookmarks/:id") and a
   * resource class which is supposed to handle calls to this path.
@@ -18,9 +20,9 @@ import io.skysail.domain.SkysailResource
   * @param resourceClass the resource class which is supposed to handle calls to the path.
   * @tparam T
   */
-case class RouteMapping[T /*<: DddElement*/: TypeTag](
+case class RouteMapping[S: TypeTag, T /*<: DddElement*/: TypeTag](
                                  path: String,
-                                 pathMatcher: PathMatcher[_],
+                                 pathMatcher: PathMatcher[S],
                                  resourceClass: Class[_ <: SkysailResource[T]]                    ) {
 
   var classes: Seq[Class[_]] = List()
@@ -32,5 +34,11 @@ case class RouteMapping[T /*<: DddElement*/: TypeTag](
   }
 
   def getEntityType(): Type = resourceClass.newInstance().getType()
+
+  def getPathMatcherParameterType(): universe.Type = {
+    val targs = typeOf[S] match { case TypeRef(_, _, args) => args }
+    println(s"type of has type arguments $targs")
+    typeOf[S]
+  }
 
 }

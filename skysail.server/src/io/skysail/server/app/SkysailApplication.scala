@@ -64,11 +64,11 @@ abstract class SkysailApplication(
 
   val appModel = ApplicationModel(name, apiVersion, description)
 
-  def routesMappings: List[RouteMapping[_]]
+  def routesMappings: List[RouteMapping[_,_]]
 
   var actorRefsMap = Map.empty[String, ActorRef]
 
-  val routes: List[RouteMapping[_]] = {
+  val routes: List[RouteMapping[_,_]] = {
     routesMappings.foreach(m => {
       appModel.addResourceModel(m)
     })

@@ -11,7 +11,7 @@ import scala.reflect.runtime.universe._
   *
   * @param routeMapping todo
   */
-case class ResourceModel(routeMapping: RouteMapping[_]) {
+case class ResourceModel(routeMapping: RouteMapping[_,_]) {
 
   //require(routeMapping.path != null, "A ResourceModel's pathMatcher must not be null")
   require(routeMapping.resourceClass != null, "A ResourceModel's resource class must not be null")

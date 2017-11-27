@@ -27,7 +27,7 @@ class RootApplication(
 
   val appService = new ApplicationService()
 
-  def routesMappings: List[RouteMapping[_]] = {
+  def routesMappings: List[RouteMapping[_,_]] = {
     val root: PathMatcher[Unit] = PathMatcher(ROOT_APPLICATION_NAME)
 
     List(
