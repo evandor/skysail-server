@@ -74,16 +74,16 @@ class RoutesCreator(system: ActorSystem) {
     val appRoute = appProvider.appModel.appRoute
     log info s" >>> creating route from [${appProvider.appModel.appPath()}]${mapping.path} -> " +
       s"${mapping.resourceClass.getSimpleName}[${mapping.getEntityType()}]"
-    val pathMatcherTypeTuple: MyRoute =
-      if (mapping.pathMatcher != null) {
-        mapping.classes.size match {
-          case 0 => UnitRoute(mapping.pathMatcher)
-          case 1 => StringRoute(mapping.pathMatcher)
-          case _ => throw new UnsupportedOperationException
-        }
-      }
-      else
-        PathMatcherFactory.matcherFor(appRoute, mapping.path.trim())
+    //    val pathMatcherTypeTuple: MyRoute =
+    //      if (mapping.pathMatcher != null) {
+    //        mapping.classes.size match {
+    //          case 0 => UnitRoute(mapping.pathMatcher)
+    //          case 1 => StringRoute(mapping.pathMatcher)
+    //          case _ => throw new UnsupportedOperationException
+    //        }
+    //      }
+    //      else
+    //        PathMatcherFactory.matcherFor(appRoute, mapping.path.trim())
 
     val appSelector = getApplicationActorSelection(system, appProvider.getClass.getName)
 
@@ -206,50 +206,35 @@ class RoutesCreator(system: ActorSystem) {
     val parameterType = mapping.getPathMatcherParameterType()
 
     parameterType match {
-      //case (pm: PathMatcher[Unit], Unit) =>
       case t if t =:= typeOf[Unit] =>
         pathPrefix(mapping.pathMatcher.asInstanceOf[PathMatcher[Unit]]) {
-          parameters('_method.?) { tunnelMethod =>
-            authenticationDirective(authentication) { username =>
-              handleOptionalTunnelMethod(tunnelMethod) {
-                get {
-                  extractRequestContext {
-                    ctx => routeWithUnmatchedPath2(ctx, mapping, appProvider)
-                  }
-                } ~
-                  post {
-                    extractRequestContext {
-                      ctx =>
-                        routeWithUnmatchedPath2(ctx, mapping, appProvider)
-                    }
-                  }
-              }
-            }
-          }
+          handle(mapping, appProvider)
         }
-      //case (pm: PathMatcher[Tuple1[String]], e: Class[Tuple1[_]]) => get {
       case t if t =:= typeOf[Tuple1[String]] =>
         pathPrefix(mapping.pathMatcher.asInstanceOf[PathMatcher[Tuple1[String]]]) { urlParameter =>
-          parameters('_method.?) { tunnelMethod =>
-            authenticationDirective(authentication) { username =>
-              handleOptionalTunnelMethod(tunnelMethod) {
-                get {
-                  log info s"getting..."
-                  handleRequest(mapping, appProvider, List(urlParameter))
-                } ~
-                  post {
-                    log info s"posting..."
-                    handleRequest(mapping, appProvider, List(urlParameter))
-                  } ~
-                  put {
-                    log info s"putting..."
-                    handleRequest(mapping, appProvider, List(urlParameter))
-                  }
-                //}
-              }
-            }
-
-          }
+          handle(mapping, appProvider, List(urlParameter))
+          //          parameters('_method.?) { tunnelMethod =>
+          //            authenticationDirective(authentication) { username =>
+          //              handleOptionalTunnelMethod(tunnelMethod) {
+          //                get {
+          //                  extractRequestContext {
+          //                    ctx => routeWithUnmatchedPath2(ctx, mapping, appProvider, List(urlParameter))
+          //                  }
+          //                } ~
+          //                  post {
+          //                    extractRequestContext {
+          //                      ctx => routeWithUnmatchedPath2(ctx, mapping, appProvider, List(urlParameter))
+          //                    }
+          //                  } ~
+          //                  put {
+          //                    extractRequestContext {
+          //                      ctx => routeWithUnmatchedPath2(ctx, mapping, appProvider, List(urlParameter))
+          //                    }
+          //                  }
+          //              }
+          //            }
+          //
+          //          }
         }
       case m: Any =>
         (get | post | put | delete) {
@@ -266,9 +251,27 @@ class RoutesCreator(system: ActorSystem) {
 
   }
 
-  private def handleRequest(mapping: RouteMapping[_, _], appProvider: ApplicationProvider, urlParameter: List[String]) = {
-    extractRequestContext {
-      ctx => routeWithUnmatchedPath2(ctx, mapping, appProvider, urlParameter)
+  //  private def handleRequest(mapping: RouteMapping[_, _], appProvider: ApplicationProvider, urlParameter: List[String]) = {
+  //
+  //  }
+
+  private def handle(mapping: RouteMapping[_, _], appProvider: ApplicationProvider, pathParameter: List[String] = List()) = {
+    parameters('_method.?) { tunnelMethod =>
+      authenticationDirective(authentication) { username =>
+        handleOptionalTunnelMethod(tunnelMethod) {
+          get {
+            extractRequestContext {
+              ctx => routeWithUnmatchedPath2(ctx, mapping, appProvider,pathParameter)
+            }
+          } ~
+            post {
+              extractRequestContext {
+                ctx =>
+                  routeWithUnmatchedPath2(ctx, mapping, appProvider,pathParameter)
+              }
+            }
+        }
+      }
     }
   }
 

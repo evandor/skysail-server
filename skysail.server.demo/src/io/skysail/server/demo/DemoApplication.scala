@@ -1,6 +1,6 @@
 package io.skysail.server.demo
 
-import akka.http.scaladsl.server.{PathMatcher, PathMatchers}
+import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.api.persistence.DbService
 import io.skysail.domain.app.ApiVersion
@@ -28,7 +28,7 @@ class DemoApplication(bundleContext: BundleContext, dbService: DbService) extend
       RouteMapping("/bms/",       root / PathMatcher("bms") / PathEnd, classOf[PostBookmarkResource]),
       RouteMapping("/bms/:id/",   root / PathMatcher("bms") / Segment / PathEnd, classOf[PutBookmarkResource]),
 
-      RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathMatchers.PathEnd, classOf[IndicesResource])
+      RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource])
     )
   }
 
