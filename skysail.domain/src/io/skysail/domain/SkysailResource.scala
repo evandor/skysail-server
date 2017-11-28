@@ -17,7 +17,7 @@ import scala.util.{Failure, Success}
 
 object SkysailResource {
 
-  implicit class TypeDetector[T: TypeTag](related: SkysailResource[T]) {
+  implicit class TypeDetector[T: TypeTag](related: SkysailResource[_,T]) {
     def getType(): Type = typeOf[T]
   }
 
@@ -32,7 +32,7 @@ object SkysailResource {
   *
   * @tparam T
   */
-abstract class SkysailResource[T: TypeTag] {
+abstract class SkysailResource[S <: ApplicationApi, T: TypeTag] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 

@@ -10,7 +10,7 @@ import scala.util.Success
 
 case class RootInfo(title: String, description: String, info: String = "you are seeing this as no applications have been deployed yet.")
 
-class RootResource extends EntityResource[RootInfo] {
+class RootResource extends EntityResource[RootApplication,RootInfo] {
 
   override def get(requestEvent: RequestEvent) {
     val appService = application.asInstanceOf[RootApplication].appService

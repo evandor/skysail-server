@@ -23,7 +23,7 @@ import scala.reflect.runtime.universe
 case class RouteMapping[S: TypeTag, T /*<: DddElement*/: TypeTag](
                                  path: String,
                                  pathMatcher: PathMatcher[S],
-                                 resourceClass: Class[_ <: SkysailResource[T]]                    ) {
+                                 resourceClass: Class[_ <: SkysailResource[_,T]]                    ) {
 
   var classes: Seq[Class[_]] = List()
 

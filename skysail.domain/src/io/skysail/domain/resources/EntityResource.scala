@@ -7,8 +7,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import io.skysail.domain.RequestEvent
 import io.skysail.domain.ListResponseEvent
 import io.skysail.domain.ResponseEvent
+import io.skysail.domain.app.ApplicationApi
 
-abstract class EntityResource[T: TypeTag] extends AsyncResource[T] {
+abstract class EntityResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S,T] {
   
   def get(requestEvent: RequestEvent): Unit
 

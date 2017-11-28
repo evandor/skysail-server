@@ -11,7 +11,7 @@ import scala.util.{Failure, Success}
 
 case class Application(name: String, context: String, description: String)
 
-class AppsResource() extends ListResource[Application] {
+class AppsResource() extends ListResource[RootApplication, Application] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 

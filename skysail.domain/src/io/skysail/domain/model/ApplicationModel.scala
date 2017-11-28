@@ -84,7 +84,7 @@ case class ApplicationModel(
     Some(resourceModel.entityClass)
   }
 
-  private def controllerModelFor(cls: Class[_ <: SkysailResource[_]]): Option[ResourceModel] = {
+  private def controllerModelFor(cls: Class[_ <: SkysailResource[_,_]]): Option[ResourceModel] = {
     resourceModels.filter { model => model.routeMapping.resourceClass == cls }.headOption
   }
 
@@ -92,7 +92,7 @@ case class ApplicationModel(
 
   def entityModelFor(cls: Class[_]): Option[EntityModel] = entityModelsMap.get(cls.getName)
 
-  def entityModelFor(ssr: SkysailResource[_]): Option[EntityModel] = {
+  def entityModelFor(ssr: SkysailResource[_,_]): Option[EntityModel] = {
     val resModel = controllerModelFor(ssr.getClass)
     if (resModel.isEmpty) {
       None

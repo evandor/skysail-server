@@ -7,7 +7,8 @@ import akka.actor.{Actor, ActorInitializationException, ActorKilledException, Ac
 import akka.event.LoggingReceive
 import akka.pattern.ask
 import akka.util.Timeout
-import io.skysail.domain.{SkysailResource, ResponseEventBase}
+import io.skysail.domain.app.ApplicationApi
+import io.skysail.domain.{ResponseEventBase, SkysailResource}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.server.actors.ApplicationActor._
@@ -23,7 +24,7 @@ object ApplicationActor {
 
   case class GetApplication()
 
-  case class SkysailContext(cmd: ProcessCommand, appModel: ApplicationModel, resource: SkysailResource[_], bundleContext: BundleContext)
+  case class SkysailContext(cmd: ProcessCommand, appModel: ApplicationModel, resource: SkysailResource[_ <: ApplicationApi,_], bundleContext: BundleContext)
 
   case class GetMenu()
 

@@ -1,13 +1,18 @@
 package io.skysail.domain.resources
 
+import akka.util.Timeout
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.reflect.runtime.universe._
 import scala.util.{Failure, Success}
 import io.skysail.domain.RequestEvent
 import io.skysail.domain.ListResponseEvent
+import io.skysail.domain.app.ApplicationApi
 
-abstract class ListResource[T: TypeTag] extends AsyncResource[List[T]] {
+import scala.concurrent.duration.DurationInt
+
+abstract class ListResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
 
   def get(requestEvent: RequestEvent): Unit
 

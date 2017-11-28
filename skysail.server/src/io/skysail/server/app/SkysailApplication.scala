@@ -19,7 +19,7 @@ import scala.concurrent.duration.DurationInt
 
 object SkysailApplication {
 
-  case class InitResourceActorChain(requestContext: RequestContext, cls: Class[_ <: SkysailResource[_]])
+  case class InitResourceActorChain(requestContext: RequestContext, cls: Class[_ <: SkysailResource[_,_]])
 
   case class CreateApplicationActor(cls: Class[_ <: SkysailApplication], appModel: ApplicationModel, application: ApplicationApi, bundleContext: BundleContext)
 
@@ -105,7 +105,7 @@ abstract class SkysailApplication(
 
   def optionalRoute(): Route = null
 
-  private def getResourceActor(cls: Class[_ <: SkysailResource[_]]) = actorRefsMap get cls.getName getOrElse {
+  private def getResourceActor(cls: Class[_ <: SkysailResource[_,_]]) = actorRefsMap get cls.getName getOrElse {
     log info s"creating new actor for ${cls.getName}"
     val c = system.actorOf(Props.apply(cls), cls.getName)
     actorRefsMap += cls.getName -> c

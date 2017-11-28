@@ -50,7 +50,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
   def receive = in
 
   def in: Receive = LoggingReceive {
-    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[T], bc: BundleContext) => {
+    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[_,T], bc: BundleContext) => {
       applicationActor = sender
       applicationModel = model
       resource.setActorContext(context)

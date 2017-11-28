@@ -252,7 +252,7 @@ class RoutesCreator(system: ActorSystem) {
 
   = auth.directive()
 
-  private def requestAnnotationForGet(cls: Class[_ <: SkysailResource[_]]): Option[Annotation] = {
+  private def requestAnnotationForGet(cls: Class[_ <: SkysailResource[_,_]]): Option[Annotation] = {
     try {
       val getMethod = cls.getMethod("get", classOf[ActorRef], classOf[ClassTag[_]])
       //Some(getMethod.getAnnotation(classOf[AuthorizeByRole]))
