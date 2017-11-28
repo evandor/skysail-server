@@ -28,17 +28,15 @@ trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
 
 class BookmarksResource extends ListResource[Bookmark] {
 
-  //val appService = new ApplicationService()
+  val service = application.asInstanceOf[DemoApplication].bookmarksService
 
   def get(requestEvent: RequestEvent): Unit = {
     val applicationActor = SkysailApplication.getApplicationActorSelection(actorContext.system, classOf[DemoApplication].getName)
     val r = (applicationActor ? ApplicationActor.GetApplication()).mapTo[DemoApplication]
-    //reply(requestEvent, app.repo.find())
     r onComplete {
       case Success(app) => requestEvent.controllerActor ! ListResponseEvent(requestEvent, app.repo.find())
       case Failure(failure) => println(failure)
     }
-
   }
 }
 

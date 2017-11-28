@@ -14,7 +14,7 @@
         <h1>Bookmarks</h1>
         <p class="lead">update bookmark:</p>
         <span>@rep.rawData</span>
-        <form action='@rep.linkFor("io.skysail.app.bookmarks.PutBookmarkResource", rep.rawData.head.get("id"))?_method=PUT' method="GET">
+        <form action='.?_method=PUT' method="POST">
 
             <table class="table table-sm">
                 <thead>

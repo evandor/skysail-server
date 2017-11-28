@@ -28,7 +28,7 @@ Seq[Any](format.raw/*6.28*/("""
         <h1>Bookmarks</h1>
         <p class="lead">update bookmark:</p>
         <span>"""),_display_(/*16.16*/rep/*16.19*/.rawData),format.raw/*16.27*/("""</span>
-        <form action='"""),_display_(/*17.24*/rep/*17.27*/.linkFor("io.skysail.app.bookmarks.PutBookmarkResource", rep.rawData.head.get("id"))),format.raw/*17.111*/("""?_method=PUT' method="GET">
+        <form action='.?_method=PUT' method="POST">
 
             <table class="table table-sm">
                 <thead>
@@ -71,11 +71,11 @@ Seq[Any](format.raw/*6.28*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Wed Nov 15 08:58:03 CET 2017
+                  DATE: Tue Nov 28 09:00:00 CET 2017
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./resources/templates/io/skysail/server/demo/resources/PutBookmarkResource_Get.scala.html
-                  HASH: 80a92cb4e723bd05204b2ca4b550062fa4e4e453
-                  MATRIX: 659->193|780->219|808->222|819->226|857->228|886->230|1073->390|1085->393|1114->401|1172->432|1184->435|1290->519|1670->872|1682->875|1730->901|1827->971|1839->974|1884->998
-                  LINES: 15->6|20->6|22->8|22->8|22->8|24->10|30->16|30->16|30->16|31->17|31->17|31->17|42->28|42->28|42->28|43->29|43->29|43->29
+                  HASH: 2f4a8bf3fc61e1b0db8f798ed6a3f344e6fd6937
+                  MATRIX: 659->193|780->219|808->222|819->226|857->228|886->230|1073->390|1085->393|1114->401|1526->786|1538->789|1586->815|1683->885|1695->888|1740->912
+                  LINES: 15->6|20->6|22->8|22->8|22->8|24->10|30->16|30->16|30->16|42->28|42->28|42->28|43->29|43->29|43->29
                   -- GENERATED --
               */
           

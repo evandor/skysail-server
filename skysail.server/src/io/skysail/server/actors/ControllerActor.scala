@@ -60,6 +60,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       cmd.ctx.request.method match {
         case HttpMethods.GET => resource.get(RequestEvent(cmd, self))
         case HttpMethods.POST => resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
+        case HttpMethods.PUT => resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
         case e: Any => resource.get(RequestEvent(cmd, self))
       }
       become(out)

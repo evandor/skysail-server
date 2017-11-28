@@ -9,6 +9,7 @@ import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
 import io.skysail.server.demo.DemoApplication._
 import io.skysail.server.demo.repositories.BookmarksRepository
 import io.skysail.server.demo.resources.{BookmarksResource, IndicesResource, PostBookmarkResource, PutBookmarkResource}
+import io.skysail.server.demo.services.BookmarksService
 import org.osgi.framework.BundleContext
 
 object DemoApplication {
@@ -20,6 +21,8 @@ class DemoApplication(bundleContext: BundleContext, dbService: DbService) extend
   SkysailApplication(APPLICATION_NAME, APP_VERSION, bundleContext, "Skysail Demo Application") with ApplicationProvider {
 
   val repo = new BookmarksRepository(dbService)
+
+  val bookmarksService = new BookmarksService()
 
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
