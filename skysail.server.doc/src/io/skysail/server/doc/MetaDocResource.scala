@@ -2,8 +2,8 @@ package io.skysail.server.doc
 
 import java.net.URL
 
-import io.skysail.domain.resources.{EntityResource, AsyncStaticResource}
-import io.skysail.domain.{HtmlResponseEvent, RequestEvent, ResponseEvent}
+import io.skysail.domain.resources.{AsyncStaticResource, EntityResource}
+import io.skysail.domain.{AsyncResponseEvent, HtmlResponseEvent, RequestEvent, ResponseEvent}
 
 
 class DocIndexResource() extends EntityResource {
@@ -15,7 +15,12 @@ class DocIndexResource() extends EntityResource {
 }
 
 abstract case class DocResource() extends AsyncStaticResource {
-  override def get(requestEvent: RequestEvent) = ???
+
+  override def get(requestEvent: RequestEvent) = {
+    getAsync(requestEvent)
+    AsyncResponseEvent(requestEvent)
+  }
+
   protected def getHtml(requestEvent: RequestEvent, path: String) = {
     val url: URL = bundleContext.getBundle.getResource(path)
     val is = url.openConnection().getInputStream()
