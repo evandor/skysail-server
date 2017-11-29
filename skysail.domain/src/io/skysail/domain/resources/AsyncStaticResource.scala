@@ -8,6 +8,6 @@ import io.skysail.domain.app.ApplicationApi
   */
 abstract class AsyncStaticResource extends AsyncResource[ApplicationApi,Any] {
 
-  def get(requestEvent: RequestEvent): Unit
+  def getAsync(requestEvent: RequestEvent): Unit
 
 }

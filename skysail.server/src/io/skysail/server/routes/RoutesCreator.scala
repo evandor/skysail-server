@@ -68,6 +68,22 @@ class RoutesCreator(system: ActorSystem) {
 
   var docClassloader: ClassLoader = _
 
+  def getClientClassloader2(): ClassLoader = {
+
+    val capabilitiesFuture = (SkysailApplication.getBundlesActor(system) ? BundlesActor.GetCapabilities()).mapTo[Map[Long, List[BundleCapability]]]
+    val capabilities = Await.result(capabilitiesFuture, 3.seconds)
+
+    val bundleIdsWithClientCapabilities2 = capabilities.filter {
+      entry => entry._2.exists { cap => Constants.CLIENT_CAPABILITY.equals(cap.getNamespace) }
+    }.keys
+
+    if (bundleIdsWithClientCapabilities2.nonEmpty) {
+      val clientClFuture = (SkysailApplication.getBundleActor(system, bundleIdsWithClientCapabilities2.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
+      val r = Await.result(clientClFuture, 3.seconds)
+      r
+    } else null
+  }
+
   def createRoute(mapping: RouteMapping[_, _], appProvider: ApplicationProvider): Route = {
     val appRoute = appProvider.appModel().appRoute
     log info s" >>> creating route from [${appProvider.appModel().appPath()}]${mapping.path} -> " +
@@ -104,9 +120,9 @@ class RoutesCreator(system: ActorSystem) {
   }
 
   private def indexPath(): Route = {
-    path("") {
+    path("c2") {
       get {
-        getFromResource("client/index.html", ContentTypes.`text/html(UTF-8)`, getClientClassloader)
+        getFromResource("client/index.html", ContentTypes.`text/html(UTF-8)`, getClientClassloader2())
       }
     } ~
       path("v2") {

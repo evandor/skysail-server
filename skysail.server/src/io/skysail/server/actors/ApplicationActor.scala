@@ -54,7 +54,7 @@ class ApplicationActor(appModel: ApplicationModel, application: SkysailApplicati
   def receive: Receive = LoggingReceive {
     case cmd: ProcessCommand => {
       val routesCreator = sender()
-      val resourceInstance = cmd.resourceClass.newInstance()
+      val resourceInstance = cmd.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
       val controllerActor = createController
 
       val skysailContext = SkysailContext(cmd, appModel, resourceInstance, bundleContext)

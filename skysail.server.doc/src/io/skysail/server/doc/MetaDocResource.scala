@@ -7,12 +7,15 @@ import io.skysail.domain.{HtmlResponseEvent, RequestEvent, ResponseEvent}
 
 
 class DocIndexResource() extends EntityResource {
-  override def get(requestEvent: RequestEvent): Unit = {
-    requestEvent.controllerActor ! ResponseEvent(requestEvent, "hi")
+  override def get(requestEvent: RequestEvent) = {
+    ResponseEvent(requestEvent, "hi")
   }
+
+  override def getAsync(requestEvent: RequestEvent): Unit = ???
 }
 
 abstract case class DocResource() extends AsyncStaticResource {
+  override def get(requestEvent: RequestEvent) = ???
   protected def getHtml(requestEvent: RequestEvent, path: String) = {
     val url: URL = bundleContext.getBundle.getResource(path)
     val is = url.openConnection().getInputStream()
@@ -22,13 +25,14 @@ abstract case class DocResource() extends AsyncStaticResource {
 }
 
 class MetaDocResource() extends DocResource {
-  override def get(requestEvent: RequestEvent): Unit = getHtml(requestEvent, "assets/html5/meta.html")
+  override def getAsync(requestEvent: RequestEvent): Unit = getHtml(requestEvent, "assets/html5/meta.html")
+
 }
 
 class DevDocResource() extends DocResource {
-  override def get(requestEvent: RequestEvent): Unit = getHtml(requestEvent, "assets/html5/developer.html")
+  override def getAsync(requestEvent: RequestEvent): Unit = getHtml(requestEvent, "assets/html5/developer.html")
 }
 
 class HistoryDocResource() extends DocResource {
-  override def get(requestEvent: RequestEvent): Unit = getHtml(requestEvent, "assets/html5/history.html")
+  override def getAsync(requestEvent: RequestEvent): Unit = getHtml(requestEvent, "assets/html5/history.html")
 }

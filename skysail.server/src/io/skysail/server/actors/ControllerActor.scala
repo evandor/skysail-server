@@ -58,7 +58,9 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       resource.setApplication(cmd.application)
       resource.setBundleContext(bc)
       cmd.ctx.request.method match {
-        case HttpMethods.GET => resource.get(RequestEvent(cmd, self))
+        case HttpMethods.GET => {
+          resource.doGet(RequestEvent(cmd, self))
+        }
         case HttpMethods.POST => resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
         case HttpMethods.PUT => resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
         case e: Any => resource.get(RequestEvent(cmd, self))
@@ -128,6 +130,8 @@ class ControllerActor[T]() extends Actor with ActorLogging {
           status = StatusCodes.TemporaryRedirect,
           headers = headers.Location(akka.http.scaladsl.model.Uri(uri)) :: Nil,
           entity = answer))
+    case response: AsyncResponseEvent =>
+      log info s"async response event, no action needed"
     case msg: List[T] => {
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: List[T]"
       implicit val formats = DefaultFormats

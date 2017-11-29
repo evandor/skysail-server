@@ -7,6 +7,7 @@ import akka.util.ByteString
 import de.heikoseeberger.akkahttpjson4s.Json4sSupport._
 import io.skysail.domain.RequestEvent
 import io.skysail.domain.resources.ListResource
+import io.skysail.server.demo.DemoApplication
 import org.apache.http.HttpResponse
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.{ClientProtocolException, ResponseHandler}
@@ -28,11 +29,11 @@ case class EsIndex(health: String, status: String, index: String, pri: String, r
 case class Mapping()
 
 
-class IndicesResource extends ListResource[EsIndex] {
+class IndicesResource extends ListResource[DemoApplication, EsIndex] {
 
   private val httpclient = HttpClients.createDefault
 
-  def get(requestEvent: RequestEvent): Unit = {
+  def getAsync(requestEvent: RequestEvent): Unit = {
     implicit val formats = DefaultFormats
     implicit val serialization = jackson.Serialization
     implicit val system = actorContext.system
@@ -77,5 +78,7 @@ class IndicesResource extends ListResource[EsIndex] {
     }
     httpclient.execute(httpget, responseHandler)
   }
+
+  override def get(requestEvent: RequestEvent) = ???
 }
 

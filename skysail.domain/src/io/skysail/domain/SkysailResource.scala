@@ -40,13 +40,18 @@ abstract class SkysailResource[S <: ApplicationApi, T: TypeTag] {
 
   var applicationModel: ApplicationModel = null
   var bundleContext: BundleContext = null
-  var application: ApplicationApi = null
+
+  private var application: ApplicationApi = null
 
   def setApplicationModel(model: ApplicationModel) = this.applicationModel = model
 
   def setBundleContext(bc: BundleContext) = this.bundleContext = bc
 
   def setApplication(app: ApplicationApi) = this.application = app
+
+  def getApplication(): S = {
+    application.asInstanceOf[S]
+  }
 
   def createRoute(applicationActor: ActorSelection, processCommand: io.skysail.domain.messages.ProcessCommand)(implicit system: ActorSystem): Route = {
     val t = (applicationActor ? processCommand).mapTo[ResponseEventBase]

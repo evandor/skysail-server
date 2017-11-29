@@ -1,0 +1,41 @@
+@*************************************
+* Home page.                        *
+*                                   *
+* @param msg The message to display *
+*************************************@
+@(rep: RepresentationModel)
+
+@main {
+
+<br><br><br>
+
+<div class="container">
+    <div class="starter-template">
+        <h1>Bookmarks</h1>
+        <p class="lead">show bookmark:</p>
+        <span>@rep.rawData</span>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Url</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row"><input type="text" name="title" value='@rep.rawData.head.get("title")'/></th>
+                <td><input type="url" name="url" value='@rep.rawData.head.get("url")'/></td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <a href='@rep.rawData.head.get("id")/'>edit bookmark</a>
+                </th>
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+}
