@@ -59,12 +59,12 @@ class RoutesCreator(system: ActorSystem) {
     entry => entry._2.exists { cap => Constants.CLIENT_CAPABILITY.equals(cap.getNamespace) }
   }.keys
 
-  private val clientClassloader = if (bundleIdsWithClientCapabilities.nonEmpty) {
-    val clientClFuture = (SkysailApplication.getBundleActor(system, bundleIdsWithClientCapabilities.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
-    Await.result(clientClFuture, 3.seconds)
-  } else {
-    null
-  }
+//  private val clientClassloader = if (bundleIdsWithClientCapabilities.nonEmpty) {
+//    val clientClFuture = (SkysailApplication.getBundleActor(system, bundleIdsWithClientCapabilities.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
+//    Await.result(clientClFuture, 3.seconds)
+//  } else {
+//    null
+//  }
 
   var docClassloader: ClassLoader = _
 
@@ -157,8 +157,8 @@ class RoutesCreator(system: ActorSystem) {
   private def clientPath(): Route = {
     pathPrefix("client") {
       get {
-        getFromResourceDirectory("client", getClientClassloader)
-        getFromResource("client/index.html", ContentTypes.`text/html(UTF-8)`, getClientClassloader)
+        getFromResourceDirectory("client", getClientClassloader2)
+        getFromResource("client/index.html", ContentTypes.`text/html(UTF-8)`, getClientClassloader2)
       }
     }
   }
@@ -175,13 +175,13 @@ class RoutesCreator(system: ActorSystem) {
   private def staticResources(): Route = {
     pathPrefix("static") {
       get {
-        implicit val classloader: ClassLoader = clientClassloader /*classOf[AkkaServer].getClassLoader*/
-        getFromResource("application.conf", ContentTypes.`application/json`, getClientClassloader)
+        //implicit val classloader: ClassLoader = clientClassloader2() /*classOf[AkkaServer].getClassLoader*/
+        getFromResource("application.conf", ContentTypes.`application/json`, getClientClassloader2)
       }
     } ~
       pathPrefix("client") {
         get {
-          getFromResourceDirectory("client", getClientClassloader)
+          getFromResourceDirectory("client", getClientClassloader2)
         }
       }
   }
@@ -278,7 +278,7 @@ class RoutesCreator(system: ActorSystem) {
     }
   }
 
-  private def getClientClassloader = clientClassloader
+ // private def getClientClassloader = clientClassloader
 
   private def getDocClassloader = {
     if (docClassloader == null) {
