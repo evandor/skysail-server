@@ -15,6 +15,7 @@ import domino.service_watching.ServiceWatcherContext
 import domino.service_watching.ServiceWatcherEvent.{AddingService, ModifiedService, RemovedService}
 import io.skysail.api.metrics.{CounterMetric, Metrics}
 import io.skysail.api.security.AuthenticationService
+import io.skysail.api.ui.Client
 import io.skysail.server.actors.{ApplicationsActor, BundlesActor}
 import io.skysail.server.app.{ApplicationProvider, RootApplication, SkysailApplication}
 import io.skysail.server.app.SkysailApplication._
@@ -32,6 +33,7 @@ case class ServerConfig(port: Integer, binding: String, conf: Map[String, Any])
 
 object AkkaServer {
   val metricsImpls: ListBuffer[Metrics] = scala.collection.mutable.ListBuffer[Metrics]()
+  val clients: ListBuffer[Client] = scala.collection.mutable.ListBuffer[Client]()
   val simpleMetrics = new SimpleMetrics()
   metricsImpls += simpleMetrics
 }
@@ -109,6 +111,12 @@ class AkkaServer extends DominoActivator {
       case RemovedService(service, _) => AkkaServer.metricsImpls -= service
     }
 
+    watchServices[Client] {
+      case AddingService(client, context) => AkkaServer.clients += client
+      case ModifiedService(client, _) =>
+      case RemovedService(client, _) => AkkaServer.clients -= client
+    }
+
     watchBundles {
       case AddingBundle(b, context) => bundlesActor ! BundlesActor.CreateBundleActor(b)
       case ModifiedBundle(b, _) =>
@@ -133,7 +141,7 @@ class AkkaServer extends DominoActivator {
       serverConfig = ServerConfig(port, binding, conf)
       //routesTracker = new RoutesTracker(actorSystem)
 
-      val app = new RootApplication(bundleContext, conf)
+      val app = new RootApplication(bundleContext, AkkaServer.clients, conf)
       app.providesService[ApplicationProvider]
 
     }

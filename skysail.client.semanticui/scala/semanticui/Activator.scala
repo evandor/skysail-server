@@ -1,11 +1,16 @@
 package semanticui
 
 import domino.DominoActivator
+import io.skysail.api.ui.Client
 import org.slf4j.LoggerFactory
 
 class SemanticUiActivator  extends DominoActivator{
 
   private var log = LoggerFactory.getLogger(this.getClass)
+
+  private class SemanticUiClient extends Client {
+    override def name(): String = "semanticui"
+  }
 
   whenBundleActive {
 
@@ -17,13 +22,7 @@ class SemanticUiActivator  extends DominoActivator{
       log info s"deactivating ${this.getClass.getName}"
     }
 
-//    whenServicePresent[DbService] { dbService =>
-//      log info s"dbService available in ${this.getClass.getName}"
-//      app = new DemoApplication(bundleContext, dbService)
-//      //app.activate()
-//      app.providesService[ApplicationProvider]
-//    }
-
+    new SemanticUiClient().providesService[Client]
 
   }
 }

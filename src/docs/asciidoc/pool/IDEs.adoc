@@ -1,0 +1,14 @@
+:source-highlighter: coderay
+:imagesdir: images
+
+= skysail infrastructure
+Carsten Gräf <evandor@gmail.com>
+v0.0, 2017-11-12
+:toc:
+
+
+== Intellij
+
+Import gradle projects with recommended wrapper and *without* multiple
+source sets.
+

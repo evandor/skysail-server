@@ -1,9 +1,11 @@
 package io.skysail.server.app
 
-import io.skysail.domain.routes.RouteMapping
 import akka.http.scaladsl.server.{PathMatcher, PathMatchers}
+import akka.http.scaladsl.server.PathMatchers._
+import io.skysail.api.ui.Client
+import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.app.RootApplication._
-import io.skysail.server.app.resources.{AppsResource, RootRedirectResource, RootResource}
+import io.skysail.server.app.resources.{AppsResource, ClientsResource, RootRedirectResource, RootResource}
 import org.osgi.framework.BundleContext
 
 object RootApplication {
@@ -22,19 +24,21 @@ object RootApplication {
 
 class RootApplication(
                        bundleContext: BundleContext,
+                       clients: scala.collection.mutable.ListBuffer[Client],
                        val conf: Map[String, Any]) extends SkysailApplication(ROOT_APPLICATION_NAME, null, bundleContext, "backend root")
   with ApplicationProvider {
 
-  val appService = new ApplicationService()
+  val appService = new ApplicationService(clients.toList)
 
   def routesMappings: List[RouteMapping[_,_]] = {
     val root: PathMatcher[Unit] = PathMatcher(ROOT_APPLICATION_NAME)
 
     List(
       //"/login" -> classOf[AkkaLoginResource[String]],
-      RouteMapping("", PathMatchers.PathEnd, classOf[RootRedirectResource]),
-      RouteMapping("", root ~ PathMatchers.PathEnd, classOf[RootResource]),
-      RouteMapping("/apps", root / PathMatcher("apps") ~ PathMatchers.PathEnd, classOf[AppsResource])
+      RouteMapping("",         PathMatchers.PathEnd, classOf[RootRedirectResource]),
+      RouteMapping("",         root ~ PathEnd, classOf[RootResource]),
+      RouteMapping("/apps",    root / PathMatcher("apps") ~ PathEnd, classOf[AppsResource]),
+      RouteMapping("/clients", root / PathMatcher("clients") ~ PathEnd, classOf[ClientsResource])
     )
   }
 
