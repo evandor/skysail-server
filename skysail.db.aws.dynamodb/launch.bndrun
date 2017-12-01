@@ -5,11 +5,11 @@
 -runtrace: false
 # http://bnd.bndtools.org/chapters/300-launching.html
 #-runpath: biz.aQute.launcher
--runproperties: \
-    https.proxyHost=192.168.11.140,\
-	https.proxyPort=8080,\
-    http.proxyHost=192.168.11.140,\
-	http.proxyPort=8080
+#-runproperties: \
+#    https.proxyHost=192.168.11.xxx,\
+#	https.proxyPort=8080,\
+#    http.proxyHost=192.168.11.xxx,\
+#	http.proxyPort=8080
 
 -resolve.effective: active;skip:="osgi.service"
 

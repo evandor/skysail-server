@@ -6,8 +6,9 @@ Bundle-Version: 0.1.0.${tstamp}
 
 Bundle-Activator: semanticui.SemanticUiActivator
 
+Private-Package: semanticui
 
-#-includeresource: client=dist
+-includeresource: client=dist
 
 -buildpath: \
 	osgi.core;version=${osgi.version},\

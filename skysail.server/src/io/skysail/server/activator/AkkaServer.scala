@@ -57,6 +57,8 @@ class AkkaServer extends DominoActivator {
 
   var serverRestartsCounter = CounterMetric(this.getClass, "server.restarts")
 
+  var rootApplication: Option[RootApplication] = None
+
   private class AkkaCapsule(bundleContext: BundleContext) extends ActorSystemActivator with Capsule {
 
     override def start(): Unit = start(bundleContext)
@@ -112,9 +114,9 @@ class AkkaServer extends DominoActivator {
     }
 
     watchServices[Client] {
-      case AddingService(client, context) => AkkaServer.clients += client
+      case AddingService(client, context) => AkkaServer.clients += client; updateApp()
       case ModifiedService(client, _) =>
-      case RemovedService(client, _) => AkkaServer.clients -= client
+      case RemovedService(client, _) => AkkaServer.clients -= client; updateApp()
     }
 
     watchBundles {
@@ -141,8 +143,8 @@ class AkkaServer extends DominoActivator {
       serverConfig = ServerConfig(port, binding, conf)
       //routesTracker = new RoutesTracker(actorSystem)
 
-      val app = new RootApplication(bundleContext, AkkaServer.clients, conf)
-      app.providesService[ApplicationProvider]
+      rootApplication = Some(new RootApplication(bundleContext, conf))
+      rootApplication.get.providesService[ApplicationProvider]
 
     }
 
@@ -198,4 +200,12 @@ class AkkaServer extends DominoActivator {
       appsActor ! CreateApplicationActor(appClass, appModel, application, appInfoProvider.bundleContext)
     }
   }
+
+  private def updateApp(): Unit = {
+    if (rootApplication.isDefined) {
+      rootApplication.get.setClients(AkkaServer.clients.toList)
+    }
+  }
+
+
 }

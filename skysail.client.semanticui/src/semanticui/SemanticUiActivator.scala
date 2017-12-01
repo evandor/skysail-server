@@ -4,7 +4,7 @@ import domino.DominoActivator
 import io.skysail.api.ui.Client
 import org.slf4j.LoggerFactory
 
-class SemanticUiActivator  extends DominoActivator{
+class SemanticUiActivator extends DominoActivator {
 
   private var log = LoggerFactory.getLogger(this.getClass)
 

@@ -24,9 +24,14 @@ object RootApplication {
 
 class RootApplication(
                        bundleContext: BundleContext,
-                       clients: scala.collection.mutable.ListBuffer[Client],
                        val conf: Map[String, Any]) extends SkysailApplication(ROOT_APPLICATION_NAME, null, bundleContext, "backend root")
   with ApplicationProvider {
+
+  var clients:List[Client]
+
+
+  def setClients(toList: List[Client]) = this.clients = toList
+
 
   val appService = new ApplicationService(clients.toList)
 
