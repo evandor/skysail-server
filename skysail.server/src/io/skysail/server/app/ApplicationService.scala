@@ -10,9 +10,11 @@ import io.skysail.server.actors.ApplicationsActor
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
 
-class ApplicationService(val clients: List[Client]) {
+class ApplicationService() {
 
   implicit val timeout: Timeout = 3.seconds
+
+  var clients =  List[Client]()
 
   def getAllApplications(system: ActorSystem): Future[List[Application]] = {
     val appsActor = SkysailApplication.getApplicationsActor(system)

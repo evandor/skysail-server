@@ -27,26 +27,23 @@ class RootApplication(
                        val conf: Map[String, Any]) extends SkysailApplication(ROOT_APPLICATION_NAME, null, bundleContext, "backend root")
   with ApplicationProvider {
 
-  var clients:List[Client]
+  var clients = List[Client]()
 
+  val appService = new ApplicationService()
 
-  def setClients(toList: List[Client]) = this.clients = toList
+  def setClients(clients: List[Client]) = appService.clients = clients
 
-
-  val appService = new ApplicationService(clients.toList)
-
-  def routesMappings: List[RouteMapping[_,_]] = {
+  def routesMappings: List[RouteMapping[_, _]] = {
     val root: PathMatcher[Unit] = PathMatcher(ROOT_APPLICATION_NAME)
 
     List(
       //"/login" -> classOf[AkkaLoginResource[String]],
-      RouteMapping("",         PathMatchers.PathEnd, classOf[RootRedirectResource]),
-      RouteMapping("",         root ~ PathEnd, classOf[RootResource]),
-      RouteMapping("/apps",    root / PathMatcher("apps") ~ PathEnd, classOf[AppsResource]),
+      RouteMapping("", PathMatchers.PathEnd, classOf[RootRedirectResource]),
+      RouteMapping("", root ~ PathEnd, classOf[RootResource]),
+      RouteMapping("/apps", root / PathMatcher("apps") ~ PathEnd, classOf[AppsResource]),
       RouteMapping("/clients", root / PathMatcher("clients") ~ PathEnd, classOf[ClientsResource])
     )
   }
-
 
 
 }
