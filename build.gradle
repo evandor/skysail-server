@@ -16,8 +16,16 @@ asciidoctorj {
     version = '1.5.5'
 }
 
+task copyImagesFromBundles(type: Copy) {
+    from 'skysail.domain/src/docs/asciidoc/images'
+    into 'build/asciidoc/html5/images'
+
+    from 'skysail.server.doc/src/docs/asciidoc/images'
+    into 'build/asciidoc/html5/images'
+}
+
 asciidoctor {
-    dependsOn jrubyPrepare
+    dependsOn copyImagesFromBundles, jrubyPrepare
     requires = ['asciidoctor-diagram']
     gemPath = jrubyPrepare.outputDir
     attributes  \

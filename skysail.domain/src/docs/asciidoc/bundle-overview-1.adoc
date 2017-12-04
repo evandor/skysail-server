@@ -1,4 +1,4 @@
-ifndef::imagesDir[:imagesDir: ../images]
+ifndef::imagesDir[:imagesDir: images]
 
 == skysail.domain
 
@@ -19,6 +19,11 @@ The skysail.domain bundle is a collection of core traits, to be implemented in s
 * C
 
 include::../../../../src/docs/asciidoc/actors/calling_sequence.adoc[leveloffset=+1]
+
+=== Resources
+
+.Overview
+image::skysail/domain/resources.png[test]
 
 === Model
 

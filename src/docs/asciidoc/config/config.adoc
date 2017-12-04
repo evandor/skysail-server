@@ -13,6 +13,6 @@
 :table-caption: Tabelle
 
 // where are images located?
-:imagesdir: images
+//:imagesdir: images
 
 :icons: font

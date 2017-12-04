@@ -1,6 +1,6 @@
 package io.skysail.domain.resources
 
-import io.skysail.domain.{ListResponseEvent, RequestEvent}
+import io.skysail.domain.{ListResponseEvent, RequestEvent, ResponseEventBase}
 import io.skysail.domain.app.ApplicationApi
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -10,7 +10,9 @@ import scala.util.{Failure, Success}
 
 abstract class ListResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
 
-  //def get(requestEvent: RequestEvent): ListResponseEvent[List[T]]
+  def get(re: RequestEvent): ResponseEventBase = ListResponseEvent(re, getList(re))
+
+  def getList(requestEvent: RequestEvent): List[T] = List()
 
   def reply(requestEvent: RequestEvent, answer: Future[List[_]]): Unit = {
     answer.onComplete {

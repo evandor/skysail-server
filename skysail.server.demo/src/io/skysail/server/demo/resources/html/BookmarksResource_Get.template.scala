@@ -52,6 +52,8 @@ Seq[Any](format.raw/*6.28*/("""
 
         <a href='"""),_display_(/*39.19*/rep/*39.22*/.linkFor("io.skysail.server.demo.resources.PostBookmarkResource",None)),format.raw/*39.92*/("""'>Create New Bookmark</a>
 
+        <hr>
+        <a href="/doc/v1/xxx/meta.html" target="_docs">Doc</a>
     </div>
 </div>
 
@@ -71,9 +73,9 @@ Seq[Any](format.raw/*6.28*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Mon Nov 20 18:43:57 CET 2017
-                  SOURCE: C:/git/skysail-server/skysail.server.demo/./resources/templates/io/skysail/server/demo/resources/BookmarksResource_Get.scala.html
-                  HASH: e4a58b45ff553f45de5e955edeacd0b681cf77bf
+                  DATE: Sat Dec 02 07:55:18 CET 2017
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./resources/templates/io/skysail/server/demo/resources/BookmarksResource_Get.scala.html
+                  HASH: e0424282cd73fd7ab559618d7132acea7fcb6f28
                   MATRIX: 657->193|778->219|806->222|817->226|855->228|884->230|1323->642|1360->663|1400->665|1441->678|1506->716|1516->717|1547->727|1613->766|1623->767|1657->780|1720->816|1730->817|1762->828|1792->831|1802->832|1834->843|1901->883|1913->886|2012->963|2096->1016|2138->1030|2211->1076|2223->1079|2314->1149
                   LINES: 15->6|20->6|22->8|22->8|22->8|24->10|40->26|40->26|40->26|41->27|42->28|42->28|42->28|43->29|43->29|43->29|44->30|44->30|44->30|44->30|44->30|44->30|45->31|45->31|45->31|47->33|49->35|53->39|53->39|53->39
                   -- GENERATED --

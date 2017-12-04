@@ -14,7 +14,7 @@ case class Client(name: String) extends Linkable {
 
 class ClientsResource() extends ListResource[RootApplication, Client] {
 
-  def get(requestEvent: RequestEvent) = {
+  override def get(requestEvent: RequestEvent) = {
     val clients = getApplication().appService.clients
     ListResponseEvent(requestEvent, clients.map(c => Client(c.name)))
   }

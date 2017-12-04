@@ -22,3 +22,5 @@ include::../../../skysail.domain/src/docs/asciidoc/bundle-overview-1.adoc[]
 include::../../../skysail.server/src/docs/asciidoc/bundle-overview-1.adoc[]
 
 include::../../../skysail.db.orientdb/src/docs/asciidoc/bundle-overview-1.adoc[]
+
+include::../../../skysail.server.doc/src/docs/asciidoc/bundle-overview-1.adoc[]

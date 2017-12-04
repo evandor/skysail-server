@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import domino.DominoActivator
 import io.skysail.server.app.ApplicationProvider
 
+// tag::body[]
 class DocActivator extends DominoActivator {
 
   whenBundleActive {
@@ -14,3 +15,4 @@ class DocActivator extends DominoActivator {
     }
   }
 }
+// end::body[]

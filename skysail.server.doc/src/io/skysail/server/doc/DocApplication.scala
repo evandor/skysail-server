@@ -14,6 +14,7 @@ object DocApplication {
   val APPLICATION_NAME = "doc"
 }
 
+// tag::body[]
 class DocApplication(bundleContext: BundleContext, system: ActorSystem) extends
   SkysailApplication(APPLICATION_NAME, bundleContext, "Skysail Doc Application")
   with ApplicationProvider {
@@ -43,3 +44,4 @@ class DocApplication(bundleContext: BundleContext, system: ActorSystem) extends
 
 
 }
+// end::body[]

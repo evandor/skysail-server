@@ -1,0 +1,40 @@
+ifndef::imagesDir[:imagesDir: images]
+
+== skysail.server.doc
+
+This chapter provides an overview of the skysail.server.doc bundle.
+
+=== Namespace
+
+io.skysail.server.doc
+
+=== Purpose
+
+There's a gradle task which *collects all the generated asciidoc documentation*
+for all the bundles in this repository and copies it to this bundle's resource
+directory.
+
+From here, the documentation can be accessed using the path "doc/xxx" (todo) once
+the skysail.server.doc bundle has been deployed into a skysail server instance.
+
+=== Packages
+
+==== io.skysail.server.doc
+
+The only package of this bundle, containing the OSGi Activator
+
+[source,scala]
+.DocActivator.scala
+----
+include::../../io/skysail/server/doc/DocActivator.scala[tag=body]
+----
+
+the Skysail Application
+
+[source,scala]
+.DocApplication.scala
+----
+include::../../io/skysail/server/doc/DocApplication.scala[tag=body]
+----
+
+and some resources.

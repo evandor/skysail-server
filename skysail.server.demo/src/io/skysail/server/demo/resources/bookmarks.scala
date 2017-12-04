@@ -11,7 +11,7 @@ import akka.http.scaladsl.unmarshalling.Unmarshaller
 import akka.stream.ActorMaterializer
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{AsyncResource, ListResource, PostResource, PutResource}
-import io.skysail.domain.{ListResponseEvent, RequestEvent, ResponseEvent}
+import io.skysail.domain.{RequestEvent, ResponseEvent}
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.Bookmark
 import spray.json.{DefaultJsonProtocol, _}
@@ -19,20 +19,17 @@ import spray.json.{DefaultJsonProtocol, _}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
-  implicit val bookmarkFormat = jsonFormat3(Bookmark)
+  implicit val bookmarkFormat: RootJsonFormat[Bookmark] = jsonFormat3(Bookmark)
 }
 
 class BookmarksResource extends ListResource[DemoApplication, Bookmark] {
-  def get(requestEvent: RequestEvent) = ListResponseEvent(requestEvent, getApplication().repo.find())
+  override def getList(re: RequestEvent): List[Bookmark] = getApplication().repo.find()
 }
 
 class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with JsonSupport {
 
-  def get(requestEvent: RequestEvent) = {
-//    val entityModel = applicationModel.entityModelFor(classOf[Bookmark])
-//    if (entityModel.isDefined) {
-//      requestEvent.controllerActor ! entityModel.get.description()
-//    }
+  def get(requestEvent: RequestEvent): ResponseEvent[Bookmark] = {
+    //      requestEvent.controllerActor ! applicationModel.entityModelFor(classOf[Bookmark]).get.description()
     ResponseEvent(requestEvent, Bookmark(None, "", ""))
   }
 
@@ -64,15 +61,15 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with 
 class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] with JsonSupport {
 
   override def get(requestEvent: RequestEvent): ResponseEvent[Bookmark] = {
-    val id = requestEvent.cmd.urlParameter.head
-    val optionalBookmark = getApplication().repo.find(id)
+    val optionalBookmark = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
     ResponseEvent(requestEvent, optionalBookmark.get)
   }
 
   override def put(requestEvent: RequestEvent): Unit = {
     val optionalBookmark = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
-    // merge
-    getApplication().repo.save(optionalBookmark.get)
+    val updatedBookmark = requestEvent.cmd.entity.asInstanceOf[Bookmark]
+    val bookmarkToSave = updatedBookmark.copy(id = optionalBookmark.get.id)
+    getApplication().repo.save(bookmarkToSave)
   }
 }
 
