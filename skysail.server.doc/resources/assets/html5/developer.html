@@ -538,7 +538,11 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#why-not-use-x-y-z">2.2. Why not use X/Y/Z?</a></li>
 <li><a href="#concepts">2.3. Concepts</a>
 <ul class="sectlevel3">
-<li><a href="#applications">2.3.1. Applications</a></li>
+<li><a href="#overview">2.3.1. Overview</a>
+<ul class="sectlevel4">
+<li><a href="#applications">Applications</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#resources">2.4. Resources</a>
@@ -548,12 +552,21 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#request-processing">2.5. Request Processing</a>
 <ul class="sectlevel3">
-<li><a href="#resources-3">2.5.1. Resources</a></li>
+<li><a href="#overview-2">2.5.1. Overview</a>
+<ul class="sectlevel4">
+<li><a href="#routecreator">RouteCreator</a></li>
+<li><a href="#applicationactor-request">ApplicationActor (Request)</a></li>
+<li><a href="#controlleractor-request">ControllerActor (Request)</a></li>
+<li><a href="#the-resource">The Resource</a></li>
+<li><a href="#controlleractor-response">ControllerActor (Response)</a></li>
+<li><a href="#application-controller-response">Application Controller (Response)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#domain-and-business-logic">2.6. Domain and Business Logic</a>
 <ul class="sectlevel3">
-<li><a href="#resources-4">2.6.1. Resources</a></li>
+<li><a href="#resources-3">2.6.1. Resources</a></li>
 </ul>
 </li>
 <li><a href="#transformations">2.7. Transformations</a>
@@ -578,7 +591,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#namespace">3.2.1. Namespace</a></li>
 <li><a href="#purpose-2">3.2.2. Purpose</a></li>
 <li><a href="#packages-2">3.2.3. Packages</a></li>
-<li><a href="#resources-5">3.2.4. Resources</a></li>
+<li><a href="#resources-4">3.2.4. Resources</a></li>
 <li><a href="#model">3.2.5. Model</a></li>
 </ul>
 </li>
@@ -752,39 +765,28 @@ will become unavailable.</p>
 <div class="sect2">
 <h3 id="concepts">2.3. Concepts</h3>
 <div class="paragraph">
-<p>In some way, skysail is just a set of concepts.</p>
-</div>
-<div class="paragraph">
-<p>When you create something like a library or any kind of software others might want to use, you have to make a lot of decisions. Some of those might be easy - for example, picking a specific programming language. Others, like deciding if you really want to depend on other libraries and/or frameworks (and which ones) are harder. And, of course, you have some kind of problem in mind you want to solve.</p>
-</div>
-<div class="paragraph">
-<p>So, in the end, you decide about a lot of things and create something which (hopefully) is useful - but only to people having this kind of problem, using that specific programming language and have a similar set of dependencies as you.</p>
-</div>
-<div class="paragraph">
-<p>This chapter is about the decisions I&#8217;ve made.</p>
-</div>
-<div class="paragraph">
-<p>All the concepts like "Applications", "Business Logic" and "Request Processing" - they might be valuable to only a small set of people. Still, I think these concepts are useful to solve problems I am confronted with, and I am happy to discuss (and adjust) them. Maybe they are useful to somebody else as well - hopefully, as this is the reason I started this in the first place.</p>
-</div>
-<div class="paragraph">
-<p>The two big decisions right at the beginning were:</p>
-</div>
-<div class="paragraph">
-<p>the programming language (Scala (although the first versions of skysail have been created using Java))
-and the "framework" (OSGi [with bndtools])
-For those still reading on ;):</p>
-</div>
-<div class="paragraph">
-<p>Picking this combination has a few implications: Actually, the programming language is not really restricted to Scala: You can use any language running on the Java Virtual Machine (like Java, Groovy, Clojure, &#8230;&#8203;). And, there is a clean modularization between the various parts. New Applications can be deployed into a running installation without restarting. If you are afraid to do this in production, you&#8217;ll still love it in development. Dependencies are well-expressed and clean.</p>
-</div>
-<div class="paragraph">
-<p>Round about a hundred bundles for a typical skysail installation seem a lot. But it&#8217;s not: you&#8217;ll get the server (jetty), a database (orientdb), serialization features (jackson) and validation stuff (hibernate). And more. Using OSGi let&#8217;s you pick between various implements of specific features easily (for example, where do you store your users, if at all) - and, if you don&#8217;t find what you are looking for - implement it yourself. Replace the implementation you are not happy with, and it will work.</p>
-</div>
-<div class="paragraph">
-<p>And: your deployable, it&#8217;s just a single jar file. You start it like "java -jar myskysail.installation.jar". That&#8217;s it. Database and server included.</p>
+<p>In some way, skysail is just a set of concepts.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
 </div>
 <div class="sect3">
-<h4 id="applications">2.3.1. Applications</h4>
+<h4 id="overview">2.3.1. Overview</h4>
+<div class="paragraph">
+<p>Applications, Resources, Requests and Responses.</p>
+</div>
+<div class="sect4">
+<h5 id="applications">Applications</h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Hinweis"></i>
+</td>
+<td class="content">
+When we refer to "Application" in this documentation, what is usually
+mean is a <strong>SkysailApplication</strong>.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>When it comes to skysail, as a developer, you can extend (and/or) fix its core functionality, or you can create Applications.</p>
 </div>
@@ -812,6 +814,7 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 </div>
 </div>
 </div>
+</div>
 <div class="sect2">
 <h3 id="resources">2.4. Resources</h3>
 <div class="paragraph">
@@ -826,13 +829,82 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 </div>
 <div class="sect2">
 <h3 id="request-processing">2.5. Request Processing</h3>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
 <div class="sect3">
-<h4 id="resources-3">2.5.1. Resources</h4>
+<h4 id="overview-2">2.5.1. Overview</h4>
 <div class="paragraph">
-<p>&#8230;&#8203;</p>
+<p>Typically, in a server-client environment, you have a client making
+<em>requests</em> to a server, which in turn sends back <em>responses</em>.</p>
+</div>
+<div class="paragraph">
+<p>This chapter describes how this fundamental process in handled
+in skysail.</p>
+</div>
+<div class="paragraph">
+<p>The big picture looks like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/diagram.png" alt="Calling Sequence" width="497" height="234">
+</div>
+<div class="title">Abbildung 1. Calling Sequence</div>
+</div>
+<div class="sect4">
+<h5 id="routecreator">RouteCreator</h5>
+<div class="paragraph">
+<p>A class called <strong>io.skysail.server.RoutesCreator</strong> is used to create akka
+routes for all active skysail applications. Once a Request matches such
+a route, a ProcessCommand message is sent to the corresponding application
+actor.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="applicationactor-request">ApplicationActor (Request)</h5>
+<div class="paragraph">
+<p>The <strong>io.skysail.server.actors.ApplicationActor</strong> wrapps all necessary information
+in a SkysailContext object, which is sent to the ControllerActor. One of the objects
+wrapped in the SkysailContext is a concrete <a href="resource" class="bare">resource</a> object, created using the newInstance()
+method. The ApplicationActor furthermore creates a <strong>new</strong> ControllerActor object to which the
+SkysailContext message is sent.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="controlleractor-request">ControllerActor (Request)</h5>
+<div class="paragraph">
+<p>Now the ControllerActor (which was specifically created to serve the request) will use
+the (also freshly created) Resource to execute the actual business code (which will depend
+on the http method of the request).</p>
+</div>
+<div class="listingblock">
+<div class="title">matching the requests method to execute the resource&#8217;s business logic</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">      cmd.ctx.request.method match {
+        case HttpMethods.GET =&gt; resource.doGet(RequestEvent(cmd, self))
+        case HttpMethods.POST =&gt; resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
+        case HttpMethods.PUT =&gt; resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
+        case e: Any =&gt; resource.get(RequestEvent(cmd, self))
+      }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="the-resource">The Resource</h5>
+<div class="paragraph">
+<p>The Resource&#8217;s business logic is called. Depending on the concrete Resource, a subclass of
+ResponseEventBase is created, containg the response entity.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="controlleractor-response">ControllerActor (Response)</h5>
+<div class="paragraph">
+<p>Depending on the concrete ResponseEvent type, the controller performs some more logic
+and passes control back to the ApplicationActor.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="application-controller-response">Application Controller (Response)</h5>
+<div class="paragraph">
+<p>The responseEvent is passed to the RoutesCreator.</p>
+</div>
 </div>
 </div>
 </div>
@@ -842,7 +914,7 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 <p>&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="resources-4">2.6.1. Resources</h4>
+<h4 id="resources-3">2.6.1. Resources</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
@@ -1001,18 +1073,18 @@ skysail.db.orientdb bundle.</p>
 <h6 id="io-skysail-api-security">io.skysail.api.security</h6>
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram.png" alt="Diagram Title" width="293" height="216">
+<img src="images/diagram.png" alt="Diagram Title" width="274" height="222">
 </div>
-<div class="title">Abbildung 1. Diagram Title</div>
+<div class="title">Abbildung 2. Diagram Title</div>
 </div>
 <div class="paragraph">
 <p>test</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/cs.png" alt="Calling Sequence" width="525" height="228">
+<img src="images/cs.png" alt="Calling Sequence" width="497" height="234">
 </div>
-<div class="title">Abbildung 2. Calling Sequence</div>
+<div class="title">Abbildung 3. Calling Sequence</div>
 </div>
 </div>
 </div>
@@ -1061,27 +1133,27 @@ skysail.db.orientdb bundle.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
+<img src="images/diagram.png" alt="Calling Sequence" width="497" height="234">
 </div>
-<div class="title">Abbildung 3. Calling Sequence</div>
+<div class="title">Abbildung 4. Calling Sequence</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="resources-5">3.2.4. Resources</h4>
+<h4 id="resources-4">3.2.4. Resources</h4>
 <div class="imageblock">
 <div class="content">
 <img src="images/skysail/domain/resources.png" alt="test">
 </div>
-<div class="title">Abbildung 4. Overview</div>
+<div class="title">Abbildung 5. Overview</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="model">3.2.5. Model</h4>
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
+<img src="images/diagram2.png" alt="Calling Sequence2" width="274" height="225">
 </div>
-<div class="title">Abbildung 5. Calling Sequence2</div>
+<div class="title">Abbildung 6. Calling Sequence2</div>
 </div>
 </div>
 </div>
@@ -1092,9 +1164,9 @@ skysail.db.orientdb bundle.</p>
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
+<img src="images/diagram.png" alt="Calling Sequence" width="497" height="234">
 </div>
-<div class="title">Abbildung 6. Calling Sequence</div>
+<div class="title">Abbildung 7. Calling Sequence</div>
 </div>
 </div>
 </div>
@@ -1105,10 +1177,16 @@ skysail.db.orientdb bundle.</p>
 </div>
 </div>
 </div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. When you create something like a library or any kind of software others might want to use, you have to make a lot of decisions. Some of those might be easy - for example, picking a specific programming language. Others, like deciding if you really want to depend on other libraries and/or frameworks (and which ones) are harder. And, of course, you have some kind of problem in mind you want to solve. So, in the end, you decide about a lot of things and create something which (hopefully) is useful - but only to people having this kind of problem, using that specific programming language and have a similar set of dependencies as you. This chapter is about the decisions I&#8217;ve made. All the concepts like "Applications", "Business Logic" and "Request Processing" - they might be valuable to only a small set of people. Still, I think these concepts are useful to solve problems I am confronted with, and I am happy to discuss (and adjust) them. Maybe they are useful to somebody else as well - hopefully, as this is the reason I started this in the first place. The two big decisions right at the beginning were: the programming language (Scala (although the first versions of skysail have been created using Java)) and the "framework" (OSGi with bndtools) For those still reading on ;): Picking this combination has a few implications: Actually, the programming language is not really restricted to Scala: You can use any language running on the Java Virtual Machine (like Java, Groovy, Clojure, &#8230;&#8203;). And, there is a clean modularization between the various parts. New Applications can be deployed into a running installation without restarting. If you are afraid to do this in production, you&#8217;ll still love it in development. Dependencies are well-expressed and clean. Round about a hundred bundles for a typical skysail installation seem a lot. But it&#8217;s not: you&#8217;ll get the server (jetty), a database (orientdb), serialization features (jackson) and validation stuff (hibernate). And more. Using OSGi let&#8217;s you pick between various implements of specific features easily (for example, where do you store your users, if at all) - and, if you don&#8217;t find what you are looking for - implement it yourself. Replace the implementation you are not happy with, and it will work. And: your deployable, it&#8217;s just a single jar file. You start it like "java -jar myskysail.installation.jar". That&#8217;s it. Database and server included.
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0<br>
-Last updated 2017-11-21 09:10:46 CET
+Last updated 2017-11-22 09:29:45 MEZ
 </div>
 </div>
 </body>

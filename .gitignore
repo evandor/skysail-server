@@ -5,8 +5,8 @@ bin_test
 generated/*
 generated/
 /generated/
-/.cache-main
-/.cache-tests
+.cache-main
+.cache-tests
 .classpath
 .project
 /.settings/
@@ -19,3 +19,4 @@ build/
 out/
 bin/
 *.iml
+/skysail.server/.cache-main

@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>Applications</title>
+<title>Overview</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -515,46 +515,39 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
+<li><a href="#overview">Overview</a>
+<ul class="sectlevel2">
 <li><a href="#applications">Applications</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="paragraph">
-<p>In some way, skysail is just a set of concepts.</p>
-</div>
-<div class="paragraph">
-<p>When you create something like a library or any kind of software others might want to use, you have to make a lot of decisions. Some of those might be easy - for example, picking a specific programming language. Others, like deciding if you really want to depend on other libraries and/or frameworks (and which ones) are harder. And, of course, you have some kind of problem in mind you want to solve.</p>
-</div>
-<div class="paragraph">
-<p>So, in the end, you decide about a lot of things and create something which (hopefully) is useful - but only to people having this kind of problem, using that specific programming language and have a similar set of dependencies as you.</p>
-</div>
-<div class="paragraph">
-<p>This chapter is about the decisions I&#8217;ve made.</p>
-</div>
-<div class="paragraph">
-<p>All the concepts like "Applications", "Business Logic" and "Request Processing" - they might be valuable to only a small set of people. Still, I think these concepts are useful to solve problems I am confronted with, and I am happy to discuss (and adjust) them. Maybe they are useful to somebody else as well - hopefully, as this is the reason I started this in the first place.</p>
-</div>
-<div class="paragraph">
-<p>The two big decisions right at the beginning were:</p>
-</div>
-<div class="paragraph">
-<p>the programming language (Scala (although the first versions of skysail have been created using Java))
-and the "framework" (OSGi [with bndtools])
-For those still reading on ;):</p>
-</div>
-<div class="paragraph">
-<p>Picking this combination has a few implications: Actually, the programming language is not really restricted to Scala: You can use any language running on the Java Virtual Machine (like Java, Groovy, Clojure, &#8230;&#8203;). And, there is a clean modularization between the various parts. New Applications can be deployed into a running installation without restarting. If you are afraid to do this in production, you&#8217;ll still love it in development. Dependencies are well-expressed and clean.</p>
-</div>
-<div class="paragraph">
-<p>Round about a hundred bundles for a typical skysail installation seem a lot. But it&#8217;s not: you&#8217;ll get the server (jetty), a database (orientdb), serialization features (jackson) and validation stuff (hibernate). And more. Using OSGi let&#8217;s you pick between various implements of specific features easily (for example, where do you store your users, if at all) - and, if you don&#8217;t find what you are looking for - implement it yourself. Replace the implementation you are not happy with, and it will work.</p>
-</div>
-<div class="paragraph">
-<p>And: your deployable, it&#8217;s just a single jar file. You start it like "java -jar myskysail.installation.jar". That&#8217;s it. Database and server included.</p>
+<p>In some way, skysail is just a set of concepts.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
 </div>
 <div class="sect1">
-<h2 id="applications">Applications</h2>
+<h2 id="overview">Overview</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Applications, Resources, Requests and Responses.</p>
+</div>
+<div class="sect2">
+<h3 id="applications">Applications</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When we refer to "Application" in this documentation, what is usually
+mean is a <strong>SkysailApplication</strong>.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>When it comes to skysail, as a developer, you can extend (and/or) fix its core functionality, or you can create Applications.</p>
 </div>
@@ -583,9 +576,16 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 </div>
 </div>
 </div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. When you create something like a library or any kind of software others might want to use, you have to make a lot of decisions. Some of those might be easy - for example, picking a specific programming language. Others, like deciding if you really want to depend on other libraries and/or frameworks (and which ones) are harder. And, of course, you have some kind of problem in mind you want to solve. So, in the end, you decide about a lot of things and create something which (hopefully) is useful - but only to people having this kind of problem, using that specific programming language and have a similar set of dependencies as you. This chapter is about the decisions I&#8217;ve made. All the concepts like "Applications", "Business Logic" and "Request Processing" - they might be valuable to only a small set of people. Still, I think these concepts are useful to solve problems I am confronted with, and I am happy to discuss (and adjust) them. Maybe they are useful to somebody else as well - hopefully, as this is the reason I started this in the first place. The two big decisions right at the beginning were: the programming language (Scala (although the first versions of skysail have been created using Java)) and the "framework" (OSGi with bndtools) For those still reading on ;): Picking this combination has a few implications: Actually, the programming language is not really restricted to Scala: You can use any language running on the Java Virtual Machine (like Java, Groovy, Clojure, &#8230;&#8203;). And, there is a clean modularization between the various parts. New Applications can be deployed into a running installation without restarting. If you are afraid to do this in production, you&#8217;ll still love it in development. Dependencies are well-expressed and clean. Round about a hundred bundles for a typical skysail installation seem a lot. But it&#8217;s not: you&#8217;ll get the server (jetty), a database (orientdb), serialization features (jackson) and validation stuff (hibernate). And more. Using OSGi let&#8217;s you pick between various implements of specific features easily (for example, where do you store your users, if at all) - and, if you don&#8217;t find what you are looking for - implement it yourself. Replace the implementation you are not happy with, and it will work. And: your deployable, it&#8217;s just a single jar file. You start it like "java -jar myskysail.installation.jar". That&#8217;s it. Database and server included.
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-06 05:41:12 CET
+Last updated 2017-12-04 17:59:36 MEZ
 </div>
 </div>
 </body>

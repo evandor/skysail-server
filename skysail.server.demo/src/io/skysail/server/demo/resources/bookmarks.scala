@@ -47,9 +47,7 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with 
       .map(_.parseJson.convertTo[Bookmark])
 
     val entity1 = processCommand.ctx.request.entity
-    println("Entity1" + entity1)
     val b = a.apply(entity1)
-    println("Entity2" + b)
 
     formFieldMap { map =>
       val entity = Bookmark(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), map.getOrElse("url", "Unknown"))

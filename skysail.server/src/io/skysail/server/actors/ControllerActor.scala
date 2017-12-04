@@ -57,14 +57,14 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       resource.setApplicationModel(model)
       resource.setApplication(cmd.application)
       resource.setBundleContext(bc)
+      // tag::methodMatch[]
       cmd.ctx.request.method match {
-        case HttpMethods.GET => {
-          resource.doGet(RequestEvent(cmd, self))
-        }
+        case HttpMethods.GET => resource.doGet(RequestEvent(cmd, self))
         case HttpMethods.POST => resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
         case HttpMethods.PUT => resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
         case e: Any => resource.get(RequestEvent(cmd, self))
       }
+      // end::methodMatch[]
       become(out)
     }
     case msg: Any => log info s"<<< IN <<<: received unknown message '$msg' in ${this.getClass.getName}"

@@ -38,26 +38,28 @@ object AkkaServer {
   metricsImpls += simpleMetrics
 }
 
+/**
+  * The skysail server OSGi activator, starting all skysail server application logic.
+  *
+  *
+  */
 class AkkaServer extends DominoActivator {
 
   private var log = LoggerFactory.getLogger(this.getClass)
 
-  implicit var actorSystem: ActorSystem = _
-  var futureBinding: Future[Http.ServerBinding] = _
-  var applicationsActor: ActorRef = _
-  var bundlesActor: ActorRef = _
+  private implicit var actorSystem: ActorSystem = _
 
-  val defaultPort = 8080
-  val defaultBinding = "0.0.0.0"
-  val defaultAuthentication = "HTTP_BASIC"
-  var serverConfig = new ServerConfig(defaultPort, defaultBinding, Map())
+  private val defaultPort = 8080
+  private val defaultBinding = "0.0.0.0"
+  private val defaultAuthentication = "HTTP_BASIC"
 
-  var routesTracker: RoutesTracker = null
-
-
-  var serverRestartsCounter = CounterMetric(this.getClass, "server.restarts")
-
-  var rootApplication: Option[RootApplication] = None
+  private var futureBinding: Future[Http.ServerBinding] = _
+  private var applicationsActor: ActorRef = _
+  private var bundlesActor: ActorRef = _
+  private var serverConfig = ServerConfig(defaultPort, defaultBinding, Map())
+  private var routesTracker: RoutesTracker = _
+  private var serverRestartsCounter = CounterMetric(this.getClass, "server.restarts")
+  private var rootApplication: Option[RootApplication] = None
 
   private class AkkaCapsule(bundleContext: BundleContext) extends ActorSystemActivator with Capsule {
 
@@ -77,9 +79,7 @@ class AkkaServer extends DominoActivator {
       bundlesActor = system.actorOf(Props(new BundlesActor(bundleContext)), Constants.BUNDLES_ACTOR_NAME)
       log debug s"created BundlesActor with path ${bundlesActor.path}"
 
-      //routesTracker = new RoutesTracker(system, serverConfig.authentication)
       routesTracker = new RoutesTracker(actorSystem)
-
     }
 
     override def getActorSystemName(context: BundleContext): String = "SkysailActorSystem"
@@ -96,8 +96,7 @@ class AkkaServer extends DominoActivator {
 
     watchServices[ApplicationProvider] {
       case AddingService(service, context) => addApplicationProvider(service, context)
-      case ModifiedService(service, context) =>
-        log info s"Service '$service' modified"; addApplicationProvider(service, context)
+      case ModifiedService(service, context) => log info s"Service '$service' modified"; addApplicationProvider(service, context)
       case RemovedService(service, _) => removeApplicationProvider(service)
     }
 
@@ -141,11 +140,9 @@ class AkkaServer extends DominoActivator {
       var binding = conf.getOrElse("binding", defaultBinding).asInstanceOf[String]
       //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
       serverConfig = ServerConfig(port, binding, conf)
-      //routesTracker = new RoutesTracker(actorSystem)
 
       rootApplication = Some(new RootApplication(bundleContext, conf))
       rootApplication.get.providesService[ApplicationProvider]
-
     }
 
   })
@@ -171,9 +168,8 @@ class AkkaServer extends DominoActivator {
     log info s"(re)starting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
     AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
     arg.size match {
-      case 0 =>
-        log warn "Akka HTTP Server not started as no routes are defined"; null
-      case 1 => Http(actorSystem).bindAndHandle(arg(0), serverConfig.binding, serverConfig.port)
+      case 0 => log warn "Akka HTTP Server not started as no routes are defined"; null
+      case 1 => Http(actorSystem).bindAndHandle(arg.head, serverConfig.binding, serverConfig.port)
       case _ => Http(actorSystem).bindAndHandle(arg.reduce((a, b) => a ~ b), serverConfig.binding, serverConfig.port)
     }
   }

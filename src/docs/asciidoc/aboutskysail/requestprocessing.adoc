@@ -1,8 +1,62 @@
 :source-highlighter: coderay
 :imagesdir: images
 
-...
+== Overview
 
-== Resources
+Typically, in a server-client environment, you have a client making
+_requests_ to a server, which in turn sends back _responses_.
 
-...
+This chapter describes how this fundamental process in handled
+in skysail.
+
+The big picture looks like this:
+
+include::../actors/calling_sequence.adoc[leveloffset=+1]
+
+=== RouteCreator
+
+A class called *io.skysail.server.RoutesCreator* is used to create akka
+routes for all active skysail applications. Once a Request matches such
+a route, a ProcessCommand message is sent to the corresponding application
+actor.
+
+=== ApplicationActor (Request)
+
+The *io.skysail.server.actors.ApplicationActor* wrapps all necessary information
+in a SkysailContext object, which is sent to the ControllerActor. One of the objects
+wrapped in the SkysailContext is a concrete link:resource[] object, created using the newInstance()
+method. The ApplicationActor furthermore creates a *new* ControllerActor object to which the
+SkysailContext message is sent.
+
+
+=== ControllerActor (Request)
+
+Now the ControllerActor (which was specifically created to serve the request) will use
+the (also freshly created) Resource to execute the actual business code (which will depend
+on the http method of the request).
+
+[source,scala]
+.matching the requests method to execute the resource's business logic
+----
+include::../../../../skysail.server/src/io/skysail/server/actors/ControllerActor.scala[tag=methodMatch]
+----
+
+=== The Resource
+
+The Resource's business logic is called. Depending on the concrete Resource, a subclass of
+ResponseEventBase is created, containg the response entity.
+
+=== ControllerActor (Response)
+
+Depending on the concrete ResponseEvent type, the controller performs some more logic
+and passes control back to the ApplicationActor.
+
+=== Application Controller (Response)
+
+The responseEvent is passed to the RoutesCreator.
+
+//[source,scala]
+//.resourceInstance Definition
+//----
+//include::../../../../skysail.server/src/io/skysail/server/actors/ApplicationActor.scala[tag=resourceInstance]
+//----

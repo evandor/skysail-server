@@ -52,6 +52,7 @@ class ApplicationActor(appModel: ApplicationModel, application: SkysailApplicati
   import context._
 
   def receive: Receive = LoggingReceive {
+    // tag::resourceInstance[]
     case cmd: ProcessCommand => {
       val routesCreator = sender()
       val resourceInstance = cmd.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
@@ -64,6 +65,7 @@ class ApplicationActor(appModel: ApplicationModel, application: SkysailApplicati
         case Failure(failure) => log error s"Failure>>> $failure"
       }
     }
+    // end::resourceInstance[]
     case _: GetApplication => sender ! application
     case _: GetAppModel => sender ! appModel
     case _: GetMenu => getMenuIfExistent()

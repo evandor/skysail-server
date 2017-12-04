@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>Resources</title>
+<title>Overview</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -515,26 +515,104 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#resources">Resources</a></li>
+<li><a href="#overview">Overview</a>
+<ul class="sectlevel2">
+<li><a href="#routecreator">RouteCreator</a></li>
+<li><a href="#applicationactor-request">ApplicationActor (Request)</a></li>
+<li><a href="#controlleractor-request">ControllerActor (Request)</a></li>
+<li><a href="#the-resource">The Resource</a></li>
+<li><a href="#controlleractor-response">ControllerActor (Response)</a></li>
+<li><a href="#application-controller-response">Application Controller (Response)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
 <div class="sect1">
-<h2 id="resources">Resources</h2>
+<h2 id="overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>&#8230;&#8203;</p>
+<p>Typically, in a server-client environment, you have a client making
+<em>requests</em> to a server, which in turn sends back <em>responses</em>.</p>
+</div>
+<div class="paragraph">
+<p>This chapter describes how this fundamental process in handled
+in skysail.</p>
+</div>
+<div class="paragraph">
+<p>The big picture looks like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/diagram.png" alt="Calling Sequence" width="497" height="234">
+</div>
+<div class="title">Figure 1. Calling Sequence</div>
+</div>
+<div class="sect2">
+<h3 id="routecreator">RouteCreator</h3>
+<div class="paragraph">
+<p>A class called <strong>io.skysail.server.RoutesCreator</strong> is used to create akka
+routes for all active skysail applications. Once a Request matches such
+a route, a ProcessCommand message is sent to the corresponding application
+actor.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="applicationactor-request">ApplicationActor (Request)</h3>
+<div class="paragraph">
+<p>The <strong>io.skysail.server.actors.ApplicationActor</strong> wrapps all necessary information
+in a SkysailContext object, which is sent to the ControllerActor. One of the objects
+wrapped in the SkysailContext is a concrete <a href="resource" class="bare">resource</a> object, created using the newInstance()
+method. The ApplicationActor furthermore creates a <strong>new</strong> ControllerActor object to which the
+SkysailContext message is sent.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="controlleractor-request">ControllerActor (Request)</h3>
+<div class="paragraph">
+<p>Now the ControllerActor (which was specifically created to serve the request) will use
+the (also freshly created) Resource to execute the actual business code (which will depend
+on the http method of the request).</p>
+</div>
+<div class="listingblock">
+<div class="title">matching the requests method to execute the resource&#8217;s business logic</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">      cmd.ctx.request.method match {
+        case HttpMethods.GET =&gt; resource.doGet(RequestEvent(cmd, self))
+        case HttpMethods.POST =&gt; resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
+        case HttpMethods.PUT =&gt; resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
+        case e: Any =&gt; resource.get(RequestEvent(cmd, self))
+      }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="the-resource">The Resource</h3>
+<div class="paragraph">
+<p>The Resource&#8217;s business logic is called. Depending on the concrete Resource, a subclass of
+ResponseEventBase is created, containg the response entity.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="controlleractor-response">ControllerActor (Response)</h3>
+<div class="paragraph">
+<p>Depending on the concrete ResponseEvent type, the controller performs some more logic
+and passes control back to the ApplicationActor.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="application-controller-response">Application Controller (Response)</h3>
+<div class="paragraph">
+<p>The responseEvent is passed to the RoutesCreator.</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-06 05:41:12 CET
+Last updated 2017-12-04 16:42:36 MEZ
 </div>
 </div>
 </body>
