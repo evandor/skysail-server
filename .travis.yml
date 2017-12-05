@@ -14,7 +14,7 @@ script:
   - ./gradlew clean build
   - ./gradlew asciidoctor scaladoc
   - ./gradlew skysail.server:export.server.int
-  - ./gradlew skysail.server:export.server.website
+  - ./gradlew skysail.server.website:export.server.website
   - ./gradlew copyConf copyRunnables
 
 after_success:
