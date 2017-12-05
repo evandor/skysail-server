@@ -30,16 +30,8 @@ node {
        currentBuild.displayName = "${env.BUILD_VERSION}"
     }
 
-    // Get the maven tool.
-    // ** NOTE: This 'M3' maven tool must be configured
-    // **       in the global configuration.
-    //def mvnHome = tool 'M3'
-
-    // Mark the code build 'stage'....
     stage 'Build'
-    // Run the maven build
-    //sh "${mvnHome}/bin/mvn clean install"
-    sh "./gradlew -Pversion=${env.BUILD_VERSION} --stacktrace --continue clean build"
+    sh "./gradlew -Pversion=${env.BUILD_VERSION} --info --stacktrace --continue clean build"
 
     stage 'Export Jar'
     sh './gradlew skysail.server:export.server.int'
