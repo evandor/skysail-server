@@ -76,6 +76,64 @@ from writing the new bundle maybe ;)). The system can react to changes, which
 could be a new additional bundle, or stopping a bundle, so that its services
 will become unavailable.
 
+== Getting started ...
+
+to be done
+
+== Terminology
+
+This chapter provides a quick overview of the basic building block of a skysail installation.
+
+=== skysail.server
+
+This is the backbone of a skysail installation. It comes as a standalone executable jar or
+as a docker container. Once started, it is ready to accept further bundles (called skysail
+applications) with additional business logic to be installed and started on the fly.
+
+skysail.server is a pure backend application, exposing only minimal functionality to clients
+directly. Most of the available features are added using various skysail applications (or
+combinations thereof).
+
+=== skysail Applications
+
+This is what you "put inside" of a skysail.server. A skysail application will provide
+additional endpoints, serving various features depending on the nature of the application.
+
+Technically, a skysail application is an OSGi bundle with an activator provding a specific
+interface called _ApplicationProvider_.
+
+=== Resources
+
+A skysail application defines one or more _Resources_. A resource implements a specific
+base class and wraps all business logic related to one or more http methods (like GET, POST, etc).
+
+The idea is that this is the one and only place to implement business logic related to a
+specific kind of request. For example, a simple CRUD implementation for a customer entity will
+have a
+
+* _PostCustomerResource_ - for creating a new customer and describing a customer entity
+* _CustomersResource_ - for getting a list of customers
+* _CustomerResource_ - getting and deleting a specific customer
+* _PutCustomerResource_ - updating a customer entity
+
+Details of this approach will be described in (todo)
+
+[appendix]
+=== Test
+
+ss
+
+=== Entities
+
+A resource (as described above) is always related to an entity (or maybe value object). This
+entity is the carrier of business data. An entity can contain other entities (or lists of them)
+and be composed of other entites, making up complex data structures.
+
+=== Routes
+
+A route connects a path (like "/customer/4711") with a resource (like CustomerResource). This
+mapping is used by the skysail server to redirect requests to the proper Resource (and find
+appropriate paths given a resource class name).
 
 
 == Concepts

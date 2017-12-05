@@ -536,23 +536,30 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#why-not-use-x-y-z">2.2. Why not use X/Y/Z?</a></li>
-<li><a href="#concepts">2.3. Concepts</a>
+<li><a href="#getting-started">2.3. Getting started &#8230;&#8203;</a></li>
+<li><a href="#terminology">2.4. Terminology</a>
 <ul class="sectlevel3">
-<li><a href="#overview">2.3.1. Overview</a>
-<ul class="sectlevel4">
-<li><a href="#applications">Applications</a></li>
+<li><a href="#skysail-server">2.4.1. skysail.server</a></li>
+<li><a href="#skysail-applications">2.4.2. skysail Applications</a></li>
+<li><a href="#resources">2.4.3. Resources</a></li>
+<li><a href="#test">Anhang A: Test</a></li>
+<li><a href="#entities">2.4.4. Entities</a></li>
+<li><a href="#routes">2.4.5. Routes</a></li>
 </ul>
 </li>
+<li><a href="#concepts">2.5. Concepts</a>
+<ul class="sectlevel3">
+<li><a href="#applications">2.5.1. Applications</a></li>
 </ul>
 </li>
-<li><a href="#resources">2.4. Resources</a>
+<li><a href="#resources-2">2.6. Resources</a>
 <ul class="sectlevel3">
-<li><a href="#resources-2">2.4.1. Resources</a></li>
+<li><a href="#resources-3">2.6.1. Resources</a></li>
 </ul>
 </li>
-<li><a href="#request-processing">2.5. Request Processing</a>
+<li><a href="#request-processing">2.7. Request Processing</a>
 <ul class="sectlevel3">
-<li><a href="#overview-2">2.5.1. Overview</a>
+<li><a href="#overview">2.7.1. Overview</a>
 <ul class="sectlevel4">
 <li><a href="#routecreator">RouteCreator</a></li>
 <li><a href="#applicationactor-request">ApplicationActor (Request)</a></li>
@@ -564,14 +571,14 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 </ul>
 </li>
-<li><a href="#domain-and-business-logic">2.6. Domain and Business Logic</a>
+<li><a href="#domain-and-business-logic">2.8. Domain and Business Logic</a>
 <ul class="sectlevel3">
-<li><a href="#resources-3">2.6.1. Resources</a></li>
+<li><a href="#resources-4">2.8.1. Resources</a></li>
 </ul>
 </li>
-<li><a href="#transformations">2.7. Transformations</a>
+<li><a href="#transformations">2.9. Transformations</a>
 <ul class="sectlevel3">
-<li><a href="#transformations-2">2.7.1. Transformations</a></li>
+<li><a href="#transformations-2">2.9.1. Transformations</a></li>
 </ul>
 </li>
 </ul>
@@ -584,14 +591,14 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#packages">Packages</a></li>
 </ul>
 </li>
-<li><a href="#test">Anhang A: Test</a></li>
-<li><a href="#test2">Anhang B: Test2</a></li>
+<li><a href="#test-2">Anhang B: Test</a></li>
+<li><a href="#test2">Anhang C: Test2</a></li>
 <li><a href="#skysail-domain">3.2. skysail.domain</a>
 <ul class="sectlevel3">
 <li><a href="#namespace">3.2.1. Namespace</a></li>
 <li><a href="#purpose-2">3.2.2. Purpose</a></li>
 <li><a href="#packages-2">3.2.3. Packages</a></li>
-<li><a href="#resources-4">3.2.4. Resources</a></li>
+<li><a href="#resources-5">3.2.4. Resources</a></li>
 <li><a href="#model">3.2.5. Model</a></li>
 </ul>
 </li>
@@ -763,17 +770,101 @@ will become unavailable.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="concepts">2.3. Concepts</h3>
+<h3 id="getting-started">2.3. Getting started &#8230;&#8203;</h3>
+<div class="paragraph">
+<p>to be done</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="terminology">2.4. Terminology</h3>
+<div class="paragraph">
+<p>This chapter provides a quick overview of the basic building block of a skysail installation.</p>
+</div>
+<div class="sect3">
+<h4 id="skysail-server">2.4.1. skysail.server</h4>
+<div class="paragraph">
+<p>This is the backbone of a skysail installation. It comes as a standalone executable jar or
+as a docker container. Once started, it is ready to accept further bundles (called skysail
+applications) with additional business logic to be installed and started on the fly.</p>
+</div>
+<div class="paragraph">
+<p>skysail.server is a pure backend application, exposing only minimal functionality to clients
+directly. Most of the available features are added using various skysail applications (or
+combinations thereof).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="skysail-applications">2.4.2. skysail Applications</h4>
+<div class="paragraph">
+<p>This is what you "put inside" of a skysail.server. A skysail application will provide
+additional endpoints, serving various features depending on the nature of the application.</p>
+</div>
+<div class="paragraph">
+<p>Technically, a skysail application is an OSGi bundle with an activator provding a specific
+interface called <em>ApplicationProvider</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="resources">2.4.3. Resources</h4>
+<div class="paragraph">
+<p>A skysail application defines one or more <em>Resources</em>. A resource implements a specific
+base class and wraps all business logic related to one or more http methods (like GET, POST, etc).</p>
+</div>
+<div class="paragraph">
+<p>The idea is that this is the one and only place to implement business logic related to a
+specific kind of request. For example, a simple CRUD implementation for a customer entity will
+have a</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>PostCustomerResource</em> - for creating a new customer and describing a customer entity</p>
+</li>
+<li>
+<p><em>CustomersResource</em> - for getting a list of customers</p>
+</li>
+<li>
+<p><em>CustomerResource</em> - getting and deleting a specific customer</p>
+</li>
+<li>
+<p><em>PutCustomerResource</em> - updating a customer entity</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Details of this approach will be described in (todo)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="test">Anhang A: Test</h4>
+<div class="paragraph">
+<p>ss</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="entities">2.4.4. Entities</h4>
+<div class="paragraph">
+<p>A resource (as described above) is always related to an entity (or maybe value object). This
+entity is the carrier of business data. An entity can contain other entities (or lists of them)
+and be composed of other entites, making up complex data structures.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="routes">2.4.5. Routes</h4>
+<div class="paragraph">
+<p>A route connects a path (like "/customer/4711") with a resource (like CustomerResource). This
+mapping is used by the skysail server to redirect requests to the proper Resource (and find
+appropriate paths given a resource class name).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="concepts">2.5. Concepts</h3>
 <div class="paragraph">
 <p>In some way, skysail is just a set of concepts.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
 </div>
 <div class="sect3">
-<h4 id="overview">2.3.1. Overview</h4>
-<div class="paragraph">
-<p>Applications, Resources, Requests and Responses.</p>
-</div>
-<div class="sect4">
-<h5 id="applications">Applications</h5>
+<h4 id="applications">2.5.1. Applications</h4>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -814,23 +905,22 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 </div>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="resources">2.4. Resources</h3>
+<h3 id="resources-2">2.6. Resources</h3>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="resources-2">2.4.1. Resources</h4>
+<h4 id="resources-3">2.6.1. Resources</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="request-processing">2.5. Request Processing</h3>
+<h3 id="request-processing">2.7. Request Processing</h3>
 <div class="sect3">
-<h4 id="overview-2">2.5.1. Overview</h4>
+<h4 id="overview">2.7.1. Overview</h4>
 <div class="paragraph">
 <p>Typically, in a server-client environment, you have a client making
 <em>requests</em> to a server, which in turn sends back <em>responses</em>.</p>
@@ -844,7 +934,7 @@ in skysail.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="497" height="234">
+<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
 </div>
 <div class="title">Abbildung 1. Calling Sequence</div>
 </div>
@@ -909,24 +999,24 @@ and passes control back to the ApplicationActor.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="domain-and-business-logic">2.6. Domain and Business Logic</h3>
+<h3 id="domain-and-business-logic">2.8. Domain and Business Logic</h3>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="resources-3">2.6.1. Resources</h4>
+<h4 id="resources-4">2.8.1. Resources</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="transformations">2.7. Transformations</h3>
+<h3 id="transformations">2.9. Transformations</h3>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="transformations-2">2.7.1. Transformations</h4>
+<h4 id="transformations-2">2.9.1. Transformations</h4>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
@@ -1073,7 +1163,7 @@ skysail.db.orientdb bundle.</p>
 <h6 id="io-skysail-api-security">io.skysail.api.security</h6>
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram.png" alt="Diagram Title" width="274" height="222">
+<img src="images/diagram.png" alt="Diagram Title" width="293" height="216">
 </div>
 <div class="title">Abbildung 2. Diagram Title</div>
 </div>
@@ -1082,7 +1172,7 @@ skysail.db.orientdb bundle.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/cs.png" alt="Calling Sequence" width="497" height="234">
+<img src="images/cs.png" alt="Calling Sequence" width="525" height="228">
 </div>
 <div class="title">Abbildung 3. Calling Sequence</div>
 </div>
@@ -1090,11 +1180,11 @@ skysail.db.orientdb bundle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="test">Anhang A: Test</h3>
+<h3 id="test-2">Anhang B: Test</h3>
 
 </div>
 <div class="sect2">
-<h3 id="test2">Anhang B: Test2</h3>
+<h3 id="test2">Anhang C: Test2</h3>
 <div class="paragraph">
 <p>and</p>
 </div>
@@ -1133,13 +1223,13 @@ skysail.db.orientdb bundle.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="497" height="234">
+<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
 </div>
 <div class="title">Abbildung 4. Calling Sequence</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="resources-4">3.2.4. Resources</h4>
+<h4 id="resources-5">3.2.4. Resources</h4>
 <div class="imageblock">
 <div class="content">
 <img src="images/skysail/domain/resources.png" alt="test">
@@ -1151,7 +1241,7 @@ skysail.db.orientdb bundle.</p>
 <h4 id="model">3.2.5. Model</h4>
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram2.png" alt="Calling Sequence2" width="274" height="225">
+<img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
 </div>
 <div class="title">Abbildung 6. Calling Sequence2</div>
 </div>
@@ -1164,7 +1254,7 @@ skysail.db.orientdb bundle.</p>
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram.png" alt="Calling Sequence" width="497" height="234">
+<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
 </div>
 <div class="title">Abbildung 7. Calling Sequence</div>
 </div>
@@ -1186,7 +1276,7 @@ skysail.db.orientdb bundle.</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.0<br>
-Last updated 2017-11-22 09:29:45 MEZ
+Last updated 2017-11-21 09:10:46 CET
 </div>
 </div>
 </body>

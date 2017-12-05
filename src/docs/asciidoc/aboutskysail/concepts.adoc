@@ -14,15 +14,7 @@ Round about a hundred bundles for a typical skysail installation seem a lot. But
 And: your deployable, it's just a single jar file. You start it like "java -jar myskysail.installation.jar". That's it. Database and server included.
 ]
 
-
-
-
-
-== Overview
-
-Applications, Resources, Requests and Responses.
-
-=== Applications
+== Applications
 
 NOTE: When we refer to "Application" in this documentation, what is usually
 mean is a *SkysailApplication*.

@@ -10,7 +10,6 @@ class DocActivator extends DominoActivator {
   whenBundleActive {
     whenServicePresent[ActorSystem] { system =>
       val app = new DocApplication(bundleContext, system)
-      //app.dbService = s
       app.providesService[ApplicationProvider]
     }
   }

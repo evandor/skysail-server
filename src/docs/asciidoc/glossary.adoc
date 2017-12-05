@@ -1,0 +1,52 @@
+= skysail server documentation home
+Carsten Gräf <evandor@gmail.com>
+v0.1, 2017-11-13
+:toc-title: documentation overview
+include::config/config.adoc[]
+
+this is the preamble
+
+test
+
+== About this document
+
+*This document contains _references to all available documentation_ about
+skysail* as well as *relevant links* to build systems, issue trackers, source code
+and so on.
+
+== Current Repository Release: 0.0
+
+Please note that _this version is not a (semantic) bundle version_,
+but a kind of _tag for the whole repository_ . The release 0.0 corresponds
+to the branch "release/0.0".
+
+|===
+| link:developer.html[Developer Documentation] | Everything you need to know as a developer
+who is working with skysail
+| link:bundles.html[Bundle Documention] | Overview and details about all contained bundles.
+| user documentation | to be done
+|===
+
+== General Links
+
+include::various/links.adoc[leveloffset=+1]
+
+
+[glossary]
+== Glossary
+
+[glossary]
+mud:: wet, cold dirt
+rain::
+	water falling from the sky
+
+_The Pragmatic Programmer_ <<pp>> should be required reading for all developers.
+To learn all about design patterns, refer to the book by the "`Gang of Four`" <<gof>>.
+
+[bibliography]
+== References
+
+- [[[pp]]] Andy Hunt & Dave Thomas. The Pragmatic Programmer:
+  From Journeyman to Master. Addison-Wesley. 1999.
+- [[[gof,2]]] Erich Gamma, Richard Helm, Ralph Johnson & John Vlissides. Design Patterns:
+  Elements of Reusable Object-Oriented Software. Addison-Wesley. 1994.

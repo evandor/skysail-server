@@ -21,7 +21,7 @@ Seq[Any](format.raw/*6.28*/("""
 
 """),_display_(/*8.2*/main/*8.6*/ {_display_(Seq[Any](format.raw/*8.8*/("""
   """),format.raw/*9.3*/("""<br><br><br>
-  <iframe style="height:800px; width:100%;border:0px solid;" src="/doc/meta"></iframe>
+  <iframe style="height:800px; width:100%;border:0px solid;" src="/doc/v1/meta.html"></iframe>
 """)))}))
       }
     }
@@ -38,9 +38,9 @@ Seq[Any](format.raw/*6.28*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Wed Nov 15 13:20:05 CET 2017
-                  SOURCE: C:/git/skysail-server/skysail.server.doc/./resources/templates/io/skysail/server/doc/DocIndexResource_Get.scala.html
-                  HASH: a7d2bd2ea94158aacbe8bd2f2bd9a2911e226411
+                  DATE: Tue Dec 05 09:02:49 CET 2017
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server.doc/./resources/templates/io/skysail/server/doc/DocIndexResource_Get.scala.html
+                  HASH: 6e03e16fcd6cd22eeab7cc2b390a181186bd0347
                   MATRIX: 645->193|766->219|794->222|805->226|843->228|872->231
                   LINES: 15->6|20->6|22->8|22->8|22->8|23->9
                   -- GENERATED --
