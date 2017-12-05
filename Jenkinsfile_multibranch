@@ -31,13 +31,15 @@ node {
     }
 
     stage 'Build'
-    sh "./gradlew -Pversion=${env.BUILD_VERSION} --info --stacktrace --continue clean build"
+    sh "./gradlew -Pversion=${env.BUILD_VERSION} --stacktrace --continue clean build"
 
-    stage 'Export Jar'
+    stage 'Export Jars'
     sh './gradlew skysail.server:export.server.int'
+    sh './gradlew skysail.server:export.server.website'
 
     stage 'Build Docker Image'
     sh 'sudo ./gradlew skysail.server:runnable skysail.server:buildImage'
+    sh 'sudo ./gradlew skysail.server.website:runnable skysail.server.website:buildImage'
 
     stage 'Restart Container'
     script{
