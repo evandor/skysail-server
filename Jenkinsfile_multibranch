@@ -35,7 +35,7 @@ node {
 
     stage 'Export Jars'
     sh './gradlew skysail.server:export.server.int'
-    sh './gradlew skysail.server:export.server.website'
+    sh './gradlew skysail.server.website:export.server.website'
 
     stage 'Build Docker Image'
     sh 'sudo ./gradlew skysail.server:runnable skysail.server:buildImage'
