@@ -74,7 +74,7 @@ public class SkysailServerDocIntegrationTest {
 
     @Test
     public void metadoc_resources_returns_meta_documentation() throws Exception {
-        String responseBody = get("http://localhost:8000/doc/meta");
+        String responseBody = get("http://localhost:8000/doc/v1/meta.html");
         assertTrue(responseBody.contains("About this document"));
     }
 

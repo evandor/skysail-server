@@ -93,7 +93,7 @@ abstract class SkysailApplication(
 
   def getSkysailApplication: SkysailApplication = this
 
-  override final def route(): Option[Route] = {
+  override final def nativeRoute(): Option[Route] = {
     val or = optionalRoute()
     if (or != null) {
       log info s" >>> adding route to $appModel"

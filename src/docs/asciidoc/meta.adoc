@@ -31,14 +31,7 @@ who is working with skysail
 
 include::various/links.adoc[leveloffset=+1]
 
-
-[glossary]
-== Glossary
-
-[glossary]
-mud:: wet, cold dirt
-rain::
-	water falling from the sky
+include::glossary.adoc[leveloffset=+1]
 
 _The Pragmatic Programmer_ <<pp>> should be required reading for all developers.
 To learn all about design patterns, refer to the book by the "`Gang of Four`" <<gof>>.

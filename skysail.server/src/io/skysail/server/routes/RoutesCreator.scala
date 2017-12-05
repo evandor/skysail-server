@@ -59,12 +59,12 @@ class RoutesCreator(system: ActorSystem) {
     entry => entry._2.exists { cap => Constants.CLIENT_CAPABILITY.equals(cap.getNamespace) }
   }.keys
 
-//  private val clientClassloader = if (bundleIdsWithClientCapabilities.nonEmpty) {
-//    val clientClFuture = (SkysailApplication.getBundleActor(system, bundleIdsWithClientCapabilities.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
-//    Await.result(clientClFuture, 3.seconds)
-//  } else {
-//    null
-//  }
+  //  private val clientClassloader = if (bundleIdsWithClientCapabilities.nonEmpty) {
+  //    val clientClFuture = (SkysailApplication.getBundleActor(system, bundleIdsWithClientCapabilities.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
+  //    Await.result(clientClFuture, 3.seconds)
+  //  } else {
+  //    null
+  //  }
 
   var docClassloader: ClassLoader = _
 
@@ -115,7 +115,10 @@ class RoutesCreator(system: ActorSystem) {
         .result()
 
     handleRejections(myRejectionHandler) {
-      if (appProvider.route().isDefined) appProvider.route().get ~ route else route
+      /*if (appProvider.nativeRoute().isDefined)
+        appProvider.nativeRoute().get ~ route
+      else*/
+        route
     }
   }
 
@@ -268,7 +271,7 @@ class RoutesCreator(system: ActorSystem) {
 
   = auth.directive()
 
-  private def requestAnnotationForGet(cls: Class[_ <: SkysailResource[_,_]]): Option[Annotation] = {
+  private def requestAnnotationForGet(cls: Class[_ <: SkysailResource[_, _]]): Option[Annotation] = {
     try {
       val getMethod = cls.getMethod("get", classOf[ActorRef], classOf[ClassTag[_]])
       //Some(getMethod.getAnnotation(classOf[AuthorizeByRole]))
@@ -278,7 +281,7 @@ class RoutesCreator(system: ActorSystem) {
     }
   }
 
- // private def getClientClassloader = clientClassloader
+  // private def getClientClassloader = clientClassloader
 
   private def getDocClassloader = {
     if (docClassloader == null) {

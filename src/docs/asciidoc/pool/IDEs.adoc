@@ -9,6 +9,6 @@ v0.0, 2017-11-12
 
 == Intellij
 
-Import gradle projects with recommended wrapper and *without* multiple
+Import gradle projects with recommended wrapper and with multiple
 source sets.
 

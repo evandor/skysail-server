@@ -12,5 +12,5 @@ trait ApplicationProvider {
   val bundleContext: BundleContext
   def application(): ApplicationApi
   //def menu(): Option[MenuItem] = None
-  def route(): Option[Route]
+  def nativeRoute(): Option[Route]
 }

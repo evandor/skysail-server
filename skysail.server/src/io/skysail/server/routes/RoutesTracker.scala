@@ -23,8 +23,13 @@ class RoutesTracker(system: ActorSystem) {
   def addRoutesFor(appProvider: ApplicationProvider): Unit = {
     log info s" >>> >>> >>> Adding routes from ${appProvider.getClass.getName}"
     val routesFromProvider = appProvider.routes()
-    val  valueList = routesFromProvider.map { prt => routesCreator.createRoute(prt, appProvider) }.toList
-    routesMap += appProvider.appModel().id -> valueList
+    val  valueList: List[Route] = routesFromProvider.map { prt => routesCreator.createRoute(prt, appProvider) }.toList
+    val fullList: List[Route] = if (appProvider.nativeRoute() != None) {
+      appProvider.nativeRoute().get :: valueList
+    } else {
+      valueList
+    }
+    routesMap += appProvider.appModel().id -> fullList
   }
 
   def removeRoutesFrom(appInfoProvider: ApplicationProvider): Unit = {
