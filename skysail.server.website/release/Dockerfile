@@ -31,11 +31,11 @@ WORKDIR /home/skysail
 RUN mkdir -p /home/skysail/products/demo/plugins
 
 COPY config/ /home/skysail/products/demo/config/
-COPY server.int.jar /home/skysail/products/demo/server.int.jar
+COPY server.int.jar /home/skysail/products/demo/server.website.jar
 
 
 WORKDIR /home/skysail/products/demo
 
-CMD ["java","-jar","/home/skysail/products/demo/server.int.jar"]
+CMD ["java","-jar","/home/skysail/products/demo/server.website.jar"]
 
 EXPOSE 9102
