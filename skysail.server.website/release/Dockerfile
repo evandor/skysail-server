@@ -31,7 +31,7 @@ WORKDIR /home/skysail
 RUN mkdir -p /home/skysail/products/demo/plugins
 
 COPY config/ /home/skysail/products/demo/config/
-COPY server.int.jar /home/skysail/products/demo/server.website.jar
+COPY server.website.jar /home/skysail/products/demo/server.website.jar
 
 
 WORKDIR /home/skysail/products/demo
