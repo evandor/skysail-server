@@ -24,5 +24,6 @@ after_success:
   - docker images
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker push $DOCKER_USERNAME/skysail-server:latest
+  - docker push $DOCKER_USERNAME/skysail-server-website:latest
 
 #  - docker tag skysail-server $DOCKER_USERNAME/skysail-server
