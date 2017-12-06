@@ -30,7 +30,7 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.configadmin)(version>=1.8.16))',\
 	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.3))',\
 	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
-	osgi.identity;filter:='(osgi.identity=skysail.server)',\
+	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',
 	osgi.identity;filter:='(osgi.identity=skysail.server.website)'
 
 -runbundles: \
@@ -66,9 +66,11 @@ logback.configurationFile.path = config/local
 	org.scala-lang.scala-library;version=2.11.11.v20170413-090219-8a413ba7cc,\
 	org.scala-lang.scala-reflect;version=2.11.11.v20170413-090219-8a413ba7cc,\
 	osgi.enterprise;version=5.0.0.201203141834,\
+	skysail.api;version=0.2.1.201710310900,\
 	skysail.api;version=0.2.1.201712020835,\
+	skysail.domain;version=0.1.0.201712020835,\
 	skysail.server;version=0.1.0.201712051555,\
 	skysail.server.auth.none;version=0.1.0.201712020836,\
-	skysail.server.website;version=0.1.0.201712051555,\
+	skysail.server.doc;version=0.1.0.201712051555,\
 	slf4j.api;version=1.7.25,\
 	webconsole.all;version=0.1.18.201710301700
