@@ -18,13 +18,13 @@ class BookmarksRepository (dbService: DbService) {
     //                        : "")
     //                + " " + limitClause(pagination);
     //pagination.setEntityCount(count(filter));
-    println("executing sql " + sql)
+    //println("executing sql " + sql)
     dbService.findGraphs(classOf[Bookmark], sql) //, filter.getParams());
   }
 
   def find(id: String): Option[Bookmark] = {
     val sql = s"SELECT * from ${DbService.tableNameFor(classOf[Bookmark])} where id='${id}'"
-    println("executing sql " + sql)
+    //println("executing sql " + sql)
     val res = dbService.findGraphs(classOf[Bookmark], sql) //, filter.getParams());
     if (res.size == 0) None else res.headOption
   }

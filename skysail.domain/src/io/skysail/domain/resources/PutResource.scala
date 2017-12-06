@@ -1,6 +1,7 @@
 package io.skysail.domain.resources
 
 
+import akka.actor.ActorSystem
 import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.{PutSupport, RequestEvent, ResponseEventBase}
 
@@ -14,6 +15,6 @@ abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResourc
 
   def get(requestEvent: RequestEvent): ResponseEventBase
 
-  def put(requestEvent: RequestEvent): Unit
+  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit
 
 }

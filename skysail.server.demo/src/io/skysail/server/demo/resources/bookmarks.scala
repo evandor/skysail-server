@@ -4,7 +4,7 @@ import java.util.UUID
 
 import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import akka.http.scaladsl.model.ContentTypes
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.unmarshalling.Unmarshaller
@@ -42,7 +42,7 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with 
 
     implicit val materializer = ActorMaterializer()
 
-    val a = Unmarshaller.stringUnmarshaller
+    val a: Unmarshaller[HttpEntity, Bookmark] = Unmarshaller.stringUnmarshaller
       .forContentTypes(ContentTypes.`application/json`)
       .map(_.parseJson.convertTo[Bookmark])
 
@@ -63,9 +63,23 @@ class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] with Js
     ResponseEvent(requestEvent, optionalBookmark.get)
   }
 
-  override def put(requestEvent: RequestEvent): Unit = {
+  override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
     val optionalBookmark = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
     val updatedBookmark = requestEvent.cmd.entity.asInstanceOf[Bookmark]
+
+    val e = requestEvent.cmd.ctx.request.entity
+    println("hier: " + e)
+
+    implicit val materializer = ActorMaterializer()
+
+    val a: Unmarshaller[HttpEntity, Bookmark] = Unmarshaller.stringUnmarshaller
+      .forContentTypes(ContentTypes.`application/json`)
+      .map(_.parseJson.convertTo[Bookmark])
+
+    val b = a.apply(e)
+
+    println("hier2:" + b)
+
     val bookmarkToSave = updatedBookmark.copy(id = optionalBookmark.get.id)
     getApplication().repo.save(bookmarkToSave)
   }

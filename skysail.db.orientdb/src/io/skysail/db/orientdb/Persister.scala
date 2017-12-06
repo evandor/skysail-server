@@ -1,14 +1,10 @@
 package io.skysail.db.orientdb
 
-import com.tinkerpop.blueprints.impls.orient.OrientGraph
-import com.tinkerpop.blueprints.impls.orient.OrientVertex
 import com.fasterxml.jackson.databind.ObjectMapper
-import scala.collection.JavaConverters._
 import com.tinkerpop.blueprints.Vertex
-import org.slf4j.LoggerFactory
-
+import com.tinkerpop.blueprints.impls.orient.{OrientGraph, OrientVertex}
 import org.json4s._
-import org.json4s.jackson.JsonMethods._
+import org.slf4j.LoggerFactory
 
 object Persister {
   def getMethodName(prefix: String, key: String): String = {
@@ -48,7 +44,7 @@ class Persister(db: OrientGraph) {
       //val removeRelationData = AnnotationUtils.removeRelationData(entity);
       println("ENTITY: " + entity)
 
-      println(parse(""" { "numbers" : [1, 2, 3, 4] } """))
+      //println(parse(""" { "numbers" : [1, 2, 3, 4] } """))
 
       implicit val formats = DefaultFormats
       val e = Extraction.decompose(entity).asInstanceOf[JObject]
@@ -86,7 +82,7 @@ class Persister(db: OrientGraph) {
           setProperty(entity, vertex, key);
         }
       } else {
-        System.out.println(entity.getClass() + ": " + key + ":= [EDGE]");
+        //System.out.println(entity.getClass() + ": " + key + ":= [EDGE]");
         try {
           //            edgeHandler.handleEdges(entity, vertex, properties, key);
         } catch {
