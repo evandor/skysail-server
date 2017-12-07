@@ -4,7 +4,7 @@ import java.util.UUID
 
 import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
+import akka.http.scaladsl.model.HttpEntity
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.unmarshalling.Unmarshaller
@@ -40,14 +40,16 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with 
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
 
-    implicit val materializer = ActorMaterializer()
-
-    val a: Unmarshaller[HttpEntity, Bookmark] = Unmarshaller.stringUnmarshaller
-      .forContentTypes(ContentTypes.`application/json`)
-      .map(_.parseJson.convertTo[Bookmark])
-
-    val entity1 = processCommand.ctx.request.entity
-    val b = a.apply(entity1)
+//    implicit val materializer = ActorMaterializer()
+//
+//    val a: Unmarshaller[HttpEntity, Bookmark] = Unmarshaller.stringUnmarshaller
+//      .forContentTypes(ContentTypes.`application/json`)
+//      .map(_.parseJson.convertTo[Bookmark])
+//
+//    val entity1 = processCommand.ctx.request.entity
+//    println("dort: " + entity1)
+//    val b = a.apply(entity1)
+//    println("dort: " + b)
 
     formFieldMap { map =>
       val entity = Bookmark(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), map.getOrElse("url", "Unknown"))
@@ -73,7 +75,7 @@ class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] with Js
     implicit val materializer = ActorMaterializer()
 
     val a: Unmarshaller[HttpEntity, Bookmark] = Unmarshaller.stringUnmarshaller
-      .forContentTypes(ContentTypes.`application/json`)
+     // .forContentTypes(ContentTypes.)
       .map(_.parseJson.convertTo[Bookmark])
 
     val b = a.apply(e)

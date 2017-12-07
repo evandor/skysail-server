@@ -36,3 +36,19 @@ include::../../../skysail.domain/src/docs/asciidoc/bundle-overview-1.adoc[levelo
 include::actors/calling_sequence.adoc[leveloffset=+1]
 
 == TODO
+
+== Implementation Details (WIP)
+
+=== Marshalling
+
+aka serializing
+
+
+
+=== Unmarshalling
+
+aka deserializing
+
+PostResources: form-encoded > object
+
+with formFieldMap
