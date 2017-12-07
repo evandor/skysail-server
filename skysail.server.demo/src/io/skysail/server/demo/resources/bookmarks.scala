@@ -74,16 +74,28 @@ class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] with Js
 
     implicit val materializer = ActorMaterializer()
 
+    //FromStringUnmarshaller[Bookmark]
+    val p1 = Unmarshaller.stringUnmarshaller.map(m => println("Hier1 " + s"$m"))
+    val p2 = p1.apply(e)
+    println("hier2:" + p2)
+
     val a: Unmarshaller[HttpEntity, Bookmark] = Unmarshaller.stringUnmarshaller
      // .forContentTypes(ContentTypes.)
       .map(_.parseJson.convertTo[Bookmark])
 
     val b = a.apply(e)
 
-    println("hier2:" + b)
+    println("hier3:" + b)
 
     val bookmarkToSave = updatedBookmark.copy(id = optionalBookmark.get.id)
     getApplication().repo.save(bookmarkToSave)
+  }
+
+  override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
+    formFieldMap { map =>
+      val entity = Bookmark(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), map.getOrElse("url", "Unknown"))
+      super.createRoute(applicationActor, processCommand.copy(entity = entity))
+    }
   }
 }
 

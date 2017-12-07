@@ -79,7 +79,7 @@ public class Example{
                 "velomobile-01.srvs.cloudkafka.com:9094,velomobile-02.srvs.cloudkafka.com:9094,velomobile-03.srvs.cloudkafka.com:9094"/*System.getenv("CLOUDKARAFKA_BROKERS")*/,
                 topic,
                 "n01mjdp4"/*System.getenv("CLOUDKARAFKA_USERNAME")*/,
-                "msQP3SIhetYrQYE88pPAWt2GMCwiFuG9");
+                "");
         //c.produce();
         c.consume();
     }
