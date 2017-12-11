@@ -21,7 +21,7 @@ buildscript {
 }
 
 dependencies {
-    compile 'org.scala-lang:scala-library:2.11.8'
+    compile "org.scala-lang:scala-library:${scala_version}"
 }
 
 // https://github.com/srs/gradle-node-plugin/blob/master/docs/node.md
