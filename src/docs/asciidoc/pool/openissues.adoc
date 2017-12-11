@@ -15,3 +15,20 @@ fixed
 "No Scala SDK in module": https://youtrack.jetbrains.com/issue/SCL-12718
 
 fixed by copying biz.aQute.launcher-3.3.0.jar from somewhere to cnd/cache/3.3.0
+
+=== actor monitoring
+
+```
+println(new PrivateMethodExposer(system)('printTree)())
+```
+
+=== TestFailedException
+
+```
+org.scalatest.exceptions.TestFailedException: Request was neither completed nor rejected within 1 second
+	at akka.http.scaladsl.testkit.TestFrameworkInterface$Scalatest$class.failTest(TestFrameworkInterface.scala:24)
+```
+
+// https://stackoverflow.com/questions/32214005/request-was-neither-completed-nor-rejected-within-1-second-scala-spray-testing
+implicit def default(implicit system: ActorSystem) = RouteTestTimeout(5.seconds)
+
