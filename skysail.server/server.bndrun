@@ -33,7 +33,8 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
 	osgi.identity;filter:='(&(osgi.identity=io.skysail.bundled.logback-gelf)(version>=1.0.4))',\
 	osgi.identity;filter:='(&(osgi.identity=org.scala-lang.scala-compiler)(version>=2.11))',\
-	osgi.identity;filter:='(osgi.identity=skysail.server)'
+	osgi.identity;filter:='(osgi.identity=skysail.server)',\
+	osgi.identity;filter:='(osgi.identity=skysail.server.doc)'
 
 #	,\
 #	osgi.identity;filter:='(&(osgi.identity=io.skysail.bundled.kamon-core_2.11)(version>=0.6.7.201711171332))',\
@@ -76,8 +77,9 @@ logback.configurationFile.path = config/local
 	org.scala-lang.scala-library;version=2.11.11.v20170413-090219-8a413ba7cc,\
 	org.scala-lang.scala-reflect;version=2.11.11.v20170413-090219-8a413ba7cc,\
 	osgi.enterprise;version=5.0.0.201203141834,\
-	skysail.api;version=0.2.1.201711301544,\
-	skysail.server;version=0.1.0.201711301544,\
-	skysail.server.auth.none;version=0.1.0.201711301544,\
+	skysail.api;version=0.2.1.201712110411,\
+	skysail.server;version=0.1.0.201712110417,\
+	skysail.server.auth.none;version=0.1.0.201712110412,\
+	skysail.server.doc;version=0.1.0.201712110417,\
 	slf4j.api;version=1.7.25,\
 	webconsole.all;version=0.1.18.201710301700
