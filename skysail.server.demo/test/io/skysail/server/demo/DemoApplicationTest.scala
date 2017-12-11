@@ -1,6 +1,7 @@
 package io.skysail.server.demo
 
 import akka.actor.{ActorSystem, Props}
+import akka.http.scaladsl.model.headers.RawHeader
 import akka.http.scaladsl.server.{Directive1, Route}
 import akka.http.scaladsl.testkit.{RouteTestTimeout, ScalatestRouteTest}
 import io.skysail.api.persistence.DbService
@@ -26,32 +27,39 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   val dbService = Mockito.mock(classOf[DbService])
   val bundleContext = Mockito.mock(classOf[BundleContext])
   val app = new DemoApplication(null, dbService)
+  val routesCreator = RoutesCreator(system)
+  val applicationsActor = system.actorOf(Props[ApplicationsActor], Constants.APPLICATIONS_ACTOR_NAME)
+
+  applicationsActor ! SkysailApplication.CreateApplicationActor(
+    classOf[DemoApplication], app.appModel, app, bundleContext)
+
+  routesCreator.authentication = new AuthenticationService() {
+    override def directive() = new Directive1[String]() {
+      override def tapply(f: Tuple1[String] => Route) = {
+        val t = Tuple1("tttxxx")
+        f(t)
+      }
+    }
+  }
+
 
   "The service" should {
 
-    "return a greeting for GET requests to the root path" in {
-      var routesCreator = RoutesCreator(system)
-      routesCreator.authentication = new AuthenticationService() {
-        override def directive() = new Directive1[String]() {
-          override def tapply(f: Tuple1[String] => Route) = {
-            val t = Tuple1("tttxxx")
-            f(t)
-          }
-        }
-      }
-
-      val applicationsActor = system.actorOf(Props[ApplicationsActor], Constants.APPLICATIONS_ACTOR_NAME)
-
-      applicationsActor ! SkysailApplication.CreateApplicationActor(
-        classOf[DemoApplication], app.appModel, app, bundleContext)
-
+    "return the html page for a GET request to the /bms path" in {
       val listResourceMapping = app.routesMappings.filter(m => m.path == "/bms").head
       val r: Route = routesCreator.createRoute(listResourceMapping, app)
-
       Get("/demo/v1/bms") ~> r ~> check {
         responseAs[String] should include ("Create New Bookmark")
       }
-
     }
+
+    "return the json representation for a GET request to the /bms path with content-type json" in {
+      val listResourceMapping = app.routesMappings.filter(m => m.path == "/bms").head
+      val r: Route = routesCreator.createRoute(listResourceMapping, app)
+      Get("/demo/v1/bms").addHeader(RawHeader("Accept", "application/json")) ~> r ~> check {
+        responseAs[String] should include ("Create New Bookmark1")
+      }
+    }
+
   }
 }

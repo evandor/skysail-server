@@ -24,11 +24,19 @@ println(new PrivateMethodExposer(system)('printTree)())
 
 === TestFailedException
 
+Tags: Scala Akka TestFailedException testkit
+
 ```
 org.scalatest.exceptions.TestFailedException: Request was neither completed nor rejected within 1 second
 	at akka.http.scaladsl.testkit.TestFrameworkInterface$Scalatest$class.failTest(TestFrameworkInterface.scala:24)
 ```
 
+==== Solution
+
 // https://stackoverflow.com/questions/32214005/request-was-neither-completed-nor-rejected-within-1-second-scala-spray-testing
 implicit def default(implicit system: ActorSystem) = RouteTestTimeout(5.seconds)
+
+==== Example
+
+https://github.com/evandor/skysail-server/blob/4ab853b608611c7ba7f1816e53bc59e48f1f7a15/skysail.server.demo/test/io/skysail/server/demo/DemoApplicationTest.scala
 

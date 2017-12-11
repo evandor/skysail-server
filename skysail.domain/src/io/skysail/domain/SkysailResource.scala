@@ -36,7 +36,7 @@ abstract class SkysailResource[S <: ApplicationApi, T: TypeTag] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
-  implicit val askTimeout: Timeout = 1.seconds
+  implicit val askTimeout: Timeout = 3.seconds
 
   var applicationModel: ApplicationModel = null
   var bundleContext: BundleContext = null

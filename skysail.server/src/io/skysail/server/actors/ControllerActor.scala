@@ -40,7 +40,7 @@ object ControllerActor {
 
 class ControllerActor[T]() extends Actor with ActorLogging {
 
-  implicit val askTimeout: Timeout = 1.seconds
+  implicit val askTimeout: Timeout = 3.seconds
 
   var applicationActor: ActorRef = null
   var applicationModel: ApplicationModel = null
@@ -72,6 +72,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
 
   def out: Receive = LoggingReceive {
     case response: ListResponseEvent[T] =>
+      log info s" *** ${response.req.cmd.ctx.request.headers}"
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
 
