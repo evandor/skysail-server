@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1512660893631" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1512812067000" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="ch.qos.logback.classic"/>
@@ -5894,6 +5894,133 @@
     </requirement>
   </resource>
   <resource>
+    <!-- Error calling analyzer "org.osgi.service.indexer.impl.BundleAnalyzer" on resource /Users/carsten/git/skysail-server/cnf/local/com.typesafe.akka.http.testkit/com.typesafe.akka.http.testkit-10.0.10.jar with message java.lang.IllegalArgumentException: invalid version "${range;[==,=+)}": non-numeric "${range;[==,=+)}" and stack: java.lang.IllegalArgumentException: invalid version "${range;[==,=+)}": non-numeric "${range;[==,=+)}"
+	at org.osgi.framework.Version.parseInt(Version.java:170)
+	at org.osgi.framework.Version.&lt;init&gt;(Version.java:126)
+	at org.osgi.service.indexer.impl.types.VersionRange.&lt;init&gt;(VersionRange.java:58)
+	at org.osgi.service.indexer.impl.BundleAnalyzer.doImports(BundleAnalyzer.java:348)
+	at org.osgi.service.indexer.impl.BundleAnalyzer.analyzeResource(BundleAnalyzer.java:72)
+	at org.osgi.service.indexer.impl.RepoIndex.generateResource(RepoIndex.java:271)
+	at org.osgi.service.indexer.impl.RepoIndex.index(RepoIndex.java:187)
+	at aQute.bnd.deployer.repository.providers.R5RepoContentProvider.generateIndex(R5RepoContentProvider.java:290)
+	at aQute.bnd.deployer.repository.LocalIndexedRepo.generateIndex(LocalIndexedRepo.java:169)
+	at aQute.bnd.deployer.repository.LocalIndexedRepo.regenerateAllIndexes(LocalIndexedRepo.java:142)
+	at aQute.bnd.deployer.repository.LocalIndexedRepo.refresh(LocalIndexedRepo.java:397)
+	at org.jetbrains.osgi.bnd.imp.BndProjectImporter.refreshRepositories(BndProjectImporter.java:666)
+	at org.jetbrains.osgi.bnd.imp.BndProjectImporter.doReimportProjects(BndProjectImporter.java:633)
+	at org.jetbrains.osgi.bnd.imp.BndProjectImporter.access$400(BndProjectImporter.java:77)
+	at org.jetbrains.osgi.bnd.imp.BndProjectImporter$4.run(BndProjectImporter.java:616)
+	at com.intellij.openapi.progress.impl.CoreProgressManager$TaskRunnable.run(CoreProgressManager.java:718)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.lambda$runProcess$1(CoreProgressManager.java:170)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.registerIndicatorAndRun(CoreProgressManager.java:548)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.executeProcessUnderProgress(CoreProgressManager.java:493)
+	at com.intellij.openapi.progress.impl.ProgressManagerImpl.executeProcessUnderProgress(ProgressManagerImpl.java:94)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.runProcess(CoreProgressManager.java:157)
+	at com.intellij.openapi.progress.impl.ProgressManagerImpl$2.run(ProgressManagerImpl.java:165)
+	at com.intellij.openapi.application.impl.ApplicationImpl$1.run(ApplicationImpl.java:330)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.NumberFormatException: For input string: "${range;[==,=+)}"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:569)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at org.osgi.framework.Version.parseInt(Version.java:168)
+	... 27 more
+ -->
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.typesafe.akka.http.testkit"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="10.0.10"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="fd57811eb3888acfea1c1630e3c4e83202a1875613e8d77fce675ae7dea352e8"/>
+      <attribute name="url" value="com.typesafe.akka.http.testkit/com.typesafe.akka.http.testkit-10.0.10.jar"/>
+      <attribute name="size" type="Long" value="134256"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="com.typesafe.akka.http.testkit"/>
+      <attribute name="bundle-version" type="Version" value="10.0.10"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="com.typesafe.akka.http.testkit"/>
+      <attribute name="bundle-version" type="Version" value="10.0.10"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="akka.http.scaladsl.testkit"/>
+      <attribute name="version" type="Version" value="10.0.10"/>
+      <attribute name="bundle-symbolic-name" value="com.typesafe.akka.http.testkit"/>
+      <attribute name="bundle-version" type="Version" value="10.0.10"/>
+      <directive name="uses" value="akka,akka.actor,akka.http.impl.engine.ws,akka.http.javadsl.model,akka.http.javadsl.model.ws,akka.http.scaladsl.client,akka.http.scaladsl.marshalling,akka.http.scaladsl.model,akka.http.scaladsl.model.headers,akka.http.scaladsl.model.ws,akka.http.scaladsl.server,akka.http.scaladsl.settings,akka.http.scaladsl.unmarshalling,akka.stream,akka.stream.scaladsl,akka.stream.testkit,akka.util,com.typesafe.config,org.scalatest,org.scalatest.matchers,org.specs2.concurrent,org.specs2.matcher,org.specs2.specification,scala,scala.collection,scala.collection.immutable,scala.concurrent,scala.concurrent.duration,scala.reflect,scala.runtime,scala.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="akka.http.javadsl.testkit"/>
+      <attribute name="version" type="Version" value="10.0.10"/>
+      <attribute name="bundle-symbolic-name" value="com.typesafe.akka.http.testkit"/>
+      <attribute name="bundle-version" type="Version" value="10.0.10"/>
+      <directive name="uses" value="akka.actor,akka.http.javadsl.model,akka.http.javadsl.model.headers,akka.http.javadsl.model.ws,akka.http.javadsl.server,akka.http.javadsl.unmarshalling,akka.http.scaladsl.model,akka.http.scaladsl.model.ws,akka.http.scaladsl.server,akka.http.scaladsl.testkit,akka.stream,akka.stream.javadsl,akka.util,com.typesafe.config,org.junit,org.junit.rules,scala,scala.collection,scala.concurrent,scala.concurrent.duration,scala.reflect,scala.runtime"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.impl.engine.ws)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.impl.util)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.javadsl.model)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.javadsl.model.headers)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.javadsl.model.ws)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.javadsl.server)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.javadsl.unmarshalling)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.scaladsl.client)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.scaladsl.marshalling)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.scaladsl.model)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.scaladsl.model.headers)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.scaladsl.model.ws)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.scaladsl.server)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.scaladsl.settings)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.scaladsl.unmarshalling)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.http.scaladsl.util)(version&gt;=10.0.10)(!(version&gt;=10.1.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.testkit)(version&gt;=2.4.0)(!(version&gt;=2.5.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.stream.testkit)(version&gt;=2.4.0)(!(version&gt;=2.5.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+  </resource>
+  <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="com.typesafe.akka.http"/>
       <attribute name="type" value="osgi.bundle"/>
@@ -6671,6 +6798,113 @@
     </requirement>
     <requirement namespace="osgi.wiring.bundle">
       <directive name="filter" value="(&amp;(osgi.wiring.bundle=com.typesafe.sslconfig)(bundle-version&gt;=0.2.1))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.typesafe.akka.testkit"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="2.5.3"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="133fa0dafef99d52983671ef8b9b68779635c9d402e1eeeb38cf5e60e03df19c"/>
+      <attribute name="url" value="com.typesafe.akka.testkit/akka-testkit_2.11-2.5.3.jar"/>
+      <attribute name="size" type="Long" value="317267"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="com.typesafe.akka.testkit"/>
+      <attribute name="bundle-version" type="Version" value="2.5.3"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="com.typesafe.akka.testkit"/>
+      <attribute name="bundle-version" type="Version" value="2.5.3"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="akka.testkit"/>
+      <attribute name="version" type="Version" value="2.5.3"/>
+      <attribute name="bundle-symbolic-name" value="com.typesafe.akka.testkit"/>
+      <attribute name="bundle-version" type="Version" value="2.5.3"/>
+      <directive name="uses" value="akka.actor,akka.dispatch,akka.dispatch.sysmsg,akka.event,akka.serialization,akka.util,com.typesafe.config,scala,scala.collection,scala.collection.immutable,scala.collection.mutable,scala.concurrent,scala.concurrent.duration,scala.reflect,scala.runtime,scala.util,scala.util.matching"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="akka.testkit.javadsl"/>
+      <attribute name="version" type="Version" value="2.5.3"/>
+      <attribute name="bundle-symbolic-name" value="com.typesafe.akka.testkit"/>
+      <attribute name="bundle-version" type="Version" value="2.5.3"/>
+      <directive name="uses" value="akka.actor,akka.testkit,scala,scala.collection,scala.concurrent.duration,scala.reflect,scala.runtime"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.actor)(version&gt;=2.5.0)(!(version&gt;=2.6.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.dispatch)(version&gt;=2.5.0)(!(version&gt;=2.6.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.dispatch.sysmsg)(version&gt;=2.5.0)(!(version&gt;=2.6.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.event)(version&gt;=2.5.0)(!(version&gt;=2.6.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.japi)(version&gt;=2.5.0)(!(version&gt;=2.6.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.pattern)(version&gt;=2.5.0)(!(version&gt;=2.6.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.serialization)(version&gt;=2.5.0)(!(version&gt;=2.6.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=akka.util)(version&gt;=2.5.0)(!(version&gt;=2.6.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.typesafe.config)(version&gt;=1.3.0)(!(version&gt;=1.4.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.collection)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.collection.convert)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.collection.generic)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.collection.immutable)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.collection.mutable)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.concurrent)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.concurrent.duration)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.reflect)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.runtime)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.sys)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.util)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.util.control)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=scala.util.matching)(version&gt;=2.11.0)(!(version&gt;=2.12.0)))"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
@@ -12062,6 +12296,258 @@
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.assertj.core"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="c8b03cfc9cfd338104a916bbb47f6805547ff373cc3d1cfedf8c5fee94b242a8"/>
+      <attribute name="url" value="org.assertj.core/org.assertj.core-3.8.0.jar"/>
+      <attribute name="size" type="Long" value="1226101"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="net.sf.cglib.proxy,org.assertj.core.api.filter,org.assertj.core.api.iterable,org.assertj.core.condition,org.assertj.core.data,org.assertj.core.description,org.assertj.core.error,org.assertj.core.groups,org.assertj.core.internal,org.assertj.core.presentation,org.junit.rules,org.junit.runner,org.junit.runners.model"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.exception"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.filter"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.api.iterable"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.condition"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.data"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.description"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.api,org.assertj.core.data,org.assertj.core.description,org.assertj.core.internal,org.assertj.core.presentation,org.assertj.core.util.diff"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.future"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.error"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.error.uri"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.error"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.extractor"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.api.iterable,org.assertj.core.groups"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.groups"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.api.iterable"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.internal"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.api,org.assertj.core.data,org.assertj.core.error,org.assertj.core.presentation,org.assertj.core.util.diff"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.matcher"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.hamcrest"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.presentation"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.data,org.assertj.core.groups"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.api.filter,org.assertj.core.presentation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.diff.myers"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+      <directive name="uses" value="org.assertj.core.util.diff"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.introspection"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.assertj.core.util.xml"/>
+      <attribute name="version" type="Version" value="3.8.0"/>
+      <attribute name="bundle-symbolic-name" value="org.assertj.core"/>
+      <attribute name="bundle-version" type="Version" value="3.8.0"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=net.sf.cglib.proxy)"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.api)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.api.exception)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.api.filter)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.api.iterable)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.condition)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.data)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.description)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.error)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.error.future)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.error.uri)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.extractor)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.groups)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.internal)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.presentation)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.util)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.util.diff)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.util.diff.myers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.util.introspection)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.assertj.core.util.xml)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.hamcrest)"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.junit.rules)"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.junit.runner)"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.junit.runners.model)"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom.bootstrap)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom.ls)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
   </resource>
   <resource>

@@ -45,7 +45,7 @@ object ApplicationActor {
   */
 class ApplicationActor(appModel: ApplicationModel, application: SkysailApplication, bundleContext: BundleContext) extends Actor with ActorLogging {
 
-  implicit val askTimeout: Timeout = 1.seconds
+  implicit val askTimeout: Timeout = 3.seconds
 
   val cnt = new AtomicInteger(0)
 

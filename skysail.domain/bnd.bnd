@@ -16,8 +16,14 @@ Bundle-ActivationPolicy: lazy
 	slf4j.api;version=1.7,\
 	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
 	skysail.api;version=latest,\
-	org.scala-lang.scala-reflect;version=2.11
-
+	org.scala-lang.scala-reflect;version=2.11,\
+	org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
+	org.scalatest;version=3.0,\
+	org.scalactic;version=3.0,\
+	com.springsource.org.junit,\
+    org.mockito.mockito-all;version=1.10,\
+    org.assertj.core;version=3.8,\
+    com.typesafe.akka.testkit;version=2.5
 
 Export-Package: \
 	io.skysail.domain,\

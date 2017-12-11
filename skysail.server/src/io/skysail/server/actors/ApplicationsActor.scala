@@ -29,7 +29,7 @@ class ApplicationsActor extends Actor with ActorLogging {
 
   val cnt = new AtomicInteger(0)
 
-  implicit val timeout = Timeout(1.seconds)
+  implicit val timeout = Timeout(5.seconds)
 
   val appActors = scala.collection.mutable.Map[String, ActorRef]()
 

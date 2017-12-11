@@ -20,15 +20,14 @@ import io.skysail.server.Constants
 import io.skysail.server.TunnelDirectives._
 import io.skysail.server.actors.{BundleActor, BundlesActor}
 import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
-import io.skysail.server.app.SkysailApplication._
 import org.osgi.framework.Bundle
 import org.osgi.framework.wiring.{BundleCapability, BundleWiring}
 import org.slf4j.LoggerFactory
-import scala.reflect.runtime.universe._
 
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.{Await, Future}
 import scala.reflect.ClassTag
+import scala.reflect.runtime.universe._
 
 object RoutesCreator {
 
@@ -53,11 +52,11 @@ class RoutesCreator(system: ActorSystem) {
   implicit val timeout: Timeout = 3.seconds
 
   private val capabilitiesFuture = (SkysailApplication.getBundlesActor(system) ? BundlesActor.GetCapabilities()).mapTo[Map[Long, List[BundleCapability]]]
-  private val capabilities = Await.result(capabilitiesFuture, 3.seconds)
+  //private val capabilities = Await.result(capabilitiesFuture, 3.seconds)
 
-  private val bundleIdsWithClientCapabilities = capabilities.filter {
-    entry => entry._2.exists { cap => Constants.CLIENT_CAPABILITY.equals(cap.getNamespace) }
-  }.keys
+//  private val bundleIdsWithClientCapabilities = capabilities.filter {
+//    entry => entry._2.exists { cap => Constants.CLIENT_CAPABILITY.equals(cap.getNamespace) }
+//  }.keys
 
   //  private val clientClassloader = if (bundleIdsWithClientCapabilities.nonEmpty) {
   //    val clientClFuture = (SkysailApplication.getBundleActor(system, bundleIdsWithClientCapabilities.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
@@ -258,7 +257,7 @@ class RoutesCreator(system: ActorSystem) {
 
   = {
     extractUnmatchedPath { unmatchedPath =>
-      val applicationActor = getApplicationActorSelection(system, appProvider.getClass.getName)
+      val applicationActor = RoutesCreator.getApplicationActorSelection(system, appProvider.getClass.getName)
       val clazz = mapping.resourceClass
       val resourceInstance = clazz.newInstance()
       val processCommand = ProcessCommand(ctx, clazz, appProvider.application(), urlParameter, unmatchedPath)

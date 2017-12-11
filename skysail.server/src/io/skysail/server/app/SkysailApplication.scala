@@ -33,7 +33,7 @@ object SkysailApplication {
     Await.result(r, 1.seconds)
   }
 
-  def getApplicationActorSelection(system: ActorSystem, name: String): ActorSelection = {
+  def AgetApplicationActorSelection(system: ActorSystem, name: String): ActorSelection = {
     val applicationActorPath = "/user/" + Constants.APPLICATIONS_ACTOR_NAME + "/" + name
     system.actorSelection(applicationActorPath)
   }

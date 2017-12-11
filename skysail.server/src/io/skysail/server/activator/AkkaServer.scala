@@ -188,7 +188,7 @@ class AkkaServer extends DominoActivator {
     if (appInfoProvider == null) {
       log warn "provided ApplicationProvider was null!"
     } else {
-      implicit val askTimeout: Timeout = 1.seconds
+      implicit val askTimeout: Timeout = 6.seconds
       val appsActor = SkysailApplication.getApplicationsActor(actorSystem)
       val appClass = appInfoProvider.getClass.asInstanceOf[Class[SkysailApplication]]
       val appModel = appInfoProvider.appModel()

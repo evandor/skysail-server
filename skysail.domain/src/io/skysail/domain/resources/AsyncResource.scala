@@ -9,7 +9,7 @@ import scala.reflect.runtime.universe._
 
 abstract class AsyncResource[S <: ApplicationApi, T: TypeTag] extends SkysailResource[S, List[T]] with ActorContextAware {
 
-  implicit val timeout: Timeout = 1.seconds
+  implicit val timeout: Timeout = 3.seconds
 
   final def doGet(requestEvent: RequestEvent): Unit = {
     requestEvent.controllerActor ! get(requestEvent)
