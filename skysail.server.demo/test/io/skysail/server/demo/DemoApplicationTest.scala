@@ -6,6 +6,7 @@ import akka.http.scaladsl.model.MediaRange.One
 import akka.http.scaladsl.model.MediaTypes
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.model.headers.Accept
+import akka.http.scaladsl.server.RouteConcatenation._
 import akka.http.scaladsl.server.{Directive1, Route}
 import akka.http.scaladsl.testkit.{RouteTestTimeout, ScalatestRouteTest}
 import io.skysail.api.persistence.DbService
@@ -13,14 +14,12 @@ import io.skysail.api.security.AuthenticationService
 import io.skysail.server.Constants
 import io.skysail.server.actors.ApplicationsActor
 import io.skysail.server.app.SkysailApplication
-import io.skysail.server.demo.resources.BookmarksResource
 import io.skysail.server.routes.RoutesCreator
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.osgi.framework.BundleContext
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
-import akka.http.scaladsl.server.RouteConcatenation._
 
 import scala.concurrent.duration.DurationInt
 
@@ -34,8 +33,13 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
 
   val dbService = new DbService() {
     override def createWithSuperClass(superClass: String, vertices: String*): Unit = {}
+
     override def register(classes: Class[_]*): Unit = {}
-    override def persist(entity: Any): String = {""}
+
+    override def persist(entity: Any): String = {
+      ""
+    }
+
     override def findGraphs[T: Manifest](cls: Class[T], sql: String): List[T] = List()
   }
 
@@ -68,32 +72,54 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   }
 
 
-  "A request to /demo/v1/bms" should {
+  "A GET request to /demo/v1/bms" should {
 
     "return the html page if no accept header was set" in {
-      val listResourceMapping = app.routesMappings.filter(m => m.path == "/bms").head
-      val r: Route = routesCreator.createRoute(listResourceMapping, app)
       Get("/demo/v1/bms") ~> res ~> check {
         status shouldBe OK
         contentType shouldBe `text/html(UTF-8)`
-        responseAs[String] should include ("Create New Bookmark")
+        responseAs[String] should include("Create New Bookmark")
       }
     }
 
     "return the json representation if an accept header for application/json is sent" in {
-      Get("/demo/v1/bms").addHeader(acceptHeader) ~> res  ~> check {
+      Get("/demo/v1/bms").addHeader(acceptHeader) ~> res ~> check {
         status shouldBe OK
         contentType shouldBe `application/json`
-        responseAs[String] should include ("[]")
+        responseAs[String] should include("[]")
+      }
+    }
+  }
+
+//  "A POST request to /demo/v1/bms" should {
+//
+//    "return the html page if no accept header was set" in {
+//      Post("/demo/v1/bms") ~> res ~> check {
+//        status shouldBe OK
+//        contentType shouldBe `text/html(UTF-8)`
+//        responseAs[String] should include("Create New Bookmark")
+//      }
+//    }
+//  }
+
+
+  "A GET request to /demo/v1/bms/" should {
+
+    "return the html page if no accept header was set" in {
+      Get("/demo/v1/bms/") ~> res ~> check {
+        status shouldBe OK
+        contentType shouldBe `text/html(UTF-8)`
+        responseAs[String] should include("submit")
       }
     }
 
+//    "return the json representation if an accept header for application/json is sent" in {
+//      Get("/demo/v1/bms/").addHeader(acceptHeader) ~> res ~> check {
+//        status shouldBe OK
+//        contentType shouldBe `application/json`
+//        responseAs[String] should include("[]")
+//      }
+//    }
   }
-
-  private def routeFor(value: Class[BookmarksResource]): Route = {
-    val listResourceMapping = app.routesMappings.filter(m => m.path == "/bms").head
-    routesCreator.createRoute(listResourceMapping, app)
-  }
-
 
 }
