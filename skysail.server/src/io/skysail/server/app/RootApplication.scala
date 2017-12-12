@@ -24,7 +24,7 @@ object RootApplication {
 
 class RootApplication(
                        bundleContext: BundleContext,
-                       val conf: Map[String, Any]) extends SkysailApplication(ROOT_APPLICATION_NAME, null, bundleContext, "backend root")
+                       val conf: Map[String, Any]) extends SkysailApplication(ROOT_APPLICATION_NAME, null, bundleContext, null, "backend root")
   with ApplicationProvider {
 
   var clients = List[Client]()

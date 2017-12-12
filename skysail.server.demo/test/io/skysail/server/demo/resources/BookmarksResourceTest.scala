@@ -30,7 +30,7 @@ class BookmarksResourceTest(_system: ActorSystem)
   val re: RequestEvent = new RequestEvent(null, null)
   //Mockito.mock(classOf[EmptyLocalActorRef]))
   val dbService: DbService = Mockito.mock(classOf[DbService])
-  val app: ApplicationApi = new DemoApplication(null, dbService)
+  val app: ApplicationApi = new DemoApplication(null, dbService, null)
 
   when(dbService.findGraphs(
     classOf[Bookmark],

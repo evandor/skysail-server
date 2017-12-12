@@ -14,7 +14,7 @@ object WebsiteApplication {
 }
 
 class WebsiteApplication(bundleContext: BundleContext, system: ActorSystem) extends
-  SkysailApplication(APPLICATION_NAME, bundleContext, "Skysail Server Website Application")
+  SkysailApplication(APPLICATION_NAME, bundleContext, null, "Skysail Server Website Application")
   with ApplicationProvider {
 
 

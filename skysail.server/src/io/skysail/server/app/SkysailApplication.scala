@@ -11,6 +11,7 @@ import io.skysail.domain.app.{ApiVersion, ApplicationApi}
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.Constants
+import io.skysail.server.routes.RoutesCreator
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 
@@ -27,7 +28,6 @@ object SkysailApplication {
 
   def getApplicationsActor(system: ActorSystem): ActorRef = {
     val applicationsActorPath = "/user/" + Constants.APPLICATIONS_ACTOR_NAME
-    //log debug s"searching applicationsActor @ path '${applicationsActorPath}' in system ${system}"
     val applicationsActorSelection = system.actorSelection(applicationsActorPath)
     val r = applicationsActorSelection.resolveOne(2.seconds)
     Await.result(r, 1.seconds)
@@ -55,18 +55,23 @@ abstract class SkysailApplication(
                                    name: String,
                                    val apiVersion: ApiVersion,
                                    val bundleContext: BundleContext,
+                                   system: ActorSystem,
                                    description: String) extends ApplicationProvider with ApplicationApi {
 
   private val log = LoggerFactory.getLogger(classOf[SkysailApplication])
 
-  def this(name: String, bundleContext: BundleContext, description: String) =
-    this(name, ApiVersion(1), bundleContext, description)
+  def this(name: String, bc: BundleContext, system: ActorSystem, desc: String) = this(name, ApiVersion(1), bc, system, desc)
 
   val appModel = ApplicationModel(name, apiVersion, description)
 
-  def routesMappings: List[RouteMapping[_,_]]
+  private val routesCreator = RoutesCreator(system)
 
-  var actorRefsMap = Map.empty[String, ActorRef]
+  def router: Route = {
+    val  valueList: List[Route] = routesMappings.map { prt => routesCreator.createRoute(prt, this) }
+    null
+  }
+
+  def routesMappings: List[RouteMapping[_,_]]
 
   val routes: List[RouteMapping[_,_]] = {
     routesMappings.foreach(m => {
@@ -75,23 +80,13 @@ abstract class SkysailApplication(
     routesMappings // ++ List(RouteMapping("/_model", classOf[ModelResource]))
   }
 
+  var appRoutes: List[Route] = _
+
+  def optionalRoute(): Route = null
+
   def application(): SkysailApplication = this
 
-  var host = "localhost"
-
-  def getHost: String = host
-
-  var appRoutes: List[Route] = _
-  var system: ActorSystem = _
-  val cnt = new AtomicInteger(0)
-
   def getResourceBundles: List[ResourceBundle] = List[ResourceBundle]()
-
-  def getTemplatePaths[T](x$1: Class[T]): java.util.List[String] = {
-    Collections.emptyList()
-  }
-
-  def getSkysailApplication: SkysailApplication = this
 
   override final def nativeRoute(): Option[Route] = {
     val or = optionalRoute()
@@ -101,16 +96,6 @@ abstract class SkysailApplication(
         or
       })
     } else None
-  }
-
-  def optionalRoute(): Route = null
-
-  private def getResourceActor(cls: Class[_ <: SkysailResource[_,_]]) = actorRefsMap get cls.getName getOrElse {
-    log info s"creating new actor for ${cls.getName}"
-    val c = system.actorOf(Props.apply(cls), cls.getName)
-    actorRefsMap += cls.getName -> c
-    //system watch c
-    c
   }
 
 }

@@ -3,6 +3,7 @@ package io.skysail.server.demo
 import akka.actor.{ActorSystem, Props}
 import akka.http.scaladsl.model.ContentTypes._
 import akka.http.scaladsl.model.MediaRange.One
+import akka.http.scaladsl.model.Multipart.FormData
 import akka.http.scaladsl.model.{ContentType, MediaTypes}
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.model.headers.Accept
@@ -45,13 +46,11 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   }
 
   val bundleContext = Mockito.mock(classOf[BundleContext])
-  val app = new DemoApplication(null, dbService)
+  val app = new DemoApplication(null, dbService, null)
   val routesCreator = RoutesCreator(system)
   val applicationsActor = system.actorOf(Props[ApplicationsActor], Constants.APPLICATIONS_ACTOR_NAME)
 
   val acceptHeader = Accept(One(MediaTypes.`application/json`, 1.0f))
-  ContentType()
-  akka.http.scaladsl.model.headers.`Content-Type`()
 
   applicationsActor ! SkysailApplication.CreateApplicationActor(
     classOf[DemoApplication], app.appModel, app, bundleContext)
@@ -74,7 +73,6 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
     }
   }
 
-
   "A GET request to /demo/v1/bms" should {
 
     "return the html page if no accept header was set" in {
@@ -94,16 +92,16 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
     }
   }
 
-//  "A POST request to /demo/v1/bms" should {
-//
-//    "return the html page if no accept header was set" in {
-//      Post("/demo/v1/bms") ~> res ~> check {
-//        status shouldBe OK
-//        contentType shouldBe `text/html(UTF-8)`
-//        responseAs[String] should include("Create New Bookmark")
-//      }
-//    }
-//  }
+  //  "A POST request to /demo/v1/bms" should {
+  //
+  //    "return the html page if no accept header was set" in {
+  //      Post("/demo/v1/bms") ~> res ~> check {
+  //        status shouldBe OK
+  //        contentType shouldBe `text/html(UTF-8)`
+  //        responseAs[String] should include("Create New Bookmark")
+  //      }
+  //    }
+  //  }
 
 
   "A GET request to /demo/v1/bms/" should {
@@ -128,11 +126,11 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   "A POST request to /demo/v1/bms/" should {
 
     "return the html page if no accept header was set" in {
-      val bm = new Bookmark(None, "title","url")
-      Post("/demo/v1/bms/").withEntity("title=t&url=u") ~> res ~> check {
+      val e = akka.http.scaladsl.model.FormData(Map("title" -> "t", "url" -> "http://url")).toEntity
+      Post("/demo/v1/bms/").withEntity(e) ~> res ~> check {
         status shouldBe OK
-        contentType shouldBe `text/html(UTF-8)`
-        responseAs[String] should include("submit")
+        //contentType shouldBe `text/html(UTF-8)`
+        responseAs[String] should include("{\"id\":\"\",\"title\":\"a@b.com\",\"url\":\"Mira\"}")
       }
     }
 

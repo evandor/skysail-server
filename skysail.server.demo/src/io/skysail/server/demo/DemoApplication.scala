@@ -1,5 +1,6 @@
 package io.skysail.server.demo
 
+import akka.actor.ActorSystem
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.api.persistence.DbService
@@ -17,8 +18,8 @@ object DemoApplication {
   val APP_VERSION = ApiVersion(1)
 }
 
-class DemoApplication(bundleContext: BundleContext, dbService: DbService) extends
-  SkysailApplication(APPLICATION_NAME, APP_VERSION, bundleContext, "Skysail Demo Application") with ApplicationProvider {
+class DemoApplication(bundleContext: BundleContext, dbService: DbService, system: ActorSystem) extends
+  SkysailApplication(APPLICATION_NAME, APP_VERSION, bundleContext, system, "Skysail Demo Application") with ApplicationProvider {
 
   val repo = new BookmarksRepository(dbService)
 

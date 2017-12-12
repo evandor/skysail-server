@@ -16,7 +16,7 @@ object DocApplication {
 
 // tag::body[]
 class DocApplication(bundleContext: BundleContext, system: ActorSystem) extends
-  SkysailApplication(APPLICATION_NAME, bundleContext, "Skysail Doc Application")
+  SkysailApplication(APPLICATION_NAME, bundleContext, null, "Skysail Doc Application")
   with ApplicationProvider {
 
 
