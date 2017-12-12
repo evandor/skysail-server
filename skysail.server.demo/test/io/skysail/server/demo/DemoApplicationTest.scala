@@ -3,7 +3,7 @@ package io.skysail.server.demo
 import akka.actor.{ActorSystem, Props}
 import akka.http.scaladsl.model.ContentTypes._
 import akka.http.scaladsl.model.MediaRange.One
-import akka.http.scaladsl.model.MediaTypes
+import akka.http.scaladsl.model.{ContentType, MediaTypes}
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.model.headers.Accept
 import akka.http.scaladsl.server.RouteConcatenation._
@@ -14,6 +14,7 @@ import io.skysail.api.security.AuthenticationService
 import io.skysail.server.Constants
 import io.skysail.server.actors.ApplicationsActor
 import io.skysail.server.app.SkysailApplication
+import io.skysail.server.demo.domain.Bookmark
 import io.skysail.server.routes.RoutesCreator
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -49,6 +50,8 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   val applicationsActor = system.actorOf(Props[ApplicationsActor], Constants.APPLICATIONS_ACTOR_NAME)
 
   val acceptHeader = Accept(One(MediaTypes.`application/json`, 1.0f))
+  ContentType()
+  akka.http.scaladsl.model.headers.`Content-Type`()
 
   applicationsActor ! SkysailApplication.CreateApplicationActor(
     classOf[DemoApplication], app.appModel, app, bundleContext)
@@ -113,13 +116,26 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
       }
     }
 
-//    "return the json representation if an accept header for application/json is sent" in {
-//      Get("/demo/v1/bms/").addHeader(acceptHeader) ~> res ~> check {
-//        status shouldBe OK
-//        contentType shouldBe `application/json`
-//        responseAs[String] should include("[]")
-//      }
-//    }
+    "return the json representation if an accept header for application/json is sent" in {
+      Get("/demo/v1/bms/").addHeader(acceptHeader) ~> res ~> check {
+        status shouldBe OK
+        //contentType shouldBe `application/json`
+        responseAs[String] should include("{\"title\":\"\",\"url\":\"\"}")
+      }
+    }
+  }
+
+  "A POST request to /demo/v1/bms/" should {
+
+    "return the html page if no accept header was set" in {
+      val bm = new Bookmark(None, "title","url")
+      Post("/demo/v1/bms/").withEntity("title=t&url=u") ~> res ~> check {
+        status shouldBe OK
+        contentType shouldBe `text/html(UTF-8)`
+        responseAs[String] should include("submit")
+      }
+    }
+
   }
 
 }
