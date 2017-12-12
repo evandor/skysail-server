@@ -4,7 +4,7 @@ import akka.actor.{Actor, ActorLogging, ActorRef}
 import akka.event.LoggingReceive
 import akka.http.scaladsl.marshalling.Marshal
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.MediaTypeNegotiator
+import akka.http.scaladsl.server.{ContentNegotiator, MediaTypeNegotiator}
 import akka.util.Timeout
 import de.heikoseeberger.akkahttpjson4s.Json4sSupport._
 import io.skysail.domain._
@@ -72,9 +72,13 @@ class ControllerActor[T]() extends Actor with ActorLogging {
 
   def out: Receive = LoggingReceive {
     case response: ListResponseEvent[T] =>
-      log info s" *** ${response.req.cmd.ctx.request.headers}"
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
+
+
+      val cn = ContentNegotiator(response.req.cmd.ctx.request.headers)
+      val amr = cn.mtn.acceptedMediaRanges
+
 
       implicit val formats = DefaultFormats
       implicit val serialization = jackson.Serialization

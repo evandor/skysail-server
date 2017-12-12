@@ -29,6 +29,7 @@ import scala.collection.mutable.ListBuffer
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.concurrent.duration.DurationInt
 
+
 case class ServerConfig(port: Integer, binding: String, conf: Map[String, Any])
 
 object AkkaServer {
@@ -163,14 +164,14 @@ class AkkaServer extends DominoActivator {
     routesTracker.setAuthentication(null)
   }
 
-  private def startServer(arg: List[Route]) = {
+  private def startServer(routes: List[Route]) = {
     implicit val materializer: ActorMaterializer = ActorMaterializer()
     log info s"(re)starting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
     AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
-    arg.size match {
+    routes.size match {
       case 0 => log warn "Akka HTTP Server not started as no routes are defined"; null
-      case 1 => Http(actorSystem).bindAndHandle(arg.head, serverConfig.binding, serverConfig.port)
-      case _ => Http(actorSystem).bindAndHandle(arg.reduce((a, b) => a ~ b), serverConfig.binding, serverConfig.port)
+      case 1 => Http(actorSystem).bindAndHandle(routes.head, serverConfig.binding, serverConfig.port)
+      case _ => Http(actorSystem).bindAndHandle(routes.reduce((a, b) => a ~ b), serverConfig.binding, serverConfig.port)
     }
   }
 
