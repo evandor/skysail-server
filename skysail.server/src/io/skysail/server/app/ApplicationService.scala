@@ -17,7 +17,7 @@ class ApplicationService() {
   var clients =  List[Client]()
 
   def getAllApplications(system: ActorSystem): Future[List[Application]] = {
-    val appsActor = SkysailApplication.getApplicationsActor(system)
+    val appsActor = BackendApplication.getApplicationsActor(system)
     (appsActor ? ApplicationsActor.GetAllApplications()).mapTo[List[Application]]
   }
 

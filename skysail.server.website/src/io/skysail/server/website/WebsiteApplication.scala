@@ -3,23 +3,20 @@ package io.skysail.server.website
 import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives.{get, pathPrefix, _}
 import akka.http.scaladsl.server.{PathMatcher, Route}
-import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
-import io.skysail.server.website.WebsiteApplication._
+import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.osgi.framework.BundleContext
 
 import scala.concurrent.ExecutionContextExecutor
 
-object WebsiteApplication {
-  val APPLICATION_NAME = "website"
-}
-
 class WebsiteApplication(bundleContext: BundleContext, system: ActorSystem) extends
-  SkysailApplication(APPLICATION_NAME, bundleContext, null, "Skysail Server Website Application")
+  BackendApplication(bundleContext, null)
   with ApplicationProvider {
 
+  override def name = "website"
+  override def desc = "Skysail Server Website Application"
 
   override def routesMappings = {
-    val root: PathMatcher[Unit] = PathMatcher(APPLICATION_NAME)
+    val root: PathMatcher[Unit] = PathMatcher(name)
     List(
       //      RouteMapping("_info", root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[DocInfoResource]),
       //      RouteMapping("dev", root / PathMatcher("dev") ~ PathMatchers.PathEnd, classOf[DevDocResource]),
@@ -37,6 +34,5 @@ class WebsiteApplication(bundleContext: BundleContext, system: ActorSystem) exte
       }
     }
   }
-
 
 }

@@ -4,21 +4,18 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives.{get, pathPrefix, _}
 import akka.http.scaladsl.server.{PathMatcher, PathMatchers, Route}
 import io.skysail.domain.routes.RouteMapping
-import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
-import io.skysail.server.doc.DocApplication._
+import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.osgi.framework.BundleContext
 
 import scala.concurrent.ExecutionContextExecutor
 
-object DocApplication {
-  val APPLICATION_NAME = "doc"
-}
-
 // tag::body[]
 class DocApplication(bundleContext: BundleContext, system: ActorSystem) extends
-  SkysailApplication(APPLICATION_NAME, bundleContext, null, "Skysail Doc Application")
+  BackendApplication(bundleContext, null)
   with ApplicationProvider {
 
+  override def name = "doc"
+  override def desc = "Skysail Doc Application"
 
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("doc") / "v1"

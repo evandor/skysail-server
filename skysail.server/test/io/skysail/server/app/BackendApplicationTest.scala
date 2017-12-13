@@ -13,6 +13,8 @@ import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{ListResource, PostResource}
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.domain.{RequestEvent, ResponseEvent}
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{BeforeAndAfterAll, FlatSpecLike, Matchers}
 
 
@@ -43,7 +45,7 @@ class PostBookmarkResource extends PostResource[TestApp, Bookmark] /*with JsonSu
   }
 }
 
-class TestApp extends SkysailApplication("testapp", ApiVersion(2), null, null, "desc") {
+class TestApp extends BackendApplication(null, null) {
   override def routesMappings: List[RouteMapping[_, _]] = {
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
     List(
@@ -51,13 +53,19 @@ class TestApp extends SkysailApplication("testapp", ApiVersion(2), null, null, "
       RouteMapping("/bms/", root / PathMatcher("bms") / PathEnd, classOf[PostBookmarkResource])
     )
   }
+
+  override def name = "Testapp"
+  override def desc = "Testapp"
+  override def version = ApiVersion(2)
 }
 
-class SkysailApplicationTest extends FlatSpecLike with Matchers with BeforeAndAfterAll {
+@RunWith(classOf[JUnitRunner])
+class BackendApplicationTest extends FlatSpecLike with Matchers with BeforeAndAfterAll {
 
   "a SkysailApplication" should "b" in {
     val app = new TestApp
     val router: Route = app.router
+    println (router)
   }
 
 }

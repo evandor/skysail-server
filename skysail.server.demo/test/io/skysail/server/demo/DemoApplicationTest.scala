@@ -3,19 +3,16 @@ package io.skysail.server.demo
 import akka.actor.{ActorSystem, Props}
 import akka.http.scaladsl.model.ContentTypes._
 import akka.http.scaladsl.model.MediaRange.One
-import akka.http.scaladsl.model.Multipart.FormData
-import akka.http.scaladsl.model.{ContentType, MediaTypes}
+import akka.http.scaladsl.model.MediaTypes
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.model.headers.Accept
-import akka.http.scaladsl.server.RouteConcatenation._
 import akka.http.scaladsl.server.{Directive1, Route}
 import akka.http.scaladsl.testkit.{RouteTestTimeout, ScalatestRouteTest}
 import io.skysail.api.persistence.DbService
 import io.skysail.api.security.AuthenticationService
 import io.skysail.server.Constants
 import io.skysail.server.actors.ApplicationsActor
-import io.skysail.server.app.SkysailApplication
-import io.skysail.server.demo.domain.Bookmark
+import io.skysail.server.app.BackendApplication
 import io.skysail.server.routes.RoutesCreator
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -52,17 +49,17 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
 
   val acceptHeader = Accept(One(MediaTypes.`application/json`, 1.0f))
 
-  applicationsActor ! SkysailApplication.CreateApplicationActor(
+  applicationsActor ! BackendApplication.CreateApplicationActor(
     classOf[DemoApplication], app.appModel, app, bundleContext)
 
-  val tmp: List[Route] = app.routes.map { prt => routesCreator.createRoute(prt, app) }
-  val appRoutes: scala.collection.mutable.ListBuffer[Route] = scala.collection.mutable.ListBuffer(tmp: _*)
+  //val tmp: List[Route] = app.routes.map { prt => routesCreator.createRoute(prt, app) }
+  //val appRoutes: scala.collection.mutable.ListBuffer[Route] = scala.collection.mutable.ListBuffer(tmp: _*)
   if (app.nativeRoute().isDefined) {
     //appRoutes ++= app.nativeRoute.get  // TODO
   }
-  val routes: List[Route] = appRoutes.toList
-  val res: Route = routes.reduce((a, b) => a ~ b)
-
+  //val routes: List[Route] = appRoutes.toList
+  //val res: Route = routes.reduce((a, b) => a ~ b)
+  val res: Route = app.router
 
   routesCreator.authentication = new AuthenticationService() {
     override def directive() = new Directive1[String]() {

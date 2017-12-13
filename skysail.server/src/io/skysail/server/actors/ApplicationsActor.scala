@@ -18,7 +18,7 @@ import scala.concurrent.Future
 import scala.util.{ Success, Failure }
 import akka.event.LoggingReceive
 import io.skysail.domain.app.Application
-import io.skysail.server.app.SkysailApplication._
+import io.skysail.server.app.BackendApplication._
 
 object ApplicationsActor {
   case class GetAllApplications()

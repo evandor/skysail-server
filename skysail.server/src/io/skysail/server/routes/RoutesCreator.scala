@@ -19,7 +19,7 @@ import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.Constants
 import io.skysail.server.TunnelDirectives._
 import io.skysail.server.actors.{BundleActor, BundlesActor}
-import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
+import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.osgi.framework.Bundle
 import org.osgi.framework.wiring.{BundleCapability, BundleWiring}
 import org.slf4j.LoggerFactory
@@ -55,7 +55,7 @@ class RoutesCreator(system: ActorSystem) {
 
   def getClientClassloader2(): ClassLoader = {
 
-    val capabilitiesFuture = (SkysailApplication.getBundlesActor(system) ? BundlesActor.GetCapabilities()).mapTo[Map[Long, List[BundleCapability]]]
+    val capabilitiesFuture = (BackendApplication.getBundlesActor(system) ? BundlesActor.GetCapabilities()).mapTo[Map[Long, List[BundleCapability]]]
     val capabilities = Await.result(capabilitiesFuture, 3.seconds)
 
     val bundleIdsWithClientCapabilities2 = capabilities.filter {
@@ -63,7 +63,7 @@ class RoutesCreator(system: ActorSystem) {
     }.keys
 
     if (bundleIdsWithClientCapabilities2.nonEmpty) {
-      val clientClFuture = (SkysailApplication.getBundleActor(system, bundleIdsWithClientCapabilities2.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
+      val clientClFuture = (BackendApplication.getBundleActor(system, bundleIdsWithClientCapabilities2.head) ? BundleActor.GetClassloader()).mapTo[ClassLoader]
       val r = Await.result(clientClFuture, 3.seconds)
       r
     } else null
@@ -270,7 +270,7 @@ class RoutesCreator(system: ActorSystem) {
 
   private def getDocClassloader = {
     if (docClassloader == null) {
-      val bundlesActor = SkysailApplication.getBundlesActor(system)
+      val bundlesActor = BackendApplication.getBundlesActor(system)
       val docBundle: Future[Bundle] = (bundlesActor ? BundlesActor.GetBundleBySymbolicName("skysail.server.doc")).mapTo[Bundle]
       val b: Bundle = Await.result(docBundle, 3.seconds)
       docClassloader = b.adapt(classOf[BundleWiring]).getClassLoader

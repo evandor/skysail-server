@@ -2,7 +2,7 @@ package io.skysail.server.demo.services
 
 import akka.actor.ActorSystem
 import io.skysail.server.actors.ApplicationActor
-import io.skysail.server.app.SkysailApplication
+import io.skysail.server.app.BackendApplication
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.Bookmark
 import akka.pattern.ask

@@ -17,8 +17,8 @@ import io.skysail.api.metrics.{CounterMetric, Metrics}
 import io.skysail.api.security.AuthenticationService
 import io.skysail.api.ui.Client
 import io.skysail.server.actors.{ApplicationsActor, BundlesActor}
-import io.skysail.server.app.{ApplicationProvider, RootApplication, SkysailApplication}
-import io.skysail.server.app.SkysailApplication._
+import io.skysail.server.app.{ApplicationProvider, RootApplication, BackendApplication}
+import io.skysail.server.app.BackendApplication._
 import io.skysail.server.metrics.SimpleMetrics
 import io.skysail.server.routes.RoutesTracker
 import io.skysail.server.{Constants, SystemPropertiesCommand}
@@ -190,8 +190,8 @@ class AkkaServer extends DominoActivator {
       log warn "provided ApplicationProvider was null!"
     } else {
       implicit val askTimeout: Timeout = 6.seconds
-      val appsActor = SkysailApplication.getApplicationsActor(actorSystem)
-      val appClass = appInfoProvider.getClass.asInstanceOf[Class[SkysailApplication]]
+      val appsActor = BackendApplication.getApplicationsActor(actorSystem)
+      val appClass = appInfoProvider.getClass.asInstanceOf[Class[BackendApplication]]
       val appModel = appInfoProvider.appModel()
       val application = appInfoProvider.application()
       appsActor ! CreateApplicationActor(appClass, appModel, application, appInfoProvider.bundleContext)

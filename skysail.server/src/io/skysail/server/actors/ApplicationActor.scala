@@ -12,7 +12,7 @@ import io.skysail.domain.{ResponseEventBase, SkysailResource}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.server.actors.ApplicationActor._
-import io.skysail.server.app.{ApplicationProvider, SkysailApplication}
+import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.osgi.framework.BundleContext
 
 import scala.concurrent.duration.DurationInt
@@ -43,7 +43,7 @@ object ApplicationActor {
   * instance of the specific resource mentioned above.
   *
   */
-class ApplicationActor(appModel: ApplicationModel, application: SkysailApplication, bundleContext: BundleContext) extends Actor with ActorLogging {
+class ApplicationActor(appModel: ApplicationModel, application: BackendApplication, bundleContext: BundleContext) extends Actor with ActorLogging {
 
   implicit val askTimeout: Timeout = 3.seconds
 
