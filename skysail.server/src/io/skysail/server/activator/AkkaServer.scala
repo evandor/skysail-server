@@ -106,7 +106,7 @@ class AkkaServer extends DominoActivator {
 
     watchServices[AuthenticationService] {
       case AddingService(service, context) => {
-        routesTracker.setAuthentication(service)
+        //routesTracker.setAuthentication(service)
         routesCreator.setAuthentication(service)
         routesCreator.providesService[RoutesCreatorTrait]
       }

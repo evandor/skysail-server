@@ -54,7 +54,7 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
 
   //val tmp: List[Route] = app.routes.map { prt => routesCreator.createRoute(prt, app) }
   //val appRoutes: scala.collection.mutable.ListBuffer[Route] = scala.collection.mutable.ListBuffer(tmp: _*)
-  if (app.nativeRoute().isDefined) {
+  if (app.optionalNativeRoute().isDefined) {
     //appRoutes ++= app.nativeRoute.get  // TODO
   }
   //val routes: List[Route] = appRoutes.toList

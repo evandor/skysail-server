@@ -22,25 +22,18 @@ class DocApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorT
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("doc") / "v1"
     List(
-      //      RouteMapping("_info", root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[DocInfoResource]),
-      //      RouteMapping("dev", root / PathMatcher("dev") ~ PathMatchers.PathEnd, classOf[DevDocResource]),
-      //      RouteMapping("history", root / PathMatcher("history") ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
-      //      RouteMapping("meta", root / PathMatcher("meta") ~ PathMatchers.PathEnd, classOf[MetaDocResource]),
       RouteMapping("index.html", root / PathMatcher("index.html") ~ PathMatchers.PathEnd, classOf[DocIndexResource])
     )
   }
 
-  override def optionalRoute(): Route = {
+  override def nativeRoute(): Route = {
     implicit val executionContext: ExecutionContextExecutor = system.dispatcher
     pathPrefix("") {
       get {
-        //complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Say hello to akka-http</h1>"))
-        //getFromResource("assets/html5/meta.html", ContentTypes.`text/html(UTF-8)`, this.getClass.getClassLoader)
         getFromResourceDirectory("assets/html5", this.getClass.getClassLoader)
       }
     }
   }
-
 
 }
 

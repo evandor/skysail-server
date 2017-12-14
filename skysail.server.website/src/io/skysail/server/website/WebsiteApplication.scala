@@ -26,7 +26,7 @@ class WebsiteApplication(bundleContext: BundleContext, system: ActorSystem) exte
     )
   }
 
-  override def optionalRoute(): Route = {
+  override def nativeRoute(): Route = {
     implicit val executionContext: ExecutionContextExecutor = system.dispatcher
     pathPrefix("") {
       get {
