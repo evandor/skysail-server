@@ -3,8 +3,9 @@ package io.skysail.server.demo
 import akka.actor.ActorSystem
 import domino.DominoActivator
 import io.skysail.api.persistence.DbService
-import org.slf4j.LoggerFactory
+import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.ApplicationProvider
+import org.slf4j.LoggerFactory
 
 class DemoActivator extends DominoActivator {
 
@@ -23,9 +24,9 @@ class DemoActivator extends DominoActivator {
       app = null
     }
 
-    whenServicesPresent[DbService, ActorSystem] { (dbService, actorSystem) =>
+    whenServicesPresent[DbService, RoutesCreatorTrait, ActorSystem] { (dbService, routesCreator, actorSystem) =>
       log info s"dbService available in ${this.getClass.getName}"
-      app = new DemoApplication(bundleContext, dbService, actorSystem)
+      app = new DemoApplication(bundleContext, dbService, actorSystem, routesCreator)
       //app.activate()
       app.providesService[ApplicationProvider]
     }

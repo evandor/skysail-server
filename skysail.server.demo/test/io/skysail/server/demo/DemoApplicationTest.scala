@@ -43,8 +43,8 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   }
 
   val bundleContext = Mockito.mock(classOf[BundleContext])
-  val app = new DemoApplication(null, dbService, null)
   val routesCreator = RoutesCreator(system)
+  val app = new DemoApplication(null, dbService, null, routesCreator)
   val applicationsActor = system.actorOf(Props[ApplicationsActor], Constants.APPLICATIONS_ACTOR_NAME)
 
   val acceptHeader = Accept(One(MediaTypes.`application/json`, 1.0f))

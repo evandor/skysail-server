@@ -16,7 +16,7 @@ import io.skysail.api.security.AuthenticationService
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.routes.RouteMapping
-import io.skysail.server.Constants
+import io.skysail.server.{Constants, RoutesCreatorTrait}
 import io.skysail.server.TunnelDirectives._
 import io.skysail.server.actors.{BundleActor, BundlesActor}
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
@@ -39,7 +39,7 @@ object RoutesCreator {
   }
 }
 
-class RoutesCreator(system: ActorSystem) {
+class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -252,6 +252,11 @@ class RoutesCreator(system: ActorSystem) {
     }
   }
 
+  def setAuthentication(a: AuthenticationService): Unit = {
+    log info s"setting authenticataion to $a"
+    authentication = a
+  }
+
   private def authenticationDirective(auth: AuthenticationService): Directive1[String]
 
   = auth.directive()
@@ -280,3 +285,4 @@ class RoutesCreator(system: ActorSystem) {
   }
 
 }
+

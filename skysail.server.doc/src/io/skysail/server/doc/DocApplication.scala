@@ -4,26 +4,28 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives.{get, pathPrefix, _}
 import akka.http.scaladsl.server.{PathMatcher, PathMatchers, Route}
 import io.skysail.domain.routes.RouteMapping
+import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.osgi.framework.BundleContext
 
 import scala.concurrent.ExecutionContextExecutor
 
 // tag::body[]
-class DocApplication(bundleContext: BundleContext, system: ActorSystem) extends
-  BackendApplication(bundleContext, null)
+class DocApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem) extends
+  BackendApplication(bundleContext, routesCreator, system)
   with ApplicationProvider {
 
   override def name = "doc"
+
   override def desc = "Skysail Doc Application"
 
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("doc") / "v1"
     List(
-//      RouteMapping("_info", root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[DocInfoResource]),
-//      RouteMapping("dev", root / PathMatcher("dev") ~ PathMatchers.PathEnd, classOf[DevDocResource]),
-//      RouteMapping("history", root / PathMatcher("history") ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
-//      RouteMapping("meta", root / PathMatcher("meta") ~ PathMatchers.PathEnd, classOf[MetaDocResource]),
+      //      RouteMapping("_info", root / PathMatcher("_info") ~ PathMatchers.PathEnd, classOf[DocInfoResource]),
+      //      RouteMapping("dev", root / PathMatcher("dev") ~ PathMatchers.PathEnd, classOf[DevDocResource]),
+      //      RouteMapping("history", root / PathMatcher("history") ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
+      //      RouteMapping("meta", root / PathMatcher("meta") ~ PathMatchers.PathEnd, classOf[MetaDocResource]),
       RouteMapping("index.html", root / PathMatcher("index.html") ~ PathMatchers.PathEnd, classOf[DocIndexResource])
     )
   }
@@ -41,4 +43,5 @@ class DocApplication(bundleContext: BundleContext, system: ActorSystem) extends
 
 
 }
+
 // end::body[]

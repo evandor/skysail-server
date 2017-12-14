@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext
 import scala.concurrent.ExecutionContextExecutor
 
 class WebsiteApplication(bundleContext: BundleContext, system: ActorSystem) extends
-  BackendApplication(bundleContext, null)
+  BackendApplication(bundleContext, null, null)
   with ApplicationProvider {
 
   override def name = "website"

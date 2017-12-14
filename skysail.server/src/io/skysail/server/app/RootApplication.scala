@@ -5,6 +5,7 @@ import akka.http.scaladsl.server.{PathMatcher, PathMatchers}
 import io.skysail.api.ui.Client
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.app.resources.{AppsResource, ClientsResource, RootRedirectResource, RootResource}
+import io.skysail.server.routes.RoutesCreator
 import org.osgi.framework.BundleContext
 
 object RootApplication {
@@ -21,7 +22,8 @@ object RootApplication {
 
 class RootApplication(
                        bundleContext: BundleContext,
-                       val conf: Map[String, Any]) extends BackendApplication(bundleContext, null)
+                       routesCreator: RoutesCreator,
+                       val conf: Map[String, Any]) extends BackendApplication(bundleContext, routesCreator, null)
   with ApplicationProvider {
 
   override def name = "_root"

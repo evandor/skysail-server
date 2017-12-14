@@ -13,6 +13,7 @@ import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{ListResource, PostResource}
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.domain.{RequestEvent, ResponseEvent}
+import io.skysail.server.routes.RoutesCreator
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{BeforeAndAfterAll, FlatSpecLike, Matchers}
@@ -45,7 +46,7 @@ class PostBookmarkResource extends PostResource[TestApp, Bookmark] /*with JsonSu
   }
 }
 
-class TestApp extends BackendApplication(null, null) {
+class TestApp extends BackendApplication(null, routesCreator = new RoutesCreator(null), null) {
   override def routesMappings: List[RouteMapping[_, _]] = {
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
     List(

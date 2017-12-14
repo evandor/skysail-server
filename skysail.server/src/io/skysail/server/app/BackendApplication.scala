@@ -10,8 +10,7 @@ import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.{ApiVersion, ApplicationApi}
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.routes.RouteMapping
-import io.skysail.server.Constants
-import io.skysail.server.routes.RoutesCreator
+import io.skysail.server.{Constants, RoutesCreatorTrait}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 
@@ -53,6 +52,7 @@ object BackendApplication {
 
 abstract class BackendApplication(
                                    val bundleContext: BundleContext,
+                                   routesCreator: RoutesCreatorTrait,
                                    system: ActorSystem)
   extends ApplicationProvider with ApplicationApi {
 
@@ -60,7 +60,7 @@ abstract class BackendApplication(
 
   val appModel = ApplicationModel(name, version, desc)
 
-  private val routesCreator = RoutesCreator(system)
+  //var routesCreator: RoutesCreatorTrait = _ //RoutesCreator(system)
 
   def name: String
 

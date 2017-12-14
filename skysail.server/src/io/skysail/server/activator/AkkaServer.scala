@@ -17,11 +17,11 @@ import io.skysail.api.metrics.{CounterMetric, Metrics}
 import io.skysail.api.security.AuthenticationService
 import io.skysail.api.ui.Client
 import io.skysail.server.actors.{ApplicationsActor, BundlesActor}
-import io.skysail.server.app.{ApplicationProvider, RootApplication, BackendApplication}
+import io.skysail.server.app.{ApplicationProvider, BackendApplication, RootApplication}
 import io.skysail.server.app.BackendApplication._
 import io.skysail.server.metrics.SimpleMetrics
-import io.skysail.server.routes.RoutesTracker
-import io.skysail.server.{Constants, SystemPropertiesCommand}
+import io.skysail.server.routes.{RoutesCreator, RoutesTracker}
+import io.skysail.server.{Constants, RoutesCreatorTrait, SystemPropertiesCommand}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 
@@ -59,6 +59,7 @@ class AkkaServer extends DominoActivator {
   private var bundlesActor: ActorRef = _
   private var serverConfig = ServerConfig(defaultPort, defaultBinding, Map())
   private var routesTracker: RoutesTracker = _
+  private var routesCreator: RoutesCreator = _
   private var serverRestartsCounter = CounterMetric(this.getClass, "server.restarts")
   private var rootApplication: Option[RootApplication] = None
 
@@ -81,6 +82,8 @@ class AkkaServer extends DominoActivator {
       log debug s"created BundlesActor with path ${bundlesActor.path}"
 
       routesTracker = new RoutesTracker(actorSystem)
+
+      routesCreator = new RoutesCreator(actorSystem)
     }
 
     override def getActorSystemName(context: BundleContext): String = "SkysailActorSystem"
@@ -102,7 +105,11 @@ class AkkaServer extends DominoActivator {
     }
 
     watchServices[AuthenticationService] {
-      case AddingService(service, context) => routesTracker.setAuthentication(service)
+      case AddingService(service, context) => {
+        routesTracker.setAuthentication(service)
+        routesCreator.setAuthentication(service)
+        routesCreator.providesService[RoutesCreatorTrait]
+      }
       case ModifiedService(service, _) => //log info s"Service '$service' modified"
       case RemovedService(service, _) => removeAuthenticationService(service)
     }
@@ -142,7 +149,7 @@ class AkkaServer extends DominoActivator {
       //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
       serverConfig = ServerConfig(port, binding, conf)
 
-      rootApplication = Some(new RootApplication(bundleContext, conf))
+      rootApplication = Some(new RootApplication(bundleContext, routesCreator, conf))
       rootApplication.get.providesService[ApplicationProvider]
     }
 
