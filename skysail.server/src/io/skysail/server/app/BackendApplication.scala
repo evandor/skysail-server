@@ -87,7 +87,7 @@ abstract class BackendApplication(
     *
     * @return the (concatenated) route definition for the whole application
     */
-  def router: Route = {
+  lazy val router: Route = {
     val valueList: List[Route] = routesMappings.map { prt =>
       appModel.addResourceModel(prt)
       routesCreator.createRoute(prt, this)

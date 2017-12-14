@@ -68,8 +68,8 @@ Seq[Any](format.raw/*6.28*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Tue Nov 28 17:50:37 CET 2017
-                  SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./resources/templates/io/skysail/server/demo/resources/BookmarkResource_Get.scala.html
+                  DATE: Thu Dec 14 09:47:47 CET 2017
+                  SOURCE: C:/git/skysail-server/skysail.server.demo/./resources/templates/io/skysail/server/demo/resources/BookmarkResource_Get.scala.html
                   HASH: 3bb5755fe2d8221803ab4f55abe4f00c781366e9
                   MATRIX: 656->193|777->219|805->222|816->226|854->228|883->230|1068->388|1080->391|1109->399|1428->691|1440->694|1488->720|1581->786|1593->789|1638->813|1772->920|1784->923|1828->946
                   LINES: 15->6|20->6|22->8|22->8|22->8|24->10|30->16|30->16|30->16|40->26|40->26|40->26|41->27|41->27|41->27|45->31|45->31|45->31

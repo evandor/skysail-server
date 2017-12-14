@@ -26,9 +26,7 @@ class BookmarksResourceTest(_system: ActorSystem)
     with BeforeAndAfterAll
     with BeforeAndAfterEach {
 
-  //val a =  Mockito.mock(classOf[ControllerActor[Bookmark]])
   val re: RequestEvent = new RequestEvent(null, null)
-  //Mockito.mock(classOf[EmptyLocalActorRef]))
   val dbService: DbService = Mockito.mock(classOf[DbService])
   val app: ApplicationApi = new DemoApplication(null, dbService, null, null)
 
