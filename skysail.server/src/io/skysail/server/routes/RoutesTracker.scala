@@ -2,11 +2,9 @@ package io.skysail.server.routes
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Route
-import io.skysail.api.security.AuthenticationService
-import org.slf4j.LoggerFactory
-import io.skysail.server.app.ApplicationProvider
-import io.skysail.server.app.BackendApplication
+import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import io.skysail.server.app.BackendApplication._
+import org.slf4j.LoggerFactory
 
 class RoutesTracker(system: ActorSystem) {
 
@@ -40,9 +38,9 @@ class RoutesTracker(system: ActorSystem) {
     routesMap.remove(appInfoProvider.appModel().id)
   }
 
-  def setAuthentication(a: AuthenticationService): Unit = {
-    log info s"setting authenticataion to $a"
-    routesCreator.authentication = a
-  }
+//  def setAuthentication(a: AuthenticationService): Unit = {
+//    log info s"setting authenticataion to $a"
+//    routesCreator.authentication = a
+//  }
 
 }

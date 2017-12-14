@@ -168,7 +168,8 @@ class AkkaServer extends DominoActivator {
   }
 
   private def removeAuthenticationService(authenticationService: AuthenticationService): Unit = {
-    routesTracker.setAuthentication(null)
+   // routesTracker.setAuthentication(null)
+    // TODO routesCreator?
   }
 
   private def startServer(routes: List[Route]) = {

@@ -8,7 +8,6 @@ import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.model.headers.Accept
 import akka.http.scaladsl.server.{Directive1, Route}
 import akka.http.scaladsl.testkit.{RouteTestTimeout, ScalatestRouteTest}
-import io.skysail.api.persistence.DbService
 import io.skysail.api.security.AuthenticationService
 import io.skysail.server.Constants
 import io.skysail.server.actors.ApplicationsActor
@@ -30,17 +29,7 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
 
   //val dbService = Mockito.mock(classOf[DbService])
 
-  val dbService = new DbService() {
-    override def createWithSuperClass(superClass: String, vertices: String*): Unit = {}
-
-    override def register(classes: Class[_]*): Unit = {}
-
-    override def persist(entity: Any): String = {
-      ""
-    }
-
-    override def findGraphs[T: Manifest](cls: Class[T], sql: String): List[T] = List()
-  }
+  val dbService = new DummyDbService()
 
   val bundleContext = Mockito.mock(classOf[BundleContext])
   val routesCreator = RoutesCreator(system)
@@ -59,7 +48,7 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   }
   //val routes: List[Route] = appRoutes.toList
   //val res: Route = routes.reduce((a, b) => a ~ b)
-  val res: Route = app.router
+  val router: Route = app.router
 
   routesCreator.authentication = new AuthenticationService() {
     override def directive() = new Directive1[String]() {
@@ -73,7 +62,7 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   "A GET request to /demo/v1/bms" should {
 
     "return the html page if no accept header was set" in {
-      Get("/demo/v1/bms") ~> res ~> check {
+      Get("/demo/v1/bms") ~> router ~> check {
         status shouldBe OK
         contentType shouldBe `text/html(UTF-8)`
         responseAs[String] should include("Create New Bookmark")
@@ -81,7 +70,7 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
     }
 
     "return the json representation if an accept header for application/json is sent" in {
-      Get("/demo/v1/bms").addHeader(acceptHeader) ~> res ~> check {
+      Get("/demo/v1/bms").addHeader(acceptHeader) ~> router ~> check {
         status shouldBe OK
         contentType shouldBe `application/json`
         responseAs[String] should include("[]")
@@ -104,7 +93,7 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   "A GET request to /demo/v1/bms/" should {
 
     "return the html page if no accept header was set" in {
-      Get("/demo/v1/bms/") ~> res ~> check {
+      Get("/demo/v1/bms/") ~> router ~> check {
         status shouldBe OK
         contentType shouldBe `text/html(UTF-8)`
         responseAs[String] should include("submit")
@@ -112,7 +101,7 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
     }
 
     "return the json representation if an accept header for application/json is sent" in {
-      Get("/demo/v1/bms/").addHeader(acceptHeader) ~> res ~> check {
+      Get("/demo/v1/bms/").addHeader(acceptHeader) ~> router ~> check {
         status shouldBe OK
         //contentType shouldBe `application/json`
         responseAs[String] should include("{\"title\":\"\",\"url\":\"\"}")
@@ -124,11 +113,20 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
 
     "return the html page if no accept header was set" in {
       val e = akka.http.scaladsl.model.FormData(Map("title" -> "t", "url" -> "http://url")).toEntity
-      Post("/demo/v1/bms/").withEntity(e) ~> res ~> check {
+      Post("/demo/v1/bms/").withEntity(e) ~> router ~> check {
         status shouldBe OK
         //contentType shouldBe `text/html(UTF-8)`
-        responseAs[String] should include("{\"id\":\"\",\"title\":\"a@b.com\",\"url\":\"Mira\"}")
+        responseAs[String] should include("\"title\":\"a@b.com\",\"url\":\"Mira\"}")
       }
+    }
+
+    "create a new bookmark which can be found using a GET request on the BookmarksResource" in {
+      val e = akka.http.scaladsl.model.FormData(Map("title" -> "some title", "url" -> "someurl")).toEntity
+      Post("/demo/v1/bms/").withEntity(e) ~> router
+      Get("/demo/v1/bms") ~> router ~> check {
+        responseAs[String] should include("someurl")
+      }
+
     }
 
   }
