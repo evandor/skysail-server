@@ -12,6 +12,7 @@ import io.skysail.api.security.AuthenticationService
 import io.skysail.server.Constants
 import io.skysail.server.actors.ApplicationsActor
 import io.skysail.server.app.BackendApplication
+import io.skysail.server.demo.domain.Bookmark
 import io.skysail.server.routes.RoutesCreator
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -62,6 +63,7 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
   "A GET request to /demo/v1/bms" should {
 
     "return the html page if no accept header was set" in {
+      //DemoApplicationBrowser.getList()
       Get("/demo/v1/bms") ~> router ~> check {
         status shouldBe OK
         contentType shouldBe `text/html(UTF-8)`
@@ -129,6 +131,30 @@ class DemoApplicationTest() extends WordSpec with Matchers with ScalatestRouteTe
 
     }
 
+  }
+
+  "A GET request to /demo/v1/bms/<id>/" should {
+
+    "return the html page if no accept header was set" in {
+      val e = akka.http.scaladsl.model.FormData(Map("title" -> "getOnPutResource", "url" -> "getOnPutUrl")).toEntity
+      Post("/demo/v1/bms/").withEntity(e) ~> router ~> check {
+        val res = responseAs[Bookmark]
+        Get("/demo/v1/bms/" + res.id + "/") ~> router ~> check {
+          status shouldBe OK
+          contentType shouldBe `text/html(UTF-8)`
+          responseAs[String] should include("submit")
+        }
+      }
+
+    }
+
+//    "return the json representation if an accept header for application/json is sent" in {
+//      Get("/demo/v1/bms/").addHeader(acceptHeader) ~> router ~> check {
+//        status shouldBe OK
+//        //contentType shouldBe `application/json`
+//        responseAs[String] should include("{\"title\":\"\",\"url\":\"\"}")
+//      }
+//    }
   }
 
 }
