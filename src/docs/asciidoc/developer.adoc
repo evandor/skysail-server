@@ -1,3 +1,4 @@
+
 = skysail server developer documentation
 Carsten Gräf <evandor@gmail.com>
 v0.0, 2017-11-03
@@ -39,11 +40,20 @@ include::actors/calling_sequence.adoc[leveloffset=+1]
 
 == Implementation Details (WIP)
 
+D
+
 === Marshalling
 
 aka serializing
 
+for example in DemoApplicationTest or OrientDbGraphService
 
+```
+  val e = responseAs[String]
+  implicit val formats = DefaultFormats
+  val json = parse(e)
+  val bm = json.extract[Bookmark]
+```
 
 === Unmarshalling
 

@@ -42,10 +42,6 @@ class Persister(db: OrientGraph) {
     val vertex = determineVertex(entity);
     try {
       //val removeRelationData = AnnotationUtils.removeRelationData(entity);
-      println("ENTITY: " + entity)
-
-      //println(parse(""" { "numbers" : [1, 2, 3, 4] } """))
-
       implicit val formats = DefaultFormats
       val e = Extraction.decompose(entity).asInstanceOf[JObject]
       println("AST: " + e)

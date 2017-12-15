@@ -37,7 +37,6 @@ case class RouteMapping[S: TypeTag, T /*<: DddElement*/: TypeTag](
 
   def getPathMatcherParameterType(): universe.Type = {
     val targs = typeOf[S] match { case TypeRef(_, _, args) => args }
-    println(s"type of has type arguments $targs")
     typeOf[S]
   }
 

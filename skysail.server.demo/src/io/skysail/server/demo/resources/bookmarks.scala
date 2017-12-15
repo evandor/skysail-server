@@ -34,18 +34,6 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with 
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
-
-//    implicit val materializer = ActorMaterializer()
-//
-//    val a: Unmarshaller[HttpEntity, Bookmark] = Unmarshaller.stringUnmarshaller
-//      .forContentTypes(ContentTypes.`application/json`)
-//      .map(_.parseJson.convertTo[Bookmark])
-//
-//    val entity1 = processCommand.ctx.request.entity
-//    println("dort: " + entity1)
-//    val b = a.apply(entity1)
-//    println("dort: " + b)
-
     formFieldMap { map =>
       val entity = Bookmark(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), map.getOrElse("url", "Unknown"))
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
@@ -63,25 +51,6 @@ class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] with Js
   override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
     val optionalBookmark = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
     val updatedBookmark = requestEvent.cmd.entity.asInstanceOf[Bookmark]
-
-//    val e = requestEvent.cmd.ctx.request.entity
-//    println("hier: " + e)
-//
-//    implicit val materializer = ActorMaterializer()
-//
-//    //FromStringUnmarshaller[Bookmark]
-//    val p1 = Unmarshaller.stringUnmarshaller.map(m => println("Hier1 " + s"$m"))
-//    val p2 = p1.apply(e)
-//    println("hier2:" + p2)
-//
-//    val a: Unmarshaller[HttpEntity, Bookmark] = Unmarshaller.stringUnmarshaller
-//     // .forContentTypes(ContentTypes.)
-//      .map(_.parseJson.convertTo[Bookmark])
-//
-//    val b = a.apply(e)
-//
-//    println("hier3:" + b)
-
     val bookmarkToSave = updatedBookmark.copy(id = optionalBookmark.get.id)
     getApplication().repo.save(bookmarkToSave)
   }
