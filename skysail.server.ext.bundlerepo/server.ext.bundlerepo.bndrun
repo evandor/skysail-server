@@ -9,11 +9,14 @@
 -runsystemcapabilities: ${native_capability}
 -runsystempackages: ${runsystempackages}
 -runproperties: ${runproperties},\
-    https.proxyHost=192.168.11.140,\
-	https.proxyPort=8080,\
-    http.proxyHost=192.168.11.140,\
-	http.proxyPort=8080,\
+    obr.repository.url=https://raw.githubusercontent.com/evandor/skysail-repository/master/index.xml http://felix.apache.org/obr/releases.xml,\
     config.file=config/application.conf
+
+#    https://raw.githubusercontent.com/evandor/skysail/master/cnf/releaserepo/index.xml,
+#    https.proxyHost=192.168.11.xxx,\
+#	 https.proxyPort=8080,\
+#    http.proxyHost=192.168.11.xxx,\
+#	 http.proxyPort=8080,\
 
 -resolve.effective: active;skip:="osgi.service"
 

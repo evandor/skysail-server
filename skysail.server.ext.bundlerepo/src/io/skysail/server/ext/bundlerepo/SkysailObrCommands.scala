@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConverters._
 
-class ListReposCommand(repoAdmin: RepositoryAdmin) {
+class SkysailObrCommands(repoAdmin: RepositoryAdmin) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -32,8 +32,8 @@ class ListReposCommand(repoAdmin: RepositoryAdmin) {
     log.info("Search Repositories:")
     log.info("====================")
 
-    val filter = "(id=skysail.server)"
-    val resources = repoAdmin.discoverResources(searchFor)
+    val filter = "(|(presentationname=*)(symbolicname=*))"
+    val resources = repoAdmin.discoverResources(filter)
     resources
       //.map(_.toString)
       //.sorted
