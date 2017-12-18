@@ -36,6 +36,7 @@ Require-Capability: skysail.capability.auth
 	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)'
 	
 Import-Package: \
+    !akka.testkit.*,\
     !org.scalatest.*,\
     !org.junit.runner.*,\
     !org.scalactic.*,\
