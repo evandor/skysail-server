@@ -16,11 +16,13 @@ class Activator extends DominoActivator {
       //app = new DemoApplication(bundleContext, dbService, actorSystem, routesCreator)
       //app.providesService[ApplicationProvider]
 
-      new ListReposCommand(repoAdmin).providesService[Object](
+      val cmd = new ListReposCommand(repoAdmin)
+      cmd.providesService[Object](
         "osgi.command.scope" -> Constants.SKYSAIL_COMMAND_SCOPE,
         "osgi.command.function" -> "listRepos")
-
+      cmd.providesService[Object](
+        "osgi.command.scope" -> Constants.SKYSAIL_COMMAND_SCOPE,
+        "osgi.command.function" -> "search")
     }
-
   }
 }
