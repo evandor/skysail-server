@@ -520,6 +520,8 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#cannot-build-master-adoc-properly-on-ci-jenkins-404-for-publishhtml">cannot build master.adoc properly on CI (Jenkins) (404 for publishHtml)</a></li>
 <li><a href="#problem-with-launcher-in-intellij-a-href-http-bnd-bndtools-org-chapters-300-launching-html-class-bare-http-bnd-bndtools-org-chapters-300-launching-html-a">problem with launcher in Intellij (<a href="http://bnd.bndtools.org/chapters/300-launching.html" class="bare">http://bnd.bndtools.org/chapters/300-launching.html</a>)</a></li>
+<li><a href="#actor-monitoring">actor monitoring</a></li>
+<li><a href="#testfailedexception">TestFailedException</a></li>
 </ul>
 </li>
 </ul>
@@ -552,12 +554,44 @@ table.CodeRay td.code>pre{padding:0}
 <p>fixed by copying biz.aQute.launcher-3.3.0.jar from somewhere to cnd/cache/3.3.0</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="actor-monitoring">actor monitoring</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>println(new PrivateMethodExposer(system)('printTree)())</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="testfailedexception">TestFailedException</h3>
+<div class="paragraph">
+<p>Tags: Scala Akka TestFailedException testkit</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>org.scalatest.exceptions.TestFailedException: Request was neither completed nor rejected within 1 second
+	at akka.http.scaladsl.testkit.TestFrameworkInterface$Scalatest$class.failTest(TestFrameworkInterface.scala:24)</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="solution">Solution</h4>
+<div class="paragraph">
+<p>implicit def default(implicit system: ActorSystem) = RouteTestTimeout(5.seconds)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="example">Example</h4>
+<div class="paragraph">
+<p><a href="https://github.com/evandor/skysail-server/blob/4ab853b608611c7ba7f1816e53bc59e48f1f7a15/skysail.server.demo/test/io/skysail/server/demo/DemoApplicationTest.scala" class="bare">https://github.com/evandor/skysail-server/blob/4ab853b608611c7ba7f1816e53bc59e48f1f7a15/skysail.server.demo/test/io/skysail/server/demo/DemoApplicationTest.scala</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-11 11:56:41 CET
+Last updated 2017-12-11 06:01:03 CET
 </div>
 </div>
 </body>

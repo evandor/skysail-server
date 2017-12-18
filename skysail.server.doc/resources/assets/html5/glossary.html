@@ -5,7 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>Applications</title>
+<meta name="author" content="Carsten Gräf">
+<title>skysail server glossary</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -512,165 +513,68 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
+<h1>skysail server glossary</h1>
+<div class="details">
+<span id="author" class="author">Carsten Gräf</span><br>
+<span id="email" class="email"><a href="mailto:evandor@gmail.com">evandor@gmail.com</a></span><br>
+<span id="revnumber">version 0.1,</span>
+<span id="revdate">2017-12-05</span>
+</div>
 <div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle">skysail.server glossary</div>
 <ul class="sectlevel1">
-<li><a href="#applications">Applications</a>
-<ul class="sectlevel2">
-<li><a href="#creating-a-new-application">Creating a new Application</a></li>
-</ul>
-</li>
+<li><a href="#glossary">Glossary</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>In some way, skysail is just a set of concepts.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup></p>
+<p>This page provides a quick summary (or glossary) of the most
+used terms and their meanings when dealing with skysail server.</p>
+</div>
+</div>
 </div>
 <div class="sect1">
-<h2 id="applications">Applications</h2>
+<h2 id="glossary">Glossary</h2>
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-When we refer to "Application" in this documentation, what is usually
-mean is a <strong>SkysailApplication</strong>.
-</td>
-</tr>
-</table>
+<div class="dlist glossary">
+<dl>
+<dt>skysail</dt>
+<dd>
+<p>the project itself, containing of</p>
+<div class="ulist">
+<ul>
+<li>
+<p>skysail.server</p>
+</li>
+<li>
+<p>skysail.client (to be done)</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>When it comes to skysail, as a developer, you can extend (and/or) fix its core functionality, or you can create Applications.</p>
-</div>
-<div class="paragraph">
-<p>An application is a cohesive unit (in DDD: a bounded context) of functionality, expressed as a domain model, the associated business logic and made available to the outside world as a set of RESTful endpoints. And, it is an OSGi bundle.</p>
-</div>
-<div class="paragraph">
-<p>This bundle can be deployed into the skysail server, and, given its dependencies are matched, its endpoints will be available for provisioning and consumption.</p>
-</div>
-<div class="paragraph">
-<p>Overview
-to be done</p>
-</div>
-<div class="paragraph">
-<p>Configuration
-There are (at least) two ways to configure an application: There&#8217;s the general one, which can be applied to all applications and contains definitions, for example, for CORS configuration. And then, often, you might need application-specific configurations, for example file paths or database access tokens.</p>
-</div>
-<div class="paragraph">
-<p>General Configuration
-This kind of config is described here.</p>
-</div>
-<div class="paragraph">
-<p>Application-Specific Configuration
-Let&#8217;s use an example here: let&#8217;s assume we have an application which utilizes the spotify API. So we need to configure a clientId, a clientSecret and the redirectUrl. This information should not be hardcoded, we don&#8217;t even want to put it in version control. What we do is to define a configuration description and a configuration provider:</p>
-</div>
-<div class="sect2">
-<h3 id="creating-a-new-application">Creating a new Application</h3>
-<div class="sect3">
-<h4 id="prerequisites">Prerequisites</h4>
-<div class="paragraph">
-<p>You need a bundle first (todo)</p>
+</dd>
+<dt>skysail-server</dt>
+<dd>
+<p>the github subproject dealing with the backend side of skysail</p>
+</dd>
+<dt>skysail application</dt>
+<dd>
+<p>an application which can run inside a skysail.server installation</p>
+</dd>
+</dl>
 </div>
 </div>
-<div class="sect3">
-<h4 id="the-activator">The Activator</h4>
-<div class="paragraph">
-<p>The typical activator for a skysail backend application will look like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code>import akka.actor.ActorSystem
-import domino.DominoActivator
-import io.skysail.api.persistence.DbService
-import io.skysail.server.RoutesCreatorTrait
-import io.skysail.server.app.ApplicationProvider
-import org.slf4j.LoggerFactory
-
-class DemoActivator extends DominoActivator {
-
-  var app: DemoApplication = _
-
-  whenBundleActive {
-    whenServicePresent[DbService] { dbService =&gt;
-      app = new DemoApplication(dbService)
-      app.providesService[ApplicationProvider]
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="the-application">The Application</h4>
-<div class="paragraph">
-<p>The Activator is executed when the containing bundle is installed, and, in this case,
-once a DbService is available, a new DemoApplication is created, which, in turn, will
-provide services of its own (ApplicationProvider).</p>
-</div>
-<div class="paragraph">
-<p>So, additionally to the Activator, we need a new BackendApplication:</p>
-</div>
-<div class="paragraph">
-<p><code>``</code>
-import akka.actor.ActorSystem
-import akka.http.scaladsl.server.PathMatcher
-import akka.http.scaladsl.server.PathMatchers._
-import io.skysail.domain.routes.RouteMapping
-import io.skysail.server.RoutesCreatorTrait
-import io.skysail.server.app.{ApplicationProvider, BackendApplication}
-import org.apache.felix.bundlerepository.RepositoryAdmin
-import org.osgi.framework.BundleContext</p>
-</div>
-<div class="paragraph">
-<p>class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem, repoAdmin: RepositoryAdmin) extends
-  BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def name = "demo"</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def desc = "Skysail Demo Application"</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def routesMappings = {
-  val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
-  List(
-    RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
-  )
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>}</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnote_1">
-<a href="#_footnoteref_1">1</a>. When you create something like a library or any kind of software others might want to use, you have to make a lot of decisions. Some of those might be easy - for example, picking a specific programming language. Others, like deciding if you really want to depend on other libraries and/or frameworks (and which ones) are harder. And, of course, you have some kind of problem in mind you want to solve. So, in the end, you decide about a lot of things and create something which (hopefully) is useful - but only to people having this kind of problem, using that specific programming language and have a similar set of dependencies as you. This chapter is about the decisions I&#8217;ve made. All the concepts like "Applications", "Business Logic" and "Request Processing" - they might be valuable to only a small set of people. Still, I think these concepts are useful to solve problems I am confronted with, and I am happy to discuss (and adjust) them. Maybe they are useful to somebody else as well - hopefully, as this is the reason I started this in the first place. The two big decisions right at the beginning were: the programming language (Scala (although the first versions of skysail have been created using Java)) and the "framework" (OSGi with bndtools) For those still reading on ;): Picking this combination has a few implications: Actually, the programming language is not really restricted to Scala: You can use any language running on the Java Virtual Machine (like Java, Groovy, Clojure, &#8230;&#8203;). And, there is a clean modularization between the various parts. New Applications can be deployed into a running installation without restarting. If you are afraid to do this in production, you&#8217;ll still love it in development. Dependencies are well-expressed and clean. Round about a hundred bundles for a typical skysail installation seem a lot. But it&#8217;s not: you&#8217;ll get the server (jetty), a database (orientdb), serialization features (jackson) and validation stuff (hibernate). And more. Using OSGi let&#8217;s you pick between various implements of specific features easily (for example, where do you store your users, if at all) - and, if you don&#8217;t find what you are looking for - implement it yourself. Replace the implementation you are not happy with, and it will work. And: your deployable, it&#8217;s just a single jar file. You start it like "java -jar myskysail.installation.jar". That&#8217;s it. Database and server included.
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-18 19:15:12 CET
+Version 0.1<br>
+Last updated 2017-12-05 16:53:25 CET
 </div>
 </div>
 </body>

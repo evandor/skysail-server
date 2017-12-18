@@ -911,8 +911,8 @@ the skysail.server.doc bundle has been deployed into a skysail server instance.<
 <pre class="CodeRay highlight"><code data-lang="scala">class DocActivator extends DominoActivator {
 
   whenBundleActive {
-    whenServicePresent[ActorSystem] { system =&gt;
-      val app = new DocApplication(bundleContext, system)
+    whenServicesPresent[ActorSystem,RoutesCreatorTrait] { (system, routesCreator) =&gt;
+      val app = new DocApplication(bundleContext, routesCreator, system)
       app.providesService[ApplicationProvider]
     }
   }
@@ -925,33 +925,29 @@ the skysail.server.doc bundle has been deployed into a skysail server instance.<
 <div class="listingblock">
 <div class="title">DocApplication.scala</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">class DocApplication(bundleContext: BundleContext, system: ActorSystem) extends
-  SkysailApplication(APPLICATION_NAME, bundleContext, &quot;Skysail Doc Application&quot;)
+<pre class="CodeRay highlight"><code data-lang="scala">class DocApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem) extends
+  BackendApplication(bundleContext, routesCreator, system)
   with ApplicationProvider {
 
+  override def name = &quot;doc&quot;
+
+  override def desc = &quot;Skysail Doc Application&quot;
 
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher(&quot;doc&quot;) / &quot;v1&quot;
     List(
-      RouteMapping(&quot;_info&quot;, root / PathMatcher(&quot;_info&quot;) ~ PathMatchers.PathEnd, classOf[DocInfoResource]),
-      RouteMapping(&quot;dev&quot;, root / PathMatcher(&quot;dev&quot;) ~ PathMatchers.PathEnd, classOf[DevDocResource]),
-      RouteMapping(&quot;history&quot;, root / PathMatcher(&quot;history&quot;) ~ PathMatchers.PathEnd, classOf[HistoryDocResource]),
-      RouteMapping(&quot;meta&quot;, root / PathMatcher(&quot;meta&quot;) ~ PathMatchers.PathEnd, classOf[MetaDocResource]),
       RouteMapping(&quot;index.html&quot;, root / PathMatcher(&quot;index.html&quot;) ~ PathMatchers.PathEnd, classOf[DocIndexResource])
     )
   }
 
-  override def optionalRoute(): Route = {
+  override def nativeRoute(): Route = {
     implicit val executionContext: ExecutionContextExecutor = system.dispatcher
-    pathPrefix(&quot;xxx&quot;) {
+    pathPrefix(&quot;&quot;) {
       get {
-        //complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, &quot;&lt;h1&gt;Say hello to akka-http&lt;/h1&gt;&quot;))
-        //getFromResource(&quot;assets/html5/meta.html&quot;, ContentTypes.`text/html(UTF-8)`, this.getClass.getClassLoader)
         getFromResourceDirectory(&quot;assets/html5&quot;, this.getClass.getClassLoader)
       }
     }
   }
-
 
 }</code></pre>
 </div>
