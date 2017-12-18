@@ -6,6 +6,7 @@ import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
+import io.skysail.server.ext.bundlerepo.resources.ReposResource
 import org.apache.felix.bundlerepository.RepositoryAdmin
 import org.osgi.framework.BundleContext
 
@@ -17,9 +18,9 @@ class ObrApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorT
   override def desc = "Skysail Bundle Repository Application"
 
   override def routesMappings = {
-    val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
+    val root: PathMatcher[Unit] = PathMatcher(name) / PathMatcher("v1")
     List(
-      RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
+      RouteMapping("/repos", root / PathMatcher("repos") ~ PathEnd, classOf[ReposResource])
     )
   }
 
