@@ -17,6 +17,8 @@ class ObrApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorT
 
   override def desc = "Skysail Bundle Repository Application"
 
+  val repoService = RepoService(repoAdmin)
+
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher(name) / PathMatcher("v1")
     List(

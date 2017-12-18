@@ -556,6 +556,64 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 </ul>
 </li>
+<li><a href="#resources-2">2.6. Resources</a>
+<ul class="sectlevel3">
+<li><a href="#resources-3">2.6.1. Resources</a></li>
+</ul>
+</li>
+<li><a href="#request-processing">2.7. Request Processing</a>
+<ul class="sectlevel3">
+<li><a href="#overview">2.7.1. Overview</a>
+<ul class="sectlevel4">
+<li><a href="#routecreator">RouteCreator</a></li>
+<li><a href="#applicationactor-request">ApplicationActor (Request)</a></li>
+<li><a href="#controlleractor-request">ControllerActor (Request)</a></li>
+<li><a href="#the-resource">The Resource</a></li>
+<li><a href="#controlleractor-response">ControllerActor (Response)</a></li>
+<li><a href="#application-controller-response">Application Controller (Response)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#domain-and-business-logic">2.8. Domain and Business Logic</a>
+<ul class="sectlevel3">
+<li><a href="#resources-4">2.8.1. Resources</a></li>
+</ul>
+</li>
+<li><a href="#transformations">2.9. Transformations</a>
+<ul class="sectlevel3">
+<li><a href="#transformations-2">2.9.1. Transformations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#bundles">3. Bundles</a>
+<ul class="sectlevel2">
+<li><a href="#skysail-api">3.1. skysail.api</a>
+<ul class="sectlevel4">
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#packages">Packages</a></li>
+</ul>
+</li>
+<li><a href="#test-2">Anhang B: Test</a></li>
+<li><a href="#test2">Anhang C: Test2</a></li>
+<li><a href="#skysail-domain">3.2. skysail.domain</a>
+<ul class="sectlevel3">
+<li><a href="#namespace">3.2.1. Namespace</a></li>
+<li><a href="#purpose-2">3.2.2. Purpose</a></li>
+<li><a href="#packages-2">3.2.3. Packages</a></li>
+<li><a href="#resources-5">3.2.4. Resources</a></li>
+<li><a href="#model">3.2.5. Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#actors">4. Actors</a></li>
+<li><a href="#todo">5. TODO</a></li>
+<li><a href="#implementation-details-wip">6. Implementation Details (WIP)</a>
+<ul class="sectlevel2">
+<li><a href="#marshalling">6.1. Marshalling</a></li>
+<li><a href="#unmarshalling">6.2. Unmarshalling</a></li>
 </ul>
 </li>
 </ul>
@@ -870,7 +928,7 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>import akka.actor.ActorSystem
+<pre>import akka.actor.ActorSystem
 import domino.DominoActivator
 import io.skysail.api.persistence.DbService
 import io.skysail.server.RoutesCreatorTrait
@@ -887,7 +945,7 @@ class DemoActivator extends DominoActivator {
       app.providesService[ApplicationProvider]
     }
   }
-}</code></pre>
+}</pre>
 </div>
 </div>
 </div>
@@ -901,423 +959,435 @@ provide services of its own (ApplicationProvider).</p>
 <div class="paragraph">
 <p>So, additionally to the Activator, we need a new BackendApplication:</p>
 </div>
-<div class="paragraph">
-<p><code>``</code>
-import akka.actor.ActorSystem
+<div class="listingblock">
+<div class="content">
+<pre>import akka.actor.ActorSystem
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.apache.felix.bundlerepository.RepositoryAdmin
-import org.osgi.framework.BundleContext</p>
-</div>
-<div class="paragraph">
-<p>class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem, repoAdmin: RepositoryAdmin) extends
-  BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def name = "demo"</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def desc = "Skysail Demo Application"</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def routesMappings = {
-  val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
-  List(
-    RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
-  )
+import org.osgi.framework.BundleContext
+
+class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem, repoAdmin: RepositoryAdmin) extends
+  BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
+
+  override def name = "demo"
+
+  override def desc = "Skysail Demo Application"
+
+  override def routesMappings = {
+    val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
+    List(
+      RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
+    )
+  }
+
 }</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>}</p>
+<p>Test</p>
 </div>
-<div class="listingblock">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="resources-2">2.6. Resources</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect3">
+<h4 id="resources-3">2.6.1. Resources</h4>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="request-processing">2.7. Request Processing</h3>
+<div class="sect3">
+<h4 id="overview">2.7.1. Overview</h4>
+<div class="paragraph">
+<p>Typically, in a server-client environment, you have a client making
+<em>requests</em> to a server, which in turn sends back <em>responses</em>.</p>
+</div>
+<div class="paragraph">
+<p>This chapter describes how this fundamental process in handled
+in skysail.</p>
+</div>
+<div class="paragraph">
+<p>The big picture looks like this:</p>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>:leveloffset: 1
-
-== Resources
-
-:leveloffset: +1
-
-:source-highlighter: coderay
-:imagesdir: images
-
-...
-
-== Resources
-
-...
-
-:leveloffset: 2
-
-== Request Processing
-
-:leveloffset: +1
-
-:source-highlighter: coderay
-:imagesdir: images
-
-== Overview
-
-Typically, in a server-client environment, you have a client making
-_requests_ to a server, which in turn sends back _responses_.
-
-This chapter describes how this fundamental process in handled
-in skysail.
-
-The big picture looks like this:
-
-:leveloffset: +1
-
-[plantuml, ./diagram, png]
-.Calling Sequence
-....
-RoutesCreator -&gt; ApplicationActor: ProcessCommand
-ApplicationActor -&gt; ControllerActor: SkysailContext
-ControllerActor -&gt; Resource: get(RequestEvent)
-
-Resource --&gt; ControllerActor
-ControllerActor -&gt; ApplicationActor
-ApplicationActor -&gt; RoutesCreator
-....
-
-:leveloffset: 2
-
-=== RouteCreator
-
-A class called *io.skysail.server.RoutesCreator* is used to create akka
+<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
+</div>
+<div class="title">Abbildung 1. Calling Sequence</div>
+</div>
+<div class="sect4">
+<h5 id="routecreator">RouteCreator</h5>
+<div class="paragraph">
+<p>A class called <strong>io.skysail.server.RoutesCreator</strong> is used to create akka
 routes for all active skysail applications. Once a Request matches such
 a route, a ProcessCommand message is sent to the corresponding application
-actor.
-
-=== ApplicationActor (Request)
-
-The *io.skysail.server.actors.ApplicationActor* wrapps all necessary information
+actor.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="applicationactor-request">ApplicationActor (Request)</h5>
+<div class="paragraph">
+<p>The <strong>io.skysail.server.actors.ApplicationActor</strong> wrapps all necessary information
 in a SkysailContext object, which is sent to the ControllerActor. One of the objects
-wrapped in the SkysailContext is a concrete link:resource[] object, created using the newInstance()
-method. The ApplicationActor furthermore creates a *new* ControllerActor object to which the
-SkysailContext message is sent.
-
-
-=== ControllerActor (Request)
-
-Now the ControllerActor (which was specifically created to serve the request) will use
+wrapped in the SkysailContext is a concrete <a href="resource" class="bare">resource</a> object, created using the newInstance()
+method. The ApplicationActor furthermore creates a <strong>new</strong> ControllerActor object to which the
+SkysailContext message is sent.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="controlleractor-request">ControllerActor (Request)</h5>
+<div class="paragraph">
+<p>Now the ControllerActor (which was specifically created to serve the request) will use
 the (also freshly created) Resource to execute the actual business code (which will depend
-on the http method of the request).
-
-[source,scala]
-.matching the requests method to execute the resource's business logic
-----
-      cmd.ctx.request.method match {
+on the http method of the request).</p>
+</div>
+<div class="listingblock">
+<div class="title">matching the requests method to execute the resource&#8217;s business logic</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">      cmd.ctx.request.method match {
         case HttpMethods.GET =&gt; resource.doGet(RequestEvent(cmd, self))
         case HttpMethods.POST =&gt; resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
         case HttpMethods.PUT =&gt; resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
         case e: Any =&gt; resource.get(RequestEvent(cmd, self))
-      }
-----
-
-=== The Resource
-
-The Resource's business logic is called. Depending on the concrete Resource, a subclass of
-ResponseEventBase is created, containg the response entity.
-
-=== ControllerActor (Response)
-
-Depending on the concrete ResponseEvent type, the controller performs some more logic
-and passes control back to the ApplicationActor.
-
-=== Application Controller (Response)
-
-The responseEvent is passed to the RoutesCreator.
-
-//[source,scala]
-//.resourceInstance Definition
-//----
-//include::../../../../skysail.server/src/io/skysail/server/actors/ApplicationActor.scala[tag=resourceInstance]
-//----
-
-:leveloffset: 2
-
-== Domain and Business Logic
-
-:leveloffset: +1
-
-:source-highlighter: coderay
-:imagesdir: images
-
-...
-
-== Resources
-
-...
-
-:leveloffset: 2
-
-== Transformations
-
-:leveloffset: +1
-
-:source-highlighter: coderay
-:imagesdir: images
-
-...
-
-== Transformations
-
-...
-
-:leveloffset: 2
-
-
-:leveloffset!:
-
-== Bundles
-
-:leveloffset: +1
-
-
-== skysail.api
-
-
-//[abstract]
-//.Abstract
-//Documentation is a distillation of many long, squiggly adventures.
-
-This chapter provides an overview of the skysail.api bundle.
-
-==== Purpose
-
-The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).
-
-.AsciiDoc history
-****
-AsciiDoc was first released in Nov 2002 by Stuart Rackham.
-It was designed from the start to be a shorthand syntax
-for producing professional documents like DocBook and LaTeX.
-****
-
-NOTE: Asciidoctor supports font-based admonition icons, powered by Font Awesome!
-
-[source,ruby]
-----
-require 'sinatra' <i class="conum" data-value="1"></i><b>(1)</b>
-
-get '/hi' do <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
-  "Hello World!"
-end
-----
-&lt;1&gt; Library import
-&lt;2&gt; URL mapping
-&lt;3&gt; Response block
-
-==== Packages
-
-|===
-| *io.skysail.api.ddd* | Domain Driven Design | link to scaladoc
-| *io.skysail.api.metrics* | Metrics API | link to scaladoc
-| *io.skysail.api.persistence* | Persistence | link to scaladoc
-| *io.skysail.api.security* | security related | link to scaladoc
-|===
-
-===== io.skysail.api.ddd
-
-This package defines the following trait
-
-[source,scala]
-.DddElement.scala
-----
-sealed trait DddElement
-----
-
-which serves as the common parent for various derived elements which are
-used to characterize the tactical patterns of "Domain Driven Design".
-
-For example, there is an Entity and ValueObject class extening the DddElement trait.
-
-===== io.skysail.api.metrics
-
-===== io.skysail.api.persistence
-
-This package contains the _DbService_ trait which defines the API to be
-implemented to provide persistence mechanisms in skysail.
-
-[source,scala]
-.DbService.scala
-----
-  def createWithSuperClass(superClass: String, vertices: String*)
-  def register(classes: Class[_]*)
-  def persist(entity: Any): String
-  def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]
-----
-
-Right now, there is only one implementation of this trait, provided in the
-skysail.db.orientdb bundle.
-
-===== io.skysail.api.security
-
-[plantuml, ./diagram, png]
-.Diagram Title
-....
-Alice -&gt; Bob: Authentication Request
-Bob --&gt; Alice: Authentication Response
-
-Alice -&gt; Bob: Another authentication Request
-Alice &lt;-- Bob: another authentication Response
-....
-
-test
-
-[plantuml, ./cs, png]
-.Calling Sequence
-....
-RoutesCreator -&gt; ApplicationActor: ProcessCommand
-ApplicationActor -&gt; ControllerActor: SkysailContext
-ControllerActor -&gt; Resource: get(RequestEvent)
-
-Resource --&gt; ControllerActor
-ControllerActor -&gt; ApplicationActor
-ApplicationActor -&gt; RoutesCreator
-....
-
-[appendix]
-== Test
-
-[appendix]
-== Test2
-
-:leveloffset: 2
-
-and
-
-:leveloffset: +1
-
-
-== skysail.domain
-
-This chapter provides an overview of the skysail.domain bundle.
-
-=== Namespace
-
-io.skysail.domain
-
-=== Purpose
-
-The skysail.domain bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).
-
-=== Packages
-
-* A
-* B
-* C
-
-:leveloffset: +1
-
-[plantuml, ./diagram, png]
-.Calling Sequence
-....
-RoutesCreator -&gt; ApplicationActor: ProcessCommand
-ApplicationActor -&gt; ControllerActor: SkysailContext
-ControllerActor -&gt; Resource: get(RequestEvent)
-
-Resource --&gt; ControllerActor
-ControllerActor -&gt; ApplicationActor
-ApplicationActor -&gt; RoutesCreator
-....
-
-:leveloffset: 2
-
-=== Resources
-
-.Overview
-image::skysail/domain/resources.png[test]
-
-=== Model
-
-[plantuml, ./diagram2, png]
-.Calling Sequence2
-....
-
-class ApplicationModel {
-  id: String
-  resourceModels:List
-  addResourceModel(routeMapping: RouteMapping[_])
-}
-
-together {
-  class ResourceModel
-  class EntityModel
-  class LinkModel
-}
-
-
-ApplicationModel -- ResourceModel
-ApplicationModel -- "0..m" EntityModel
-ResourceModel "n" .. "1" EntityModel
-ResourceModel .. LinkModel
-....
-
-:leveloffset: 2
-
-== Actors
-
-:leveloffset: +1
-
-[plantuml, ./diagram, png]
-.Calling Sequence
-....
-RoutesCreator -&gt; ApplicationActor: ProcessCommand
-ApplicationActor -&gt; ControllerActor: SkysailContext
-ControllerActor -&gt; Resource: get(RequestEvent)
-
-Resource --&gt; ControllerActor
-ControllerActor -&gt; ApplicationActor
-ApplicationActor -&gt; RoutesCreator
-....
-
-:leveloffset: 2
-
-== TODO
-
-== Implementation Details (WIP)
-
-D
-
-=== Marshalling
-
-aka serializing
-
-for example in DemoApplicationTest or OrientDbGraphService</code></pre>
+      }</code></pre>
 </div>
 </div>
-<div class="literalblock">
+</div>
+<div class="sect4">
+<h5 id="the-resource">The Resource</h5>
+<div class="paragraph">
+<p>The Resource&#8217;s business logic is called. Depending on the concrete Resource, a subclass of
+ResponseEventBase is created, containg the response entity.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="controlleractor-response">ControllerActor (Response)</h5>
+<div class="paragraph">
+<p>Depending on the concrete ResponseEvent type, the controller performs some more logic
+and passes control back to the ApplicationActor.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="application-controller-response">Application Controller (Response)</h5>
+<div class="paragraph">
+<p>The responseEvent is passed to the RoutesCreator.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="domain-and-business-logic">2.8. Domain and Business Logic</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect3">
+<h4 id="resources-4">2.8.1. Resources</h4>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="transformations">2.9. Transformations</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect3">
+<h4 id="transformations-2">2.9.1. Transformations</h4>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bundles">3. Bundles</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="skysail-api">3.1. skysail.api</h3>
+<div class="paragraph">
+<p>This chapter provides an overview of the skysail.api bundle.</p>
+</div>
+<div class="sect4">
+<h5 id="purpose">Purpose</h5>
+<div class="paragraph">
+<p>The skysail.api bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
+</div>
+<div class="sidebarblock">
 <div class="content">
-<pre>val e = responseAs[String]
-implicit val formats = DefaultFormats
-val json = parse(e)
-val bm = json.extract[Bookmark]</pre>
+<div class="title">AsciiDoc history</div>
+<div class="paragraph">
+<p>AsciiDoc was first released in Nov 2002 by Stuart Rackham.
+It was designed from the start to be a shorthand syntax
+for producing professional documents like DocBook and LaTeX.</p>
 </div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Hinweis"></i>
+</td>
+<td class="content">
+Asciidoctor supports font-based admonition icons, powered by Font Awesome!
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>=== Unmarshalling
+<pre class="CodeRay highlight"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">sinatra</span><span class="delimiter">'</span></span> <i class="conum" data-value="1"></i><b>(1)</b>
 
-aka deserializing
+get <span class="string"><span class="delimiter">'</span><span class="content">/hi</span><span class="delimiter">'</span></span> <span class="keyword">do</span>  <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
+  <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello World!</span><span class="delimiter">&quot;</span></span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Library import</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>URL mapping</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Response block</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="packages">Packages</h5>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.ddd</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Driven Design</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.metrics</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metrics API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.persistence</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Persistence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>io.skysail.api.security</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">security related</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">link to scaladoc</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect5">
+<h6 id="io-skysail-api-ddd">io.skysail.api.ddd</h6>
+<div class="paragraph">
+<p>This package defines the following trait</p>
+</div>
+<div class="listingblock">
+<div class="title">DddElement.scala</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">sealed trait DddElement</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which serves as the common parent for various derived elements which are
+used to characterize the tactical patterns of "Domain Driven Design".</p>
+</div>
+<div class="paragraph">
+<p>For example, there is an Entity and ValueObject class extening the DddElement trait.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="io-skysail-api-metrics">io.skysail.api.metrics</h6>
 
-PostResources: form-encoded &gt; object
+</div>
+<div class="sect5">
+<h6 id="io-skysail-api-persistence">io.skysail.api.persistence</h6>
+<div class="paragraph">
+<p>This package contains the <em>DbService</em> trait which defines the API to be
+implemented to provide persistence mechanisms in skysail.</p>
+</div>
+<div class="listingblock">
+<div class="title">DbService.scala</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">  def createWithSuperClass(superClass: String, vertices: String*)
+  def register(classes: Class[_]*)
+  def persist(entity: Any): String
+  def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Right now, there is only one implementation of this trait, provided in the
+skysail.db.orientdb bundle.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="io-skysail-api-security">io.skysail.api.security</h6>
+<div class="imageblock">
+<div class="content">
+<img src="images/diagram.png" alt="Diagram Title" width="293" height="216">
+</div>
+<div class="title">Abbildung 2. Diagram Title</div>
+</div>
+<div class="paragraph">
+<p>test</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/cs.png" alt="Calling Sequence" width="525" height="228">
+</div>
+<div class="title">Abbildung 3. Calling Sequence</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="test-2">Anhang B: Test</h3>
 
-with formFieldMap</code></pre>
+</div>
+<div class="sect2">
+<h3 id="test2">Anhang C: Test2</h3>
+<div class="paragraph">
+<p>and</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="skysail-domain">3.2. skysail.domain</h3>
+<div class="paragraph">
+<p>This chapter provides an overview of the skysail.domain bundle.</p>
+</div>
+<div class="sect3">
+<h4 id="namespace">3.2.1. Namespace</h4>
+<div class="paragraph">
+<p>io.skysail.domain</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="purpose-2">3.2.2. Purpose</h4>
+<div class="paragraph">
+<p>The skysail.domain bundle is a collection of core traits, to be implemented in skysail.server (or other bundles).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="packages-2">3.2.3. Packages</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>A</p>
+</li>
+<li>
+<p>B</p>
+</li>
+<li>
+<p>C</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
+</div>
+<div class="title">Abbildung 4. Calling Sequence</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="resources-5">3.2.4. Resources</h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/skysail/domain/resources.png" alt="test">
+</div>
+<div class="title">Abbildung 5. Overview</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="model">3.2.5. Model</h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/diagram2.png" alt="Calling Sequence2" width="313" height="322">
+</div>
+<div class="title">Abbildung 6. Calling Sequence2</div>
 </div>
 </div>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="actors">4. Actors</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
+</div>
+<div class="title">Abbildung 7. Calling Sequence</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="todo">5. TODO</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementation-details-wip">6. Implementation Details (WIP)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>D</p>
+</div>
+<div class="sect2">
+<h3 id="marshalling">6.1. Marshalling</h3>
+<div class="paragraph">
+<p>aka serializing</p>
+</div>
+<div class="paragraph">
+<p>for example in DemoApplicationTest or OrientDbGraphService</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>  val e = responseAs[String]
+  implicit val formats = DefaultFormats
+  val json = parse(e)
+  val bm = json.extract[Bookmark]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unmarshalling">6.2. Unmarshalling</h3>
+<div class="paragraph">
+<p>aka deserializing</p>
+</div>
+<div class="paragraph">
+<p>PostResources: form-encoded &gt; object</p>
+</div>
+<div class="paragraph">
+<p>with formFieldMap</p>
 </div>
 </div>
 </div>

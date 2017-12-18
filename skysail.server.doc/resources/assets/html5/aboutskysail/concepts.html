@@ -583,7 +583,7 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>import akka.actor.ActorSystem
+<pre>import akka.actor.ActorSystem
 import domino.DominoActivator
 import io.skysail.api.persistence.DbService
 import io.skysail.server.RoutesCreatorTrait
@@ -600,7 +600,7 @@ class DemoActivator extends DominoActivator {
       app.providesService[ApplicationProvider]
     }
   }
-}</code></pre>
+}</pre>
 </div>
 </div>
 </div>
@@ -614,48 +614,36 @@ provide services of its own (ApplicationProvider).</p>
 <div class="paragraph">
 <p>So, additionally to the Activator, we need a new BackendApplication:</p>
 </div>
-<div class="paragraph">
-<p><code>``</code>
-import akka.actor.ActorSystem
+<div class="listingblock">
+<div class="content">
+<pre>import akka.actor.ActorSystem
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.apache.felix.bundlerepository.RepositoryAdmin
-import org.osgi.framework.BundleContext</p>
-</div>
-<div class="paragraph">
-<p>class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem, repoAdmin: RepositoryAdmin) extends
-  BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def name = "demo"</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def desc = "Skysail Demo Application"</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def routesMappings = {
-  val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
-  List(
-    RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
-  )
+import org.osgi.framework.BundleContext
+
+class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem, repoAdmin: RepositoryAdmin) extends
+  BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
+
+  override def name = "demo"
+
+  override def desc = "Skysail Demo Application"
+
+  override def routesMappings = {
+    val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
+    List(
+      RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
+    )
+  }
+
 }</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>}</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code></code></pre>
-</div>
+<p>Test</p>
 </div>
 </div>
 </div>
@@ -670,7 +658,7 @@ import org.osgi.framework.BundleContext</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-18 19:15:12 CET
+Last updated 2017-12-18 20:38:50 CET
 </div>
 </div>
 </body>

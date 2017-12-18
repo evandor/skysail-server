@@ -549,6 +549,26 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#applications">Applications</a></li>
 </ul>
 </li>
+<li><a href="#resources-2">Resources</a>
+<ul class="sectlevel2">
+<li><a href="#resources-3">Resources</a></li>
+</ul>
+</li>
+<li><a href="#request-processing">Request Processing</a>
+<ul class="sectlevel2">
+<li><a href="#overview">Overview</a></li>
+</ul>
+</li>
+<li><a href="#domain-and-business-logic">Domain and Business Logic</a>
+<ul class="sectlevel2">
+<li><a href="#resources-4">Resources</a></li>
+</ul>
+</li>
+<li><a href="#transformations">Transformations</a>
+<ul class="sectlevel2">
+<li><a href="#transformations-2">Transformations</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -834,7 +854,7 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>import akka.actor.ActorSystem
+<pre>import akka.actor.ActorSystem
 import domino.DominoActivator
 import io.skysail.api.persistence.DbService
 import io.skysail.server.RoutesCreatorTrait
@@ -851,7 +871,7 @@ class DemoActivator extends DominoActivator {
       app.providesService[ApplicationProvider]
     }
   }
-}</code></pre>
+}</pre>
 </div>
 </div>
 </div>
@@ -865,183 +885,163 @@ provide services of its own (ApplicationProvider).</p>
 <div class="paragraph">
 <p>So, additionally to the Activator, we need a new BackendApplication:</p>
 </div>
-<div class="paragraph">
-<p><code>``</code>
-import akka.actor.ActorSystem
+<div class="listingblock">
+<div class="content">
+<pre>import akka.actor.ActorSystem
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.apache.felix.bundlerepository.RepositoryAdmin
-import org.osgi.framework.BundleContext</p>
-</div>
-<div class="paragraph">
-<p>class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem, repoAdmin: RepositoryAdmin) extends
-  BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def name = "demo"</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def desc = "Skysail Demo Application"</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>override def routesMappings = {
-  val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
-  List(
-    RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
-  )
+import org.osgi.framework.BundleContext
+
+class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem, repoAdmin: RepositoryAdmin) extends
+  BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
+
+  override def name = "demo"
+
+  override def desc = "Skysail Demo Application"
+
+  override def routesMappings = {
+    val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
+    List(
+      RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
+    )
+  }
+
 }</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>}</p>
+<p>Test</p>
 </div>
-<div class="listingblock">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources-2">Resources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect2">
+<h3 id="resources-3">Resources</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="request-processing">Request Processing</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="overview">Overview</h3>
+<div class="paragraph">
+<p>Typically, in a server-client environment, you have a client making
+<em>requests</em> to a server, which in turn sends back <em>responses</em>.</p>
+</div>
+<div class="paragraph">
+<p>This chapter describes how this fundamental process in handled
+in skysail.</p>
+</div>
+<div class="paragraph">
+<p>The big picture looks like this:</p>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>:leveloffset!:
-
-== Resources
-
-:leveloffset: +1
-
-:source-highlighter: coderay
-:imagesdir: images
-
-...
-
-== Resources
-
-...
-
-:leveloffset: 1
-
-== Request Processing
-
-:leveloffset: +1
-
-:source-highlighter: coderay
-:imagesdir: images
-
-== Overview
-
-Typically, in a server-client environment, you have a client making
-_requests_ to a server, which in turn sends back _responses_.
-
-This chapter describes how this fundamental process in handled
-in skysail.
-
-The big picture looks like this:
-
-:leveloffset: +1
-
-[plantuml, ./diagram, png]
-.Calling Sequence
-....
-RoutesCreator -&gt; ApplicationActor: ProcessCommand
-ApplicationActor -&gt; ControllerActor: SkysailContext
-ControllerActor -&gt; Resource: get(RequestEvent)
-
-Resource --&gt; ControllerActor
-ControllerActor -&gt; ApplicationActor
-ApplicationActor -&gt; RoutesCreator
-....
-
-:leveloffset: 1
-
-=== RouteCreator
-
-A class called *io.skysail.server.RoutesCreator* is used to create akka
+<img src="images/diagram.png" alt="Calling Sequence" width="525" height="228">
+</div>
+<div class="title">Figure 1. Calling Sequence</div>
+</div>
+<div class="sect3">
+<h4 id="routecreator">RouteCreator</h4>
+<div class="paragraph">
+<p>A class called <strong>io.skysail.server.RoutesCreator</strong> is used to create akka
 routes for all active skysail applications. Once a Request matches such
 a route, a ProcessCommand message is sent to the corresponding application
-actor.
-
-=== ApplicationActor (Request)
-
-The *io.skysail.server.actors.ApplicationActor* wrapps all necessary information
+actor.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="applicationactor-request">ApplicationActor (Request)</h4>
+<div class="paragraph">
+<p>The <strong>io.skysail.server.actors.ApplicationActor</strong> wrapps all necessary information
 in a SkysailContext object, which is sent to the ControllerActor. One of the objects
-wrapped in the SkysailContext is a concrete link:resource[] object, created using the newInstance()
-method. The ApplicationActor furthermore creates a *new* ControllerActor object to which the
-SkysailContext message is sent.
-
-
-=== ControllerActor (Request)
-
-Now the ControllerActor (which was specifically created to serve the request) will use
+wrapped in the SkysailContext is a concrete <a href="resource" class="bare">resource</a> object, created using the newInstance()
+method. The ApplicationActor furthermore creates a <strong>new</strong> ControllerActor object to which the
+SkysailContext message is sent.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="controlleractor-request">ControllerActor (Request)</h4>
+<div class="paragraph">
+<p>Now the ControllerActor (which was specifically created to serve the request) will use
 the (also freshly created) Resource to execute the actual business code (which will depend
-on the http method of the request).
-
-[source,scala]
-.matching the requests method to execute the resource's business logic
-----
-      cmd.ctx.request.method match {
+on the http method of the request).</p>
+</div>
+<div class="listingblock">
+<div class="title">matching the requests method to execute the resource&#8217;s business logic</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">      cmd.ctx.request.method match {
         case HttpMethods.GET =&gt; resource.doGet(RequestEvent(cmd, self))
         case HttpMethods.POST =&gt; resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
         case HttpMethods.PUT =&gt; resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
         case e: Any =&gt; resource.get(RequestEvent(cmd, self))
-      }
-----
-
-=== The Resource
-
-The Resource's business logic is called. Depending on the concrete Resource, a subclass of
-ResponseEventBase is created, containg the response entity.
-
-=== ControllerActor (Response)
-
-Depending on the concrete ResponseEvent type, the controller performs some more logic
-and passes control back to the ApplicationActor.
-
-=== Application Controller (Response)
-
-The responseEvent is passed to the RoutesCreator.
-
-//[source,scala]
-//.resourceInstance Definition
-//----
-//include::../../../../skysail.server/src/io/skysail/server/actors/ApplicationActor.scala[tag=resourceInstance]
-//----
-
-:leveloffset: 1
-
-== Domain and Business Logic
-
-:leveloffset: +1
-
-:source-highlighter: coderay
-:imagesdir: images
-
-...
-
-== Resources
-
-...
-
-:leveloffset: 1
-
-== Transformations
-
-:leveloffset: +1
-
-:source-highlighter: coderay
-:imagesdir: images
-
-...
-
-== Transformations
-
-...
-
-:leveloffset: 1</code></pre>
+      }</code></pre>
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="the-resource">The Resource</h4>
+<div class="paragraph">
+<p>The Resource&#8217;s business logic is called. Depending on the concrete Resource, a subclass of
+ResponseEventBase is created, containg the response entity.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="controlleractor-response">ControllerActor (Response)</h4>
+<div class="paragraph">
+<p>Depending on the concrete ResponseEvent type, the controller performs some more logic
+and passes control back to the ApplicationActor.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="application-controller-response">Application Controller (Response)</h4>
+<div class="paragraph">
+<p>The responseEvent is passed to the RoutesCreator.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="domain-and-business-logic">Domain and Business Logic</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect2">
+<h3 id="resources-4">Resources</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="transformations">Transformations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+<div class="sect2">
+<h3 id="transformations-2">Transformations</h3>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
 </div>
 </div>
 </div>
