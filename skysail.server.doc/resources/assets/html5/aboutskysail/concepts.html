@@ -582,8 +582,9 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 <p>The typical activator for a skysail backend application will look like this:</p>
 </div>
 <div class="listingblock">
+<div class="title">DemoActivator.scala</div>
 <div class="content">
-<pre>import akka.actor.ActorSystem
+<pre class="CodeRay highlight"><code data-lang="scala">import akka.actor.ActorSystem
 import domino.DominoActivator
 import io.skysail.api.persistence.DbService
 import io.skysail.server.RoutesCreatorTrait
@@ -600,7 +601,7 @@ class DemoActivator extends DominoActivator {
       app.providesService[ApplicationProvider]
     }
   }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </div>
@@ -615,8 +616,9 @@ provide services of its own (ApplicationProvider).</p>
 <p>So, additionally to the Activator, we need a new BackendApplication:</p>
 </div>
 <div class="listingblock">
+<div class="title">DemoApplication.scala</div>
 <div class="content">
-<pre>import akka.actor.ActorSystem
+<pre class="CodeRay highlight"><code data-lang="scala">import akka.actor.ActorSystem
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.domain.routes.RouteMapping
@@ -628,22 +630,19 @@ import org.osgi.framework.BundleContext
 class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem, repoAdmin: RepositoryAdmin) extends
   BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
 
-  override def name = "demo"
+  override def name = &quot;demo&quot;
 
-  override def desc = "Skysail Demo Application"
+  override def desc = &quot;Skysail Demo Application&quot;
 
   override def routesMappings = {
-    val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
+    val root: PathMatcher[Unit] = PathMatcher(&quot;demo&quot;) / PathMatcher(&quot;v1&quot;)
     List(
-      RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
+      RouteMapping(&quot;/bms&quot;, root / PathMatcher(&quot;bms&quot;) ~ PathEnd, classOf[ReposResource])
     )
   }
 
-}</pre>
+}</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Test</p>
 </div>
 </div>
 </div>
@@ -658,7 +657,7 @@ class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreator
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-18 20:38:50 CET
+Last updated 2017-12-19 06:53:28 CET
 </div>
 </div>
 </body>

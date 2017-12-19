@@ -853,8 +853,9 @@ Let&#8217;s use an example here: let&#8217;s assume we have an application which
 <p>The typical activator for a skysail backend application will look like this:</p>
 </div>
 <div class="listingblock">
+<div class="title">DemoActivator.scala</div>
 <div class="content">
-<pre>import akka.actor.ActorSystem
+<pre class="CodeRay highlight"><code data-lang="scala">import akka.actor.ActorSystem
 import domino.DominoActivator
 import io.skysail.api.persistence.DbService
 import io.skysail.server.RoutesCreatorTrait
@@ -871,7 +872,7 @@ class DemoActivator extends DominoActivator {
       app.providesService[ApplicationProvider]
     }
   }
-}</pre>
+}</code></pre>
 </div>
 </div>
 </div>
@@ -886,8 +887,9 @@ provide services of its own (ApplicationProvider).</p>
 <p>So, additionally to the Activator, we need a new BackendApplication:</p>
 </div>
 <div class="listingblock">
+<div class="title">DemoApplication.scala</div>
 <div class="content">
-<pre>import akka.actor.ActorSystem
+<pre class="CodeRay highlight"><code data-lang="scala">import akka.actor.ActorSystem
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.domain.routes.RouteMapping
@@ -899,22 +901,19 @@ import org.osgi.framework.BundleContext
 class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem, repoAdmin: RepositoryAdmin) extends
   BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
 
-  override def name = "demo"
+  override def name = &quot;demo&quot;
 
-  override def desc = "Skysail Demo Application"
+  override def desc = &quot;Skysail Demo Application&quot;
 
   override def routesMappings = {
-    val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
+    val root: PathMatcher[Unit] = PathMatcher(&quot;demo&quot;) / PathMatcher(&quot;v1&quot;)
     List(
-      RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[ReposResource])
+      RouteMapping(&quot;/bms&quot;, root / PathMatcher(&quot;bms&quot;) ~ PathEnd, classOf[ReposResource])
     )
   }
 
-}</pre>
+}</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Test</p>
 </div>
 </div>
 </div>
@@ -929,8 +928,65 @@ class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreator
 </div>
 <div class="sect2">
 <h3 id="resources-3">Resources</h3>
+<div class="sect3">
+<h4 id="creating-a-new-resource">Creating a new Resource</h4>
+<div class="sect4">
+<h5 id="prerequisites-2">Prerequisites</h5>
 <div class="paragraph">
-<p>&#8230;&#8203;</p>
+<p>You need a bundle first (todo)
+You need a backend application (todo)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="a-new-listresource">A new ListResource</h5>
+<div class="paragraph">
+<p>A ListResource will provide a list response of entities, available
+at an endpoint defined in the backend application.</p>
+</div>
+<div class="paragraph">
+<p>Given a routeMapping in some application looking like</p>
+</div>
+<div class="listingblock">
+<div class="title">DemoApplication.scala</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">  override def routesMappings = {
+    val root: PathMatcher[Unit] = PathMatcher(&quot;demo&quot;) / PathMatcher(&quot;v1&quot;)
+    List(
+      RouteMapping(&quot;/repos&quot;, root / PathMatcher(&quot;repos&quot;) ~ PathEnd, classOf[ReposResource]),
+      RouteMapping(&quot;/resources&quot;, root / PathMatcher(&quot;resources&quot;) ~ PathEnd, classOf[ResourcesResource])
+    )
+  }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This defines that the uri <em>"/demo/v1/repos"</em> will be handled by the following
+resource:</p>
+</div>
+<div class="listingblock">
+<div class="title">ReposResource.scala</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import io.skysail.domain.RequestEvent
+import io.skysail.domain.resources.ListResource
+import io.skysail.server.ext.bundlerepo.ObrApplication
+import io.skysail.server.ext.bundlerepo.domain.{Repository, Resource}
+
+case class ReposResource() extends ListResource[ObrApplication, Repository] {
+
+  override def getList(requestEvent: RequestEvent):List[Repository] = getApplication().repoService.listRepos
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The entities (<em>Repository</em>) used here look like this</p>
+</div>
+<div class="listingblock">
+<div class="title">Repository.scala</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">case class Repository(name: String, uri: String)</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

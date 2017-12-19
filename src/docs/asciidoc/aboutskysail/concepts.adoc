@@ -47,6 +47,8 @@ You need a bundle first (todo)
 
 The typical activator for a skysail backend application will look like this:
 
+.DemoActivator.scala
+[source,scala]
 ----
 import akka.actor.ActorSystem
 import domino.DominoActivator
@@ -77,6 +79,8 @@ provide services of its own (ApplicationProvider).
 
 So, additionally to the Activator, we need a new BackendApplication:
 
+.DemoApplication.scala
+[source,scala]
 ----
 import akka.actor.ActorSystem
 import akka.http.scaladsl.server.PathMatcher
@@ -104,4 +108,3 @@ class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreator
 }
 ----
 
-Test

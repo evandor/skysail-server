@@ -515,7 +515,11 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#resources">Resources</a></li>
+<li><a href="#resources">Resources</a>
+<ul class="sectlevel2">
+<li><a href="#creating-a-new-resource">Creating a new Resource</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -526,15 +530,72 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="resources">Resources</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="creating-a-new-resource">Creating a new Resource</h3>
+<div class="sect3">
+<h4 id="prerequisites">Prerequisites</h4>
 <div class="paragraph">
-<p>&#8230;&#8203;</p>
+<p>You need a bundle first (todo)
+You need a backend application (todo)</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="a-new-listresource">A new ListResource</h4>
+<div class="paragraph">
+<p>A ListResource will provide a list response of entities, available
+at an endpoint defined in the backend application.</p>
+</div>
+<div class="paragraph">
+<p>Given a routeMapping in some application looking like</p>
+</div>
+<div class="listingblock">
+<div class="title">DemoApplication.scala</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">  override def routesMappings = {
+    val root: PathMatcher[Unit] = PathMatcher(&quot;demo&quot;) / PathMatcher(&quot;v1&quot;)
+    List(
+      RouteMapping(&quot;/repos&quot;, root / PathMatcher(&quot;repos&quot;) ~ PathEnd, classOf[ReposResource]),
+      RouteMapping(&quot;/resources&quot;, root / PathMatcher(&quot;resources&quot;) ~ PathEnd, classOf[ResourcesResource])
+    )
+  }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This defines that the uri <em>"/demo/v1/repos"</em> will be handled by the following
+resource:</p>
+</div>
+<div class="listingblock">
+<div class="title">ReposResource.scala</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">import io.skysail.domain.RequestEvent
+import io.skysail.domain.resources.ListResource
+import io.skysail.server.ext.bundlerepo.ObrApplication
+import io.skysail.server.ext.bundlerepo.domain.{Repository, Resource}
+
+case class ReposResource() extends ListResource[ObrApplication, Repository] {
+
+  override def getList(requestEvent: RequestEvent):List[Repository] = getApplication().repoService.listRepos
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The entities (<em>Repository</em>) used here look like this</p>
+</div>
+<div class="listingblock">
+<div class="title">Repository.scala</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="scala">case class Repository(name: String, uri: String)</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-06 05:41:12 CET
+Last updated 2017-12-19 07:24:49 CET
 </div>
 </div>
 </body>

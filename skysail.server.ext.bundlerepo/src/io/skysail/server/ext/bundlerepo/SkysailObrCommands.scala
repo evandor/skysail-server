@@ -7,17 +7,19 @@ class SkysailObrCommands(repoAdmin: RepositoryAdmin) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
+  private val app = new ObrApplication(null, null, null, repoAdmin)
+
   def listRepos(): Unit = {
     log.info("List Repositories:")
     log.info("==================")
 
-    val repos = repoAdmin.listRepositories.to[Seq]
+    val repos = app.repoService.listRepos//repoAdmin.listRepositories.to[Seq]
 
     repos
       //.map(_.toString)
       //.sorted
       .foreach(key =>
-      log.info(s"$key => '${key.getURI}'")
+      log.info(s"$key.name => '${key.uri}'")
     )
   }
 
@@ -31,7 +33,7 @@ class SkysailObrCommands(repoAdmin: RepositoryAdmin) {
       //.map(_.toString)
       //.sorted
       .foreach(key =>
-      log.info(s"$key => '${key.getSymbolicName}'")
+      log.info(s"$key")// => '${key.getSymbolicName}'")
     )
 
   }
