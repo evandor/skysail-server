@@ -70,16 +70,16 @@ class AkkaServer extends DominoActivator {
     override def stop(): Unit = stop(bundleContext)
 
     def configure(osgiContext: BundleContext, system: ActorSystem): Unit = {
-//      log info "Registering Actor System as Service."
-//      registerService(osgiContext, system)
-//
-//      log info s"ActorSystem [${system.name}] initialized."
-//      actorSystem = system
-//      applicationsActor = system.actorOf(Props[ApplicationsActor], Constants.APPLICATIONS_ACTOR_NAME)
-//      log debug s"created ApplicationsActor with path ${applicationsActor.path}"
-//
-//      bundlesActor = system.actorOf(Props(new BundlesActor(bundleContext)), Constants.BUNDLES_ACTOR_NAME)
-//      log debug s"created BundlesActor with path ${bundlesActor.path}"
+      log info "Registering Actor System as Service."
+      registerService(osgiContext, system)
+
+      log info s"ActorSystem [${system.name}] initialized."
+      actorSystem = system
+      applicationsActor = system.actorOf(Props[ApplicationsActor], Constants.APPLICATIONS_ACTOR_NAME)
+      log debug s"created ApplicationsActor with path ${applicationsActor.path}"
+
+      bundlesActor = system.actorOf(Props(new BundlesActor(bundleContext)), Constants.BUNDLES_ACTOR_NAME)
+      log debug s"created BundlesActor with path ${bundlesActor.path}"
 
       routesTracker = new RoutesTracker(actorSystem)
 
