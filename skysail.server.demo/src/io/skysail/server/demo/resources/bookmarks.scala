@@ -30,6 +30,7 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with 
 
   def post(requestEvent: RequestEvent) {
     val b = getApplication().repo.save(requestEvent.cmd.entity)
+    getApplication().eventService.send("bookmark created")
     requestEvent.controllerActor ! Bookmark(Some(b), "a@b.com", "Mira")
   }
 

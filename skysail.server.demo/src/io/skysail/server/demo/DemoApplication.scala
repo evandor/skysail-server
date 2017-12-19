@@ -9,11 +9,18 @@ import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import io.skysail.server.demo.repositories.BookmarksRepository
 import io.skysail.server.demo.resources._
-import io.skysail.server.demo.services.BookmarksService
+import io.skysail.server.demo.services.{BookmarksService, EventService}
 import org.osgi.framework.BundleContext
+import org.osgi.service.event.EventAdmin
 
 class DemoApplication(bundleContext: BundleContext, dbService: DbService, system: ActorSystem, routesCreator: RoutesCreatorTrait) extends
   BackendApplication(bundleContext, routesCreator,system) with ApplicationProvider {
+
+  var eventService: EventService = new EventService(null)
+
+  def setEventAdmin(eventAdmin: EventAdmin) = {
+    eventService = new EventService(eventAdmin)
+  }
 
   val repo = new BookmarksRepository(dbService)
 
