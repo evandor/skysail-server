@@ -152,6 +152,10 @@ include::requestprocessing.adoc[leveloffset=+1]
 
 include::domainlogic.adoc[leveloffset=+1]
 
+== Rendering
+
+include::rendering.adoc[leveloffset=+1]
+
 == Transformations
 
 include::transformations.adoc[leveloffset=+1]

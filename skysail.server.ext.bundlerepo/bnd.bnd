@@ -9,7 +9,7 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 Bundle-Activator: io.skysail.server.ext.bundlerepo.Activator
 
 #OSGI-OPT/src=src/,
-#-includeresource: resources
+-includeresource: resources
 
 -buildpath: \
 	osgi.core;version=${osgi.version},\
@@ -48,4 +48,5 @@ Bundle-Activator: io.skysail.server.ext.bundlerepo.Activator
 	
 Private-Package: io.skysail.server.ext.bundlerepo,\
     io.skysail.server.ext.bundlerepo.domain,\
-    io.skysail.server.ext.bundlerepo.resources
+    io.skysail.server.ext.bundlerepo.resources,\
+    io.skysail.server.ext.bundlerepo.resources.html

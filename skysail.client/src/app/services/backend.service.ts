@@ -58,7 +58,7 @@ export class BackendService {
   }
 
   getApps(): Observable<Object[]> {
-    return this._http.get(/*this.config.endpoint + */'/root/apps', { headers: this.headers })
+    return this._http.get(/*this.config.endpoint + */'/_root/apps', { headers: this.headers })
       .map(res => res.json());
   }
 

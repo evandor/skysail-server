@@ -1,8 +1,6 @@
 :source-highlighter: coderay
 :imagesdir: images
 
-...
-
 == Resources
 
 === Creating a new Resource

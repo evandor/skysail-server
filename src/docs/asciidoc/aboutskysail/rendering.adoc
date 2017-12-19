@@ -1,3 +1,39 @@
+:source-highlighter: coderay
+:imagesdir: images
+
+Intro
+
+== Rendering
+
+=== Preparing a backend application for html rendering
+
+==== Prerequisites
+
+You need a bundle first (todo)
+
+==== Resources Directory
+
+Create a "resources/templates" directory in the root of your bundle.
+
+Make sure that you have
+
+.bnd.bnd
+```
+-includeresource: resources
+```
+
+set in your bnd.bnd file.
+
+Furthermore, you have to *add the generated html package* (see below) to the
+"Private-Package:" Directive in the bnd.bnd file.
+
+==== Build.gradle file
+
+The typical activator for a skysail backend application will look like this:
+
+.build.gradle
+[source,groovy]
+----
 buildscript {
     repositories {
         maven {
@@ -57,3 +93,6 @@ eclipse {
         }
     }
 }
+----
+
+==== HTML Template Files
