@@ -2,8 +2,12 @@ package io.skysail.server.seed
 
 import domino.DominoActivator
 import org.slf4j.LoggerFactory
+import org.slf4j.bridge.SLF4JBridgeHandler
 
 class Activator extends DominoActivator {
+
+  SLF4JBridgeHandler.removeHandlersForRootLogger
+  SLF4JBridgeHandler.install
 
   private var log = LoggerFactory.getLogger(this.getClass)
 
