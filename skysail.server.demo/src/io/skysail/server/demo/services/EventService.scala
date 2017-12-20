@@ -13,7 +13,9 @@ class EventService(eventAdmin: EventAdmin) {
 //    properties.put("message", msg)
     var properties = scala.collection.mutable.Map[String,String]();
     val reportGeneratedEvent = new org.osgi.service.event.Event("io/skysail/server/demo/services/GENERATED", properties.asJava)
-    eventAdmin.sendEvent(reportGeneratedEvent)
+    if (eventAdmin != null) {
+      eventAdmin.sendEvent(reportGeneratedEvent)
+    }
   }
 
 }
