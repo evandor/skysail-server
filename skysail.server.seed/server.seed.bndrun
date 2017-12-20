@@ -9,7 +9,7 @@
 -runsystemcapabilities: ${native_capability}
 -runsystempackages: ${runsystempackages}
 -runproperties: ${runproperties},\
-    obr.repository.url=https://raw.githubusercontent.com/evandor/skysail-repository/master/index.xml http://felix.apache.org/obr/releases.xml,\
+    obr.repository.url=https://raw.githubusercontent.com/evandor/skysail-server/release/0.0/cnf/local/index.xml http://felix.apache.org/obr/releases.xml,\
     config.file=config/application.conf
 
 -resolve.effective: active;skip:="osgi.service"
