@@ -8,7 +8,7 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Bundle-Activator: io.skysail.server.seed.Activator
 
--includeresource: etc=etc
+-includeresource: etc=etc, config=config
 
 -buildpath: \
 	osgi.core;version=${osgi.version},\

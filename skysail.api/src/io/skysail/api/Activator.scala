@@ -19,7 +19,7 @@ class Activator extends DominoActivator {
 
     log info s"skysail api bundle became active"
 
-    //new ConfigMover(bundleContext)
+    new ConfigMover(bundleContext)
 
     watchServices[RepositoryAdmin] {
 
