@@ -38,4 +38,4 @@ WORKDIR /home/skysail/products/demo
 
 CMD ["java","-Dskysail.config.path=$CONF_PATH","-jar","/home/skysail/products/demo/server.website.int.jar"]
 
-EXPOSE 9102
+EXPOSE 9202
