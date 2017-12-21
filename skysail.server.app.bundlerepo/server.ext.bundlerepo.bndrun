@@ -39,7 +39,7 @@ logback.configurationFile.path = config
 	osgi.identity;filter:='(&(osgi.identity=org.apache.httpcomponents.httpcore)(version>=4.4))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.httpcomponents.httpclient)(version>=4.5))',\
 	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
-	osgi.identity;filter:='(osgi.identity=skysail.server.ext.bundlerepo)'
+	osgi.identity;filter:='(osgi.identity=skysail.server.app.bundlerepo)'
 
 -runbundles: \
 	ch.qos.logback.classic;version=1.2.3,\
@@ -81,6 +81,6 @@ logback.configurationFile.path = config
 	skysail.api;version=0.2.1.201712170815,\
 	skysail.server;version=0.1.0.201712170818,\
 	skysail.server.auth.none;version=0.1.0.201712170818,\
-	skysail.server.ext.bundlerepo;version=0.1.0.201712180613,\
+	skysail.server.app.bundlerepo;version=0.1.0.201712180613,\
 	slf4j.api;version=1.7.25,\
 	webconsole.all;version=0.1.18.201710301700

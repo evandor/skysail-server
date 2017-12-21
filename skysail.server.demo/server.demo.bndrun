@@ -37,7 +37,7 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(osgi.identity=skysail.server)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.demo)',\
-	osgi.identity;filter:='(osgi.identity=skysail.server.ext.bundlerepo)',\
+	osgi.identity;filter:='(osgi.identity=skysail.server.app.bundlerepo)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.ext.events)',\
 	osgi.identity;filter:='(osgi.identity=skysail.client)'
 
@@ -97,7 +97,7 @@ logback.configurationFile.path = config/local
 	skysail.server.auth.none;version=0.1.0.201712191556,\
 	skysail.server.demo;version=0.1.0.201712191556,\
 	skysail.server.doc;version=0.1.0.201712191556,\
-	skysail.server.ext.bundlerepo;version=0.1.0.201712191556,\
+	skysail.server.app.bundlerepo;version=0.1.0.201712191556,\
 	skysail.server.ext.events;version=0.1.0.201712191556,\
 	slf4j.api;version=1.7.25,\
 	webconsole.all;version=0.1.18.201710301700

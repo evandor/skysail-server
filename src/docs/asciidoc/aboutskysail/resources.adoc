@@ -37,8 +37,8 @@ resource:
 ----
 import io.skysail.domain.RequestEvent
 import io.skysail.domain.resources.ListResource
-import io.skysail.server.ext.bundlerepo.ObrApplication
-import io.skysail.server.ext.bundlerepo.domain.{Repository, Resource}
+import io.skysail.server.app.bundlerepo.ObrApplication
+import io.skysail.server.app.bundlerepo.domain.{Repository, Resource}
 
 case class ReposResource() extends ListResource[ObrApplication, Repository] {
 

@@ -6,7 +6,7 @@ Bundle-Description: Bundle Repository (OBR) Extention Bundle for skysail server
 
 Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
-Bundle-Activator: io.skysail.server.ext.bundlerepo.Activator
+Bundle-Activator: io.skysail.server.app.bundlerepo.Activator
 
 #OSGI-OPT/src=src/,
 -includeresource: resources
@@ -46,7 +46,7 @@ Bundle-Activator: io.skysail.server.ext.bundlerepo.Activator
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
 	ch.qos.logback.core;version='[1.2.3,1.2.4)'
 	
-Private-Package: io.skysail.server.ext.bundlerepo,\
-    io.skysail.server.ext.bundlerepo.domain,\
-    io.skysail.server.ext.bundlerepo.resources,\
-    io.skysail.server.ext.bundlerepo.resources.html
+Private-Package: io.skysail.server.app.bundlerepo,\
+    io.skysail.server.app.bundlerepo.domain,\
+    io.skysail.server.app.bundlerepo.resources,\
+    io.skysail.server.app.bundlerepo.resources.html
