@@ -7,7 +7,7 @@ import io.skysail.api.osgi.bundlerepository.impl.{DefaultRepositoryService, NoOp
 import io.skysail.api.osgi.events.EventsService
 import io.skysail.api.osgi.events.impl.DefaultEventsService
 import org.apache.felix.bundlerepository.RepositoryAdmin
-import org.osgi.service.event.EventAdmin
+import org.osgi.service.event.{EventAdmin, EventHandler}
 import org.slf4j.LoggerFactory
 
 class Activator extends DominoActivator {
@@ -44,6 +44,7 @@ class Activator extends DominoActivator {
       case AddingService(service, context) => {
         val eventsService: EventsService = new DefaultEventsService(service);
         eventsService.providesService[EventsService]
+        eventsService.providesService[EventHandler]("EVENT_TOPIC" -> "*")
         //        new SkysailObrCommands(repoService).providesService[Object](
         //          "osgi.command.scope" -> "skysail",
         //          "osgi.command.function" -> "listRepos")

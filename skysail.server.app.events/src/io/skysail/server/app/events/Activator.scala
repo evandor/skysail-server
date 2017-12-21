@@ -1,10 +1,9 @@
-package io.skysail.server.ext.events
+package io.skysail.server.app.events
 
 import akka.actor.ActorSystem
 import domino.DominoActivator
+import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.ApplicationProvider
-import io.skysail.server.{Constants, RoutesCreatorTrait}
-import org.osgi.service.event.{EventAdmin, EventHandler}
 import org.slf4j.LoggerFactory
 
 class Activator extends DominoActivator {
@@ -13,14 +12,10 @@ class Activator extends DominoActivator {
 
   var app: EventApplication = _
 
-  val eventHandler = new EventHandler() {
-    override def handleEvent(event: org.osgi.service.event.Event): Unit = {
-      log info s"$event"
-    }
-  }
+
 
   whenBundleActive {
-    whenServicesPresent[EventAdmin, RoutesCreatorTrait, ActorSystem] { (repoAdmin, routesCreator, actorSystem) =>
+    whenServicesPresent[EventsService, RoutesCreatorTrait, ActorSystem] { (eventsService, routesCreator, actorSystem) =>
       log info s"EventAdmin available in ${this.getClass.getName}, creating EventApplication"
 //      val cmd = new SkysailObrCommands(repoAdmin)
 //
@@ -32,10 +27,9 @@ class Activator extends DominoActivator {
 //        "osgi.command.scope" -> Constants.SKYSAIL_COMMAND_SCOPE,
 //        "osgi.command.function" -> "search")
 
-      app = new EventApplication(bundleContext, routesCreator, actorSystem, repoAdmin)
+      app = new EventApplication(bundleContext, routesCreator, actorSystem, eventsService)
       app.providesService[ApplicationProvider]
 
-      eventHandler.providesService[EventHandler]
     }
 
   }
