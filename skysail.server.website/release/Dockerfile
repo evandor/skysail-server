@@ -16,7 +16,7 @@
 # docker push evandor/skysail-server
 #
 # run on sofia:
-# sudo docker run --name skysail-server-website -ti --rm -p 8083:8083 evandor/skysail-server-website:latest
+# sudo docker run --name skysail-server-website -ti --rm -p 9202:9202 evandor/skysail-server-website:latest
 #
 # access running container on sofia
 # sudo docker exec -i -t skysail-server-website /bin/bash
