@@ -22,8 +22,8 @@
 ### --- run-file-specific settings ------------------------------------------------- ###
 ########################################################################################
 
-skysail.config.path            = config
-logback.configurationFile.path = config
+#skysail.config.path            = config
+#logback.configurationFile.path = config
 
 -runrequires: \
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.0.0))',\

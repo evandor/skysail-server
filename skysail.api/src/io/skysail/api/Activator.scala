@@ -2,6 +2,7 @@ package io.skysail.api
 
 import domino.DominoActivator
 import domino.service_watching.ServiceWatcherEvent.{AddingService, ModifiedService, RemovedService}
+import io.skysail.api.config.ConfigMover
 import io.skysail.api.osgi.bundlerepository.RepositoryService
 import io.skysail.api.osgi.bundlerepository.impl.{DefaultRepositoryService, NoOpRepositoryService, SkysailObrCommands}
 import io.skysail.api.osgi.events.EventsService
@@ -17,6 +18,8 @@ class Activator extends DominoActivator {
   whenBundleActive {
 
     log info s"skysail api bundle became active"
+
+    //new ConfigMover(bundleContext)
 
     watchServices[RepositoryAdmin] {
 
@@ -42,7 +45,7 @@ class Activator extends DominoActivator {
 
     watchServices[EventAdmin] {
       case AddingService(service, context) => {
-        val eventsService: EventsService = new DefaultEventsService(service);
+        val eventsService: DefaultEventsService = new DefaultEventsService(service);
         eventsService.providesService[EventsService]
         eventsService.providesService[EventHandler]("EVENT_TOPIC" -> "*")
         //        new SkysailObrCommands(repoService).providesService[Object](

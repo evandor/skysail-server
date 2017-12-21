@@ -15,6 +15,8 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 	org.apache.felix.bundlerepository;version=2.0,\
 	org.apache.felix.eventadmin;version=1.4,\
 	domino_2.11;version=1.1,\
+	ch.qos.logback.classic;version=1.2,\
+	ch.qos.logback.core;version=1.2,\
 	slf4j.api;version=1.7
 
 Export-Package: \
@@ -28,8 +30,9 @@ Export-Package: \
 	io.skysail.api.ui
 
 Private-Package: \
-	io.skysail.api.osgi.bundlerepository,\
 	io.skysail.api,\
+	io.skysail.api.config,\
+	io.skysail.api.osgi.bundlerepository,\
 	io.skysail.api.osgi.bundlerepository.impl,\
 	io.skysail.api.osgi.events.impl
 	
