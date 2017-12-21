@@ -25,7 +25,6 @@
 skysail.config.path            = config
 logback.configurationFile.path = config
 
-
 -runrequires: \
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.0.0))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2))',\
