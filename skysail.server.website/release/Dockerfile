@@ -36,6 +36,6 @@ COPY server.website.int.jar /home/skysail/products/demo/server.website.int.jar
 
 WORKDIR /home/skysail/products/demo
 
-CMD ["java","-jar","/home/skysail/products/demo/server.website.int.jar"]
+CMD ["java","-Denvironment=$ENV","-jar","/home/skysail/products/demo/server.website.int.jar"]
 
 EXPOSE 9102
