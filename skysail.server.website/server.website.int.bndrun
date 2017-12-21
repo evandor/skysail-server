@@ -9,4 +9,4 @@
 ########################################################################################
 
 skysail.config.path            = config,config/${environment}
-logback.configurationFile.path = config/int
+logback.configurationFile.path = config/${environment}
