@@ -19,7 +19,7 @@
 # sudo docker run --name skysail-server-website -ti --rm -p 8083:8083 evandor/skysail-server-website:latest
 #
 # access running container on sofia
-# sudo docker exec -i -t skysail-server /bin/bash
+# sudo docker exec -i -t skysail-server-website /bin/bash
 FROM java
 RUN echo "building docker image from directory '$pwd'"
 RUN echo "executing 'useradd -d /home/skysail -m -s /bin/bash skysail'"
@@ -36,6 +36,6 @@ COPY server.website.int.jar /home/skysail/products/demo/server.website.int.jar
 
 WORKDIR /home/skysail/products/demo
 
-CMD ["java","-Denvironment=$ENV","-jar","/home/skysail/products/demo/server.website.int.jar"]
+CMD ["java","-Dskysail.config.path=$confpath","-jar","/home/skysail/products/demo/server.website.int.jar"]
 
 EXPOSE 9102
