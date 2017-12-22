@@ -29,6 +29,7 @@ logback.configurationFile.path = config
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.configadmin)(version>=1.8.16))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.bundlerepository)(version>=2.0))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.eventadmin)(version>=1.4))',\
+	osgi.identity;filter:='(osgi.identity=jul.to.slf4j)',\
 	osgi.identity;filter:='(&(osgi.identity=io.skysail.bundled.logback-gelf)(version>=1.0.4))',\
 	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.3))',\
 	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
