@@ -18,8 +18,7 @@
 ########################################################################################
 
 #skysail.config.path            = config/${skysail.config.path}
-logback.configurationFile.path = ${skysail.config.path}
-
+logback.configurationFile.path = config
 
 -runrequires: \
 	osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\
