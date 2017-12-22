@@ -46,6 +46,7 @@ node {
 
     stage 'Restart Containers'
     script{
+       sh "svn update /home/carsten/skysail/skysailconfigs/"
        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
          sh "sudo ./skysail.server/release/deployment/scripts/run_docker.sh &"
        }
