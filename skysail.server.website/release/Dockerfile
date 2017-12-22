@@ -31,13 +31,13 @@ WORKDIR /home/skysail
 RUN mkdir -p /home/skysail/products/demo/plugins
 
 COPY config/ /home/skysail/products/demo/config/
-COPY server.website.int.jar /home/skysail/products/demo/server.website.int.jar
+COPY server.website.jar /home/skysail/products/demo/server.website.jar
 
 
 WORKDIR /home/skysail/products/demo
 
 #CMD ["java","-Dskysail.config.path=$CONFPATH", "-jar","/home/skysail/products/demo/server.website.int.jar"]
 
-ENTRYPOINT exec java -Dskysail.config.path=$CONFPATH -jar /home/skysail/products/demo/server.website.int.jar
+ENTRYPOINT exec java -Dskysail.config.path=$CONFPATH -jar /home/skysail/products/demo/server.website.jar
 
 EXPOSE 9202
