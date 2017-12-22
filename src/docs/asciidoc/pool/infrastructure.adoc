@@ -50,3 +50,15 @@ sudo systemctl start graylog-server
 tail -f /var/log/graylog-server/server.log
 
 http://log.skysail.io/
+
+=== GoAccess
+
+https://goaccess.io/download#distro
+
+echo "deb http://deb.goaccess.io/ $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list.d/goaccess.list
+wget -O - https://deb.goaccess.io/gnugpg.key | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install goaccess
+
+sudo goaccess /home/carsten/skysail/accesslogs/website.test.skysail.io-access_log -o /var/www/goaccess.skysail.io/public_html/index.html --log-format=COMMON --real-time-html
+
