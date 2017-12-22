@@ -36,6 +36,8 @@ COPY server.website.int.jar /home/skysail/products/demo/server.website.int.jar
 
 WORKDIR /home/skysail/products/demo
 
-CMD ["java","-Dskysail.config.path=$CONFPATH", "-jar","/home/skysail/products/demo/server.website.int.jar"]
+#CMD ["java","-Dskysail.config.path=$CONFPATH", "-jar","/home/skysail/products/demo/server.website.int.jar"]
+
+ENTRYPOINT exec java -Dskysail.config.path=$CONFPATH -jar /home/skysail/products/demo/server.website.int.jar
 
 EXPOSE 9202
