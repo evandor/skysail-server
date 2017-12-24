@@ -37,4 +37,4 @@ WORKDIR /home/skysail/products/demo
 
 ENTRYPOINT exec java -Dskysail.config.path=$CONFPATH -jar /home/skysail/products/demo/server.website.jar
 
-EXPOSE 9202
+EXPOSE 9201 9202

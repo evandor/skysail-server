@@ -14,7 +14,7 @@ del_stopped(){
 del_stopped skysail-server-website-test
 docker run \
     --name skysail-server-website-test \
-    -t --rm -p 9202:9202 \
+    -t --rm -p 9201:9201 \
     -v /home/carsten/skysail/skysailconfigs/website/test:/home/skysail/products/demo/config \
     -e CONFPATH=config \
     evandor/skysail-server-website:latest
