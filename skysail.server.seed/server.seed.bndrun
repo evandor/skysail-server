@@ -13,7 +13,7 @@
 	https.proxyPort=8080,\
     http.proxyHost=192.168.11.140,\
 	http.proxyPort=8080,\
-    obr.repository.url=https://raw.githubusercontent.com/evandor/skysail-server/release/0.0/cnf/local/index.xml http://felix.apache.org/obr/releases.xml,\
+    obr.repository.url=https://raw.githubusercontent.com/evandor/skysail-server/release/0.0/cnf/local/index.xml https://raw.githubusercontent.com/evandor/skysail-server/release/0.0/cnf/release/index.xml http://felix.apache.org/obr/releases.xml,\
     config.file=config/application.conf,\
     product.bundle=${p}
 

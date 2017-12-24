@@ -4,6 +4,7 @@ import io.skysail.api.osgi.bundlerepository.domain.Repository
 import io.skysail.api.osgi.bundlerepository.domain.Resource
 import org.apache.felix.bundlerepository.RepositoryAdmin
 import io.skysail.api.osgi.bundlerepository.RepositoryService
+import org.apache.felix.bundlerepository
 
 class DefaultRepositoryService(var repoAdmin: RepositoryAdmin) extends RepositoryService {
 
@@ -15,4 +16,40 @@ class DefaultRepositoryService(var repoAdmin: RepositoryAdmin) extends Repositor
     //val filter = "(|(presentationname=*)(symbolicname=*))"
     repoAdmin.discoverResources(filter).to[List].map(r => Resource(r.getSymbolicName, r.getVersion))
   }
+
+
+  override def deploy(bundle: String): Unit = {
+    val resolver = repoAdmin.resolver()
+    val resource: Option[bundlerepository.Resource] = selectNewestVersion(searchRepository(bundle));
+
+    if (resource.isDefined) {
+      resolver.add(resource.get)
+      if (resolver.resolve()) {
+        val resources = resolver.getAddedResources();
+        println("Resources: " + resources.map(r => r.getSymbolicName).mkString(",\n"))
+        resolver.deploy(17)
+        val added = resolver.getAddedResources()
+        println("added Resources: " + added.map(a => a.getURI).mkString(",\n"))
+      } else {
+        val reqs = resolver.getUnsatisfiedRequirements()
+        if (!reqs.isEmpty) {
+          println("unsatisfied requirements: " + reqs)
+        } else {
+          println("could not resolve targets.")
+        }
+      }
+    }
+
+  }
+
+  private def selectNewestVersion(resources: List[bundlerepository.Resource]): Option[bundlerepository.Resource] = {
+    if (!resources.isEmpty) Some(resources(0)) else None
+  }
+
+  private def searchRepository(bundle: String): List[bundlerepository.Resource] = {
+    val filter = s"(|(presentationname=$bundle)(symbolicname=$bundle))"
+    repoAdmin.discoverResources(filter).to[List]
+  }
+
+
 }

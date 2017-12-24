@@ -1,9 +1,7 @@
 package io.skysail.api.osgi.bundlerepository.impl
 
-import io.skysail.api.osgi.bundlerepository.domain.Repository
-import io.skysail.api.osgi.bundlerepository.domain.Resource
-import org.apache.felix.bundlerepository.RepositoryAdmin
 import io.skysail.api.osgi.bundlerepository.RepositoryService
+import io.skysail.api.osgi.bundlerepository.domain.{Repository, Resource}
 
 class NoOpRepositoryService() extends RepositoryService {
 
@@ -14,4 +12,6 @@ class NoOpRepositoryService() extends RepositoryService {
   def list(filter: String): List[Resource] = {
     List()
   }
+
+  override def deploy(bundle: String): Unit = {}
 }

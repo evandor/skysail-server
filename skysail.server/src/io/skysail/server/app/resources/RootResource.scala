@@ -1,6 +1,6 @@
 package io.skysail.server.app.resources
 
-import io.skysail.domain.{AsyncResponseEvent, RequestEvent}
+import io.skysail.domain.{AsyncResponseEvent, RequestEvent, ResponseEvent}
 import io.skysail.domain.resources.EntityResource
 import io.skysail.server.app.RootApplication
 
@@ -12,7 +12,7 @@ case class RootInfo(title: String, description: String, info: String = "you are 
 class RootResource extends EntityResource[RootApplication,RootInfo] {
 
   override def getAsync(requestEvent: RequestEvent) {
-    val appService = getApplication().asInstanceOf[RootApplication].appService
+    val appService = getApplication().appService
     val apps = appService.getAllApplications(this.actorContext.system)
     apps.onComplete {
       case Success(s) => {
@@ -22,7 +22,9 @@ class RootResource extends EntityResource[RootApplication,RootInfo] {
           RootInfo("skysail server", desc)
         else
           RootInfo("skysail server", desc, s"${s.size} app(s) deployed: " + s.map(_.name).mkString(", "))
-        requestEvent.controllerActor ! msg
+        requestEvent.controllerActor ! ResponseEvent(requestEvent, msg)
+
+
       }
     }
 

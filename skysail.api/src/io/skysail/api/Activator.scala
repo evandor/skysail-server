@@ -32,6 +32,7 @@ class Activator extends DominoActivator {
         val commands = new SkysailObrCommands(repoService)
         commands.providesService[Object]("osgi.command.scope" -> "skysail", "osgi.command.function" -> "listRepos")
         commands.providesService[Object]("osgi.command.scope" -> "skysail", "osgi.command.function" -> "search")
+        commands.providesService[Object]("osgi.command.scope" -> "skysail", "osgi.command.function" -> "deploy")
       }
 
       case ModifiedService(service, context) =>

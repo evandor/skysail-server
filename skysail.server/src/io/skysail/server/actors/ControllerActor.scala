@@ -184,7 +184,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       }
 
     } catch {
-      case e: Exception => log info s"rendering fallback to json, could not load '${getHtmlTemplate(response.req)}', reason: $e"; handleJson(m, response)
+      case e: Exception => log debug s"rendering fallback to json, could not load '${getHtmlTemplate(response.req)}', reason: $e"; handleJson(m, response)
     }
   }
 

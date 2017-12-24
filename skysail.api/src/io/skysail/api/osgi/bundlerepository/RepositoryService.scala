@@ -6,4 +6,5 @@ import io.skysail.api.osgi.bundlerepository.domain.Resource
 trait RepositoryService {
   def listRepos: List[Repository]
   def list(filter: String): List[Resource]
+  def deploy(bundle: String): Unit
 }

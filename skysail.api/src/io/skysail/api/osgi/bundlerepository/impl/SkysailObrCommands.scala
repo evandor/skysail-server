@@ -1,8 +1,6 @@
 package io.skysail.api.osgi.bundlerepository.impl
 
-import org.apache.felix.bundlerepository.RepositoryAdmin
 import io.skysail.api.osgi.bundlerepository.RepositoryService
-import org.slf4j.LoggerFactory
 import org.slf4j.LoggerFactory
 
 class SkysailObrCommands(repoService: RepositoryService) {
@@ -22,14 +20,23 @@ class SkysailObrCommands(repoService: RepositoryService) {
     log.info("Search Repositories:")
     log.info("====================")
 
-    val filter = "(|(presentationname=*)(symbolicname=*))"
+    val filter = s"(|(presentationname=*$searchFor*)(symbolicname=*$searchFor*))"
     val resources = repoService.list(filter)
     resources
       //.map(_.toString)
       //.sorted
       .foreach(key =>
-        log.info(s"$key") // => '${key.getSymbolicName}'")
-        )
+      log.info(s"$key") // => '${key.getSymbolicName}'")
+    )
+  }
+
+  def deploy(bundle: String): Unit = {
+    log.info("Deploying...")
+    log.info("============")
+
+    repoService.deploy(bundle)
+
 
   }
+
 }
