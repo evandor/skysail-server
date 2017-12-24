@@ -51,7 +51,7 @@ node {
          sh "sudo ./skysail.server/release/deployment/scripts/run_docker.sh &"
        }
        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-         sh "sudo ./skysail.server.website/release/deployment/scripts/run_docker.sh &"
+         sh "sudo ./skysail.server.website/release/deployment/scripts/run_docker_test.sh &"
        }
     }
 
