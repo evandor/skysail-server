@@ -32,6 +32,16 @@ node {
 
     stage 'Build'
     sh "./gradlew -Pversion=${env.BUILD_VERSION} --stacktrace --continue clean build"
+    
+    stage 'Publish Tests'
+    publishHTML (target: [
+      allowMissing: false,
+      alwaysLinkToLastBuild: false,
+      keepAll: true,
+      reportDir: 'skysail.server.demo/generated/reports/tests/test/index.html',
+      reportFiles: 'index.html',
+      reportName: "Server Demo Report"
+    ])
 
     stage 'Export Jars'
     sh './gradlew skysail.server:export.server.test'
