@@ -60,7 +60,10 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       // tag::methodMatch[]
       cmd.ctx.request.method match {
         case HttpMethods.GET => resource.doGet(RequestEvent(cmd, self))
-        case HttpMethods.POST => resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
+        case HttpMethods.POST => {
+          println(" ###: " + resource)
+          resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
+        }
         case HttpMethods.PUT => resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
         case e: Any => resource.get(RequestEvent(cmd, self))
       }
@@ -131,8 +134,10 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, response.entity)
       val uri = response.redirectTo.getOrElse("/").toString
       applicationActor ! response.copy(
-        entity = response.entity, httpResponse = response.httpResponse.copy(
-          status = StatusCodes.TemporaryRedirect,
+        //req = response.req.copy(
+        entity = response.entity, 
+        httpResponse = response.httpResponse.copy(
+          status = StatusCodes.SeeOther, // not 307, see https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection, https://stackoverflow.com/questions/2068418/whats-the-difference-between-a-302-and-a-307-redirect
           headers = headers.Location(akka.http.scaladsl.model.Uri(uri)) :: Nil,
           entity = answer))
     case response: AsyncResponseEvent =>

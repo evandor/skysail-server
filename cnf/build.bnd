@@ -31,3 +31,5 @@ copyright.html:         Copyright &copy; twentyeleven.de (2011, ${tstamp;yyyy}).
 
 osgi.version                                       '[6.0.0,6.0.1)'
 osgi.annotation.version                            '[6.0.1,6.0.2)'
+
+akka.version                                       '[2.5.8,2.6)'

@@ -41,7 +41,7 @@ Bundle-Activator: io.skysail.server.demo.DemoActivator
 	com.springsource.org.junit,\
 	org.mockito.mockito-all;version=1.10,\
 	org.assertj.core;version=3.8,\
-	com.typesafe.akka.testkit;version=2.5,\
+	com.typesafe.akka.testkit;version=${akka.version},\
 	com.typesafe.akka.http.testkit;version=10.0,\
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
 	ch.qos.logback.core;version='[1.2.3,1.2.4)',\

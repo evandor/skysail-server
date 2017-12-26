@@ -29,9 +29,7 @@ class BookmarksResource extends ListResource[TestApp, Bookmark] {
 
 class PostBookmarkResource extends PostResource[TestApp, Bookmark] /*with JsonSupport */ {
 
-  def get(requestEvent: RequestEvent): ResponseEvent[Bookmark] = {
-    ResponseEvent(requestEvent, Bookmark(None, "", ""))
-  }
+  def get(requestEvent: RequestEvent) = ResponseEvent(requestEvent, Bookmark(None, "", ""))
 
   def post(requestEvent: RequestEvent) {
     //val b = getApplication().repo.save(requestEvent.cmd.entity)

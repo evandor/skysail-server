@@ -8,10 +8,11 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{AsyncResource, ListResource, PostResource, PutResource}
-import io.skysail.domain.{RequestEvent, ResponseEvent}
+import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent}
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.Bookmark
 import spray.json.{DefaultJsonProtocol, _}
+import akka.http.scaladsl.model.HttpMethods
 
 trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val bookmarkFormat: RootJsonFormat[Bookmark] = jsonFormat3(Bookmark)
@@ -31,7 +32,12 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with 
   def post(requestEvent: RequestEvent) {
     val b = getApplication().repo.save(requestEvent.cmd.entity)
     getApplication().eventService.send("bookmark created")
-    requestEvent.controllerActor ! Bookmark(Some(b), "a@b.com", "Mira")
+    val redirectTo = Some("/demo/v1/bms")
+    //requestEvent.controllerActor ! Bookmark(Some(b), "a@b.com", "Mira")
+    val newRequest = requestEvent.cmd.ctx.request.copy(method = HttpMethods.GET)
+    //requestEvent.cmd.ctx.copy(request = newRequest)
+    //requestEvent.copy(cmd = requestEvent.cmd.copy(ctx = requestEvent.cmd.ctx.copy)
+    requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "", redirectTo)
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {

@@ -65,7 +65,9 @@ class AkkaServer extends DominoActivator {
 
   private class AkkaCapsule(bundleContext: BundleContext) extends ActorSystemActivator with Capsule {
 
-    override def start(): Unit = start(bundleContext)
+    override def start(): Unit = {
+      start(bundleContext)
+    }
 
     override def stop(): Unit = stop(bundleContext)
 
@@ -168,7 +170,7 @@ class AkkaServer extends DominoActivator {
   }
 
   private def removeAuthenticationService(authenticationService: AuthenticationService): Unit = {
-   // routesTracker.setAuthentication(null)
+    // routesTracker.setAuthentication(null)
     // TODO routesCreator?
   }
 

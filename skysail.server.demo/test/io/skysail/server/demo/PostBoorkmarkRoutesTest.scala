@@ -37,11 +37,11 @@ class PostBoorkmarkRoutesTest extends DemoApplicationTest {
 
   "A POST request to the PostBookmarksResource" should {
 
-    "return the html page if no accept header was set" in {
+    "redirect to the BookmarksResource page if no accept header was set" in {
       Post(POST_URL).withEntity(FormData(Map("title" -> "t", "url" -> "http://url")).toEntity) ~> router ~> check {
-        status shouldBe OK
-        //contentType shouldBe `text/html(UTF-8)`
-        responseAs[String] should include("\"title\":\"a@b.com\",\"url\":\"Mira\"}")
+        status shouldBe SeeOther
+        header("location").toString() shouldBe "Some(Location: /demo/v1/bms)"
+        contentType shouldBe `text/html(UTF-8)`
       }
     }
 

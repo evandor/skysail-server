@@ -40,10 +40,11 @@ Import-Package: \
     !org.scalatest.*,\
     !org.junit.runner.*,\
     !org.scalactic.*,\
-    !com.intellij.rt.debugger.*,\
+    com.intellij.rt.debugger.agent,\
     *
 
 Export-Package: \
+    com.intellij.rt.debugger.agent,\
 	io.skysail.api.ddd,\
 	io.skysail.api.metrics,\
 	io.skysail.api.persistence,\
