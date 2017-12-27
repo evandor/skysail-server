@@ -36,7 +36,6 @@ Import-Package: \
     !org.scalatest.*,\
     !org.junit.runner.*,\
     !org.scalactic.*,\
-    com.intellij.rt.debugger.agent,\
     *
 
 Export-Package: \
