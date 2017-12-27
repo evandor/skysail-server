@@ -1,6 +1,8 @@
 package io.skysail.server.demo.resources
 
 import akka.actor.{ActorSystem, Props}
+import akka.http.scaladsl.model.HttpRequest
+import akka.http.scaladsl.server.RequestContext
 import akka.testkit.TestKit
 import io.skysail.api.persistence.DbService
 import io.skysail.domain.RequestEvent
@@ -67,10 +69,14 @@ class BookmarksResourceTest(_system: ActorSystem)
     assertThat(postBmr.get(re)).isNotNull
   }
 
+
   "a post request on postResource" should "return nonNull response event" in {
     val p: Props = Props.apply(classOf[ControllerActor[String]])//, testProbe.ref)
     val ca = system.actorOf(p)
-    val re: RequestEvent = new RequestEvent(ProcessCommand(null, null, null, null, null, "entity"), ca)
+    var ctx = Mockito.mock(classOf[RequestContext])
+    var request = HttpRequest() //Mockito.mock(classOf[HttpRequest])
+    when(ctx.request).thenReturn(request)
+    val re: RequestEvent = new RequestEvent(ProcessCommand(ctx, null, null, null, null, "entity"), ca)
     val res: Unit = postBmr.post(re)
     verify(dbService).persist("entity")
   }
