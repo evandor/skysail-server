@@ -1,0 +1,4 @@
+logging: \
+    ch.qos.logback.classic;version=1.2,\
+    ch.qos.logback.core;version=1.2,\
+    slf4j.api;version=1.7

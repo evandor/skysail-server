@@ -29,7 +29,8 @@ javac.target:          1.8
 copyright:              Copyright (c) twentyeleven.de (2011, ${tstamp;yyyy}). All Rights Reserved.
 copyright.html:         Copyright &copy; twentyeleven.de (2011, ${tstamp;yyyy}). All Rights Reserved.
 
-osgi.version                                       '[6.0.0,6.0.1)'
-osgi.annotation.version                            '[6.0.1,6.0.2)'
+osgi.version                      '[6.0.0,6.0.1)'
+osgi.annotation.version           '[6.0.1,6.0.2)'
 
-akka.version                                       '[2.5.8,2.6)'
+akka.version                      '[2.5.8,2.6)'
+akka.http.version                 '[10.0.10,10.1)'

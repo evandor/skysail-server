@@ -1,8 +1,8 @@
 akka-build: \
-	com.typesafe.akka.http;version=10.0,\
-	com.typesafe.akka.http.core;version=10.0,\
+	com.typesafe.akka.http;version=${akka.http.version},\
+	com.typesafe.akka.http.core;version=${akka.http.version},\
 	com.typesafe.akka.actor;version=${akka.version},\
-	com.typesafe.akka.parsing;version=10.0,\
+	com.typesafe.akka.parsing;version=${akka.http.version},\
 	com.typesafe.akka.stream;version=${akka.version},\
 	com.typesafe.akka.osgi;version=${akka.version},\
 	com.typesafe.config;version=1.3,\

@@ -8,17 +8,14 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 #Bundle-ActivationPolicy: lazy
 
--buildpath: \
-	osgi.core;version=${osgi.version},\
-	osgi.annotation;version=${osgi.annotation.version},\
-	com.typesafe.akka.http;version=10.0,\
-	org.apache.felix.bundlerepository;version=2.0,\
-	org.apache.felix.eventadmin;version=1.4,\
-	domino_2.11;version=1.1,\
-	ch.qos.logback.classic;version=1.2,\
-	ch.qos.logback.core;version=1.2,\
-	slf4j.api;version=1.7
+Bundle-Activator: io.skysail.api.Activator
 
+-buildpath: \
+    ${osgi},\
+    ${felix},\
+    ${logging},\
+	com.typesafe.akka.http;version=${akka.http.version}
+	
 Export-Package: \
 	io.skysail.api.ddd,\
 	io.skysail.api.metrics,\
@@ -36,4 +33,3 @@ Private-Package: \
 	io.skysail.api.osgi.bundlerepository.impl,\
 	io.skysail.api.osgi.events.impl
 	
-Bundle-Activator: io.skysail.api.Activator

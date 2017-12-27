@@ -13,11 +13,10 @@ Bundle-Activator: io.skysail.server.auth.basic.Activator
 Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 -buildpath: \
-	osgi.core;version=${osgi.version},\
-	osgi.annotation;version=${osgi.annotation.version},\
+    ${osgi},\
 	${akka-build},\
-	domino_2.11;version=1.1,\
 	slf4j.api;version=1.7,\
 	skysail.api;version=latest,\
 	org.apache.felix.configadmin;version=1.8
+	
 Private-Package: io.skysail.server.auth.basic

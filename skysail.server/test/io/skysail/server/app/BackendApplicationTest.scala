@@ -58,14 +58,14 @@ class TestApp extends BackendApplication(null, routesCreator = new RoutesCreator
   override def version = ApiVersion(2)
 }
 
-@RunWith(classOf[JUnitRunner])
-class BackendApplicationTest extends FlatSpecLike with Matchers with BeforeAndAfterAll {
-
-  "a SkysailApplication" should "b" in {
-    val app = new TestApp
-    val router: Route = app.router
-    println (router)
-  }
-
-}
+//@RunWith(classOf[JUnitRunner])
+//class BackendApplicationTest extends FlatSpecLike with Matchers with BeforeAndAfterAll {
+//
+//  "a SkysailApplication" should "b" in {
+//    val app = new TestApp
+//    val router: Route = app.router
+//    println (router)
+//  }
+//
+//}
 

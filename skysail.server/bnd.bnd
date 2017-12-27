@@ -15,10 +15,8 @@ Require-Capability: skysail.capability.auth
 -includeresource: resources
 
 -buildpath: \
-	osgi.core;version=${osgi.version},\
-	osgi.annotation;version=${osgi.annotation.version},\
+    ${osgi},\
 	${akka-build},\
-	domino_2.11;version=1.1,\
 	slf4j.api;version=1.7,\
 	com.fasterxml.jackson.core.jackson-databind;version=2.9,\
 	com.fasterxml.jackson.core.jackson-core;version=2.9,\
@@ -29,11 +27,9 @@ Require-Capability: skysail.capability.auth
 	org.scala-lang.scala-reflect;version=2.11,\
 	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
 	com.typesafe.akka.http.jackson;version=10.0,\
-	org.scalatest;version=3.0,\
-	org.scalactic;version=3.0,\
-	com.springsource.org.junit,\
 	org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
-	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)'
+	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
+	${testlibs}
 	
 Import-Package: \
     !akka.testkit.*,\
@@ -44,11 +40,14 @@ Import-Package: \
     *
 
 Export-Package: \
-    com.intellij.rt.debugger.agent,\
 	io.skysail.api.ddd,\
 	io.skysail.api.metrics,\
+    io.skysail.api.osgi.bundlerepository,\
+    io.skysail.api.osgi.bundlerepository.domain,\
+    io.skysail.api.osgi.events,\
 	io.skysail.api.persistence,\
 	io.skysail.api.security,\
+    io.skysail.api.ui,\
 	io.skysail.domain,\
 	io.skysail.domain.app,\
 	io.skysail.domain.messages,\

@@ -10,28 +10,18 @@ dependencies {
     compile "org.scala-lang:scala-reflect:${scala_version}"
 }
 
-sourceSets {
+/*sourceSets {
     main {
         scala {
-            //noinspection GroovyAssignabilityCheck
-            //noinspection PackageAccessibility
             srcDirs = ['src']
         }
-        /*java {
-            srcDirs = []
-        }*/
     }
     test {
         scala {
-            //noinspection GroovyAssignabilityCheck
-            //noinspection PackageAccessibility
             srcDirs = ['test']
         }
-        /*java {
-            srcDirs = []
-        }*/
     }
-}
+}*/
 
 eclipse {
     project {

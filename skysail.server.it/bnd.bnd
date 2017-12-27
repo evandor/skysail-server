@@ -9,8 +9,7 @@ Test-Cases: io.skysail.server.it.SkysailServerIntegrationTest
 
 
 -buildpath: \
-	osgi.core;version=${osgi.version},\
-	osgi.annotation;version=${osgi.annotation.version},\
+    ${osgi},\
 	osgi.enroute.junit.wrapper;version=4.12,\
 	de.twentyeleven.skysail.org.hamcrest.hamcrest-all-osgi;version=1.3,\
 	org.apache.httpcomponents.httpcore;version=4.4,\
