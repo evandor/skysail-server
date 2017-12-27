@@ -7,7 +7,7 @@ import io.skysail.api.persistence.DbService
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
-import io.skysail.server.demo.repositories.BookmarksRepository
+import io.skysail.server.demo.repositories.{BookmarksRepository, DbConfigsRepository}
 import io.skysail.server.demo.resources._
 import io.skysail.server.demo.services.{BookmarksService, EventService}
 import org.osgi.framework.BundleContext
@@ -24,6 +24,8 @@ class DemoApplication(bundleContext: BundleContext, dbService: DbService, system
 
   val repo = new BookmarksRepository(dbService)
 
+  val dbConfigRepo = new DbConfigsRepository(dbService)
+
   val bookmarksService = new BookmarksService()
 
   override def name = "demo"
@@ -36,6 +38,9 @@ class DemoApplication(bundleContext: BundleContext, dbService: DbService, system
       RouteMapping("/bms/",       root / PathMatcher("bms") / PathEnd, classOf[PostBookmarkResource]),
       RouteMapping("/bms/:id",    root / PathMatcher("bms") / Segment ~ PathEnd, classOf[BookmarkResource]),
       RouteMapping("/bms/:id/",   root / PathMatcher("bms") / Segment / PathEnd, classOf[PutBookmarkResource]),
+
+      RouteMapping("/dbconfigs",  root / PathMatcher("dbconfigs") ~ PathEnd, classOf[DbConfigsResource]),
+      RouteMapping("/dbconfigs/", root / PathMatcher("dbconfigs") / PathEnd, classOf[PostDbConfigResource]),
 
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource])
     )
