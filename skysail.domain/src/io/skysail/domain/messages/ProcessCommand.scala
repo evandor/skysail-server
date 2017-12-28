@@ -3,6 +3,7 @@ package io.skysail.domain.messages
 import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.server.RequestContext
 import io.skysail.domain.app.ApplicationApi
+import io.skysail.domain.routes.RouteMappingI
 
 /**
   * This case class captures the command to process a request.
@@ -11,7 +12,7 @@ import io.skysail.domain.app.ApplicationApi
   * to the ApplicationActor of the related skysail application.
   *
   * @param ctx the akka-provided request context
-  * @param resourceClass a skysail-provided resource class
+  * @param mapping todo
   * @param application reference to the calling application
   * @param urlParameter to be done
   * @param unmatchedPath to be done
@@ -19,7 +20,8 @@ import io.skysail.domain.app.ApplicationApi
   */
 case class ProcessCommand(
                            ctx: RequestContext,
-                           resourceClass: Class[_ <: io.skysail.domain.SkysailResource[_,_]],
+                           //resourceClass: Class[_ <: io.skysail.domain.SkysailResource[_,_]],
+                           mapping: RouteMappingI[_, _],
                            application: ApplicationApi,
                            urlParameter: List[String],
                            unmatchedPath: Uri.Path,

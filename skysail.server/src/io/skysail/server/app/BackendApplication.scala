@@ -9,7 +9,7 @@ import akka.http.scaladsl.server.{Route, _}
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.{ApiVersion, ApplicationApi}
 import io.skysail.domain.model.ApplicationModel
-import io.skysail.domain.routes.RouteMapping
+import io.skysail.domain.routes.{RouteMapping, RouteMappingI}
 import io.skysail.server.{Constants, RoutesCreatorTrait}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
@@ -110,7 +110,7 @@ abstract class BackendApplication(
     *
     * @return a list of mappings between paths and resource class definitions.
     */
-  def routesMappings: List[RouteMapping[_, _]]
+  def routesMappings: List[RouteMappingI[_, _]]
 
   /**
     * Can be overwritten to add an akka http route directly.

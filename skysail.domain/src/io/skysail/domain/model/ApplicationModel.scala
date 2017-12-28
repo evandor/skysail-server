@@ -5,7 +5,7 @@ import akka.http.scaladsl.server.PathMatcher
 import com.fasterxml.jackson.annotation.{JsonGetter, JsonInclude}
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.ApiVersion
-import io.skysail.domain.routes.RouteMapping
+import io.skysail.domain.routes.{RouteMapping, RouteMappingI}
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable.LinkedHashMap
@@ -63,7 +63,7 @@ case class ApplicationModel(
     * @param routeMapping the mapping is used to create the ResourceModel
     * @return
     */
-  def addResourceModel(routeMapping: RouteMapping[_,_]): Option[Type] = {
+  def addResourceModel(routeMapping: RouteMappingI[_,_]): Option[Type] = {
     //require(routeMapping.path != null, "The resource's path must not be null")
     require(routeMapping.resourceClass != null, "The resource's controller class must not be null")
 

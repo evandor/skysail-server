@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.api.persistence.DbService
-import io.skysail.domain.routes.RouteMapping
+import io.skysail.domain.routes._
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import io.skysail.server.demo.repositories.{BookmarksRepository, DbConfigsRepository}
@@ -39,10 +39,10 @@ class DemoApplication(bundleContext: BundleContext, dbService: DbService, system
       RouteMapping("/bms/:id",    root / PathMatcher("bms") / Segment ~ PathEnd, classOf[BookmarkResource]),
       RouteMapping("/bms/:id/",   root / PathMatcher("bms") / Segment / PathEnd, classOf[PutBookmarkResource]),
 
-      RouteMapping("/dbconfigs",      root / PathMatcher("dbconfigs") ~ PathEnd, classOf[DbConfigsResource]),
-      RouteMapping("/dbconfigs/",     root / PathMatcher("dbconfigs") / PathEnd, classOf[DbConfigsResource]),
-      RouteMapping("/dbconfigs/:id",  root / PathMatcher("dbconfigs") / Segment ~ PathEnd, classOf[DbConfigsResource]),
-      RouteMapping("/dbconfigs/:id/", root / PathMatcher("dbconfigs") / Segment / PathEnd, classOf[DbConfigsResource]),
+      ListRouteMapping("/dbconfigs",      root / PathMatcher("dbconfigs") ~ PathEnd, classOf[DbConfigsResource]),
+      CreationMapping("/dbconfigs/",     root / PathMatcher("dbconfigs") / PathEnd, classOf[DbConfigsResource]),
+      EntityMapping("/dbconfigs/:id",  root / PathMatcher("dbconfigs") / Segment ~ PathEnd, classOf[DbConfigsResource]),
+      UpdateMapping("/dbconfigs/:id/", root / PathMatcher("dbconfigs") / Segment / PathEnd, classOf[DbConfigsResource]),
 
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource])
     )

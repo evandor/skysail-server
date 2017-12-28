@@ -15,7 +15,7 @@ import akka.util.Timeout
 import io.skysail.api.security.AuthenticationService
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.routes.RouteMapping
+import io.skysail.domain.routes.{RouteMapping, RouteMappingI}
 import io.skysail.server.{Constants, RoutesCreatorTrait}
 import io.skysail.server.TunnelDirectives._
 import io.skysail.server.actors.{BundleActor, BundlesActor}
@@ -69,7 +69,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
     } else null
   }
 
-  def createRoute(mapping: RouteMapping[_, _], appProvider: ApplicationProvider): Route = {
+  def createRoute(mapping: RouteMappingI[_, _], appProvider: ApplicationProvider): Route = {
     val appRoute = appProvider.appModel().appRoute
     log info s" >>> creating route from [${appProvider.appModel().appPath()}]${mapping.path} -> " +
       s"${mapping.resourceClass.getSimpleName}[${mapping.getEntityType()}]"
@@ -179,7 +179,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
     if (trimmed.startsWith("/")) PathMatcher(trimmed.substring(1)) else PathMatcher(trimmed)
   }
 
-  private def matcher(mapping: RouteMapping[_, _], appProvider: ApplicationProvider): Route = {
+  private def matcher(mapping: RouteMappingI[_, _], appProvider: ApplicationProvider): Route = {
 
     val getAnnotation = requestAnnotationForGet(mapping.resourceClass)
 
@@ -209,7 +209,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
 
   }
 
-  private def handle(mapping: RouteMapping[_, _], appProvider: ApplicationProvider, pathParameter: List[String] = List()) = {
+  private def handle(mapping: RouteMappingI[_, _], appProvider: ApplicationProvider, pathParameter: List[String] = List()) = {
     parameters('_method.?) { tunnelMethod =>
       authenticationDirective(authentication) { username =>
         handleOptionalTunnelMethod(tunnelMethod) {
@@ -237,16 +237,16 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
 
   private def routeWithUnmatchedPath2(
                                        ctx: RequestContext,
-                                       mapping: RouteMapping[_, _],
+                                       mapping: RouteMappingI[_, _],
                                        appProvider: ApplicationProvider,
                                        urlParameter: List[String] = List()): Route
 
   = {
     extractUnmatchedPath { unmatchedPath =>
       val applicationActor = RoutesCreator.getApplicationActorSelection(system, appProvider.getClass.getName)
-      val clazz = mapping.resourceClass
-      val resourceInstance = clazz.newInstance()
-      val processCommand = ProcessCommand(ctx, clazz, appProvider.application(), urlParameter, unmatchedPath)
+      //val clazz = mapping.resourceClass
+      val resourceInstance = mapping.resourceClass.newInstance()
+      val processCommand = ProcessCommand(ctx, mapping, appProvider.application(), urlParameter, unmatchedPath)
 
       resourceInstance.createRoute(applicationActor, processCommand)(system)
     }

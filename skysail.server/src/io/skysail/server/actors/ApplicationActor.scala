@@ -55,7 +55,7 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
     // tag::resourceInstance[]
     case cmd: ProcessCommand => {
       val routesCreator = sender()
-      val resourceInstance = cmd.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
+      val resourceInstance = cmd.mapping.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
       val controllerActor = createController
 
       val skysailContext = SkysailContext(cmd, appModel, resourceInstance, bundleContext)

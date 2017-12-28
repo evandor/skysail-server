@@ -1,23 +1,24 @@
 package io.skysail.server.actors
 
-import akka.actor.{ Actor, ActorLogging, ActorRef }
+import akka.actor.{Actor, ActorLogging, ActorRef}
 import akka.event.LoggingReceive
 import akka.http.scaladsl.marshalling.Marshal
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.{ ContentNegotiator, MediaTypeNegotiator }
+import akka.http.scaladsl.server.{ContentNegotiator, MediaTypeNegotiator}
 import akka.util.Timeout
 import de.heikoseeberger.akkahttpjson4s.Json4sSupport._
 import io.skysail.domain._
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.AsyncResource
+import io.skysail.domain.routes._
 import io.skysail.server.RepresentationModel
 import io.skysail.server.actors.ApplicationActor._
 import org.json4s.JsonAST.JString
-import org.json4s.jackson.JsonMethods.{ compact, render }
+import org.json4s.jackson.JsonMethods.{compact, render}
 import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
-import org.json4s.{ DefaultFormats, Extraction, JObject, jackson }
+import org.json4s.{DefaultFormats, Extraction, JObject, jackson}
 import org.osgi.framework.BundleContext
 import play.twirl.api.HtmlFormat
 
@@ -60,19 +61,12 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       resource.setBundleContext(bc)
 
       if (resource.isInstanceOf[DefaultResource[_, _]]) {
-        val uri = cmd.ctx.request.uri
-        cmd.ctx.request.method match {
-          case HttpMethods.GET => { 
-            if (!uri.toString().endsWith("/")) 
-              resource.asInstanceOf[DefaultResource[_,_]].doGetList(RequestEvent(cmd, self)) 
-            else
-              resource.asInstanceOf[DefaultResource[_,_]].doGetForPostUrl(RequestEvent(cmd, self)) 
-          }
-          case HttpMethods.POST => {
-            resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
-          }
-          case HttpMethods.PUT => resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
-          case e: Any => resource.get(RequestEvent(cmd, self))
+        val dr = resource.asInstanceOf[DefaultResource[_, _]]
+        cmd.mapping match {
+          case c: CreationMapping[_, _] => dr.doGetForPostUrl(RequestEvent(cmd, self))
+          case c: ListRouteMapping[_, _] => dr.doGetList(RequestEvent(cmd, self))
+          case c: UpdateMapping[_, _] =>
+          case c: EntityMapping[_, _] =>
         }
       } else {
         // tag::methodMatch[]
@@ -93,7 +87,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
   }
 
   def out: Receive = LoggingReceive {
-    
+
     case response: ListResponseEvent[T] =>
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
@@ -113,7 +107,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       }
 
     case response: ResponseEvent[T] => {
-      log info s"$response"
+      //log info s"$response"
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
 
@@ -162,11 +156,11 @@ class ControllerActor[T]() extends Actor with ActorLogging {
           entity = answer))
     case response: AsyncResponseEvent =>
       log info s"async response event, no action needed"
-      
+
     case msg: List[T] => {
-      log warning  "============================================================================"
+      log warning "============================================================================"
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: List[T]"
-      log warning  "============================================================================"
+      log warning "============================================================================"
       implicit val formats = DefaultFormats
       implicit val serialization = jackson.Serialization
       val m = Marshal(msg).to[RequestEntity]
@@ -178,19 +172,19 @@ class ControllerActor[T]() extends Actor with ActorLogging {
           applicationActor ! resEvent.copy(entity = msg, httpResponse = resEvent.httpResponse.copy(entity = value))
       }
     }
-    
+
     case msg: ControllerActor.MyResponseEntity => {
-      log warning  "============================================================================"
+      log warning "============================================================================"
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: ControllerActor.MyResponseEntity"
-      log warning  "============================================================================"
+      log warning "============================================================================"
       val reqEvent = RequestEvent(null, null)
       val resEvent = ListResponseEvent(reqEvent, null)
       applicationActor ! resEvent.copy(httpResponse = resEvent.httpResponse.copy(entity = msg.entity))
     }
     case msg: T => {
-      log warning  "============================================================================"
+      log warning "============================================================================"
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: T [msg:${msg.getClass.getName}]"
-      log warning  "============================================================================"
+      log warning "============================================================================"
       val reqEvent = RequestEvent(null, null)
       val resEvent = ListResponseEvent(reqEvent, null)
       implicit val formats = DefaultFormats
@@ -200,16 +194,18 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       applicationActor ! resEvent.copy(entity = msg, httpResponse = resEvent.httpResponse.copy(entity = r))
     }
     case msg: Any => {
-      log warning  "============================================================================"
+      log warning "============================================================================"
       log info s">>> OUT >>>: received unknown message '$msg' in ${this.getClass.getName}"
-      log warning  "============================================================================"
+      log warning "============================================================================"
     }
   }
 
   private def handleHtmlWithFallback(response: ListResponseEvent[T], m: Future[MessageEntity]) = {
     try {
-      val loader = response.req.cmd.resourceClass.getClassLoader
-      val resourceHtmlClass = loader.loadClass(getHtmlTemplate(response.req))
+      val loader = response.req.cmd.mapping.resourceClass.getClassLoader
+      val templateName = getHtmlTemplate(response.req)
+      log info s"templateName $templateName"
+      val resourceHtmlClass = loader.loadClass(templateName)
       val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel])
 
       m.onSuccess {
@@ -227,8 +223,9 @@ class ControllerActor[T]() extends Actor with ActorLogging {
 
   private def handleHtmlWithFallback(response: ResponseEvent[T], e: String): Unit = {
     val resourceClassAsString = getHtmlTemplate(response.req)
+    log info s"resourceClassAsString: $resourceClassAsString"
     try {
-      val loader = response.req.cmd.resourceClass.getClassLoader
+      val loader = response.req.cmd.mapping.resourceClass.getClassLoader
       val resourceHtmlClass = loader.loadClass(resourceClassAsString)
       val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel])
 
@@ -264,7 +261,20 @@ class ControllerActor[T]() extends Actor with ActorLogging {
   }
 
   private def getHtmlTemplate(req: RequestEvent) = {
-    s"${req.cmd.resourceClass.getPackage.getName}.html.${req.cmd.resourceClass.getSimpleName}_Get"
+    val resName = req.cmd.mapping.resourceClass
+    req.cmd.mapping match {
+      case c: CreationMapping[_, _] => {
+        req.cmd.ctx.request.method match {
+          case HttpMethods.GET => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Form"
+          case HttpMethods.POST => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Post"
+          case _ => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+        }
+      }
+      case c: ListRouteMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+      case c: EntityMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+      case c: UpdateMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+      case c: RouteMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+    }
   }
 
 }

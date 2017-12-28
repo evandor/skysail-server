@@ -1,6 +1,6 @@
 package io.skysail.domain.model
 
-import io.skysail.domain.routes.RouteMapping
+import io.skysail.domain.routes.{RouteMapping, RouteMappingI}
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe._
@@ -11,7 +11,7 @@ import scala.reflect.runtime.universe._
   *
   * @param routeMapping todo
   */
-case class ResourceModel(routeMapping: RouteMapping[_,_]) {
+case class ResourceModel(routeMapping: RouteMappingI[_,_]) {
 
   //require(routeMapping.path != null, "A ResourceModel's pathMatcher must not be null")
   require(routeMapping.resourceClass != null, "A ResourceModel's resource class must not be null")
