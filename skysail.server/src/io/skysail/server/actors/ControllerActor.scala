@@ -1,10 +1,10 @@
 package io.skysail.server.actors
 
-import akka.actor.{Actor, ActorLogging, ActorRef}
+import akka.actor.{ Actor, ActorLogging, ActorRef }
 import akka.event.LoggingReceive
 import akka.http.scaladsl.marshalling.Marshal
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.{ContentNegotiator, MediaTypeNegotiator}
+import akka.http.scaladsl.server.{ ContentNegotiator, MediaTypeNegotiator }
 import akka.util.Timeout
 import de.heikoseeberger.akkahttpjson4s.Json4sSupport._
 import io.skysail.domain._
@@ -14,15 +14,16 @@ import io.skysail.domain.resources.AsyncResource
 import io.skysail.server.RepresentationModel
 import io.skysail.server.actors.ApplicationActor._
 import org.json4s.JsonAST.JString
-import org.json4s.jackson.JsonMethods.{compact, render}
+import org.json4s.jackson.JsonMethods.{ compact, render }
 import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
-import org.json4s.{DefaultFormats, Extraction, JObject, jackson}
+import org.json4s.{ DefaultFormats, Extraction, JObject, jackson }
 import org.osgi.framework.BundleContext
 import play.twirl.api.HtmlFormat
 
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
+import io.skysail.domain.resources.DefaultResource
 
 object ControllerActor {
 
@@ -50,38 +51,55 @@ class ControllerActor[T]() extends Actor with ActorLogging {
   def receive = in
 
   def in: Receive = LoggingReceive {
-    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[_,T], bc: BundleContext) => {
+    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[_, T], bc: BundleContext) => {
       applicationActor = sender
       applicationModel = model
       resource.setActorContext(context)
       resource.setApplicationModel(model)
       resource.setApplication(cmd.application)
       resource.setBundleContext(bc)
-      // tag::methodMatch[]
-      cmd.ctx.request.method match {
-        case HttpMethods.GET => resource.doGet(RequestEvent(cmd, self))
-        case HttpMethods.POST => {
-          println(" ###: " + resource)
-          resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
+
+      if (resource.isInstanceOf[DefaultResource[_, _]]) {
+        val uri = cmd.ctx.request.uri
+        cmd.ctx.request.method match {
+          case HttpMethods.GET => { 
+            if (!uri.toString().endsWith("/")) 
+              resource.asInstanceOf[DefaultResource[_,_]].doGetList(RequestEvent(cmd, self)) 
+            else
+              resource.doGet(RequestEvent(cmd, self)) 
+          }
+          case HttpMethods.POST => {
+            resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
+          }
+          case HttpMethods.PUT => resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
+          case e: Any => resource.get(RequestEvent(cmd, self))
         }
-        case HttpMethods.PUT => resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
-        case e: Any => resource.get(RequestEvent(cmd, self))
+      } else {
+        // tag::methodMatch[]
+        cmd.ctx.request.method match {
+          case HttpMethods.GET => resource.doGet(RequestEvent(cmd, self))
+          case HttpMethods.POST => {
+            resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
+          }
+          case HttpMethods.PUT => resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
+          case e: Any => resource.get(RequestEvent(cmd, self))
+        }
+        // end::methodMatch[]
       }
-      // end::methodMatch[]
+
       become(out)
     }
     case msg: Any => log info s"<<< IN <<<: received unknown message '$msg' in ${this.getClass.getName}"
   }
 
   def out: Receive = LoggingReceive {
+    
     case response: ListResponseEvent[T] =>
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
 
-
       val cn = ContentNegotiator(response.req.cmd.ctx.request.headers)
       val amr = cn.mtn.acceptedMediaRanges
-
 
       implicit val formats = DefaultFormats
       implicit val serialization = jackson.Serialization
@@ -93,6 +111,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
         handleJson(m, response)
       }
+
     case response: ResponseEvent[T] => {
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
@@ -119,12 +138,12 @@ class ControllerActor[T]() extends Actor with ActorLogging {
           val b: String = compact(render(a))
 
           if (negotiator.isAccepted(MediaTypes.`text/html`)) {
-           handleHtmlWithFallback(response,b)
+            handleHtmlWithFallback(response, b)
           } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
-           handleJson(response,b)
+            handleJson(response, b)
           }
         }
-        case _: Any =>  applicationActor ! response
+        case _: Any => applicationActor ! response
       }
     }
     case response: HtmlResponseEvent =>
@@ -135,15 +154,18 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       val uri = response.redirectTo.getOrElse("/").toString
       applicationActor ! response.copy(
         //req = response.req.copy(
-        entity = response.entity, 
+        entity = response.entity,
         httpResponse = response.httpResponse.copy(
           status = StatusCodes.SeeOther, // not 307, see https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection, https://stackoverflow.com/questions/2068418/whats-the-difference-between-a-302-and-a-307-redirect
           headers = headers.Location(akka.http.scaladsl.model.Uri(uri)) :: Nil,
           entity = answer))
     case response: AsyncResponseEvent =>
       log info s"async response event, no action needed"
+      
     case msg: List[T] => {
+      log warning  "============================================================================"
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: List[T]"
+      log warning  "============================================================================"
       implicit val formats = DefaultFormats
       implicit val serialization = jackson.Serialization
       val m = Marshal(msg).to[RequestEntity]
@@ -155,14 +177,19 @@ class ControllerActor[T]() extends Actor with ActorLogging {
           applicationActor ! resEvent.copy(entity = msg, httpResponse = resEvent.httpResponse.copy(entity = value))
       }
     }
+    
     case msg: ControllerActor.MyResponseEntity => {
+      log warning  "============================================================================"
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: ControllerActor.MyResponseEntity"
+      log warning  "============================================================================"
       val reqEvent = RequestEvent(null, null)
       val resEvent = ListResponseEvent(reqEvent, null)
       applicationActor ! resEvent.copy(httpResponse = resEvent.httpResponse.copy(entity = msg.entity))
     }
     case msg: T => {
+      log warning  "============================================================================"
       log warning s">>> OUT(${this.hashCode()}) @deprecated >>>: T [msg:${msg.getClass.getName}]"
+      log warning  "============================================================================"
       val reqEvent = RequestEvent(null, null)
       val resEvent = ListResponseEvent(reqEvent, null)
       implicit val formats = DefaultFormats
@@ -214,7 +241,6 @@ class ControllerActor[T]() extends Actor with ActorLogging {
 
   }
 
-
   private def handleJson(m: Future[MessageEntity], response: ListResponseEvent[T]) = {
     m.onSuccess {
       case value =>
@@ -223,7 +249,8 @@ class ControllerActor[T]() extends Actor with ActorLogging {
   }
 
   private def handleJson(response: ResponseEvent[T], e: String) = {
-    applicationActor ! response.copy(entity = response.entity,
+    applicationActor ! response.copy(
+      entity = response.entity,
       httpResponse = response.httpResponse.copy(entity = e))
   }
 

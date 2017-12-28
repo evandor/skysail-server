@@ -11,6 +11,7 @@ sealed trait ResponseEventBase {
 case class ResponseEvent[T](req: RequestEvent, entity: T, httpResponse: HttpResponse = HttpResponse(200)) extends ResponseEventBase
 
 case class ListResponseEvent[T](req: RequestEvent, entity: T, httpResponse: HttpResponse = HttpResponse(200)) extends ResponseEventBase
+//case class ListResponseEvent2[T](req: RequestEvent, entity: List[T], httpResponse: HttpResponse = HttpResponse(200)) extends ResponseEventBase
 
 case class HtmlResponseEvent(req: RequestEvent, entity: String, httpResponse: HttpResponse = HttpResponse(200)) extends ResponseEventBase
 

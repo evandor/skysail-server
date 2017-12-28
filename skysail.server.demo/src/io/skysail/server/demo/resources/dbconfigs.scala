@@ -7,49 +7,33 @@ import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.resources.{AsyncResource, ListResource, PostResource, PutResource}
+import io.skysail.domain.resources._
 import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent}
 import io.skysail.server.demo.DemoApplication
 import spray.json.{DefaultJsonProtocol, _}
 import akka.http.scaladsl.model.HttpMethods
 import io.skysail.server.demo.domain.DbConfig
+import io.skysail.domain.ListResponseEvent
 
 trait JsonSupport2 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val DbConfigFormat: RootJsonFormat[DbConfig] = jsonFormat3(DbConfig)
 }
 
-class DbConfigsResource extends ListResource[DemoApplication, DbConfig] {
-  override def getList(re: RequestEvent): List[DbConfig] = getApplication().dbConfigRepo.find()
-}
+class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig] {
 
-class PostDbConfigResource extends PostResource[DemoApplication, DbConfig] with JsonSupport2 {
-
-  def get(requestEvent: RequestEvent): ResponseEvent[DbConfig] = {
-    //      requestEvent.controllerActor ! applicationModel.entityModelFor(classOf[DbConfig]).get.description()
-    ResponseEvent(requestEvent, DbConfig(None, "",""))
+  override def get(requestEvent: RequestEvent) = {
+    val optionalDbConfig = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
+    ResponseEvent(requestEvent, optionalDbConfig.get)
   }
 
-  def post(requestEvent: RequestEvent) {
+  override def getList(re: RequestEvent) = ListResponseEvent(re, getApplication().dbConfigRepo.find())
+
+  override def post(requestEvent: RequestEvent) {
     val b = getApplication().repo.save(requestEvent.cmd.entity)
     getApplication().eventService.send("DbConfig created")
     val redirectTo = Some("/demo/v1/dbconfigs")
     val newRequest = requestEvent.cmd.ctx.request.copy(method = HttpMethods.GET)
     requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "", redirectTo)
-  }
-
-  override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
-    formFieldMap { map =>
-      val entity = DbConfig(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), map.getOrElse("title", "Unknown"))
-      super.createRoute(applicationActor, processCommand.copy(entity = entity))
-    }
-  }
-}
-
-class PutDbConfigResource extends PutResource[DemoApplication, DbConfig] with JsonSupport {
-
-  override def get(requestEvent: RequestEvent): ResponseEvent[DbConfig] = {
-    val optionalDbConfig = getApplication().dbConfigRepo.find(requestEvent.cmd.urlParameter.head)
-    ResponseEvent(requestEvent, optionalDbConfig.get)
   }
 
   override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
@@ -65,11 +49,7 @@ class PutDbConfigResource extends PutResource[DemoApplication, DbConfig] with Js
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
+
+
 }
 
-class DbConfigResource extends AsyncResource[DemoApplication, DbConfig] {
-  override def get(requestEvent: RequestEvent) = {
-    val optionalDbConfig = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
-    ResponseEvent(requestEvent, optionalDbConfig.get)
-  }
-}

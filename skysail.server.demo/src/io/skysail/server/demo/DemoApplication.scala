@@ -39,8 +39,10 @@ class DemoApplication(bundleContext: BundleContext, dbService: DbService, system
       RouteMapping("/bms/:id",    root / PathMatcher("bms") / Segment ~ PathEnd, classOf[BookmarkResource]),
       RouteMapping("/bms/:id/",   root / PathMatcher("bms") / Segment / PathEnd, classOf[PutBookmarkResource]),
 
-      RouteMapping("/dbconfigs",  root / PathMatcher("dbconfigs") ~ PathEnd, classOf[DbConfigsResource]),
-      RouteMapping("/dbconfigs/", root / PathMatcher("dbconfigs") / PathEnd, classOf[PostDbConfigResource]),
+      RouteMapping("/dbconfigs",      root / PathMatcher("dbconfigs") ~ PathEnd, classOf[DbConfigsResource]),
+      RouteMapping("/dbconfigs/",     root / PathMatcher("dbconfigs") / PathEnd, classOf[DbConfigsResource]),
+      RouteMapping("/dbconfigs/:id",  root / PathMatcher("dbconfigs") / Segment ~ PathEnd, classOf[DbConfigsResource]),
+      RouteMapping("/dbconfigs/:id/", root / PathMatcher("dbconfigs") / Segment / PathEnd, classOf[DbConfigsResource]),
 
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource])
     )

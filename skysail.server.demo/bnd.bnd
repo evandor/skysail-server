@@ -9,7 +9,7 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 Bundle-Activator: io.skysail.server.demo.DemoActivator
 
 #OSGI-OPT/src=src/,
--includeresource: resources
+#-includeresource: resources
 
 -buildpath: \
     ${osgi},\
@@ -47,3 +47,8 @@ Private-Package: \
     io.skysail.server.demo.repositories,\
     io.skysail.server.demo.resources,\
     io.skysail.server.demo.resources.html
+    
+Import-Package: \
+    !akka.testkit,\
+	!akka.http.scaladsl.testkit,\
+	*

@@ -11,8 +11,8 @@
 
 <div class="container">
     <div class="starter-template">
-        <h1>Bookmarks</h1>
-        <p class="lead">all bookmarks:</p>
+        <h1>DbConfigs</h1>
+        <p class="lead">all keys:</p>
         <table class="table table-sm">
             <thead>
             <tr>
@@ -28,7 +28,7 @@
                 <th scope="row">@p.get("id")</th>
                 <th scope="row">@p.get("key")</th>
                 <td><a href='@p.get("values")'>@p.get("values")</a></td>
-                <td><a href='@rep.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.get("id"))'>[update!!]</a></td>
+                <td><a href='@rep.linkFor("io.skysail.server.demo.resources.DbConfigsResource", p.get("id"))'>[update!!]</a></td>
             </tr>
             }
 
@@ -36,7 +36,7 @@
 
         </table>
 
-        <a href='@rep.linkFor("io.skysail.server.demo.resources.PostBookmarkResource",None)'>Create New Bookmark</a>
+        <a href='@rep.linkFor("io.skysail.server.demo.resources.DbConfigsResource",None)'>Create New Entry</a>
 
         <hr>
         <a href="/doc/v1/index.html" target="_docs">Doc</a>
