@@ -8,11 +8,16 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.reflect.runtime.universe._
 import scala.util.{Failure, Success}
+import io.skysail.domain.ResponseEvent
 
 abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
 
   final def doGetList(requestEvent: RequestEvent): Unit = {
     requestEvent.controllerActor ! getList(requestEvent)
+  }
+
+  def doGetForPostUrl(requestEvent: RequestEvent): Unit = {
+    requestEvent.controllerActor ! ResponseEvent(requestEvent, null)
   }
 
   def get(re: RequestEvent): ResponseEventBase = ListResponseEvent(re, getList(re))

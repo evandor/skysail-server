@@ -2,15 +2,15 @@ package io.skysail.server.demo.resources
 
 import java.util.UUID
 
-import akka.actor.{ActorSelection, ActorSystem}
+import akka.actor.{ ActorSelection, ActorSystem }
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources._
-import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent}
+import io.skysail.domain.{ RedirectResponseEvent, RequestEvent, ResponseEvent }
 import io.skysail.server.demo.DemoApplication
-import spray.json.{DefaultJsonProtocol, _}
+import spray.json.{ DefaultJsonProtocol, _ }
 import akka.http.scaladsl.model.HttpMethods
 import io.skysail.server.demo.domain.DbConfig
 import io.skysail.domain.ListResponseEvent
@@ -24,6 +24,10 @@ class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig] {
   override def get(requestEvent: RequestEvent) = {
     val optionalDbConfig = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
     ResponseEvent(requestEvent, optionalDbConfig.get)
+  }
+
+  override def doGetForPostUrl(requestEvent: RequestEvent): Unit = {
+    requestEvent.controllerActor ! ResponseEvent(requestEvent, DbConfig(None, "",""))
   }
 
   override def getList(re: RequestEvent) = ListResponseEvent(re, getApplication().dbConfigRepo.find())
@@ -49,7 +53,6 @@ class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig] {
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
-
 
 }
 

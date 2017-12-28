@@ -66,7 +66,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
             if (!uri.toString().endsWith("/")) 
               resource.asInstanceOf[DefaultResource[_,_]].doGetList(RequestEvent(cmd, self)) 
             else
-              resource.doGet(RequestEvent(cmd, self)) 
+              resource.asInstanceOf[DefaultResource[_,_]].doGetForPostUrl(RequestEvent(cmd, self)) 
           }
           case HttpMethods.POST => {
             resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
@@ -113,6 +113,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       }
 
     case response: ResponseEvent[T] => {
+      log info s"$response"
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
 
@@ -198,7 +199,11 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       val r = HttpEntity(ContentTypes.`application/json`, written)
       applicationActor ! resEvent.copy(entity = msg, httpResponse = resEvent.httpResponse.copy(entity = r))
     }
-    case msg: Any => log info s">>> OUT >>>: received unknown message '$msg' in ${this.getClass.getName}"
+    case msg: Any => {
+      log warning  "============================================================================"
+      log info s">>> OUT >>>: received unknown message '$msg' in ${this.getClass.getName}"
+      log warning  "============================================================================"
+    }
   }
 
   private def handleHtmlWithFallback(response: ListResponseEvent[T], m: Future[MessageEntity]) = {
