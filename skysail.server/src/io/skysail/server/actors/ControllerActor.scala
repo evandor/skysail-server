@@ -63,7 +63,13 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       if (resource.isInstanceOf[DefaultResource[_, _]]) {
         val dr = resource.asInstanceOf[DefaultResource[_, _]]
         cmd.mapping match {
-          case c: CreationMapping[_, _] => dr.doGetForPostUrl(RequestEvent(cmd, self))
+          case c: CreationMapping[_, _] => {
+            cmd.ctx.request.method match {
+              case HttpMethods.GET => dr.doGetForPostUrl(RequestEvent(cmd, self))
+              case HttpMethods.POST => dr.post(RequestEvent(cmd, self))
+              case _ => log warning s"unknown mapping"
+            }            
+          }
           case c: ListRouteMapping[_, _] => dr.doGetList(RequestEvent(cmd, self))
           case c: UpdateMapping[_, _] =>
           case c: EntityMapping[_, _] =>

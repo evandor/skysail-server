@@ -61,8 +61,8 @@ Seq[Any](format.raw/*1.1*/("""<nav class="navbar navbar-expand-md navbar-dark bg
 
               /*
                   -- GENERATED --
-                  DATE: Tue Nov 14 14:07:31 CET 2017
-                  SOURCE: C:/git/skysail-server/skysail.server/./resources/templates/navbar.scala.html
+                  DATE: Fri Dec 29 08:21:26 CET 2017
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/navbar.scala.html
                   HASH: 4a0b0b88d6b185df129e71ed1460eb3773b6544b
                   MATRIX: 491->0
                   LINES: 16->1

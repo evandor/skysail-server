@@ -27,7 +27,10 @@ Seq[Any](format.raw/*1.17*/("""
 
     """),_display_(/*13.6*/content),format.raw/*13.13*/("""
 
-    """),format.raw/*15.5*/("""<!-- Optional JavaScript -->
+    """),format.raw/*15.5*/("""xxx
+    <custom-element></custom-element>
+
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -50,9 +53,9 @@ Seq[Any](format.raw/*1.17*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Wed Nov 15 13:20:05 CET 2017
-                  SOURCE: C:/git/skysail-server/skysail.server/./resources/templates/main.scala.html
-                  HASH: e802b8d6a63c1eefb239112705c739c29513a373
+                  DATE: Fri Dec 29 09:12:05 CET 2017
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/main.scala.html
+                  HASH: db3d9e8634fd447febd2e589169838188f861062
                   MATRIX: 405->1|515->16|542->17|636->86|662->92|689->93|757->135|786->143|819->150|847->157|880->163
                   LINES: 11->1|16->1|17->2|21->6|21->6|22->7|26->11|26->11|28->13|28->13|30->15
                   -- GENERATED --

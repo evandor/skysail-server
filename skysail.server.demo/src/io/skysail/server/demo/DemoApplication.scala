@@ -6,15 +6,20 @@ import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.api.persistence.DbService
 import io.skysail.domain.routes._
 import io.skysail.server.RoutesCreatorTrait
-import io.skysail.server.app.{ApplicationProvider, BackendApplication}
-import io.skysail.server.demo.repositories.{BookmarksRepository, DbConfigsRepository}
+import io.skysail.server.app.{ ApplicationProvider, BackendApplication }
+import io.skysail.server.demo.repositories.{ BookmarksRepository, DbConfigsRepository }
 import io.skysail.server.demo.resources._
-import io.skysail.server.demo.services.{BookmarksService, EventService}
+import io.skysail.server.demo.services.{ BookmarksService, EventService }
 import org.osgi.framework.BundleContext
 import org.osgi.service.event.EventAdmin
+import io.skysail.api.config.PropertyProvider
+import io.skysail.server.demo.domain.DbConfig
 
-class DemoApplication(bundleContext: BundleContext, dbService: DbService, system: ActorSystem, routesCreator: RoutesCreatorTrait) extends
-  BackendApplication(bundleContext, routesCreator,system) with ApplicationProvider {
+class DemoApplication(
+  bundleContext: BundleContext,
+  dbService: DbService,
+  system: ActorSystem,
+  routesCreator: RoutesCreatorTrait) extends BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider with PropertyProvider {
 
   var eventService: EventService = new EventService(null)
 
@@ -34,18 +39,27 @@ class DemoApplication(bundleContext: BundleContext, dbService: DbService, system
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
     List(
-      RouteMapping("/bms",        root / PathMatcher("bms") ~ PathEnd, classOf[BookmarksResource]),
-      RouteMapping("/bms/",       root / PathMatcher("bms") / PathEnd, classOf[PostBookmarkResource]),
-      RouteMapping("/bms/:id",    root / PathMatcher("bms") / Segment ~ PathEnd, classOf[BookmarkResource]),
-      RouteMapping("/bms/:id/",   root / PathMatcher("bms") / Segment / PathEnd, classOf[PutBookmarkResource]),
+      RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[BookmarksResource]),
+      RouteMapping("/bms/", root / PathMatcher("bms") / PathEnd, classOf[PostBookmarkResource]),
+      RouteMapping("/bms/:id", root / PathMatcher("bms") / Segment ~ PathEnd, classOf[BookmarkResource]),
+      RouteMapping("/bms/:id/", root / PathMatcher("bms") / Segment / PathEnd, classOf[PutBookmarkResource]),
 
-      ListRouteMapping("/dbconfigs",      root / PathMatcher("dbconfigs") ~ PathEnd, classOf[DbConfigsResource]),
-      CreationMapping("/dbconfigs/",     root / PathMatcher("dbconfigs") / PathEnd, classOf[DbConfigsResource]),
-      EntityMapping("/dbconfigs/:id",  root / PathMatcher("dbconfigs") / Segment ~ PathEnd, classOf[DbConfigsResource]),
+      ListRouteMapping("/dbconfigs", root / PathMatcher("dbconfigs") ~ PathEnd, classOf[DbConfigsResource]),
+      CreationMapping("/dbconfigs/", root / PathMatcher("dbconfigs") / PathEnd, classOf[DbConfigsResource]),
+      EntityMapping("/dbconfigs/:id", root / PathMatcher("dbconfigs") / Segment ~ PathEnd, classOf[DbConfigsResource]),
       UpdateMapping("/dbconfigs/:id/", root / PathMatcher("dbconfigs") / Segment / PathEnd, classOf[DbConfigsResource]),
 
-      RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource])
-    )
+      RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource]))
+  }
+
+  def getList(key: String): List[String] = {
+    val dbConfig = dbConfigRepo.find().filter(config => config.key.equals(key)).headOption.getOrElse(DbConfig(None, "", ""))
+    dbConfig.values.split(",").toList.map(_.trim())
+  }
+
+  def get(key: String): String = {
+    val dbConfig = dbConfigRepo.find().filter(config => config.key.equals(key)).headOption.getOrElse(DbConfig(None, "", ""))
+    dbConfig.values
   }
 
 }

@@ -1,12 +1,16 @@
 package io.skysail.server.app
 
+import akka.actor.ActorSystem
+import akka.http.scaladsl.server.Directives.{get, getFromResourceDirectory, pathPrefix}
 import akka.http.scaladsl.server.PathMatchers._
-import akka.http.scaladsl.server.{PathMatcher, PathMatchers}
+import akka.http.scaladsl.server.{PathMatcher, PathMatchers, Route}
 import io.skysail.api.ui.Client
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.app.resources.{AppsResource, ClientsResource, RootRedirectResource, RootResource}
 import io.skysail.server.routes.RoutesCreator
 import org.osgi.framework.BundleContext
+
+import scala.concurrent.ExecutionContextExecutor
 
 object RootApplication {
   //val LOGIN_PATH = "/_login"
@@ -23,6 +27,7 @@ object RootApplication {
 class RootApplication(
                        bundleContext: BundleContext,
                        routesCreator: RoutesCreator,
+                       system: ActorSystem,
                        val conf: Map[String, Any]) extends BackendApplication(bundleContext, routesCreator, null)
   with ApplicationProvider {
 
@@ -49,5 +54,13 @@ class RootApplication(
     )
   }
 
+  override def nativeRoute(): Route = {
+    implicit val executionContext: ExecutionContextExecutor = system.dispatcher
+    pathPrefix("") {
+      get {
+        getFromResourceDirectory("assets", this.getClass.getClassLoader)
+      }
+    }
+  }
 
 }

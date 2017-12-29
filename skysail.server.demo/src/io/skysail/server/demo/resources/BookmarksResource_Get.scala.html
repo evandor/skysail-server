@@ -16,7 +16,6 @@
         <table class="table table-sm">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Title</th>
                 <th>Url</th>
                 <th>Actions</th>
@@ -25,10 +24,12 @@
             <tbody>
             @for(p <- rep.rawData) {
             <tr>
-                <th scope="row">@p.get("id")</th>
                 <th scope="row">@p.get("title")</th>
                 <td><a href='@p.get("url")'>@p.get("url")</a></td>
-                <td><a href='@rep.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.get("id"))'>[update!!]</a></td>
+                <td>
+                    <a href='@rep.linkFor("io.skysail.server.demo.resources.BookmarkResource", p.get("id"))'>[show]</a>
+                    <a href='@rep.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.get("id"))'>[update]</a>
+                </td>
             </tr>
             }
 

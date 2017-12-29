@@ -49,7 +49,7 @@ class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig] {
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
     formFieldMap { map =>
-      val entity = DbConfig(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), map.getOrElse("title", "Unknown"))
+      val entity = DbConfig(Some(UUID.randomUUID().toString), map.getOrElse("key", "Unknown"), map.getOrElse("values", "Unknown"))
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }

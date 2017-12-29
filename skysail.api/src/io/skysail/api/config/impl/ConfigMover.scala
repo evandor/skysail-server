@@ -1,12 +1,10 @@
-package io.skysail.api.config
+package io.skysail.api.config.impl
 
 import java.io.{BufferedReader, InputStreamReader}
 import java.nio.file._
-
 import ch.qos.logback.classic._
 import org.osgi.framework.{Bundle, BundleContext}
 import org.slf4j.LoggerFactory
-
 import scala.collection.JavaConverters._
 
 

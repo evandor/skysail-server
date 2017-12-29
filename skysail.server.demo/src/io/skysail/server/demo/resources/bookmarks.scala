@@ -4,15 +4,17 @@ import java.util.UUID
 
 import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
+import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{AsyncResource, ListResource, PostResource, PutResource}
 import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent}
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.Bookmark
+import io.skysail.server.demo.domain.{Bookmark, BookmarkWithVariants}
 import spray.json.{DefaultJsonProtocol, _}
-import akka.http.scaladsl.model.HttpMethods
+
+import scala.util.matching.Regex
 
 trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val bookmarkFormat: RootJsonFormat[Bookmark] = jsonFormat3(Bookmark)
@@ -72,7 +74,20 @@ class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] with Js
 
 class BookmarkResource extends AsyncResource[DemoApplication, Bookmark] {
   override def get(requestEvent: RequestEvent) = {
-    val optionalBookmark = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
-    ResponseEvent(requestEvent, optionalBookmark.get)
+    val app: DemoApplication = getApplication()
+    val optionalBookmark = app.repo.find(requestEvent.cmd.urlParameter.head)
+    val bm = optionalBookmark.getOrElse(Bookmark(None, "undef", "undef"))
+    if (bm.url.contains("$")) {
+      val pattern = new Regex("\\$\\{(.*?)}")
+      val matchList = (pattern findAllIn bm.url).toList
+      println((pattern findAllIn bm.url).mkString(","))
+      val hits = matchList.map(hit => hit.substring(2, hit.length - 1)).map(hit => hit -> app.getList(hit))
+      println(hits)
+      val bmWithVariants = new BookmarkWithVariants(bm.id.get, "*" + bm.title + "*", bm.url, hits)
+
+      ResponseEvent(requestEvent, bmWithVariants)
+    } else {
+      ResponseEvent(requestEvent, bm)
+    }
   }
 }

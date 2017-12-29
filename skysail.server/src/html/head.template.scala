@@ -26,7 +26,12 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
   <link rel="stylesheet"    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
   <link rel="stylesheet"    href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto|Slabo+27px" async>
 
-    <!--<script type="text/javascript" src="/_ui/jquery/3.1.1/jquery-3.1.1.min.js"></script>
+  <script src="https://polygit.org/components/webcomponentsjs/webcomponents-loader.js"></script>
+
+  <link rel="import" href="/_root/custom-element.html">
+
+
+  <!--<script type="text/javascript" src="/_ui/jquery/3.1.1/jquery-3.1.1.min.js"></script>
 
     <link href="/webapp/css/contextMenu/jquery.contextMenu.css" rel="stylesheet" type="text/css" async />
     <script type="text/javascript" src="/webapp/js/contextMenu/jquery.contextMenu.js" async></script>
@@ -56,9 +61,9 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
               /*
                   -- GENERATED --
-                  DATE: Thu Nov 23 09:33:45 CET 2017
-                  SOURCE: C:/git/skysail-server/skysail.server/./resources/templates/head.scala.html
-                  HASH: 346e3881202d85219ef32fe64c569b7e30340d26
+                  DATE: Fri Dec 29 09:08:35 CET 2017
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/head.scala.html
+                  HASH: 232116093521dbe55cd03609eceb9078750237b1
                   MATRIX: 489->2
                   LINES: 16->1
                   -- GENERATED --

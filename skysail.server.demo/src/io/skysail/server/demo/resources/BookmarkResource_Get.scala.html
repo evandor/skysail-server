@@ -26,6 +26,24 @@
                 <th scope="row"><input type="text" name="title" value='@rep.rawData.head.get("title")'/></th>
                 <td><input type="url" name="url" value='@rep.rawData.head.get("url")'/></td>
             </tr>
+
+            <tr>
+                <th colspan="2">
+                    <a href='#'>Hier: @rep.rawData.head.get("id") '@rep.rawData.head.get("variants")'</a>
+                </th>
+            </tr>
+
+            @for(p <- rep.rawData(0).get("hits")) {
+                @for(q <- p.asInstanceOf[List[Map[_,_]]]) {
+                  @for(key <- q.keys) {
+                  <tr>
+                    <th colspan="2">
+                      <a href='#'>@p.asInstanceOf[List[Map[_,_]]](0).getClass -- @key.getClass</a>
+                    </th>
+                  </tr>
+                  }
+                }
+            }
             <tr>
                 <th colspan="2">
                     <a href='@rep.rawData.head.get("id")/'>edit bookmark</a>

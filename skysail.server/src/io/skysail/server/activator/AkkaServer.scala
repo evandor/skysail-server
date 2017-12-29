@@ -151,7 +151,7 @@ class AkkaServer extends DominoActivator {
       //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
       serverConfig = ServerConfig(port, binding, conf)
 
-      rootApplication = Some(new RootApplication(bundleContext, routesCreator, conf))
+      rootApplication = Some(new RootApplication(bundleContext, routesCreator, actorSystem, conf))
       rootApplication.get.providesService[ApplicationProvider]
     }
 
