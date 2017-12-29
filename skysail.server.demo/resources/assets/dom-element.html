@@ -1,0 +1,52 @@
+<link rel="import"  href="https://polygit.org/components/polymer/polymer-element.html">
+
+<dom-module id="dom-element">
+
+    <template>
+        <style>
+            div {
+                display: inline-block;
+                background-color: #ccc;
+                border-radius: 8px;
+                padding: 4px;
+            }
+        </style>
+        <p>I'm a DOM element. This is my shadow DOM!</p>
+        This is <b>[[json]]</b>'s name-tag element.
+
+        <template is="dom-repeat" items="{{employees}}">
+            ***
+        </template>
+
+    </template>
+
+    <script>
+        class DomElement extends Polymer.Element {
+            static get is() { return "dom-element"; }
+           /* static get properties() {
+                return {
+                    json: {
+                        type: String,
+                        value: "{}"
+                    }
+                };
+            }*/
+            static get properties() {
+                return {
+                    employees: {
+                        type: Array,
+                        value() {
+                            return [
+                                {first: 'Bob', last: 'Smith'},
+                                {first: 'Sally', last: 'Johnson'}
+                                // ...
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+        customElements.define(DomElement.is, DomElement);
+    </script>
+
+</dom-module>
