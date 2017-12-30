@@ -27,3 +27,6 @@ after_success:
   - docker push $DOCKER_USERNAME/skysail-server-website:latest
 
 #  - docker tag skysail-server $DOCKER_USERNAME/skysail-server
+
+notifications:
+    slack: skysail-io:QGRw4Q2CzA56P0c9p5M5xwlm
