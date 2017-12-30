@@ -1,19 +1,16 @@
 package io.skysail.server
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.json4s.JsonAST.JArray
-import org.json4s.{DefaultFormats, Extraction, JObject, JValue, jackson}
-import org.slf4j.LoggerFactory
 import io.skysail.domain.ResponseEventBase
 import io.skysail.domain.model.ApplicationModel
-import org.json4s.JsonDSL._
-import org.json4s._
-import org.json4s.JsonDSL._
+import org.json4s.JsonAST.JArray
 import org.json4s.jackson.JsonMethods._
+import org.json4s.{DefaultFormats, Extraction, JObject, JValue, jackson}
+import org.slf4j.LoggerFactory
 
-class RepresentationModel(/*responseEvent: ListResponseEvent[_]*/
-                          response: ResponseEventBase,
-                          model: ApplicationModel) {
+class RepresentationModel(
+                           val response: ResponseEventBase,
+                           val model: ApplicationModel) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -23,6 +20,12 @@ class RepresentationModel(/*responseEvent: ListResponseEvent[_]*/
   val rawData: List[Map[String, Any]] = deriveRawData()
 
   val jsonData: String = deriveJsonData()
+
+  val json: JValue = {
+    implicit val formats = DefaultFormats
+    implicit val serialization = jackson.Serialization
+    Extraction.decompose(response.entity)
+  }
 
   def linkFor(clsName: String, id: Option[Any]): String = {
     val link: Option[String] = model.linkFor(clsName)

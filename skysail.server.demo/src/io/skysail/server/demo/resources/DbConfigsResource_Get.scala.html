@@ -16,7 +16,6 @@
         <table class="table table-sm">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Key</th>
                 <th>Values</th>
                 <th>Actions</th>
@@ -25,10 +24,9 @@
             <tbody>
             @for(p <- rep.rawData) {
             <tr>
-                <th scope="row">@p.get("id")</th>
                 <th scope="row">@p.get("key")</th>
                 <td><a href='@p.get("values")'>@p.get("values")</a></td>
-                <td><a href='@rep.linkFor("io.skysail.server.demo.resources.DbConfigsResource", p.get("id"))/'>[update!!]</a></td>
+                <td><a href='/demo/v1/@p.get("id")/'>[update]</a></td>
             </tr>
             }
 

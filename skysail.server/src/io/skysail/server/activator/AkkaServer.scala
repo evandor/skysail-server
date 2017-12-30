@@ -24,6 +24,7 @@ import io.skysail.server.routes.{RoutesCreator, RoutesTracker}
 import io.skysail.server.{Constants, RoutesCreatorTrait, SystemPropertiesCommand}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
+import org.slf4j.bridge.SLF4JBridgeHandler
 
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.{ExecutionContextExecutor, Future}
@@ -45,6 +46,9 @@ object AkkaServer {
   *
   */
 class AkkaServer extends DominoActivator {
+
+  SLF4JBridgeHandler.removeHandlersForRootLogger
+  SLF4JBridgeHandler.install
 
   private var log = LoggerFactory.getLogger(this.getClass)
 

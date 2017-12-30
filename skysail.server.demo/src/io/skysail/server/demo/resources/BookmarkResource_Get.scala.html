@@ -5,15 +5,26 @@
 *************************************@
 @(rep: RepresentationModel)
 
+@render(json: String) = {
+  render(json)
+  "hi"
+}
+
 @main {
 
 <br><br><br>
 
 <div class="container">
     <div class="starter-template">
-        <h1>Bookmarks</h1>
+        <h1><a href="/demo/v1/bms">Bookmarks</a> &gt; @rep.rawData.head.get("id")</h1>
         <p class="lead">show bookmark:</p>
-        <span>@rep.rawData</span>
+        <div>@rep.rawData</div>
+        <hr>
+        <div>@rep.response.entity</div>
+        <hr>
+        <div>@rep.jsonData</div>
+        <hr>
+        <div>@rep.json</div>
         <table class="table table-sm">
             <thead>
             <tr>
@@ -29,20 +40,18 @@
 
             <tr>
                 <th colspan="2">
-                    <a href='#'>Hier: @rep.rawData.head.get("id") '@rep.rawData.head.get("variants")'</a>
+                    <a href='#'>@render(rep.jsonData)</a>
                 </th>
             </tr>
 
-            @for(p <- rep.rawData(0).get("hits")) {
-                @for(q <- p.asInstanceOf[List[Map[_,_]]]) {
-                  @for(key <- q.keys) {
+            @for(p <- rep.rawData(0).get("variants")) {
+              @for(q <- p.asInstanceOf[List[_]]) {
                   <tr>
                     <th colspan="2">
-                      <a href='#'>@p.asInstanceOf[List[Map[_,_]]](0).getClass -- @key.getClass</a>
+                      <a href='@q.asInstanceOf[Map[String,_]]("url")'>@q.asInstanceOf[Map[String,_]]("url")</a>
                     </th>
                   </tr>
-                  }
-                }
+              }
             }
             <tr>
                 <th colspan="2">

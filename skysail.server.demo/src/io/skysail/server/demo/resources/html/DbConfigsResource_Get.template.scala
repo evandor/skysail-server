@@ -30,23 +30,21 @@ Seq[Any](format.raw/*6.28*/("""
         <table class="table table-sm">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Key</th>
                 <th>Values</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            """),_display_(/*26.14*/for(p <- rep.rawData) yield /*26.35*/ {_display_(Seq[Any](format.raw/*26.37*/("""
-            """),format.raw/*27.13*/("""<tr>
-                <th scope="row">"""),_display_(/*28.34*/p/*28.35*/.get("id")),format.raw/*28.45*/("""</th>
-                <th scope="row">"""),_display_(/*29.34*/p/*29.35*/.get("key")),format.raw/*29.46*/("""</th>
-                <td><a href='"""),_display_(/*30.31*/p/*30.32*/.get("values")),format.raw/*30.46*/("""'>"""),_display_(/*30.49*/p/*30.50*/.get("values")),format.raw/*30.64*/("""</a></td>
-                <td><a href='"""),_display_(/*31.31*/rep/*31.34*/.linkFor("io.skysail.server.demo.resources.DbConfigsResource", p.get("id"))),format.raw/*31.109*/("""/'>[update!!]</a></td>
+            """),_display_(/*25.14*/for(p <- rep.rawData) yield /*25.35*/ {_display_(Seq[Any](format.raw/*25.37*/("""
+            """),format.raw/*26.13*/("""<tr>
+                <th scope="row">"""),_display_(/*27.34*/p/*27.35*/.get("key")),format.raw/*27.46*/("""</th>
+                <td><a href='"""),_display_(/*28.31*/p/*28.32*/.get("values")),format.raw/*28.46*/("""'>"""),_display_(/*28.49*/p/*28.50*/.get("values")),format.raw/*28.64*/("""</a></td>
+                <td><a href='/demo/v1/"""),_display_(/*29.40*/p/*29.41*/.get("id")),format.raw/*29.51*/("""/'>[update]</a></td>
             </tr>
-            """)))}),format.raw/*33.14*/("""
+            """)))}),format.raw/*31.14*/("""
 
-            """),format.raw/*35.13*/("""</tbody>
+            """),format.raw/*33.13*/("""</tbody>
 
         </table>
 
@@ -73,11 +71,11 @@ Seq[Any](format.raw/*6.28*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Fri Dec 29 11:25:03 CET 2017
-                  SOURCE: C:/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/DbConfigsResource_Get.scala.html
-                  HASH: d41a6e80316399c9c98f590c61463509b67797ba
-                  MATRIX: 657->193|778->219|806->222|817->226|855->228|884->230|1319->638|1356->659|1396->661|1437->674|1502->712|1512->713|1543->723|1609->762|1619->763|1651->774|1714->810|1724->811|1759->825|1789->828|1799->829|1834->843|1901->883|1913->886|2010->961|2095->1015|2137->1029
-                  LINES: 15->6|20->6|22->8|22->8|22->8|24->10|40->26|40->26|40->26|41->27|42->28|42->28|42->28|43->29|43->29|43->29|44->30|44->30|44->30|44->30|44->30|44->30|45->31|45->31|45->31|47->33|49->35
+                  DATE: Sat Dec 30 12:06:29 CET 2017
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/DbConfigsResource_Get.scala.html
+                  HASH: 8daaa05d498e10a2ecaffc10bee6912f668b180f
+                  MATRIX: 657->193|778->219|806->222|817->226|855->228|884->230|1291->610|1328->631|1368->633|1409->646|1474->684|1484->685|1516->696|1579->732|1589->733|1624->747|1654->750|1664->751|1699->765|1775->814|1785->815|1816->825|1899->877|1941->891
+                  LINES: 15->6|20->6|22->8|22->8|22->8|24->10|39->25|39->25|39->25|40->26|41->27|41->27|41->27|42->28|42->28|42->28|42->28|42->28|42->28|43->29|43->29|43->29|45->31|47->33
                   -- GENERATED --
               */
           

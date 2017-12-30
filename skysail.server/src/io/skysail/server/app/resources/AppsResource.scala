@@ -1,6 +1,6 @@
 package io.skysail.server.app.resources
 
-import io.skysail.domain.{AsyncResponseEvent, RequestEvent}
+import io.skysail.domain.{AsyncResponseEvent, ListResponseEvent, RequestEvent}
 import io.skysail.domain.resources.ListResource
 import io.skysail.server.app.RootApplication
 import org.slf4j.LoggerFactory
@@ -18,7 +18,7 @@ class AppsResource() extends ListResource[RootApplication, Application] {
     val appService = getApplication().appService
     val apps = appService.getAllApplications(this.actorContext.system)
     apps.onComplete {
-      case Success(s) => requestEvent.controllerActor ! s
+      case Success(s) => requestEvent.controllerActor ! ListResponseEvent(requestEvent,s)
       case Failure(f) => log error s"failure $f"; null
     }
   }

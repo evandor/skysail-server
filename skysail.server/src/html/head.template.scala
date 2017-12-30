@@ -28,6 +28,8 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
   <script src="https://polygit.org/components/webcomponentsjs/webcomponents-loader.js"></script>
 
+  <link rel="import"  href="https://polygit.org/components/polymer/lib/elements/dom-repeat.html">
+
   <link rel="import" href="/_root/custom-element.html">
   <link rel="import" href="/demo/v1/dom-element.html">
 
@@ -62,9 +64,9 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
               /*
                   -- GENERATED --
-                  DATE: Fri Dec 29 11:18:03 CET 2017
-                  SOURCE: C:/git/skysail-server/skysail.server/./src/head.scala.html
-                  HASH: 9e51f459e5f4c9c5c2c19d93fdb4aeb318b64030
+                  DATE: Fri Dec 29 19:49:17 CET 2017
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/head.scala.html
+                  HASH: cf87d406edc1050ebe2d7ece62f0f32101515f50
                   MATRIX: 489->2
                   LINES: 16->1
                   -- GENERATED --
