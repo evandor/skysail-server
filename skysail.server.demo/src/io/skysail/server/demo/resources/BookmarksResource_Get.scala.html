@@ -25,7 +25,7 @@
             @for(p <- rep.rawData) {
             <tr>
                 <th scope="row">@p.get("title")</th>
-                <td><a href='@p.get("url")'>@p.get("url")</a></td>
+                <td><a href='@p.get("url")' target='demo_bms_@p.get("title")'>@p.get("url")</a></td>
                 <td>
                     <a href='@rep.linkFor("io.skysail.server.demo.resources.BookmarkResource", p.get("id"))'>[show]</a>
                     <a href='@rep.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.get("id"))'>[update]</a>
