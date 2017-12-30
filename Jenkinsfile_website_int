@@ -4,7 +4,7 @@ node {
     script{
        sh "svn update /home/carsten/skysail/skysailconfigs/"
        withEnv(['JENKINS_NODE_COOKIE =dontkill']) {
-         sh "sudo ./skysail.server.website/release/deployment/scripts/run_docker_int.sh &"
+         sh "sudo ../workspace@script/skysail.server.website/release/deployment/scripts/run_docker_int.sh &"
        }
     }
 
