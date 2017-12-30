@@ -11,7 +11,7 @@ services:
 install: ./gradlew --version
 
 script:
-  - ./gradlew -DbuildVersion=travis-${$TRAVIS_JOB_ID} clean build
+  - ./gradlew -DbuildVersion=travis-${TRAVIS_JOB_ID} clean build
   - ./gradlew asciidoctor scaladoc
   - ./gradlew skysail.server:export.server.int
   - ./gradlew skysail.server.website:export.server.website
