@@ -8,6 +8,8 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Bundle-Activator: io.skysail.server.website.Activator
 
+Build-Version: ${buildVersion}
+
 #OSGI-OPT/src=src/,
 -includeresource: resources
 
@@ -34,4 +36,3 @@ Private-Package: \
 	io.skysail.server.website,\
 	io.skysail.server.website.html
 
-Build-Version: ${buildVersion}

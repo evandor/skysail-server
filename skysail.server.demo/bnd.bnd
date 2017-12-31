@@ -8,6 +8,8 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Bundle-Activator: io.skysail.server.demo.DemoActivator
 
+Build-Version: ${buildVersion}
+
 #OSGI-OPT/src=src/,
 -includeresource: resources
 

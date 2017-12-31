@@ -8,6 +8,8 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Bundle-Activator: io.skysail.server.activator.AkkaServer
 
+Build-Version: ${buildVersion}
+
 #Require-Capability: skysail.capability.client
 Require-Capability: skysail.capability.auth 
 
