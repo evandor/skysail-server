@@ -33,3 +33,5 @@ Bundle-Activator: io.skysail.server.website.Activator
 Private-Package: \
 	io.skysail.server.website,\
 	io.skysail.server.website.html
+
+Build-Version: ${buildVersion}

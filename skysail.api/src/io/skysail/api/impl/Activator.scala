@@ -1,4 +1,4 @@
-package io.skysail.api
+package io.skysail.api.impl
 
 import domino.DominoActivator
 import domino.service_watching.ServiceWatcherEvent.{AddingService, ModifiedService, RemovedService}

@@ -8,7 +8,7 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 #Bundle-ActivationPolicy: lazy
 
-Bundle-Activator: io.skysail.api.Activator
+Bundle-Activator: io.skysail.api.impl.Activator
 
 -buildpath: \
     ${osgi},\
@@ -17,6 +17,7 @@ Bundle-Activator: io.skysail.api.Activator
 	com.typesafe.akka.http;version=${akka.http.version}
 	
 Export-Package: \
+	io.skysail.api,\
 	io.skysail.api.config,\
 	io.skysail.api.ddd,\
 	io.skysail.api.metrics,\
@@ -28,7 +29,7 @@ Export-Package: \
 	io.skysail.api.ui
 
 Private-Package: \
-	io.skysail.api,\
+	io.skysail.api.impl,\
 	io.skysail.api.config.impl,\
 	io.skysail.api.osgi.bundlerepository,\
 	io.skysail.api.osgi.bundlerepository.impl,\

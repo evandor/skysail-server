@@ -2,11 +2,13 @@ package io.skysail.api.config.impl
 
 import java.io.{BufferedReader, InputStreamReader}
 import java.nio.file._
+
 import ch.qos.logback.classic._
+import io.skysail.api.ProductUtils
 import org.osgi.framework.{Bundle, BundleContext}
 import org.slf4j.LoggerFactory
-import scala.collection.JavaConverters._
 
+import scala.collection.JavaConverters._
 
 /**
   * The ConfigMover, if included in a skysail installation, will try to copy the
@@ -25,8 +27,6 @@ import scala.collection.JavaConverters._
 object ConfigMover {
 
   private val log = LoggerFactory.getLogger(this.getClass())
-
-  val PRODUCT_BUNDLE_IDENTIFIER = "product.bundle"
 
   /** comma-separated list of subdirectories of config dir to be copied. */
   private final val CONFIG_PATH_SOURCES = "config"
@@ -80,11 +80,7 @@ class ConfigMover(context: BundleContext) {
   }
 
   private def copyConfigurationFromProductJar(context: BundleContext): Boolean = {
-    val productBundleName = System.getProperty(ConfigMover.PRODUCT_BUNDLE_IDENTIFIER)
-    log.debug("determined product bundle to be '{}'", productBundleName)
-    val productBundle = context.getBundles()
-      .filter { b => b.getSymbolicName().equals(productBundleName) }
-      .headOption
+    val productBundle = new ProductUtils().getOptionalProducktBundle(context)
     copyConfigurationFilesOrWarn(productBundle)
   }
 
