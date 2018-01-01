@@ -104,4 +104,5 @@ logback.configurationFile.path = config
 	skysail.server.demo;version=snapshot,\
 	skysail.server.doc;version=snapshot,\
 	skysail.server.website;version=snapshot,\
-	webconsole.all;version='[0.1.18,0.1.19)'
+	webconsole.all;version='[0.1.18,0.1.19)',\
+	skysail.api;version=snapshot
