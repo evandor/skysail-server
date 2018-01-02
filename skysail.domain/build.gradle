@@ -1,3 +1,18 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.org.scoverage:gradle-scoverage:2.1.0"
+    }
+}
+
+apply plugin: 'scala'
+apply plugin: 'eclipse'
+apply plugin: 'org.scoverage'
+
 apply plugin: 'scala'
 apply plugin: 'eclipse'
 
@@ -8,6 +23,7 @@ repositories {
 dependencies {
     compile "org.scala-lang:scala-library:${scala_version}"
     compile "org.scala-lang:scala-reflect:${scala_version}"
+    scoverage 'org.scoverage:scalac-scoverage-plugin_2.11:1.1.0', 'org.scoverage:scalac-scoverage-runtime_2.11:1.1.0'
 }
 
 sourceSets {
