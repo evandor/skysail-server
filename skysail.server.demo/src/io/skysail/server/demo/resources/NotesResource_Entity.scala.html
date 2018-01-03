@@ -1,0 +1,64 @@
+@*************************************
+* Home page.                        *
+*                                   *
+* @param msg The message to display *
+*************************************@
+@(rep: RepresentationModel)
+
+@render(json: String) = {
+  render(json)
+  "hi"
+}
+
+@main {
+
+<br><br><br>
+
+<div class="container">
+    <div class="starter-template">
+        <h1><a href="/demo/v1/notes">Notes</a> &gt; @rep.rawData.head.get("id")</h1>
+        <p class="lead">show note:</p>
+        <div>@rep.rawData</div>
+        <hr>
+        <div>@rep.response.entity</div>
+        <hr>
+        <div>@rep.jsonData</div>
+        <hr>
+        <div>@rep.json</div>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">@rep.rawData.head.get("title")</th>
+                <td>@rep.rawData.head.get("content")</td>
+            </tr>
+
+            <tr>
+                <th colspan="2">
+                    <a href='#'>@render(rep.jsonData)</a>
+                </th>
+            </tr>
+
+            
+            <tr>
+                <th colspan="2">
+                    <a href='@rep.rawData.head.get("id")/'>edit note</a>
+                </th>
+            </tr>
+            </tbody>
+
+        </table>
+
+        yyyyy
+        <dom-element json="@rep.jsonData"></dom-element>
+
+
+    </div>
+</div>
+
+}

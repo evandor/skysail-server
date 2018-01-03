@@ -10,7 +10,7 @@ import io.skysail.domain.routes.{RouteMapping, _}
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import io.skysail.server.demo.domain.DbConfig
-import io.skysail.server.demo.repositories.{BookmarksRepository, DbConfigsRepository}
+import io.skysail.server.demo.repositories.{BookmarksRepository, DbConfigsRepository, NotesRepo}
 import io.skysail.server.demo.resources._
 import io.skysail.server.demo.services.{BookmarksService, EventService}
 import org.osgi.framework.BundleContext
@@ -31,8 +31,8 @@ class DemoApplication(
   }
 
   val repo = new BookmarksRepository(dbService)
-
   val dbConfigRepo = new DbConfigsRepository(dbService)
+  val notesRepo = new NotesRepo(dbService)
 
   val bookmarksService = new BookmarksService()
 
@@ -51,6 +51,11 @@ class DemoApplication(
       CreationMapping("/dbconfigs/", root / PathMatcher("dbconfigs") / PathEnd, classOf[DbConfigsResource]),
       EntityMapping("/dbconfigs/:id", root / PathMatcher("dbconfigs") / Segment ~ PathEnd, classOf[DbConfigsResource]),
       UpdateMapping("/dbconfigs/:id/", root / PathMatcher("dbconfigs") / Segment / PathEnd, classOf[DbConfigsResource]),
+
+      ListRouteMapping("/notes", root / PathMatcher("notes") ~ PathEnd, classOf[NotesResource]),
+      CreationMapping("/notes/", root / PathMatcher("notes") / PathEnd, classOf[NotesResource]),
+      EntityMapping("/notes/:id", root / PathMatcher("notes") / Segment ~ PathEnd, classOf[NotesResource]),
+      UpdateMapping("/notes/:id/", root / PathMatcher("notes") / Segment / PathEnd, classOf[NotesResource]),
 
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource]))
   }

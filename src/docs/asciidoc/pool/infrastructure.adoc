@@ -66,4 +66,8 @@ sudo apt-get install goaccess
 
 //sudo goaccess /home/carsten/skysail/accesslogs/website.test.skysail.io-access_log -o /var/www/goaccess.skysail.io/public_html/index.html --log-format=COMMON --real-time-html
 
-sudo goaccess  /home/carsten/skysail/accesslogs/website.test.skysail.io-access_log /home/carsten/skysail/accesslogs/website.int.skysail.io-access_log -o /var/www/goaccess.skysail.io/public_html/index.html --log-format=COMMON --real-time-html &
+sudo goaccess \
+  /home/carsten/skysail/accesslogs/website.test.skysail.io-access_log \
+  /home/carsten/skysail/accesslogs/website.skysail.io-access_log \
+  /home/carsten/skysail/accesslogs/website.int.skysail.io-access_log \
+  -o /var/www/goaccess.skysail.io/public_html/index.html --log-format=COMMON --real-time-html &

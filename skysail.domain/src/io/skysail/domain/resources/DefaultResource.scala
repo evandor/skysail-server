@@ -16,11 +16,22 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
     requestEvent.controllerActor ! getList(requestEvent)
   }
 
+  final def doGetEntity(requestEvent: RequestEvent): Unit = {
+    requestEvent.controllerActor ! ResponseEvent(requestEvent, getEntity(requestEvent).get)
+  }
+
   def doGetForPostUrl(requestEvent: RequestEvent): Unit = {
     requestEvent.controllerActor ! ResponseEvent(requestEvent, null)
   }
 
+  def doGetForPutUrl(requestEvent: RequestEvent): Unit = {
+    val optionalEntity = getEntity(requestEvent)
+    requestEvent.controllerActor ! ResponseEvent(requestEvent, optionalEntity.get)
+  }
+
   def get(re: RequestEvent): ResponseEventBase = ListResponseEvent(re, getList(re))
+
+  def getEntity(re: RequestEvent): Option[T]
 
   def getList(requestEvent: RequestEvent): ListResponseEvent[List[T]] = ListResponseEvent(null, List())
 

@@ -54,5 +54,9 @@ class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig] {
     }
   }
 
+  def getEntity(re: RequestEvent): Option[DbConfig] = {
+    getApplication().dbConfigRepo.find(re.cmd.urlParameter.head)
+  }
+
 }
 

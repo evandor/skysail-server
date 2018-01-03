@@ -1,0 +1,43 @@
+@*************************************
+* Home page.                        *
+*                                   *
+* @param msg The message to display *
+*************************************@
+@(rep: RepresentationModel)
+
+@main {
+
+<br><br><br>
+
+<div class="container">
+    <div class="starter-template">
+        <h1>Notes</h1>
+        <p class="lead">add note:</p>
+        <form action='/demo/v1/notes/@rep.rawData.head.get("id")' method="post">
+
+            <table class="table table-sm">
+                <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Values</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row"><input type="text" name="title" value='@rep.rawData.head.get("title")'/></th>
+                    <td><textarea name="content" size="100" rows="5">@rep.rawData.head.get("content")</textarea></td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <input type="submit">
+                    </th>
+                </tr>
+                </tbody>
+
+            </table>
+        </form>
+
+    </div>
+</div>
+
+}

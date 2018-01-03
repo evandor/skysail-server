@@ -63,6 +63,8 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       if (resource.isInstanceOf[DefaultResource[_, _]]) {
         val dr = resource.asInstanceOf[DefaultResource[_, _]]
         cmd.mapping match {
+          case c: EntityMapping[_, _] => dr.doGetEntity(RequestEvent(cmd, self))
+          case c: ListRouteMapping[_, _] => dr.doGetList(RequestEvent(cmd, self))
           case c: CreationMapping[_, _] => {
             cmd.ctx.request.method match {
               case HttpMethods.GET => dr.doGetForPostUrl(RequestEvent(cmd, self))
@@ -70,9 +72,13 @@ class ControllerActor[T]() extends Actor with ActorLogging {
               case _ => log warning s"unknown mapping"
             }            
           }
-          case c: ListRouteMapping[_, _] => dr.doGetList(RequestEvent(cmd, self))
-          case c: UpdateMapping[_, _] =>
-          case c: EntityMapping[_, _] =>
+          case c: UpdateMapping[_, _] => {
+            cmd.ctx.request.method match {
+              case HttpMethods.GET => dr.doGetForPutUrl(RequestEvent(cmd, self))
+              case HttpMethods.PUT => dr.put(RequestEvent(cmd, self))
+              case _ => log warning s"unknown mapping"
+            }  
+          }
         }
       } else {
         // tag::methodMatch[]
@@ -113,7 +119,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       }
 
     case response: ResponseEvent[T] => {
-      //log info s"$response"
+      log info s"$response"
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
 
@@ -144,7 +150,10 @@ class ControllerActor[T]() extends Actor with ActorLogging {
             handleJson(response, b)
           }
         }
-        case _: Any => applicationActor ! response
+        case _: Any => {
+          log warning s"could not match response.entity ${response.entity}"
+          applicationActor ! response
+        }
       }
     }
     case response: HtmlResponseEvent =>
@@ -277,8 +286,14 @@ class ControllerActor[T]() extends Actor with ActorLogging {
         }
       }
       case c: ListRouteMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
-      case c: EntityMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
-      case c: UpdateMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+      case c: EntityMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Entity"
+      case c: UpdateMapping[_, _] => {
+         req.cmd.ctx.request.method match {
+          case HttpMethods.GET => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_UpdateForm"
+          case HttpMethods.PUT => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Post"
+          case _ => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+        }
+      }
       case c: RouteMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
     }
   }
