@@ -16,6 +16,6 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
     ${osgi},\
 	${akka-build},\
 	slf4j.api;version=1.7,\
-	skysail.api;version=latest,\
+	skysail.api;version=${skysail.api.version},\
 
 Private-Package: io.skysail.server.auth.none

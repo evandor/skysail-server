@@ -105,4 +105,5 @@ logback.configurationFile.path = config
 	skysail.server.doc;version=snapshot,\
 	skysail.server.website;version=snapshot,\
 	webconsole.all;version='[0.1.18,0.1.19)',\
-	skysail.api;version=snapshot
+	skysail.api;version=snapshot,\
+	skysail.domain;version='[0.1.0,0.1.1)'
