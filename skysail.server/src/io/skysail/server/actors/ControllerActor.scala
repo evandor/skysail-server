@@ -24,7 +24,6 @@ import play.twirl.api.HtmlFormat
 
 import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
-import io.skysail.domain.resources.DefaultResource
 
 object ControllerActor {
 
@@ -59,40 +58,7 @@ class ControllerActor[T]() extends Actor with ActorLogging {
       resource.setApplicationModel(model)
       resource.setApplication(cmd.application)
       resource.setBundleContext(bc)
-
-      if (resource.isInstanceOf[DefaultResource[_, _]]) {
-        val dr = resource.asInstanceOf[DefaultResource[_, _]]
-        cmd.mapping match {
-          case c: EntityMapping[_, _] => dr.doGetEntity(RequestEvent(cmd, self))
-          case c: ListRouteMapping[_, _] => dr.doGetList(RequestEvent(cmd, self))
-          case c: CreationMapping[_, _] => {
-            cmd.ctx.request.method match {
-              case HttpMethods.GET => dr.doGetForPostUrl(RequestEvent(cmd, self))
-              case HttpMethods.POST => dr.post(RequestEvent(cmd, self))
-              case _ => log warning s"unknown mapping"
-            }            
-          }
-          case c: UpdateMapping[_, _] => {
-            cmd.ctx.request.method match {
-              case HttpMethods.GET => dr.doGetForPutUrl(RequestEvent(cmd, self))
-              case HttpMethods.PUT => dr.put(RequestEvent(cmd, self))
-              case _ => log warning s"unknown mapping"
-            }  
-          }
-        }
-      } else {
-        // tag::methodMatch[]
-        cmd.ctx.request.method match {
-          case HttpMethods.GET => resource.doGet(RequestEvent(cmd, self))
-          case HttpMethods.POST => {
-            resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
-          }
-          case HttpMethods.PUT => resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
-          case e: Any => resource.get(RequestEvent(cmd, self))
-        }
-        // end::methodMatch[]
-      }
-
+      resource.handleRequest(cmd, self)
       become(out)
     }
     case msg: Any => log info s"<<< IN <<<: received unknown message '$msg' in ${this.getClass.getName}"

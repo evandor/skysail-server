@@ -2,7 +2,7 @@ package io.skysail.server.demo.resources
 
 import java.util.UUID
 
-import akka.actor.{ActorSelection, ActorSystem}
+import akka.actor.{ActorRef, ActorSelection, ActorSystem}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.Directives._
@@ -98,5 +98,9 @@ class BookmarkResource extends AsyncResource[DemoApplication, Bookmark] {
     } else {
       ResponseEvent(requestEvent, bm)
     }
+  }
+
+  override def handleRequest(cmd: ProcessCommand, self: ActorRef)(implicit system: ActorSystem): Unit = {
+    get(RequestEvent(cmd, self))
   }
 }

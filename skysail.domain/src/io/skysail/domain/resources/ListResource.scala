@@ -1,7 +1,11 @@
 package io.skysail.domain.resources
 
-import io.skysail.domain.{ListResponseEvent, RequestEvent, ResponseEventBase}
+import akka.actor.{ActorRef, ActorSystem}
+import akka.http.scaladsl.model.HttpMethods
+import io.skysail.domain._
 import io.skysail.domain.app.ApplicationApi
+import io.skysail.domain.messages.ProcessCommand
+import org.slf4j.LoggerFactory
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -9,6 +13,15 @@ import scala.reflect.runtime.universe._
 import scala.util.{Failure, Success}
 
 abstract class ListResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
+
+  private val log = LoggerFactory.getLogger(this.getClass)
+
+  override def handleRequest(cmd: ProcessCommand, self: ActorRef)(implicit system: ActorSystem): Unit = {
+    cmd.ctx.request.method match {
+      case HttpMethods.GET => doGet(RequestEvent(cmd, self))
+      case e: Any => log error "not supported"
+    }
+  }
 
   def get(re: RequestEvent): ResponseEventBase = ListResponseEvent(re, getList(re))
 
