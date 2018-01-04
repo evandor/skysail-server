@@ -14,7 +14,7 @@ script:
   - ./gradlew -DbuildVersion=travis-${TRAVIS_JOB_ID} clean build
   - ./gradlew asciidoctor scaladoc
   - ./gradlew skysail.server:export.server.int
-  - ./gradlew skysail.server.demo:export.server.demo
+  - ./gradlew skysail.server.demo:export.server.demo.docker
   - ./gradlew copyConf copyRunnables
 
 after_success:
