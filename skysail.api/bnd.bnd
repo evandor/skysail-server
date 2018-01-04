@@ -10,6 +10,9 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Bundle-Activator: io.skysail.api.impl.Activator
 
+# http://bnd.bndtools.org/chapters/180-baselining.html
+-baseline: *
+
 -buildpath: \
     ${osgi},\
     ${felix},\

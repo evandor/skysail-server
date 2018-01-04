@@ -2,7 +2,14 @@ deployment:
 
  * build on travis ci (.travis.yml)
 
+   - ./gradlew skysail.server.demo:export.server.demo.docker
+   - ./gradlew copyConf copyRunnables
+
+   config used: skysail.server.demo/config/docker/ (copied by copyConf)
+
  * docker installation evandor/skysail-server-demo
+
+   run: docker run --name skysail-server-demo -ti --rm -p 9102:9102 evandor/skysail-server-demo:latest
 
  //* demo.test installed by jenkins build (Jenkinsfile) using skysail.server.website/release/deployment/run_docker_test.sh
  //  (stage ('Restart Containers'))
