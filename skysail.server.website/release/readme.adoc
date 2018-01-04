@@ -1,0 +1,14 @@
+deployment:
+
+ * build on jenkins (gradle docker plugin)
+
+ * website.test installed by jenkins build (Jenkinsfile) using skysail.server.website/release/deployment/run_docker_test.sh
+   (stage ('Restart Containers'))
+   config used: skysailconfigs/website/test/
+
+ * website.int installed by jenkins job, using svn skysailconfigs/website/int/deploy/run_docker.sh
+   config used: svn skysailconfigs/website/int/
+
+ * website.prod installed by jenkins job, using svn skysailconfigs/website/prod/deploy/run_docker.sh
+   config used: svn skysailconfigs/website/prod/
+
