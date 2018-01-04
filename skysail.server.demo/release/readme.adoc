@@ -2,9 +2,11 @@ deployment:
 
  * build on travis ci (.travis.yml)
 
- * demo.test installed by jenkins build (Jenkinsfile) using skysail.server.website/release/deployment/run_docker_test.sh
-   (stage ('Restart Containers'))
-   config used: skysailconfigs/website/test/
+ * docker installation evandor/skysail-server-demo
+
+ //* demo.test installed by jenkins build (Jenkinsfile) using skysail.server.website/release/deployment/run_docker_test.sh
+ //  (stage ('Restart Containers'))
+ //  config used: skysailconfigs/website/test/
 
  //* demo.int installed by jenkins job, using svn skysailconfigs/website/int/deploy/run_docker.sh
  //  config used: svn skysailconfigs/website/int/
