@@ -14,17 +14,17 @@ script:
   - ./gradlew -DbuildVersion=travis-${TRAVIS_JOB_ID} clean build
   - ./gradlew asciidoctor scaladoc
   - ./gradlew skysail.server:export.server.int
-  - ./gradlew skysail.server.website:export.server.website
+#  - ./gradlew skysail.server.website:export.server.website
   - ./gradlew copyConf copyRunnables
 
 after_success:
   - docker --version
   - docker build -t evandor/skysail-server skysail.server/release
-  - docker build -t evandor/skysail-server-website skysail.server.website/release
+#  - docker build -t evandor/skysail-server-website skysail.server.website/release
   - docker images
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker push $DOCKER_USERNAME/skysail-server:latest
-  - docker push $DOCKER_USERNAME/skysail-server-website:latest
+#  - docker push $DOCKER_USERNAME/skysail-server-website:latest
 
 #  - docker tag skysail-server $DOCKER_USERNAME/skysail-server
 

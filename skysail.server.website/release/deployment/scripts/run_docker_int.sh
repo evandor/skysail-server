@@ -17,4 +17,4 @@ docker run \
     -t --rm -p 9201:9201 \
     -v /home/carsten/skysail/skysailconfigs/website/int:/home/skysail/products/demo/config \
     -e CONFPATH=config \
-    evandor/skysail-server-website:latest
+    evandor/skysail-server-website-local:latest
