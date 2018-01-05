@@ -54,3 +54,31 @@ eclipse {
         }
     }
 }
+
+task copyConf(type : Copy) {
+    println "copying configuration"
+    from "config"
+    into "release/config"
+}
+
+task copyRunnables(type : Copy) {
+    println "copying executable"
+    from "generated/distributions/executable"
+    into "release"
+}
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+task buildImage(type: DockerBuildImage) {
+    //dependsOn createDockerfile
+    inputDir = project.file('release')//createDockerfile.destFile.parentFile
+    tag = 'evandor/skysail-server-seed'
+    //noCache = true
+}
+
+task runnable(dependsOn: ['copyConf', 'copyRunnables']) {
+    println "copying configuration..."
+}
+
+

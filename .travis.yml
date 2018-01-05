@@ -15,16 +15,19 @@ script:
   - ./gradlew asciidoctor scaladoc
   - ./gradlew skysail.server:export.server.int
   - ./gradlew skysail.server.demo:export.server.demo.docker
+  - ./gradlew skysail.server.seed:export.server.seed.docker
   - ./gradlew copyConf copyRunnables
 
 after_success:
   - docker --version
   - docker build -t evandor/skysail-server skysail.server/release
   - docker build -t evandor/skysail-server-demo skysail.server.demo/release
+  - docker build -t evandor/skysail-server-seed skysail.server.seed/release
   - docker images
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker push $DOCKER_USERNAME/skysail-server:latest
   - docker push $DOCKER_USERNAME/skysail-server-demo:latest
+  - docker push $DOCKER_USERNAME/skysail-server-seed:latest
 
 #  - docker tag skysail-server $DOCKER_USERNAME/skysail-server
 
