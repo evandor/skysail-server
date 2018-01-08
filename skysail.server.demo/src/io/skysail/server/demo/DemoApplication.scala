@@ -9,7 +9,7 @@ import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import io.skysail.server.demo.domain.DbConfig
-import io.skysail.server.demo.repositories.{BookmarksRepository, DbConfigsRepository, NotesRepo}
+import io.skysail.server.demo.repositories.{BookmarksRepository, DbConfigsRepository, NotesRepo, TodosRepo}
 import io.skysail.server.demo.resources.{DbConfigsResource, _}
 import io.skysail.server.demo.services.{BookmarksService, EventService}
 import org.osgi.framework.BundleContext
@@ -32,6 +32,7 @@ class DemoApplication(
   val repo = new BookmarksRepository(dbService)
   val dbConfigRepo = new DbConfigsRepository(dbService)
   val notesRepo = new NotesRepo(dbService)
+  val todosRepo = new TodosRepo(dbService)
 
   val bookmarksService = new BookmarksService()
 
