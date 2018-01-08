@@ -58,25 +58,7 @@ class RepresentationModel(
         Nil
 
     }
-
-    print("RES: " + res)
     res
-
-    /*if (r.isInstanceOf[List[_]]) {
-      println("R: " + r)
-      r.asInstanceOf[List[_]].map(row => {
-        //val s = mapper.convertValue(row, classOf[util.LinkedHashMap[String, Any]])
-
-        //      val written = write(e)
-
-        println("row: " + s)
-        s
-      }).toList
-    } else {
-      Nil
-    }*/
-
-
   }
 
   private def deriveJsonData(): String = {

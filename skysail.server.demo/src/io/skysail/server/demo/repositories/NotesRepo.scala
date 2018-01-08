@@ -12,14 +12,10 @@ class NotesRepo(dbService: DbService) {
     dbService.persist(entity)
   }
 
-  def find( /*Filter filter, Pagination pagination*/ ): List[Note] = {
-    val sql = "SELECT * from " + DbService.tableNameFor(classOf[Note])
-    dbService.findGraphs(classOf[Note], sql) //, filter.getParams());
-  }
+  def find() = dbService.findGraphs(classOf[Note], "SELECT * from " + DbService.tableNameFor(classOf[Note]))
 
   def find(id: String): Option[Note] = {
-    val sql = s"SELECT * from ${DbService.tableNameFor(classOf[Note])} where id='${id}'"
-    val res = dbService.findGraphs(classOf[Note], sql) //, filter.getParams());
+    val res = dbService.findGraphs(classOf[Note], s"SELECT * from ${DbService.tableNameFor(classOf[Note])} where id='${id}'") 
     if (res.size == 0) None else res.headOption
   }
 }

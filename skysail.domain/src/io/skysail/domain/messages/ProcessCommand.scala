@@ -3,6 +3,7 @@ package io.skysail.domain.messages
 import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.server.RequestContext
 import io.skysail.domain.app.ApplicationApi
+import io.skysail.domain.resources.AsyncResource
 import io.skysail.domain.routes.RouteMappingI
 
 /**
@@ -20,9 +21,10 @@ import io.skysail.domain.routes.RouteMappingI
   */
 case class ProcessCommand(
                            ctx: RequestContext,
-                           //resourceClass: Class[_ <: io.skysail.domain.SkysailResource[_,_]],
                            mapping: RouteMappingI[_, _],
                            application: ApplicationApi,
                            urlParameter: List[String],
                            unmatchedPath: Uri.Path,
-                           entity: Any = null)
+                           entity: Any = null,
+                           resource: Option[AsyncResource[_, _]] = None
+                         )

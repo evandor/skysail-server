@@ -3,14 +3,14 @@
 *                                   *
 * @param msg The message to display *
 *************************************@
-@(rep: RepresentationModel)
+@(rep: RepresentationModel, response: ResponseEventBase)
 
 @render(json: String) = {
   render(json)
   "hi"
 }
 
-@main {
+@main(response) {
 
 <br><br><br>
 

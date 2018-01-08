@@ -3,23 +3,24 @@ package io.skysail.server.demo.resources.html
 
 import play.twirl.api.Html
 import html.main
+import io.skysail.domain.ResponseEventBase
 import io.skysail.server.RepresentationModel
 
-object NotesResource_UpdateForm extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[RepresentationModel,play.twirl.api.HtmlFormat.Appendable] {
+object NotesResource_UpdateForm extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[RepresentationModel,ResponseEventBase,play.twirl.api.HtmlFormat.Appendable] {
 
   /*************************************
 * Home page.                        *
 *                                   *
 * @param msg The message to display *
 *************************************/
-  def apply/*6.2*/(rep: RepresentationModel):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*6.28*/("""
+Seq[Any](format.raw/*6.57*/("""
 
-"""),_display_(/*8.2*/main/*8.6*/ {_display_(Seq[Any](format.raw/*8.8*/("""
+"""),_display_(/*8.2*/main(response)/*8.16*/ {_display_(Seq[Any](format.raw/*8.18*/("""
 
 """),format.raw/*10.1*/("""<br><br><br>
 
@@ -59,9 +60,9 @@ Seq[Any](format.raw/*6.28*/("""
     }
   }
 
-  def render(rep:RepresentationModel): play.twirl.api.HtmlFormat.Appendable = apply(rep)
+  def render(rep:RepresentationModel,response:ResponseEventBase): play.twirl.api.HtmlFormat.Appendable = apply(rep,response)
 
-  def f:((RepresentationModel) => play.twirl.api.HtmlFormat.Appendable) = (rep) => apply(rep)
+  def f:((RepresentationModel,ResponseEventBase) => play.twirl.api.HtmlFormat.Appendable) = (rep,response) => apply(rep,response)
 
   def ref: this.type = this
 
@@ -70,11 +71,11 @@ Seq[Any](format.raw/*6.28*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Wed Jan 03 18:21:40 CET 2018
+                  DATE: Mon Jan 08 09:58:33 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/NotesResource_UpdateForm.scala.html
-                  HASH: f12f5f0f11c824066518c929c10fce210020cd88
-                  MATRIX: 660->193|781->219|809->222|820->226|858->228|887->230|1426->742|1438->745|1486->771|1592->850|1604->853|1654->881
-                  LINES: 15->6|20->6|22->8|22->8|22->8|24->10|41->27|41->27|41->27|42->28|42->28|42->28
+                  HASH: 848587e9854261680f6c1ad62e69e9b87d95fc5b
+                  MATRIX: 721->193|871->248|899->251|921->265|960->267|989->269|1528->781|1540->784|1588->810|1694->889|1706->892|1756->920
+                  LINES: 16->6|21->6|23->8|23->8|23->8|25->10|42->27|42->27|42->27|43->28|43->28|43->28
                   -- GENERATED --
               */
           

@@ -9,7 +9,8 @@ import akka.http.scaladsl.server.{Route, _}
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.{ApiVersion, ApplicationApi}
 import io.skysail.domain.model.ApplicationModel
-import io.skysail.domain.routes.{RouteMapping, RouteMappingI}
+import io.skysail.domain.resources.DefaultResource
+import io.skysail.domain.routes._
 import io.skysail.server.{Constants, RoutesCreatorTrait}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
@@ -88,19 +89,37 @@ abstract class BackendApplication(
     * @return the (concatenated) route definition for the whole application
     */
   lazy val router: Route = {
-    val valueList: List[Route] = routesMappings.map { prt =>
+
+    val routes = scala.collection.mutable.ListBuffer[Route]()
+
+    routes ++= routesMappings.map { prt =>
       appModel.addResourceModel(prt)
       routesCreator.createRoute(prt, this)
     }
-    val fullList: List[Route] = if (optionalNativeRoute().isDefined) {
-      optionalNativeRoute().get :: valueList
-    } else {
-      valueList
+
+    if (optionalNativeRoute().isDefined) {
+      routes += optionalNativeRoute().get
     }
-    fullList.size match {
+
+    routes ++= defaultRoutes(appModel).map { prt =>
+      appModel.addResourceModel(prt)
+      routesCreator.createRoute(prt, this)
+    }
+
+    //    val valueList: List[Route] = routesMappings.map { prt =>
+    //      appModel.addResourceModel(prt)
+    //      routesCreator.createRoute(prt, this)
+    //    }
+    //
+    //    val fullList: List[Route] = if (optionalNativeRoute().isDefined) {
+    //      optionalNativeRoute().get :: valueList
+    //    } else {
+    //      valueList
+    //    }
+    routes.size match {
       case 0 => log warn "no routes are defined"; null
-      case 1 => fullList.head
-      case _ => fullList.reduce((a, b) => a ~ b)
+      case 1 => routes.head
+      case _ => routes.reduce((a, b) => a ~ b)
     }
   }
 
@@ -111,6 +130,19 @@ abstract class BackendApplication(
     * @return a list of mappings between paths and resource class definitions.
     */
   def routesMappings: List[RouteMappingI[_, _]]
+
+  def defaultResources: List[Class[_ <: DefaultResource[_, _]]] = List()
+
+  private def defaultRoutes(appModel: ApplicationModel): List[RouteMappingI[_, _]] = {
+    //defaultResources.map(cls => DefaultResource.getMappings(cls, appModel)).flatten
+    println(defaultResources)
+    defaultResources
+      .map((cls: Class[_ <: DefaultResource[_, _]]) => {
+        val newClass: DefaultResource[_, _] = cls.newInstance()
+        newClass.getMappings(cls, appModel)
+      })
+      .flatten
+  }
 
   /**
     * Can be overwritten to add an akka http route directly.

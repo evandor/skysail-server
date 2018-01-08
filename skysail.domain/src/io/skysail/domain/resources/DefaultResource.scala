@@ -1,74 +1,112 @@
 package io.skysail.domain.resources
 
-import akka.actor.{ActorRef, ActorSystem}
+import akka.actor.{ ActorRef, ActorSystem }
 import akka.http.scaladsl.model.HttpMethods
+import akka.http.scaladsl.server.PathMatcher
+import akka.http.scaladsl.server.PathMatchers._
+import io.skysail.domain._
 import io.skysail.domain.app.ApplicationApi
-import io.skysail.domain.{ListResponseEvent, RequestEvent, ResponseEventBase}
+import io.skysail.domain.messages.ProcessCommand
+import io.skysail.domain.model.ApplicationModel
+import io.skysail.domain.routes._
+import org.slf4j.LoggerFactory
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.reflect.runtime.universe._
-import scala.util.{Failure, Success}
-import io.skysail.domain.ResponseEvent
-import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.routes.{CreationMapping, EntityMapping, ListRouteMapping, UpdateMapping}
-import org.slf4j.LoggerFactory
+import scala.util.{ Failure, Success }
 
+/**
+ * A DefaultResource[S,T] provides a list of route mappings to list, show, create, update and delete
+ * entities of type T.
+ *
+ * It handles associated requests to the endpoints of the mappings.
+ *
+ * @param <S> the backend application serving the resource
+ * @param <T> the entity associated with the resource, typically an aggregate root
+ */
 abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
-  override def handleRequest(cmd: ProcessCommand, self: ActorRef)(implicit system: ActorSystem): Unit = {
+  override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     // tag::methodMatch[]
 
     cmd.mapping match {
-      case c: EntityMapping[_, _] => doGetEntity(RequestEvent(cmd, self))
-      case c: ListRouteMapping[_, _] => doGetList(RequestEvent(cmd, self))
+      case c: ListRouteMapping[_, _] => handleListRouteMapping(RequestEvent(cmd, controller))
+      case c: EntityMapping[_, _] => handleEntityMapping(RequestEvent(cmd, controller))
       case c: CreationMapping[_, _] => {
         cmd.ctx.request.method match {
-          case HttpMethods.GET => doGetForPostUrl(RequestEvent(cmd, self))
-          case HttpMethods.POST => post(RequestEvent(cmd, self))
-          case _ => log warn s"unknown mapping"
+          case HttpMethods.GET => handleCreationMappingGet(RequestEvent(cmd, controller))
+          case HttpMethods.POST => handleCreationMappingPost(RequestEvent(cmd, controller))
+          case _ => log warn s"unknown CreationMapping"
         }
       }
       case c: UpdateMapping[_, _] => {
         cmd.ctx.request.method match {
-          case HttpMethods.GET => doGetForPutUrl(RequestEvent(cmd, self))
-          case HttpMethods.PUT => put(RequestEvent(cmd, self))
-          case _ => log warn s"unknown mapping"
+          case HttpMethods.GET => handleUpdateMappingGet(RequestEvent(cmd, controller))
+          case HttpMethods.PUT => handleUpdateMappingPut(RequestEvent(cmd, controller))
+          case _ => log warn s"unknown UpdateMapping"
         }
       }
+      case _ => log warn s"unknown mapping"
     }
     // end::methodMatch[]
 
   }
 
-  final def doGetList(requestEvent: RequestEvent): Unit = {
-    requestEvent.controllerActor ! getList(requestEvent)
+  final def handleListRouteMapping(re: RequestEvent) = re.controllerActor ! ListResponseEvent(re, getList(re))
+
+  final def handleEntityMapping(re: RequestEvent) = re.controllerActor ! ResponseEvent(re, getEntity(re).get)
+
+  final def handleCreationMappingGet(re: RequestEvent) = re.controllerActor ! ResponseEvent(re, getTemplate(re))
+
+  final def handleCreationMappingPost(re: RequestEvent)(implicit system: ActorSystem) = {
+    createEntity(re)
+    val newRequest = re.cmd.ctx.request.copy(method = HttpMethods.GET) // ???
+    re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterPost(re))
   }
 
-  final def doGetEntity(requestEvent: RequestEvent): Unit = {
-    requestEvent.controllerActor ! ResponseEvent(requestEvent, getEntity(requestEvent).get)
+  def handleUpdateMappingGet(re: RequestEvent): Unit = {
+    val optionalEntity = getEntity(re)
+    re.controllerActor ! ResponseEvent(re, optionalEntity.get)
   }
 
-  def doGetForPostUrl(requestEvent: RequestEvent): Unit = {
-    requestEvent.controllerActor ! ResponseEvent(requestEvent, null)
+  def handleUpdateMappingPut(re: RequestEvent)(implicit system: ActorSystem) = {
+    updateEntity(re)
+    val newRequest = re.cmd.ctx.request.copy(method = HttpMethods.GET) // ???
+    re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterPut(re))
+    
   }
+  
+  
 
-  def doGetForPutUrl(requestEvent: RequestEvent): Unit = {
-    val optionalEntity = getEntity(requestEvent)
-    requestEvent.controllerActor ! ResponseEvent(requestEvent, optionalEntity.get)
-  }
-
-  def get(re: RequestEvent): ResponseEventBase = ListResponseEvent(re, getList(re))
+  def getList(requestEvent: RequestEvent): List[T]
 
   def getEntity(re: RequestEvent): Option[T]
 
-  def getList(requestEvent: RequestEvent): ListResponseEvent[List[T]] = ListResponseEvent(null, List())
+  def getTemplate(re: RequestEvent): T
 
-  def post(requestEvent: RequestEvent): Unit
+  def getRedirectAfterPost(re: RequestEvent): Option[String]
+  
+  def getRedirectAfterPut(re: RequestEvent): Option[String]
 
-  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit
+  def createEntity(re: RequestEvent)(implicit system: ActorSystem): String
+  
+  def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
+  
+  
+  def get(re: RequestEvent): ResponseEventBase = ListResponseEvent(re, getList(re))
+
+  def getMappings(cls: Class[_ <: DefaultResource[_, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
+    val root = appModel.appRoute
+    val entityName = typeOf[T].typeSymbol.name.toString().toLowerCase()
+    List(
+      ListRouteMapping(s"/${entityName}s", root / PathMatcher(s"${entityName}s") ~ PathEnd, cls.asInstanceOf[Class[SkysailResource[_, T]]]),
+      CreationMapping(s"/${entityName}s/", root / PathMatcher(s"${entityName}s") / PathEnd, cls.asInstanceOf[Class[SkysailResource[_, T]]]),
+      EntityMapping(s"/${entityName}s/:id", root / PathMatcher(s"${entityName}s") / Segment ~ PathEnd, cls.asInstanceOf[Class[SkysailResource[_, T]]]),
+      UpdateMapping(s"/${entityName}s/:id/", root / PathMatcher(s"${entityName}s") / Segment / PathEnd, cls.asInstanceOf[Class[SkysailResource[_, T]]]))
+  }
 
   def reply(requestEvent: RequestEvent, answer: Future[List[_]]): Unit = {
     answer.onComplete {
@@ -83,6 +121,5 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
       case Failure(f) => println(s"failure $f")
     }
   }
-
 
 }

@@ -21,26 +21,32 @@ trait JsonSupport2 extends SprayJsonSupport with DefaultJsonProtocol {
 
 class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig] {
 
+  override def getList(re: RequestEvent) = getApplication().dbConfigRepo.find()
+
+  override def getEntity(re: RequestEvent) = getApplication().dbConfigRepo.find(re.cmd.urlParameter.head)
+
+  override def getTemplate(re: RequestEvent) = DbConfig(None, "", "")
+
+  def getRedirectAfterPost(re: RequestEvent) = Some("/demo/v1/dbconfigs")
+
+  def getRedirectAfterPut(re: RequestEvent) = Some("/demo/v1/dbconfigs")
+
   override def get(requestEvent: RequestEvent) = {
     val optionalDbConfig = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
     ResponseEvent(requestEvent, optionalDbConfig.get)
   }
 
-  override def doGetForPostUrl(requestEvent: RequestEvent): Unit = {
-    requestEvent.controllerActor ! ResponseEvent(requestEvent, DbConfig(None, "",""))
-  }
+  //  override def handleCreationMappingGet(requestEvent: RequestEvent): Unit = {
+  //    requestEvent.controllerActor ! ResponseEvent(requestEvent, DbConfig(None, "", ""))
+  //  }
 
-  override def getList(re: RequestEvent) = ListResponseEvent(re, getApplication().dbConfigRepo.find())
-
-  override def post(requestEvent: RequestEvent) {
+  override def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem) = {
     val b = getApplication().repo.save(requestEvent.cmd.entity)
     getApplication().eventService.send("DbConfig created")
-    val redirectTo = Some("/demo/v1/dbconfigs")
-    val newRequest = requestEvent.cmd.ctx.request.copy(method = HttpMethods.GET)
-    requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "", redirectTo)
+    b
   }
 
-  override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
+  override def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
     val optionalDbConfig = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
     val updatedDbConfig = requestEvent.cmd.entity.asInstanceOf[DbConfig]
     val DbConfigToSave = updatedDbConfig.copy(id = optionalDbConfig.get.id)
@@ -52,10 +58,6 @@ class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig] {
       val entity = DbConfig(Some(UUID.randomUUID().toString), map.getOrElse("key", "Unknown"), map.getOrElse("values", "Unknown"))
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
-  }
-
-  def getEntity(re: RequestEvent): Option[DbConfig] = {
-    getApplication().dbConfigRepo.find(re.cmd.urlParameter.head)
   }
 
 }

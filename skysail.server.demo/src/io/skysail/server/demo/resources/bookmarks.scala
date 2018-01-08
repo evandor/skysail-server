@@ -100,7 +100,7 @@ class BookmarkResource extends AsyncResource[DemoApplication, Bookmark] {
     }
   }
 
-  override def handleRequest(cmd: ProcessCommand, self: ActorRef)(implicit system: ActorSystem): Unit = {
-    get(RequestEvent(cmd, self))
+  override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
+    get(RequestEvent(cmd, controller))
   }
 }

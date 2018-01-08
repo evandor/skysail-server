@@ -1,4 +1,4 @@
-@(content: Html)
+@(response: ResponseEventBase)(content: Html)
 <!DOCTYPE html>
 <meta charset="utf-8"/>
 <html lang="en">
@@ -12,8 +12,10 @@
 
     @content
 
-    xxx
     <custom-element></custom-element>
+
+    Response:<br>
+    @response
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

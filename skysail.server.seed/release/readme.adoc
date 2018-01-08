@@ -1,0 +1,13 @@
+deployment:
+
+ * build on travis ci (.travis.yml)
+
+   - ./gradlew skysail.server.seed:export.server.seed.docker
+   - ./gradlew copyConf copyRunnables
+
+   config used: skysail.server.seed/config/docker/ (copied by copyConf)
+
+ * docker installation evandor/skysail-server-seed
+
+   run: docker run --name skysail-server-seed -ti --rm -p 9102:9102 evandor/skysail-server-seed:latest
+

@@ -3,16 +3,17 @@ package io.skysail.server.demo.resources.html
 
 import play.twirl.api.Html
 import html.main
+import io.skysail.domain.ResponseEventBase
 import io.skysail.server.RepresentationModel
 
-object BookmarkResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[RepresentationModel,play.twirl.api.HtmlFormat.Appendable] {
+object BookmarkResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[RepresentationModel,ResponseEventBase,play.twirl.api.HtmlFormat.Appendable] {
 
   /*************************************
 * Home page.                        *
 *                                   *
 * @param msg The message to display *
 *************************************/
-  def apply/*6.2*/(rep: RepresentationModel):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
@@ -22,11 +23,11 @@ Seq[Any](format.raw/*8.26*/("""
   """),format.raw/*9.3*/("""render(json)
   "hi"
 """)))};
-Seq[Any](format.raw/*6.28*/("""
+Seq[Any](format.raw/*6.57*/("""
 
 """),format.raw/*11.2*/("""
 
-"""),_display_(/*13.2*/main/*13.6*/ {_display_(Seq[Any](format.raw/*13.8*/("""
+"""),_display_(/*13.2*/main(response)/*13.16*/ {_display_(Seq[Any](format.raw/*13.18*/("""
 
 """),format.raw/*15.1*/("""<br><br><br>
 
@@ -90,9 +91,9 @@ Seq[Any](format.raw/*6.28*/("""
     }
   }
 
-  def render(rep:RepresentationModel): play.twirl.api.HtmlFormat.Appendable = apply(rep)
+  def render(rep:RepresentationModel,response:ResponseEventBase): play.twirl.api.HtmlFormat.Appendable = apply(rep,response)
 
-  def f:((RepresentationModel) => play.twirl.api.HtmlFormat.Appendable) = (rep) => apply(rep)
+  def f:((RepresentationModel,ResponseEventBase) => play.twirl.api.HtmlFormat.Appendable) = (rep,response) => apply(rep,response)
 
   def ref: this.type = this
 
@@ -101,11 +102,11 @@ Seq[Any](format.raw/*6.28*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Sat Dec 30 18:50:35 CET 2017
+                  DATE: Mon Jan 08 09:54:47 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/BookmarkResource_Get.scala.html
-                  HASH: 620e5d070cfb658592e1141db39c3d25873ec894
-                  MATRIX: 656->193|760->222|773->228|867->246|896->249|956->219|985->270|1014->273|1026->277|1065->279|1094->281|1249->409|1261->412|1305->435|1395->498|1407->501|1436->509|1497->543|1509->546|1546->562|1607->596|1619->599|1649->608|1710->642|1722->645|1748->650|2066->941|2078->944|2126->970|2219->1036|2231->1039|2276->1063|2414->1174|2455->1194|2541->1253|2597->1293|2637->1295|2680->1311|2729->1344|2769->1346|2816->1365|2917->1439|2927->1440|2983->1475|3013->1478|3023->1479|3080->1514|3181->1584|3226->1598|3267->1611|3362->1679|3374->1682|3418->1705|3588->1848|3600->1851|3630->1860
-                  LINES: 15->6|19->8|19->8|21->8|22->9|25->6|27->11|29->13|29->13|29->13|31->15|35->19|35->19|35->19|37->21|37->21|37->21|39->23|39->23|39->23|41->25|41->25|41->25|43->27|43->27|43->27|53->37|53->37|53->37|54->38|54->38|54->38|59->43|59->43|63->47|63->47|63->47|64->48|64->48|64->48|65->49|67->51|67->51|67->51|67->51|67->51|67->51|70->54|71->55|72->56|74->58|74->58|74->58|82->66|82->66|82->66
+                  HASH: 21ccb6ab629dc6cacf50baf499859e54c830fffd
+                  MATRIX: 717->193|850->251|863->257|957->275|986->278|1046->248|1075->299|1104->302|1127->316|1167->318|1196->320|1351->448|1363->451|1407->474|1497->537|1509->540|1538->548|1599->582|1611->585|1648->601|1709->635|1721->638|1751->647|1812->681|1824->684|1850->689|2168->980|2180->983|2228->1009|2321->1075|2333->1078|2378->1102|2516->1213|2557->1233|2643->1292|2699->1332|2739->1334|2782->1350|2831->1383|2871->1385|2918->1404|3019->1478|3029->1479|3085->1514|3115->1517|3125->1518|3182->1553|3283->1623|3328->1637|3369->1650|3464->1718|3476->1721|3520->1744|3690->1887|3702->1890|3732->1899
+                  LINES: 16->6|20->8|20->8|22->8|23->9|26->6|28->11|30->13|30->13|30->13|32->15|36->19|36->19|36->19|38->21|38->21|38->21|40->23|40->23|40->23|42->25|42->25|42->25|44->27|44->27|44->27|54->37|54->37|54->37|55->38|55->38|55->38|60->43|60->43|64->47|64->47|64->47|65->48|65->48|65->48|66->49|68->51|68->51|68->51|68->51|68->51|68->51|71->54|72->55|73->56|75->58|75->58|75->58|83->66|83->66|83->66
                   -- GENERATED --
               */
           

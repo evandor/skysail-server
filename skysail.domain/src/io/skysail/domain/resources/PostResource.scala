@@ -13,11 +13,11 @@ abstract class PostResource[S <: ApplicationApi, T: TypeTag] extends AsyncResour
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
-  override def handleRequest(cmd: ProcessCommand, self: ActorRef)(implicit system: ActorSystem): Unit = {
+  override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     cmd.ctx.request.method match {
-      case HttpMethods.GET => doGet(RequestEvent(cmd, self))
+      case HttpMethods.GET => doGet(RequestEvent(cmd, controller))
       case HttpMethods.POST => {
-        asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
+        asInstanceOf[PostSupport].post(RequestEvent(cmd, controller))
       }
       case e: Any => log error "not supported"
     }

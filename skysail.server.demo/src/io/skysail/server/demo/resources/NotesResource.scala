@@ -21,33 +21,27 @@ trait JsonSupport3 extends SprayJsonSupport with DefaultJsonProtocol {
 
 class NotesResource extends DefaultResource[DemoApplication, Note] {
 
-  override def get(requestEvent: RequestEvent) = {
-    val optionalNote = getApplication().notesRepo.find(requestEvent.cmd.urlParameter.head)
-    ResponseEvent(requestEvent, optionalNote.get)
-  }
+  override def getList(re: RequestEvent) = getApplication().notesRepo.find()
 
-  override def doGetForPostUrl(requestEvent: RequestEvent): Unit = {
-    requestEvent.controllerActor ! ResponseEvent(requestEvent, Note(None, "", ""))
-  }
+  override def getEntity(re: RequestEvent) = getApplication().notesRepo.find(re.cmd.urlParameter.head)
 
-  override def getList(re: RequestEvent) = ListResponseEvent(re, getApplication().notesRepo.find())
+  override def getTemplate(re: RequestEvent) = Note(None, "", "")
 
-  override def post(requestEvent: RequestEvent) {
+  override def getRedirectAfterPost(re: RequestEvent): Option[String] = Some("/demo/v1/notes")
+
+  override def getRedirectAfterPut(re: RequestEvent): Option[String] = Some("/demo/v1/notes")
+
+  override def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem):String = {
     val b = getApplication().notesRepo.save(requestEvent.cmd.entity)
     getApplication().eventService.send("Note created")
-    val redirectTo = Some("/demo/v1/notes")
-    val newRequest = requestEvent.cmd.ctx.request.copy(method = HttpMethods.GET)
-    requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "", redirectTo)
+    b
   }
 
-  override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
+  override def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
     val optionalNote = getApplication().notesRepo.find(requestEvent.cmd.urlParameter.head)
     val updatedNote = requestEvent.cmd.entity.asInstanceOf[Note]
     val noteToSave = updatedNote.copy(id = optionalNote.get.id)
     getApplication().notesRepo.save(noteToSave)
-    val redirectTo = Some("/demo/v1/notes")
-    val newRequest = requestEvent.cmd.ctx.request.copy(method = HttpMethods.GET)
-    requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "", redirectTo)
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
@@ -55,10 +49,6 @@ class NotesResource extends DefaultResource[DemoApplication, Note] {
       val entity = Note(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), map.getOrElse("content", "Unknown"))
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
-  }
-
-  def getEntity(re: RequestEvent): Option[Note] = {
-    getApplication().notesRepo.find(re.cmd.urlParameter.head)
   }
 
 }
