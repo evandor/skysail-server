@@ -19,26 +19,29 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
 
   def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit
 
-  def getHtmlTemplate(req: RequestEvent) = {
+  def getHtmlTemplates(req: RequestEvent):List[String] = {
     val resName = req.cmd.mapping.resourceClass
     req.cmd.mapping match {
       case c: CreationMapping[_, _] => {
         req.cmd.ctx.request.method match {
-          case HttpMethods.GET => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Form"
-          case HttpMethods.POST => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Post"
-          case _ => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+          case HttpMethods.GET => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Form")
+          case HttpMethods.POST => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Post")
+          case _ => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
         }
       }
-      case c: ListRouteMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
-      case c: EntityMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Entity"
+      case c: ListRouteMapping[_, _] => List(
+          "io.skysail.ui.default.ListResource_Get",
+          s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+          )
+      case c: EntityMapping[_, _] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Entity")
       case c: UpdateMapping[_, _] => {
         req.cmd.ctx.request.method match {
-          case HttpMethods.GET => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_UpdateForm"
-          case HttpMethods.PUT => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Post"
-          case _ => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+          case HttpMethods.GET => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_UpdateForm")
+          case HttpMethods.PUT => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Post")
+          case _ => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
         }
       }
-      case c: RouteMapping[_, _] => s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+      case c: RouteMapping[_, _] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
     }
 
   }

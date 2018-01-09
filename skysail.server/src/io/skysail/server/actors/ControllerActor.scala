@@ -42,11 +42,12 @@ object ControllerActor {
 class ControllerActor[T]() extends Actor {
 
   implicit val askTimeout: Timeout = 3.seconds
-  
+
   private val log = LoggerFactory.getLogger(this.getClass)
 
   var applicationActor: ActorRef = _
-  var applicationModel: ApplicationModel = _
+  var applicationModel: ApplicationModel =
+    _
 
   import context._
 
@@ -77,7 +78,7 @@ class ControllerActor[T]() extends Actor {
   def out: Receive = {
 
     case response: ListResponseEvent[T] =>
-      
+
       log info s"  [OUT] >>> $response"
 
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
@@ -161,40 +162,21 @@ class ControllerActor[T]() extends Actor {
       log warn "============================================================================"
   }
 
-  /*private def handleHtmlWithFallback(response: ListResponseEvent[T], m: Future[MessageEntity]): Unit = {
-    val templateName = getHtmlTemplate(response.req, response.getResource)
-    try {
-      val loader = response.req.cmd.mapping.resourceClass.getClassLoader
-      val resourceHtmlClass = loader.loadClass(templateName)
-      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase])
-
-      m.onSuccess {
-        case value =>
-          val rep = new RepresentationModel(response, applicationModel)
-          val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
-          val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body)
-          applicationActor ! response.copy(entity = response.entity, httpResponse = response.httpResponse.copy(entity = answer))
-      }
-
-    } catch {
-      case e: Exception =>
-        log debug s"rendering fallback to json, could not load '$templateName', reason: $e"
-        handleJson(response, m)
-    }
-  }*/
-
   private def handleHtmlWithFallback(response: ResponseEventBase, json: String): Unit = {
-    val templateName = getHtmlTemplate(response.req, response.getResource)
+    val templateNames = getHtmlTemplates(response.req, response.getResource)
+
+    val loader = response.req.cmd.mapping.resourceClass.getClassLoader
+    var loaded = false;
+
+    //templateNames.map(name => tryLoading(name)).fin
+    //val answer: OptionResponseEntity = tryLoading(templateNames(0), response, loader)
+
     try {
+
       val loader = response.req.cmd.mapping.resourceClass.getClassLoader
-      val resourceHtmlClass = loader.loadClass(templateName)
-      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase])
 
-      val rep = new RepresentationModel(response, applicationModel)
-      val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
-      val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body)
+      val answer: ResponseEntity = tryLoading(templateNames(0), response, loader).get
 
-      //val theResponse = response.copy(entity = response.entity, httpResponse = response.httpResponse.copy(entity = answer))
       response match {
         case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, response.httpResponse.copy(entity = answer))
         case ResponseEvent(req, _, _) => applicationActor ! ResponseEvent(req, response.entity, response.httpResponse.copy(entity = answer))
@@ -202,20 +184,10 @@ class ControllerActor[T]() extends Actor {
       }
     } catch {
       case ex: Exception =>
-        log info s"        rendering fallback to json, could not load '$templateName', reason: $ex"
+        log info s"        rendering fallback to json, could not load '$templateNames', reason: $ex"
         handleJson(response, json)
     }
-
   }
-
-  /*private def handleJson(response: ListResponseEvent[T], m: Future[MessageEntity]): Unit = {
-    m.onSuccess {
-      case value =>
-        applicationActor ! response.copy(
-          entity = response.entity,
-          httpResponse = response.httpResponse.copy(entity = value))
-    }
-  }*/
 
   private def handleJson(response: ResponseEventBase, json: String): Unit = {
     response match {
@@ -223,22 +195,30 @@ class ControllerActor[T]() extends Actor {
       case ResponseEvent(req, _, _) => applicationActor ! ResponseEvent(req, response.entity, response.httpResponse.copy(entity = json))
       case _ => log warn "unmatched response"
     }
-    //
-    //    applicationActor ! response.copy(
-    //      entity = response.entity,
-    //      httpResponse = response.httpResponse.copy(entity = json))
   }
 
   override def preRestart(reason: Throwable, message: Option[Any]) {
     //log.error(reason, "Restarting due to [{}] when processing [{}]", reason.getMessage, message.getOrElse(""))
   }
 
-  private def getHtmlTemplate(req: RequestEvent, resource: Option[AsyncResource[_, _]]) = {
+  private def getHtmlTemplates(req: RequestEvent, resource: Option[AsyncResource[_, _]]) = {
     val resName = req.cmd.mapping.resourceClass
     if (resource.isDefined)
-      resource.get.getHtmlTemplate(req)
+      resource.get.getHtmlTemplates(req)
     else
-      s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
+      List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
+  }
+
+  private def tryLoading(templateName: String, response: ResponseEventBase, loader: ClassLoader): Option[ResponseEntity] = {
+    try {
+      val resourceHtmlClass = loader.loadClass(templateName)
+      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase])
+      val rep = new RepresentationModel(response, applicationModel)
+      val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
+      Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
+    } catch {
+      case ex: Exception => None
+    }
   }
 
 }
