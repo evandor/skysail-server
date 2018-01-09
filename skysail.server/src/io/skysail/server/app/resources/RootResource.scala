@@ -8,6 +8,10 @@ import org.osgi.framework.Bundle
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Success
+import io.skysail.domain.resources.AsyncEntityResource
+import io.skysail.domain.ResponseEventBase
+import scala.util.Failure
+import org.slf4j.LoggerFactory
 
 case class RootInfo(
                      title: String,
@@ -16,9 +20,11 @@ case class RootInfo(
                      info: String = "you are seeing this as no applications have been deployed yet."
                    )
 
-class RootResource extends EntityResource[RootApplication,RootInfo] {
+class RootResource extends AsyncEntityResource[RootApplication,RootInfo] {
+  
+  private val log = LoggerFactory.getLogger(this.getClass)
 
-  override def getAsync(requestEvent: RequestEvent) {
+  override def getEntityAsync(requestEvent: RequestEvent):Unit = {
     val product: Option[Bundle] = new ProductUtils().getOptionalProducktBundle(bundleContext)
     val productDef = if (product.isDefined) product.get.getSymbolicName else "no product defined"
     val appService = getApplication().appService
@@ -31,16 +37,19 @@ class RootResource extends EntityResource[RootApplication,RootInfo] {
           RootInfo("skysail server", desc, productDef)
         else
           RootInfo("skysail server", desc, productDef, s"${s.size} app(s) deployed: " + s.map(_.name).mkString(", "))
+        log info s"sending response event with msg $msg"
         requestEvent.controllerActor ! ResponseEvent(requestEvent, msg)
-
-
       }
+      case Failure(f) => log warn s"failure: $f"
     }
-
   }
 
-  override def get(requestEvent: RequestEvent):AsyncResponseEvent = {
-    getAsync(requestEvent)
-    AsyncResponseEvent(requestEvent)
+  def get(requestEvent: RequestEvent): ResponseEventBase = {
+    ???
   }
+
+//  override def get(requestEvent: RequestEvent):AsyncResponseEvent = {
+//    getEntity(requestEvent)
+//    AsyncResponseEvent(requestEvent)
+//  }
 }

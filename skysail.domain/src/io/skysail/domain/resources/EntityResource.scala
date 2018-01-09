@@ -17,13 +17,11 @@ abstract class EntityResource[S <: ApplicationApi, T: TypeTag] extends AsyncReso
   private val log = LoggerFactory.getLogger(this.getClass)
 
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
-    cmd.ctx.request.method match {
-      case HttpMethods.GET => doGet(RequestEvent(cmd, controller))
-      case e: Any => log error "not supported"
-    }
+    val req = RequestEvent(cmd, controller)
+    req.controllerActor ! ResponseEvent(req, getEntity(req))
   }
-
-  def getAsync(requestEvent: RequestEvent): Unit
+  
+  def getEntity(re: RequestEvent): Option[T]
 
   def reply[U](requestEvent: RequestEvent, answer: Future[U], c: U => T) = {
     answer.onComplete {

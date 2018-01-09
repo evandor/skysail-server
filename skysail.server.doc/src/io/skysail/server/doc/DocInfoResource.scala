@@ -10,5 +10,5 @@ case class DocInfoResource() extends EntityResource {
     null
   }
 
-  override def getAsync(requestEvent: RequestEvent): Unit = ???
+  override def getEntity(requestEvent: RequestEvent) = ???
 }

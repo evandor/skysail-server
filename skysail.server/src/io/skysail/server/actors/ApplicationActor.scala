@@ -54,6 +54,9 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
   def receive: Receive = LoggingReceive {
     // tag::resourceInstance[]
     case cmd: ProcessCommand => {
+
+      log debug s"[IN] >>> COMMAND:    $cmd"
+
       val routesCreator = sender()
       val resourceInstance = cmd.mapping.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
       val controllerActor = createController
@@ -62,7 +65,7 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
       val res = (controllerActor ? skysailContext).mapTo[ResponseEventBase]
       res onComplete {
         case Success(responseEvent) => routesCreator ! responseEvent
-        case Failure(failure) => log error s"Failure>>> $failure"
+        case Failure(failure) => log error s"Failure >>> $failure"
       }
     }
     // end::resourceInstance[]

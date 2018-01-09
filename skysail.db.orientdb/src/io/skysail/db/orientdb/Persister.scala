@@ -150,7 +150,7 @@ class Persister(db: OrientGraph) {
     jValue._2 match {
       case string: JString =>
         log info s"setting Property('${jValue._1}','${string.s}')"; vertex.setProperty(jValue._1, string.s)
-      case _: Any => log warn "no idea what to do"
+      case _: Any => log warn s"no idea what to do, trying to match '${jValue._2}'"
     }
   }
 

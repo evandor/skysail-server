@@ -15,6 +15,8 @@ import io.skysail.server.demo.domain.Bookmark
 import spray.json.{DefaultJsonProtocol, _}
 
 import scala.util.matching.Regex
+import io.skysail.domain.resources.EntityResource
+import io.skysail.domain.ResponseEventBase
 
 trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val bookmarkFormat: RootJsonFormat[Bookmark] = jsonFormat4(Bookmark)
@@ -72,10 +74,12 @@ class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] with Js
   }
 }
 
-class BookmarkResource extends AsyncResource[DemoApplication, Bookmark] {
-  override def get(requestEvent: RequestEvent) = {
+class BookmarkResource extends EntityResource[DemoApplication, Bookmark] {
+  
+  //override def get(requestEvent: RequestEvent) = {
+  override def getEntity(re: RequestEvent): Option[Bookmark] = {
     val app: DemoApplication = getApplication()
-    val optionalBookmark = app.repo.find(requestEvent.cmd.urlParameter.head)
+    val optionalBookmark = app.repo.find(re.cmd.urlParameter.head)
     val bm = optionalBookmark.getOrElse(Bookmark(None, "undef", "undef"))
     if (bm.url.contains("$")) {
       val pattern = new Regex("\\$\\{(.*?)}")
@@ -94,13 +98,17 @@ class BookmarkResource extends AsyncResource[DemoApplication, Bookmark] {
 
       val bmWithVariants = new Bookmark(bm.id, "*" + bm.title + "*", bm.url, variants)
 
-      ResponseEvent(requestEvent, bmWithVariants)
+      //ResponseEvent(requestEvent, bmWithVariants)
+      Some(bmWithVariants)
     } else {
-      ResponseEvent(requestEvent, bm)
+      //ResponseEvent(requestEvent, bm)
+      Some(bm)
     }
   }
 
-  override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
-    get(RequestEvent(cmd, controller))
+  def get(requestEvent: RequestEvent): ResponseEventBase = {
+    ???
   }
+
+  
 }

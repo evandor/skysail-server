@@ -1,12 +1,15 @@
 Bundle-Name: SKYSAIL :: domain
 
-Bundle-Version: 0.1.0.${tstamp}
+Bundle-Version: 1.0.0.${tstamp}
 
 Bundle-Description: Domain Bundle for Skysail
 
 Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Bundle-ActivationPolicy: lazy
+
+# http://bnd.bndtools.org/chapters/180-baselining.html
+-baseline: *
 
 -buildpath: \
 	${osgi},\

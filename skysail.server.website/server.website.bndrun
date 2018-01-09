@@ -22,7 +22,6 @@
 logback.configurationFile.path = config
 
 -runrequires: \
-	osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.0.0))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.log)(version>=1.0.1))',\
@@ -34,10 +33,11 @@ logback.configurationFile.path = config
 	osgi.identity;filter:='(&(osgi.identity=io.skysail.bundled.logback-gelf)(version>=1.0.4))',\
 	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.3))',\
 	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
-    osgi.identity;filter:='(osgi.identity=skysail.db.orientdb)',\
+	osgi.identity;filter:='(osgi.identity=skysail.db.orientdb)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.demo)',\
-	osgi.identity;filter:='(osgi.identity=skysail.server.website)'
+	osgi.identity;filter:='(osgi.identity=skysail.server.website)',\
+	osgi.identity;filter:='(&(osgi.identity=joda-time)(version>=2.9.3))'
 
 -runbundles: \
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
@@ -83,7 +83,6 @@ logback.configurationFile.path = config
 	org.scalactic;version='[3.0.1,3.0.2)',\
 	org.scalatest;version='[3.0.1,3.0.2)',\
 	slf4j.api;version='[1.7.25,1.7.26)',\
-	com.typesafe.akka.testkit;version='[2.5.8,2.5.9)',\
 	io.skysail.bundled.akka-http-json4s_2.11;version='[1.17.0,1.17.1)',\
 	io.skysail.bundled.json4s_2.11-3.5.1;version='[3.5.1,3.5.2)',\
 	io.skysail.bundled.logback-gelf;version='[1.0.4,1.0.5)',\
@@ -104,6 +103,6 @@ logback.configurationFile.path = config
 	skysail.server.demo;version=snapshot,\
 	skysail.server.doc;version=snapshot,\
 	skysail.server.website;version=snapshot,\
-	webconsole.all;version='[0.1.18,0.1.19)',\
 	skysail.api;version=snapshot,\
-	skysail.domain;version='[0.1.0,0.1.1)'
+	skysail.domain;version=snapshot,\
+	joda-time;version='[2.9.3,2.9.4)'

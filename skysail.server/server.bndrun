@@ -23,7 +23,6 @@ logback.configurationFile.path = config/local
 
 
 -runrequires: \
-	osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.0.0))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.log)(version>=1.0.1))',\
@@ -37,7 +36,8 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(&(osgi.identity=org.scala-lang.scala-compiler)(version>=2.11))',\
 	osgi.identity;filter:='(osgi.identity=skysail.server)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.app.bundlerepo)',\
-	osgi.identity;filter:='(osgi.identity=skysail.server.doc)'
+	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
+	osgi.identity;filter:='(&(osgi.identity=joda-time)(version>=2.9.3))'
 
 #	,\
 #	osgi.identity;filter:='(&(osgi.identity=io.skysail.bundled.kamon-core_2.11)(version>=0.6.7.201711171332))',\
@@ -88,5 +88,5 @@ logback.configurationFile.path = config/local
 	skysail.server.app.bundlerepo;version=snapshot,\
 	skysail.server.auth.none;version=snapshot,\
 	skysail.server.doc;version=snapshot,\
-	webconsole.all;version='[0.1.18,0.1.19)',\
-	skysail.api;version=snapshot
+	skysail.api;version=snapshot,\
+	joda-time;version='[2.9.3,2.9.4)'

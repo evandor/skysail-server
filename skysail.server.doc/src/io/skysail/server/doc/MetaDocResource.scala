@@ -13,7 +13,7 @@ class DocIndexResource() extends EntityResource {
     ResponseEvent(requestEvent, "hi")
   }
 
-  override def getAsync(requestEvent: RequestEvent): Unit = ???
+  override def getEntity(requestEvent: RequestEvent) = ???
 }
 
 abstract case class DocResource() extends AsyncStaticResource {

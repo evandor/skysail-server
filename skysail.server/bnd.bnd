@@ -10,6 +10,9 @@ Bundle-Activator: io.skysail.server.activator.AkkaServer
 
 Build-Version: ${buildVersion}
 
+# http://bnd.bndtools.org/chapters/180-baselining.html
+-baseline: *
+
 #Require-Capability: skysail.capability.client
 Require-Capability: skysail.capability.auth 
 
