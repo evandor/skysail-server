@@ -164,27 +164,20 @@ class ControllerActor[T]() extends Actor {
 
   private def handleHtmlWithFallback(response: ResponseEventBase, json: String): Unit = {
     val templateNames = getHtmlTemplates(response.req, response.getResource)
-
     val loader = response.req.cmd.mapping.resourceClass.getClassLoader
-    var loaded = false;
+    val answer: Option[ResponseEntity] = templateNames
+      .map(name => tryLoading(name, response, loader))
+      .find(_.isDefined)
+      .flatMap(identity)
 
-    //templateNames.map(name => tryLoading(name)).fin
-    //val answer: OptionResponseEntity = tryLoading(templateNames(0), response, loader)
-
-    try {
-
-      val loader = response.req.cmd.mapping.resourceClass.getClassLoader
-
-      val answer: ResponseEntity = tryLoading(templateNames(0), response, loader).get
-
+    if (answer.isDefined) {
       response match {
-        case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, response.httpResponse.copy(entity = answer))
-        case ResponseEvent(req, _, _) => applicationActor ! ResponseEvent(req, response.entity, response.httpResponse.copy(entity = answer))
+        case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, response.httpResponse.copy(entity = answer.get))
+        case ResponseEvent(req, _, _) => applicationActor ! ResponseEvent(req, response.entity, response.httpResponse.copy(entity = answer.get))
         case _ => log warn "unmatched response"
       }
-    } catch {
-      case ex: Exception =>
-        log info s"        rendering fallback to json, could not load '$templateNames', reason: $ex"
+    } else {
+        log info s"        rendering fallback to json, could not load '$templateNames'"
         handleJson(response, json)
     }
   }

@@ -30,7 +30,7 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
         }
       }
       case c: ListRouteMapping[_, _] => List(
-          "io.skysail.ui.default.ListResource_Get",
+          "html.ListResource_Get",
           s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
           )
       case c: EntityMapping[_, _] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Entity")

@@ -23,6 +23,7 @@ Export-Package: \
 	io.skysail.api,\
 	io.skysail.api.config,\
 	io.skysail.api.ddd,\
+    io.skysail.api.health,\
 	io.skysail.api.metrics,\
 	io.skysail.api.osgi.bundlerepository,\
 	io.skysail.api.osgi.bundlerepository.domain,\

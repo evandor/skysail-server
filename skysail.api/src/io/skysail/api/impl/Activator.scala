@@ -3,6 +3,7 @@ package io.skysail.api.impl
 import domino.DominoActivator
 import domino.service_watching.ServiceWatcherEvent.{AddingService, ModifiedService, RemovedService}
 import io.skysail.api.config.impl.ConfigMover
+import io.skysail.api.health.{ApplicationHealthIndicator, HealthIndicator}
 import io.skysail.api.osgi.bundlerepository.RepositoryService
 import io.skysail.api.osgi.bundlerepository.impl.{DefaultRepositoryService, NoOpRepositoryService, SkysailObrCommands}
 import io.skysail.api.osgi.events.EventsService
@@ -60,6 +61,8 @@ class Activator extends DominoActivator {
         repoService.providesService[RepositoryService]
       }
     }
+
+    new ApplicationHealthIndicator().providesService[HealthIndicator]
 
   }
 

@@ -39,7 +39,7 @@ class DemoApplication(
   override def name = "demo"
   override def desc = "Skysail Demo Application"
 
-  override def defaultResources = List(classOf[DbConfigsResource],classOf[NotesResource])
+  override def defaultResources = List(classOf[DbConfigsResource],classOf[NotesResource],classOf[TodosResource])
 
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
