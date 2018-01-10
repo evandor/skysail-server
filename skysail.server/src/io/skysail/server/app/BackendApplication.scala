@@ -92,30 +92,22 @@ abstract class BackendApplication(
 
     val routes = scala.collection.mutable.ListBuffer[Route]()
 
-    routes ++= routesMappings.map { prt =>
-      appModel.addResourceModel(prt)
-      routesCreator.createRoute(prt, this)
+    routes ++= routesMappings.map { routeMapping =>
+      val entityClass = appModel.addResourceModel(routeMapping)
+      //println("entityClass: " + entityClass)
+      routesCreator.createRoute(routeMapping, this)
     }
 
     if (optionalNativeRoute().isDefined) {
       routes += optionalNativeRoute().get
     }
 
-    routes ++= defaultRoutes(appModel).map { prt =>
-      appModel.addResourceModel(prt)
-      routesCreator.createRoute(prt, this)
+    routes ++= defaultRoutes(appModel).map { routeMapping =>
+      val entityClass = appModel.addResourceModel(routeMapping)
+      //println("entityClass: " + entityClass)
+      routesCreator.createRoute(routeMapping, this)
     }
 
-    //    val valueList: List[Route] = routesMappings.map { prt =>
-    //      appModel.addResourceModel(prt)
-    //      routesCreator.createRoute(prt, this)
-    //    }
-    //
-    //    val fullList: List[Route] = if (optionalNativeRoute().isDefined) {
-    //      optionalNativeRoute().get :: valueList
-    //    } else {
-    //      valueList
-    //    }
     routes.size match {
       case 0 => log warn "no routes are defined"; null
       case 1 => routes.head

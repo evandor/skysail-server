@@ -1,0 +1,27 @@
+@import io.skysail.domain.model.ApplicationModel
+
+@(model: ApplicationModel)(body: (String) => Html)
+
+
+<div>
+    <h2>Debug</h2>
+    <h3>Model</h3>
+    @model
+    <h3>Entities</h3>
+    @model.entities.mkString("<br>")
+
+</div>
+
+<div>
+    <h3>todo</h3>
+    @model.entityModelFor("io.skysail.server.demo.domain.Todo")
+    <h3>fields</h3>
+    @model.entityModelFor("io.skysail.server.demo.domain.Todo").get.fields
+</div>
+
+
+<p class="success">
+    @body("green")
+</p>
+
+

@@ -27,12 +27,12 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
   <link rel="stylesheet"    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
   <link rel="stylesheet"    href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto|Slabo+27px" async>
 
-  <script src="https://polygit.org/components/webcomponentsjs/webcomponents-loader.js"></script>
+ <!-- <script src="https://polygit.org/components/webcomponentsjs/webcomponents-loader.js"></script>
 
   <link rel="import"  href="https://polygit.org/components/polymer/lib/elements/dom-repeat.html">
 
   <link rel="import" href="/_root/custom-element.html">
-  <link rel="import" href="/demo/v1/dom-element.html">
+  <link rel="import" href="/demo/v1/dom-element.html">-->
 
 
   <!--<script type="text/javascript" src="/_ui/jquery/3.1.1/jquery-3.1.1.min.js"></script>
@@ -65,9 +65,9 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 08 08:54:54 CET 2018
+                  DATE: Tue Jan 09 17:31:00 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/head.scala.html
-                  HASH: 7d40486e1c12016dc42180dc1f2f3751de1fcb51
+                  HASH: 4f0e625a78a68ad5f0e14025e0da4a9aa62ef329
                   MATRIX: 532->2
                   LINES: 17->1
                   -- GENERATED --

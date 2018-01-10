@@ -1,29 +1,24 @@
 package io.skysail.server.actors
 
-import akka.actor.{ Actor, ActorRef }
-import akka.event.LoggingReceive
-import akka.http.scaladsl.marshalling.Marshal
+import akka.actor.{Actor, ActorRef}
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.{ ContentNegotiator, MediaTypeNegotiator }
+import akka.http.scaladsl.server.{ContentNegotiator, MediaTypeNegotiator}
 import akka.util.Timeout
-import de.heikoseeberger.akkahttpjson4s.Json4sSupport._
 import io.skysail.domain._
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.AsyncResource
 import io.skysail.server.RepresentationModel
 import io.skysail.server.actors.ApplicationActor._
-import org.json4s.JsonAST.{ JArray, JString }
-import org.json4s.jackson.JsonMethods.{ compact, render }
+import org.json4s.JsonAST.{JArray, JString}
+import org.json4s.jackson.JsonMethods.{compact, render}
 import org.json4s.jackson.Serialization
-import org.json4s.jackson.Serialization.write
-import org.json4s.{ DefaultFormats, Extraction, JObject, jackson }
+import org.json4s.{DefaultFormats, Extraction, JObject, jackson}
 import org.osgi.framework.BundleContext
+import org.slf4j.LoggerFactory
 import play.twirl.api.HtmlFormat
 
-import scala.concurrent.Future
 import scala.concurrent.duration.DurationInt
-import org.slf4j.LoggerFactory
 
 object ControllerActor {
 

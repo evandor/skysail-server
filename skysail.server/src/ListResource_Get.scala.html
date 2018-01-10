@@ -7,45 +7,57 @@
 
 @main(response) {
 
-    <br><br><br>
+<br><br><br>
 
-    <div class="container">
-        <div class="starter-template">
-            <h1>Yeah</h1>
-            <p class="lead">all bookmarks:</p>
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Url</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @for(p <- rep.rawData) {
-                    <tr>
-                        <th scope="row">@p.get("title")</th>
-                        <td><a href='@p.get("url")' target='demo_bms_@p.get("title")'>@p.get("url")</a></td>
-                        <td>
-                            <a href='@rep.linkFor("io.skysail.server.demo.resources.BookmarkResource", p.get("id"))'>[show]</a>
-                            <a href='@rep.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.get("id"))'>[update]</a>
-                        </td>
-                    </tr>
-                }
+<div class="container">
+    <div class="starter-template">
+        <h1>Yeah</h1>
+        <p class="lead">all bookmarks:</p>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Url</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @for(p <- rep.rawData) {
+            <tr>
+                <th scope="row">@p.get("title")</th>
+                <td><a href='@p.get("url")' target='demo_bms_@p.get("title")'>@p.get("url")</a></td>
+                <td>
+                    <a href='@rep.linkFor("io.skysail.server.demo.resources.BookmarkResource", p.get("id"))'>[show]</a>
+                    <a href='@rep.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.get("id"))'>[update]</a>
+                </td>
+            </tr>
+            }
 
-                </tbody>
+            </tbody>
 
-            </table>
+        </table>
 
-            <a href='@rep.linkFor("io.skysail.server.demo.resources.PostBookmarkResource",None)'>Create New Bookmark</a>
+        <a href='@rep.linkFor("io.skysail.server.demo.resources.PostBookmarkResource",None)'>Create New Bookmark</a>
 
-            <div>
-              @rep.jsonData
-            </div>
-
-            <hr>
-            <a href="/doc/v1/index.html" target="_docs">Doc</a>
+        <div>
+            <h3>jsonData</h3>
+            @rep.jsonData
         </div>
+
+        <div>
+            @printAppModel(rep.model) { whatever =>
+              ...
+            }
+        </div>
+
+        <hr>
+        <a href="/doc/v1/index.html" target="_docs">Doc</a>
     </div>
+</div>
+
+
+@debug("error") { color =>
+  Oops, something is <span style="color:@color">wrong</span>
+}
 
 }

@@ -7,4 +7,4 @@ object Status {
   val OUT_OF_SERVICE = Status("OUT_OF_SERVICE")
 }
 
-private case class Status(value: String) extends AnyVal
+case class Status(value: String) extends AnyVal

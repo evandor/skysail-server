@@ -15,6 +15,7 @@ Bundle-ActivationPolicy: lazy
 	${osgi},\
 	${akka-build},\
 	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
+    org.scala-lang.modules.scala-xml;version=1.0.6,\
 	${testlibs},\
 	slf4j.api;version=1.7
 

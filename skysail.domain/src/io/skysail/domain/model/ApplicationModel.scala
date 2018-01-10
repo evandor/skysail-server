@@ -5,7 +5,7 @@ import akka.http.scaladsl.server.PathMatcher
 import com.fasterxml.jackson.annotation.{JsonGetter, JsonInclude}
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.ApiVersion
-import io.skysail.domain.routes.{RouteMapping, RouteMappingI}
+import io.skysail.domain.routes.RouteMappingI
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable.LinkedHashMap
@@ -89,8 +89,11 @@ case class ApplicationModel(
   }
 
   //def getResourceModels: List[ResourceModel] = resourceModels.toList
+  def entities(): collection.Set[String] = entityModelsMap.keySet
 
-  def entityModelFor(cls: Class[_]): Option[EntityModel] = entityModelsMap.get(cls.getName)
+  def entityModelFor(cls: Class[_]): Option[EntityModel] = entityModelFor(cls.getName)
+
+  def entityModelFor(clsName: String): Option[EntityModel] = entityModelsMap.get(clsName)
 
   def entityModelFor(ssr: SkysailResource[_,_]): Option[EntityModel] = {
     val resModel = controllerModelFor(ssr.getClass)
