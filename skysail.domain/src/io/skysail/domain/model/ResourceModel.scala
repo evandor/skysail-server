@@ -13,7 +13,6 @@ import scala.reflect.runtime.universe._
   */
 case class ResourceModel(routeMapping: RouteMappingI[_,_]) {
 
-  //require(routeMapping.path != null, "A ResourceModel's pathMatcher must not be null")
   require(routeMapping.resourceClass != null, "A ResourceModel's resource class must not be null")
 
   private val log = LoggerFactory.getLogger(this.getClass())
@@ -44,7 +43,7 @@ case class ResourceModel(routeMapping: RouteMappingI[_,_]) {
     "\\{([^\\}]*)\\}".r
       .findAllIn(path)
       .map {
-        (e => e.toString().replace("{", "").replace("}", ""))
+        (_.toString().replace("{", "").replace("}", ""))
       }
       .toList
 

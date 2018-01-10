@@ -65,7 +65,7 @@ case class ApplicationModel(
     */
   def addResourceModel(routeMapping: RouteMappingI[_,_]): Option[Type] = {
     //require(routeMapping.path != null, "The resource's path must not be null")
-    require(routeMapping.resourceClass != null, "The resource's controller class must not be null")
+    require(routeMapping.resourceClass != null, "The routeMapping's resource class must not be null")
 
     log debug s"mapping '${appPath()}${routeMapping.path}' to '${routeMapping.resourceClass}[${routeMapping.getEntityType()}]'"
 

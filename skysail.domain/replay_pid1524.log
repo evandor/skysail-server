@@ -1,0 +1,18 @@
+JvmtiExport can_access_local_variables 0
+JvmtiExport can_hotswap_or_post_breakpoint 0
+JvmtiExport can_post_on_exceptions 0
+# 321 ciObject found
+ciMethod java/lang/Object <init> ()V 4097 1 27052 0 0
+ciMethod java/lang/Object hashCode ()I 2049 1 256 0 -1
+ciMethod java/lang/Object equals (Ljava/lang/Object;)Z 9 1 1 0 -1
+ciMethod java/lang/String checkBounds ([BII)V 2049 1 3170 0 0
+ciMethod java/lang/String <init> ([BIILjava/lang/String;)V 3281 1 2058 0 0
+ciMethod java/lang/String length ()I 4097 1 15017 0 0
+ciMethod java/lang/String charAt (I)C 4097 1 30882 0 -1
+ciMethod java/lang/String equals (Ljava/lang/Object;)Z 2065 9937 2124 0 -1
+ciMethod java/lang/String hashCode ()I 2977 32769 1388 0 320
+ciMethod java/lang/String lastIndexOf (II)I 833 25401 871 0 -1
+ciMethod java/lang/String indexOf (Ljava/lang/String;)I 2081 1 1376 0 -1
+ciMethod java/lang/String substring (II)Ljava/lang/String; 2057 1 4063 0 -1
+ciMethod java/lang/System getSecurityManager ()Ljava/lang/SecurityManager; 2073 1 1294 0 -1
+ciMethod 
