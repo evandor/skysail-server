@@ -8,7 +8,7 @@ import io.skysail.domain.resources.{AsyncStaticResource, EntityResource}
 import io.skysail.domain.{AsyncResponseEvent, HtmlResponseEvent, RequestEvent, ResponseEvent}
 
 
-class DocIndexResource() extends EntityResource {
+class DocIndexResource() extends EntityResource[DocApplication, String] {
   override def get(requestEvent: RequestEvent) = {
     ResponseEvent(requestEvent, "hi")
   }
@@ -16,7 +16,7 @@ class DocIndexResource() extends EntityResource {
   override def getEntity(requestEvent: RequestEvent) = ???
 }
 
-abstract case class DocResource() extends AsyncStaticResource {
+abstract class DocResource extends AsyncStaticResource[DocApplication, String] {
 
   override def get(requestEvent: RequestEvent) = {
     getAsync(requestEvent)

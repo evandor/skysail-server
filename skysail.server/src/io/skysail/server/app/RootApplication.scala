@@ -3,10 +3,10 @@ package io.skysail.server.app
 import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives.{get, getFromResourceDirectory, pathPrefix}
 import akka.http.scaladsl.server.PathMatchers._
-import akka.http.scaladsl.server.{PathMatcher, PathMatchers, Route}
+import akka.http.scaladsl.server.{PathMatcher, Route}
 import io.skysail.api.ui.Client
 import io.skysail.domain.routes.RouteMapping
-import io.skysail.server.app.resources.{AppsResource, ClientsResource, RootRedirectResource, RootResource}
+import io.skysail.server.app.resources.{AppsResource, ClientsResource, RootResource}
 import io.skysail.server.routes.RoutesCreator
 import org.osgi.framework.BundleContext
 
@@ -47,7 +47,7 @@ class RootApplication(
 
     List(
       //"/login" -> classOf[AkkaLoginResource[String]],
-      RouteMapping("", PathMatchers.PathEnd, classOf[RootRedirectResource]),
+      //RouteMapping("", PathMatchers.PathEnd, classOf[RootRedirectResource]),
       RouteMapping("", root ~ PathEnd, classOf[RootResource]),
       RouteMapping("/apps", root / PathMatcher("apps") ~ PathEnd, classOf[AppsResource]),
       RouteMapping("/clients", root / PathMatcher("clients") ~ PathEnd, classOf[ClientsResource])
