@@ -30,9 +30,9 @@ skysail.config.path            = config
 logback.configurationFile.path = config
 
 #	webconsole.all;version=latest,\
+#    osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\
 
 -runrequires: \
-	osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.0.0))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.fileinstall)(version>=3.6.4))',\
@@ -76,7 +76,6 @@ logback.configurationFile.path = config
 	skysail.server;version=snapshot,\
 	skysail.server.auth.none;version=snapshot,\
 	slf4j.api;version='[1.7.25,1.7.26)',\
-	webconsole.all;version='[0.1.18,0.1.19)',\
 	osgi.enroute.junit.wrapper;version='[4.12.0,4.12.1)',\
 	org.apache.felix.fileinstall;version='[3.6.4,3.6.5)',\
 	com.springsource.org.junit;version='[4.11.0,4.11.1)',\
@@ -87,4 +86,5 @@ logback.configurationFile.path = config
 	jul.to.slf4j;version='[1.7.25,1.7.26)',\
 	org.apache.felix.bundlerepository;version='[2.0.10,2.0.11)',\
 	org.apache.felix.eventadmin;version='[1.4.10,1.4.11)',\
-	skysail.api;version=snapshot
+	skysail.api;version=snapshot,\
+	joda-time;version='[2.9.3,2.9.4)'

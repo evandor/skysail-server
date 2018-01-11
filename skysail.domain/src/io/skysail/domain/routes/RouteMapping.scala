@@ -33,7 +33,19 @@ abstract sealed class RouteMappingI[S: TypeTag, T /*<: DddElement*/ : TypeTag](
     this
   }
 
-  def getEntityType(): Type = resourceClass.newInstance().getType()
+  def getEntityType(): Type = {
+    val t = resourceClass.newInstance().getType()
+    t match {
+      case TypeRef(utype, usymbol, args) =>
+        //println(resourceClass + ": \n - " + List(utype, usymbol, args).mkString("\n - "))
+        if (args.size > 0)
+          //println(" - " + args.head + "(" + args.head.getClass + ")")
+          args.head
+        else
+          t //println(" - ...")
+    }
+
+  }
 
   def getPathMatcherParameterType(): universe.Type = {
     val targs = typeOf[S] match {

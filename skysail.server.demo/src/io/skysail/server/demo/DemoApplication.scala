@@ -33,13 +33,19 @@ class DemoApplication(
   val dbConfigRepo = new DbConfigsRepository(dbService)
   val notesRepo = new NotesRepo(dbService)
   val todosRepo = new TodosRepo(dbService)
+  val accountsRepo = new AccountsRepo(dbService)
 
   val bookmarksService = new BookmarksService()
 
   override def name = "demo"
   override def desc = "Skysail Demo Application"
 
-  override def defaultResources = List(classOf[DbConfigsResource],classOf[NotesResource],classOf[TodosResource])
+  override def defaultResources = List(
+    classOf[DbConfigsResource],
+    classOf[NotesResource],
+    classOf[TodosResource],
+    classOf[AccountsResource]
+  )
 
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")

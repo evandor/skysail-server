@@ -13,7 +13,7 @@ import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.Todo
 import spray.json.{DefaultJsonProtocol, _}
 
-trait JsonSupport4 extends SprayJsonSupport with DefaultJsonProtocol {
+trait JsonSupport5 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val TodoFormat: RootJsonFormat[Todo] = jsonFormat3(Todo)
 }
 
