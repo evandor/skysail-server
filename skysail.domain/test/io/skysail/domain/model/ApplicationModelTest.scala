@@ -1,15 +1,20 @@
 package io.skysail.domain.model
 
+import java.net.URL
+
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMapping
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{BeforeAndAfterEach, FlatSpec}
 
+@RunWith(classOf[JUnitRunner])
 class ApplicationModelTest extends FlatSpec with BeforeAndAfterEach {
 
-
+  var appModel: ApplicationModel = _
 
   override def beforeEach() {
-
+    appModel = ApplicationModel("name", ApiVersion(1), "desc")
   }
 
   "An ApplicationModel" should "provide its name" in  {
@@ -28,10 +33,13 @@ class ApplicationModelTest extends FlatSpec with BeforeAndAfterEach {
   }
 
   "An ApplicationModel" should "accept a valid route mapping" in  {
-    val appModel = ApplicationModel("name", ApiVersion(1), "desc")
     val t = appModel.addResourceModel(RouteMapping("str", null, classOf[OrdersResource]))
     assert(t.isDefined)
-    assert(t.get.toString == "io.skysail.domain.model.OrdersResource")
+    assert(t.get.toString == "io.skysail.domain.model.Order")
   }
 
+  "An ApplicationModel" should "return the entity for a given url" in {
+    appModel.addResourceModel(RouteMapping("str", null, classOf[OrdersResource]))
+    //appModel.entityModelFor(new URL("test"))
+  }
 }

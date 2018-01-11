@@ -1,5 +1,8 @@
 package io.skysail.domain.model
 
+import java.net.URL
+
+import akka.http.scaladsl.model.Uri
 import io.skysail.domain.routes.{RouteMapping, RouteMappingI}
 import org.slf4j.LoggerFactory
 
@@ -26,6 +29,11 @@ case class ResourceModel(routeMapping: RouteMappingI[_,_]) {
     if (routeMapping.resourceClass.getName == clsName && routeMapping.path != null) Some(routeMapping.path) else None
   }
 
+  def matchPath(url: Uri, appSegment: String): Boolean = {
+    val fullPath = s"$appSegment${routeMapping.path}"
+    log info s"matching '${url.path}'-'$fullPath': "+ (url.path == fullPath)
+    url.path == fullPath
+  }
 //  def resourceType() = {
 //    //    resource match {
 //    //      case _: ListServerResource[_] => LIST_RESOURCE

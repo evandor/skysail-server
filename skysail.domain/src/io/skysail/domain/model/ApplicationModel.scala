@@ -1,5 +1,8 @@
 package io.skysail.domain.model
 
+import java.net.URL
+
+import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatcher
 import com.fasterxml.jackson.annotation.{JsonGetter, JsonInclude}
@@ -106,6 +109,14 @@ case class ApplicationModel(
       .filter(v => v.entityClass == resModel.get.entityClass)
       .headOption
   }
+
+  def entityModelFor(url: Uri): Option[EntityModel] = {
+    val appSegment = if (apiVersion == null) s"/$name" else s"/$name/${apiVersion}"
+    val resourceModel = resourceModels.filter(_.matchPath(url, appSegment)).headOption
+    println(resourceModel)
+    if (resourceModel.isDefined) Some(resourceModel.get.entityModel) else None
+  }
+
 
   /**
     * @return the context path of the application, e.g. "/testapp/v2" or "/appwithoutversion".

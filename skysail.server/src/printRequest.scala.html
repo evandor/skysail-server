@@ -6,8 +6,16 @@
 <div>
     <h3>Request</h3>
     ProcessCommand(ctx, mapping, urlParameter, ...)
-    <h4>Context</h4>
-    @request.cmd.ctx
+
+    <h4>Context#request</h4>
+
+    <div>Method: @request.cmd.ctx.request.method</div>
+    <div>URI: @request.cmd.ctx.request.uri</div>
+    <div>Headers: @request.cmd.ctx.request.headers</div>
+    <div>entity: @request.cmd.ctx.request.entity</div>
+    <div>protocol: @request.cmd.ctx.request.protocol</div>
+
+
     <h4>Mapping</h4>
     @request.cmd.mapping
     <h4>UrlParameter</h4>

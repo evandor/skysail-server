@@ -1,8 +1,9 @@
 package io.skysail.server
 
+import akka.http.scaladsl.model.Uri
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.skysail.domain.ResponseEventBase
-import io.skysail.domain.model.ApplicationModel
+import io.skysail.domain.model.{ApplicationModel, EntityModel}
 import org.json4s.JsonAST.JArray
 import org.json4s.jackson.JsonMethods._
 import org.json4s.{DefaultFormats, Extraction, JObject, JValue, jackson}
@@ -16,7 +17,6 @@ class RepresentationModel(
 
   private val mapper = new ObjectMapper
 
-  //private val model = response.resource
   val rawData: List[Map[String, Any]] = deriveRawData()
 
   val jsonData: String = deriveJsonData()
@@ -25,6 +25,11 @@ class RepresentationModel(
     implicit val formats = DefaultFormats
     implicit val serialization = jackson.Serialization
     Extraction.decompose(response.entity)
+  }
+
+  def entityModel(): Option[EntityModel] = {
+    val uri: Uri = response.req.cmd.ctx.request.uri
+    model.entityModelFor(uri)
   }
 
   def linkFor(clsName: String, id: Option[Any]): String = {

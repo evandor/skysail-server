@@ -5,8 +5,13 @@
 
 <div>
     <h2>Debug</h2>
+
     <h3>Model</h3>
     @model
+
+    <h4>Resources</h4>
+    @Html(model.resourceModels.mkString("<br>"))
+
     <h4>Entities</h4>
     @Html(model.entities.mkString("<br>"))
 
