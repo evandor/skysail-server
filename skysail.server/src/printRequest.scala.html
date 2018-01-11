@@ -1,0 +1,18 @@
+@import io.skysail.domain.RequestEvent
+
+@(request: RequestEvent)
+
+
+<div>
+    <h3>Request</h3>
+    ProcessCommand(ctx, mapping, urlParameter, ...)
+    <h4>Context</h4>
+    @request.cmd.ctx
+    <h4>Mapping</h4>
+    @request.cmd.mapping
+    <h4>UrlParameter</h4>
+    @request.cmd.urlParameter
+
+</div>
+
+

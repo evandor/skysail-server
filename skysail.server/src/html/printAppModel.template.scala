@@ -22,7 +22,7 @@ Seq[Any](format.raw/*3.51*/("""
     <h2>Debug</h2>
     <h3>Model</h3>
     """),_display_(/*9.6*/model),format.raw/*9.11*/("""
-    """),format.raw/*10.5*/("""<h3>Entities</h3>
+    """),format.raw/*10.5*/("""<h4>Entities</h4>
     """),_display_(/*11.6*/Html(model.entities.mkString("<br>"))),format.raw/*11.43*/("""
 
 """),format.raw/*13.1*/("""</div>
@@ -56,9 +56,9 @@ Seq[Any](format.raw/*3.51*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Thu Jan 11 07:50:12 CET 2018
+                  DATE: Thu Jan 11 09:07:48 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/printAppModel.scala.html
-                  HASH: 514f695a1ffa8475375c35a6944ad29d40401862
+                  HASH: abc45691702544308e8a3564a19f5f2fa1933d3e
                   MATRIX: 154->1|561->51|705->100|734->103|808->152|833->157|865->162|914->185|972->222|1001->224|1064->261|1078->266|1152->319|1184->324|1231->345|1245->350|1330->414|1358->415|1418->449|1452->462|1480->463
                   LINES: 8->1|13->3|18->3|21->6|24->9|24->9|25->10|26->11|26->11|28->13|32->17|32->17|32->17|33->18|34->19|34->19|34->19|35->20|39->24|39->24|40->25
                   -- GENERATED --
