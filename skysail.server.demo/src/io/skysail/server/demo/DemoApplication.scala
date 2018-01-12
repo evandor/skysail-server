@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives.{getFromResourceDirectory, pathPrefix}
 import akka.http.scaladsl.server.PathMatchers._
 import akka.http.scaladsl.server.{PathMatcher, Route}
+import com.github.dockerjava.core.DockerClientBuilder
 import io.skysail.api.persistence.DbService
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
@@ -37,6 +38,8 @@ class DemoApplication(
 
   val bookmarksService = new BookmarksService()
 
+  val dockerClient = DockerClientBuilder.getInstance().build()
+
   override def name = "demo"
   override def desc = "Skysail Demo Application"
 
@@ -54,6 +57,8 @@ class DemoApplication(
       RouteMapping("/bms/", root / PathMatcher("bms") / PathEnd, classOf[PostBookmarkResource]),
       RouteMapping("/bms/:id", root / PathMatcher("bms") / Segment ~ PathEnd, classOf[BookmarkResource]),
       RouteMapping("/bms/:id/", root / PathMatcher("bms") / Segment / PathEnd, classOf[PutBookmarkResource]),
+
+      RouteMapping("/docker/container", root / PathMatcher("docker") / PathMatcher("container") ~ PathEnd, classOf[ContainersResource]),
 
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource]))
   }

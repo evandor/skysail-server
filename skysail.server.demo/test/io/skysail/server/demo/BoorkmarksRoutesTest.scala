@@ -4,7 +4,6 @@ import akka.http.scaladsl.model.ContentTypes._
 import akka.http.scaladsl.model.FormData
 import akka.http.scaladsl.model.StatusCodes._
 import io.skysail.server.demo.domain.Bookmark
-import org.json4s.jackson.JsonMethods.parse
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 

@@ -41,6 +41,7 @@ Build-Version: ${buildVersion}
 	${testlibs},\
     com.typesafe.akka.testkit;version=${akka.version},\
     com.typesafe.akka.http.testkit;version=10.0,\
+    com.github.docker-java;version=3.0
 
 Private-Package: \
     io.skysail.server.demo,\
