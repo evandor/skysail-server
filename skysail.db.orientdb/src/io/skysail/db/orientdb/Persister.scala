@@ -149,7 +149,11 @@ class Persister(db: OrientGraph) {
   def setProperty2(vertex: OrientVertex, jValue: JField) = {
     jValue._2 match {
       case string: JString =>
-        log info s"setting Property('${jValue._1}','${string.s}')"; vertex.setProperty(jValue._1, string.s)
+        log info s"setting Property('${jValue._1}','${string.s}')"
+        vertex.setProperty(jValue._1, string.s)
+      case jInt: JInt =>
+        log info s"setting Property('${jValue._1}','${jInt.num}')"
+        vertex.setProperty(jValue._1, jInt.num)
       case _: Any => log warn s"no idea what to do, trying to match '${jValue._2}'"
     }
   }

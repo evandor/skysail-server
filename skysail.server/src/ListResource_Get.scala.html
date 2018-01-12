@@ -16,9 +16,9 @@
         <table class="table table-sm">
             <thead>
             <tr>
-                <th>Title</th>
-                <th>Url</th>
-                <th>Actions</th>
+                @for(f <- rep.entityModel.get.fields.reverse) {
+                    <th>@f.name.split("\\.").reverse.head</th>
+                }
             </tr>
             </thead>
             <tbody>
@@ -37,7 +37,7 @@
 
         </table>
 
-        <a href='@rep.linkFor("io.skysail.server.demo.resources.PostBookmarkResource",None)'>Create New Bookmark</a>
+        <a href='@response.req.cmd.ctx.request.uri/'>Create New Entity</a>
 
         <div>
             <h3>jsonData</h3>
@@ -46,7 +46,9 @@
 
         <div>
             <h3>current Entity</h3>
-            @rep.entityModel
+            <div>@rep.entityModel</div>
+            <h3>current Entity's fields</h3>
+            <div>@Html(rep.entityModel.get.fields.mkString("<br>"))</div>
         </div>
 
         <div>

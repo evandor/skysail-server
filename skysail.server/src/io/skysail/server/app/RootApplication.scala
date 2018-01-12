@@ -11,6 +11,8 @@ import io.skysail.server.routes.RoutesCreator
 import org.osgi.framework.BundleContext
 
 import scala.concurrent.ExecutionContextExecutor
+import io.skysail.server.app.resources.RootRedirectResource
+import akka.http.scaladsl.server.PathMatchers
 
 object RootApplication {
   //val LOGIN_PATH = "/_login"
@@ -47,7 +49,7 @@ class RootApplication(
 
     List(
       //"/login" -> classOf[AkkaLoginResource[String]],
-      //RouteMapping("", PathMatchers.PathEnd, classOf[RootRedirectResource]),
+      RouteMapping("", PathMatchers.PathEnd, classOf[RootRedirectResource]),
       RouteMapping("", root ~ PathEnd, classOf[RootResource]),
       RouteMapping("/apps", root / PathMatcher("apps") ~ PathEnd, classOf[AppsResource]),
       RouteMapping("/clients", root / PathMatcher("clients") ~ PathEnd, classOf[ClientsResource])

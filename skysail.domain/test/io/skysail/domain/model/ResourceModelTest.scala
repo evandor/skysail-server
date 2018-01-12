@@ -23,7 +23,7 @@ class ResourceModelTest extends FlatSpec with BeforeAndAfterEach {
 
   "A ResourceModel" should "match the uri" in {
     val resModel = ResourceModel(RouteMapping("/some/path", null, classOf[OrderResource]))
-    assert(resModel.matchPath(Uri("http://localhost:8080/some/path")))
-    assert(!resModel.matchPath(Uri("http://localhost:8080/another/path")))
+    assert(resModel.matchPath(Uri("http://localhost:8080/some/path"), ""))
+    assert(!resModel.matchPath(Uri("http://localhost:8080/another/path"),""))
   }
 }

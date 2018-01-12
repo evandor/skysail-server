@@ -5,7 +5,7 @@ import io.skysail.domain.resources.EntityResource
 import io.skysail.server.app.RootApplication
 import io.skysail.domain.resources.AsyncEntityResource
 
-class RootRedirectResource() extends AsyncEntityResource {
+class RootRedirectResource() extends AsyncEntityResource[RootApplication,String] {
   
   override def getEntityAsync(requestEvent: RequestEvent):Unit = {
     val app = getApplication().asInstanceOf[RootApplication]

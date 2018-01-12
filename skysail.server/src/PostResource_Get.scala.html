@@ -11,21 +11,23 @@
 
 <div class="container">
     <div class="starter-template">
-        <h1>Bookmarks</h1>
+        <h1>something</h1>
         <p class="lead">add bookmark:</p>
-        <form action='@rep.linkFor("io.skysail.app.bookmarks.PostBookmarkResource", None)' method="post">
+        <form action='.' method="post">
 
             <table class="table table-sm">
                 <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Url</th>
+                    @for(f <- rep.entityModel.get.fields.reverse) {
+                    <th>@f.name.split("\\.").reverse.head</th>
+                    }
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <th scope="row"><input type="text" name="title"/></th>
-                    <td><input type="url" name="url"/></td>
+                    @for(f <- rep.entityModel.get.fields.reverse) {
+                      <td><input type="text" name='@f.name.split("\\.").reverse.head'/></td>
+                    }
                 </tr>
                 <tr>
                     <th colspan="2">
@@ -36,6 +38,27 @@
 
             </table>
         </form>
+
+        <div>
+            <h3>jsonData</h3>
+            @rep.jsonData
+        </div>
+
+        <div>
+            <h3>current Entity</h3>
+            <div>@rep.entityModel</div>
+            <h3>current Entity's fields</h3>
+            <div>@Html(rep.entityModel.get.fields.mkString("<br>"))</div>
+        </div>
+
+        <div>
+            @printAppModel(rep.model) { whatever => ... }
+        </div>
+
+        <div>
+            @printRequest(response.req)
+        </div>
+
 
     </div>
 </div>

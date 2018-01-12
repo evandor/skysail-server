@@ -28,7 +28,7 @@ class RepresentationModel(
   }
 
   def entityModel(): Option[EntityModel] = {
-    val uri: Uri = response.req.cmd.ctx.request.uri
+    val uri: Uri = response.req.uri
     model.entityModelFor(uri)
   }
 

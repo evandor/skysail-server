@@ -65,8 +65,8 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
               /*
                   -- GENERATED --
-                  DATE: Thu Jan 11 09:41:31 CET 2018
-                  SOURCE: C:/git/skysail-server/skysail.server/./src/head.scala.html
+                  DATE: Thu Jan 11 18:25:23 CET 2018
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/head.scala.html
                   HASH: 4f0e625a78a68ad5f0e14025e0da4a9aa62ef329
                   MATRIX: 532->2
                   LINES: 17->1

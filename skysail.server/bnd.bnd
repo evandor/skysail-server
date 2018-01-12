@@ -45,21 +45,7 @@ Import-Package: \
     *
 
 Export-Package: \
-	io.skysail.api.ddd,\
-	io.skysail.api.metrics,\
-	io.skysail.api.osgi.bundlerepository,\
-	io.skysail.api.osgi.bundlerepository.domain,\
 	io.skysail.server.routes,\
-	io.skysail.api.osgi.events,\
-	io.skysail.api.persistence,\
-	io.skysail.api.security,\
-	io.skysail.api.ui,\
-	io.skysail.domain,\
-	io.skysail.domain.app,\
-	io.skysail.domain.messages,\
-	io.skysail.domain.model,\
-	io.skysail.domain.resources,\
-	io.skysail.domain.routes,\
 	io.skysail.server,\
 	io.skysail.server.actors,\
 	io.skysail.server.app,\

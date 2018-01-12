@@ -31,8 +31,8 @@ case class ResourceModel(routeMapping: RouteMappingI[_,_]) {
 
   def matchPath(url: Uri, appSegment: String): Boolean = {
     val fullPath = s"$appSegment${routeMapping.path}"
-    log info s"matching '${url.path}'-'$fullPath': "+ (url.path == fullPath)
-    url.path == fullPath
+    //log info s"matching '${url.path}'-'$fullPath': "+ (url.path == fullPath)
+    url.path.toString() == fullPath
   }
 //  def resourceType() = {
 //    //    resource match {

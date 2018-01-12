@@ -91,7 +91,6 @@ case class ApplicationModel(
     resourceModels.filter { model => model.routeMapping.resourceClass == cls }.headOption
   }
 
-  //def getResourceModels: List[ResourceModel] = resourceModels.toList
   def entities(): collection.Set[String] = entityModelsMap.keySet
 
   def entityModelFor(cls: Class[_]): Option[EntityModel] = entityModelFor(cls.getName)
@@ -113,7 +112,6 @@ case class ApplicationModel(
   def entityModelFor(url: Uri): Option[EntityModel] = {
     val appSegment = if (apiVersion == null) s"/$name" else s"/$name/${apiVersion}"
     val resourceModel = resourceModels.filter(_.matchPath(url, appSegment)).headOption
-    println(resourceModel)
     if (resourceModel.isDefined) Some(resourceModel.get.entityModel) else None
   }
 

@@ -9,6 +9,7 @@ sealed trait ResponseEventBase {
   val httpResponse: HttpResponse
 
   def getResource: Option[AsyncResource[_, _]] = req.cmd.resource
+  
 }
 
 case class ResponseEvent[T](req: RequestEvent, entity: T, httpResponse: HttpResponse = HttpResponse(200))
