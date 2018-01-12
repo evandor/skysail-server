@@ -22,7 +22,6 @@ logback.configurationFile.path = config/local
 
 
 -runrequires: \
-	osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.shell)(version>=1.0.0))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.log)(version>=1.0.1))',\

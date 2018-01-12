@@ -6,7 +6,7 @@ Bundle-Description: Domain Bundle for Skysail
 
 Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
-Bundle-ActivationPolicy: lazy
+#Bundle-ActivationPolicy: lazy
 
 # http://bnd.bndtools.org/chapters/180-baselining.html
 -baseline: *
