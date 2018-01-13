@@ -48,7 +48,7 @@ class AccountsResource extends DefaultResource[DemoApplication, Account] {
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
     formFieldMap { map =>
       var initial = 0
-      try { initial = Integer.parseInt(map.getOrElse("initial", "0")) } catch { case _ => log debug s"could not parse ${map.get("initial")}"}
+      try { initial = Integer.parseInt(map.getOrElse("initial", "0")) } catch { case _: Throwable => log debug s"could not parse ${map.get("initial")}"}
       val entity = Account(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), initial)
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
