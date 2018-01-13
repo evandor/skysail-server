@@ -7,19 +7,21 @@ del_stopped(){
   echo "Stopping docker container '$1'"
 
   if [[ "$state" == "true" ]]; then
-    echo "running docker -D stop $name"
-    docker -D stop $name
-    echo "running docker -D rm $name"
-    //docker -D rm $name
+    echo "running docker stop $name"
+    docker stop $name
+    echo "running docker rm $name"
+    docker rm $name
   fi
 }
 
 ## Skysail Server Website
 del_stopped skysail-server-website-test
 
+sleep 5 
+
 echo "Starting docker container..."
 
-docker run -D\
+docker run \
     --name skysail-server-website-test \
     -t --rm -p 9202:9202 \
     -v /home/carsten/skysail/skysailconfigs/website/test:/home/skysail/products/demo/config \
