@@ -21,7 +21,8 @@ logback.configurationFile.path = etc
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.gogo.command)(version>=1.0.2))',\
 	osgi.identity;filter:='(&(osgi.identity=slf4j.api)(version>=1.7.25))',\
 	osgi.identity;filter:='(osgi.identity=skysail.api)',\
-	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.log)(version>=1.0.1))'
+	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.log)(version>=1.0.1))',\
+	osgi.identity;filter:='(osgi.identity=webconsole.all)'
 
 -runbundles: \
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
