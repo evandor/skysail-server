@@ -49,5 +49,6 @@ logback.configurationFile.path = etc
 	org.scala-lang.scala-reflect;version='[2.11.11,2.11.12)',\
 	osgi.enterprise;version='[5.0.0,5.0.1)',\
 	skysail.api;version=snapshot,\
-	slf4j.api;version='[1.7.25,1.7.26)'
+	slf4j.api;version='[1.7.25,1.7.26)',\
+	webconsole.all;version='[0.1.18,0.1.19)'
 

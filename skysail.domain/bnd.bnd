@@ -8,6 +8,8 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 #Bundle-ActivationPolicy: lazy
 
+-includeresource: OSGI-OPT/src=src/
+
 # http://bnd.bndtools.org/chapters/180-baselining.html
 -baseline: *
 
