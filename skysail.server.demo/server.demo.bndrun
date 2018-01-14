@@ -31,12 +31,13 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.8))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.httpcomponents.httpcore)(version>=4.4))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.httpcomponents.httpclient)(version>=4.5))',\
-	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
+	osgi.identity;filter:='(osgi.identity=skysail.server.auth.none)',\
 	osgi.identity;filter:='(osgi.identity=skysail.db.orientdb)',\
 	osgi.identity;filter:='(osgi.identity=skysail.domain)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
-	osgi.identity;filter:='(osgi.identity=skysail.server.demo)'
+	osgi.identity;filter:='(osgi.identity=skysail.server.demo)',\
+	osgi.identity;filter:='(osgi.identity=webconsole.all)'
 
 -runbundles: \
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
@@ -95,5 +96,5 @@ logback.configurationFile.path = config/local
 	skysail.server.auth.none;version=snapshot,\
 	skysail.server.demo;version=snapshot,\
 	skysail.server.doc;version=snapshot,\
-	joda-time;version='[2.9.3,2.9.4)',\
-	skysail.domain;version=snapshot
+	skysail.domain;version=snapshot,\
+	webconsole.all;version='[0.2.0,0.2.1)'

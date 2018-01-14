@@ -31,9 +31,9 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.bundlerepository)(version>=2.0))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.eventadmin)(version>=1.4))',\
 	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.8))',\
-	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
 	osgi.identity;filter:='(&(osgi.identity=io.skysail.bundled.logback-gelf)(version>=1.0.4))',\
 	osgi.identity;filter:='(&(osgi.identity=org.scala-lang.scala-compiler)(version>=2.11))',\
+    osgi.identity;filter:='(osgi.identity=skysail.server.auth.none)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.app.bundlerepo)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
@@ -91,4 +91,4 @@ logback.configurationFile.path = config/local
 	skysail.api;version=snapshot,\
 	joda-time;version='[2.9.3,2.9.4)',\
 	skysail.domain;version=snapshot,\
-	webconsole.all;version='[0.1.18,0.1.19)'
+	webconsole.all;version='[0.2.0,0.2.1)'

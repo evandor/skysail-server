@@ -16,8 +16,7 @@ Build-Version: ${buildVersion}
 #Require-Capability: skysail.capability.client
 Require-Capability: skysail.capability.auth 
 
-#OSGI-OPT/src=src/,
--includeresource: resources
+-includeresource: OSGI-OPT/src=src/,resources
 
 -buildpath: \
     ${osgi},\
