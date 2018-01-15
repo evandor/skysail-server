@@ -2,18 +2,15 @@ package io.skysail.server.app.osgi
 
 import akka.actor.ActorSystem
 import domino.DominoActivator
-import io.skysail.api.osgi.bundlerepository.RepositoryService
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.ApplicationProvider
-import org.apache.felix.bundlerepository.RepositoryAdmin
 import org.slf4j.LoggerFactory
-import org.osgi.util.tracker.ServiceTracker
 
 class Activator extends DominoActivator {
 
   private var log = LoggerFactory.getLogger(this.getClass)
 
-  //var app: ObrApplication = _
+  var app: OsgiApplication = _
   //var logServiceTracker: ServiceTracker[LogService,LogService] = _
 
   whenBundleActive {
@@ -25,6 +22,8 @@ class Activator extends DominoActivator {
       //this.bundleContext = context;
       //osgiService = context.registerService(OsgiService.class, this, new Hashtable<>());
       //LogServiceUtils.info(logServiceTracker, "started activator " + this.getClass().getName());
+      
+
 
     }
 
@@ -35,6 +34,12 @@ class Activator extends DominoActivator {
       //  osgiService = null;
       // logServiceTracker.close();
       // logServiceTracker = null;
+    }
+
+    whenServicesPresent[RoutesCreatorTrait, ActorSystem] { (routesCreator, actorSystem) =>
+      log info s"dbService available in ${this.getClass.getName}"
+      app = new OsgiApplication(bundleContext, routesCreator, actorSystem)
+      app.providesService[ApplicationProvider]
     }
 
     //whenServicePresent[RepositoryAdmin] { repoAdmin =>

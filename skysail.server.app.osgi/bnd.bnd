@@ -47,4 +47,7 @@ Bundle-Activator: io.skysail.server.app.osgi.Activator
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
 	ch.qos.logback.core;version='[1.2.3,1.2.4)'
 	
-Private-Package: io.skysail.server.app.osgi
+Private-Package: \
+    io.skysail.server.app.osgi,\
+    io.skysail.server.app.osgi.domain,\
+    io.skysail.server.app.osgi.resources

@@ -36,6 +36,7 @@ logback.configurationFile.path = config/local
     osgi.identity;filter:='(osgi.identity=skysail.server.auth.none)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.app.bundlerepo)',\
+	osgi.identity;filter:='(osgi.identity=skysail.server.app.osgi)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
 	osgi.identity;filter:='(&(osgi.identity=joda-time)(version>=2.9.3))',\
 	osgi.identity;filter:='(osgi.identity=webconsole.all)'
@@ -63,6 +64,11 @@ logback.configurationFile.path = config/local
 	com.typesafe.config;version='[1.3.2,1.3.3)',\
 	com.typesafe.sslconfig;version='[0.2.2,0.2.3)',\
 	domino_2.11;version='[1.1.2,1.1.3)',\
+	io.skysail.bundled.json4s_2.11-3.5.1;version='[3.5.1.201705300912,3.5.2)',\
+	io.skysail.bundled.logback-gelf;version='[1.0.4.201710211104,1.0.5)',\
+	io.skysail.bundled.twirl-api_2.11;version='[1.3.12.201710041259,1.3.13)',\
+	joda-time;version='[2.9.3,2.9.4)',\
+	jul.to.slf4j;version='[1.7.25,1.7.26)',\
 	org.apache.felix.bundlerepository;version='[2.0.10,2.0.11)',\
 	org.apache.felix.configadmin;version='[1.8.16,1.8.17)',\
 	org.apache.felix.eventadmin;version='[1.4.10,1.4.11)',\
@@ -75,20 +81,16 @@ logback.configurationFile.path = config/local
 	org.scala-lang.modules.scala-java8-compat;version='[0.8.0,0.8.1)',\
 	org.scala-lang.modules.scala-parser-combinators;version='[1.0.6,1.0.7)',\
 	org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
+	org.scala-lang.scala-compiler;version='[2.11.11.v20170413-090219-8a413ba7cc,2.11.12)',\
+	org.scala-lang.scala-library;version='[2.11.11.v20170413-090219-8a413ba7cc,2.11.12)',\
+	org.scala-lang.scala-reflect;version='[2.11.11.v20170413-090219-8a413ba7cc,2.11.12)',\
+	osgi.enterprise;version='[5.0.0.201203141834,5.0.1)',\
+	skysail.api;version='[0.2.1.201801031958,0.2.2)',\
+	skysail.domain;version='[1.0.0.201801140844,1.0.1)',\
+	skysail.server;version='[0.1.0.201801140843,0.1.1)',\
+	skysail.server.app.bundlerepo;version='[0.1.0.201801140843,0.1.1)',\
+	skysail.server.app.osgi;version='[0.1.0.201801140843,0.1.1)',\
+	skysail.server.auth.none;version='[0.1.0.201801140818,0.1.1)',\
+	skysail.server.doc;version='[0.1.0.201801140843,0.1.1)',\
 	slf4j.api;version='[1.7.25,1.7.26)',\
-	io.skysail.bundled.json4s_2.11-3.5.1;version='[3.5.1,3.5.2)',\
-	io.skysail.bundled.logback-gelf;version='[1.0.4,1.0.5)',\
-	io.skysail.bundled.twirl-api_2.11;version='[1.3.12,1.3.13)',\
-	jul.to.slf4j;version='[1.7.25,1.7.26)',\
-	org.scala-lang.scala-compiler;version='[2.11.11,2.11.12)',\
-	org.scala-lang.scala-library;version='[2.11.11,2.11.12)',\
-	org.scala-lang.scala-reflect;version='[2.11.11,2.11.12)',\
-	osgi.enterprise;version='[5.0.0,5.0.1)',\
-	skysail.server;version=snapshot,\
-	skysail.server.app.bundlerepo;version=snapshot,\
-	skysail.server.auth.none;version=snapshot,\
-	skysail.server.doc;version=snapshot,\
-	skysail.api;version=snapshot,\
-	joda-time;version='[2.9.3,2.9.4)',\
-	skysail.domain;version=snapshot,\
-	webconsole.all;version='[0.2.0,0.2.1)'
+	webconsole.all;version='[0.2.0.201801131038,0.2.1)'
