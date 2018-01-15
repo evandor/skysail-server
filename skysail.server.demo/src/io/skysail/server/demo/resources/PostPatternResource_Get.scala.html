@@ -1,0 +1,86 @@
+@*************************************
+* Home page.                        *
+*                                   *
+* @param msg The message to display *
+*************************************@
+@import html.printAppModel
+@import html.printRequest
+@import io.skysail.server.demo.domain.Account
+
+@(rep: RepresentationModel, response: ResponseEventBase)
+
+@main(response) {
+
+<br><br><br>
+
+<div class="container">
+    <div class="starter-template">
+        <h1>Transaction Patterns</h1>
+        <p class="lead">add pattern:</p>
+        <form action='.' method="post">
+
+            <table class="table table-sm">
+                <thead>
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">
+                        <select name="from">
+                        @for(p <- rep.rawData.head.get("accounts")) {
+                            <option value="1">@p.getClass</option>
+                        }
+                        </select>
+                    </th>
+                    <td>
+                        <select name="to">
+                        @for(p <- rep.rawData.head.get("accounts")) {
+                        }
+                        </select>
+                    </td>
+                    <td><input type="text" name="amount" value="0"/></td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <input type="submit">
+                    </th>
+                </tr>
+                </tbody>
+
+            </table>
+        </form>
+
+        <div>
+            <h3>jsonData</h3>
+            @rep.jsonData
+        </div>
+        <div>
+            <h3>json</h3>
+            @rep.json<hr>
+            @rep.json.children<hr>
+            @rep.json.values.getClass<br>
+        </div>
+
+        <div>
+            <h3>current Entity</h3>
+            <div>@rep.entityModel</div>
+            <h3>current Entity's fields</h3>
+            <div>@Html(rep.entityModel.get.fields.mkString("<br>"))</div>
+        </div>
+
+        <div>
+        @printAppModel(rep.model) { whatever => ... }
+        </div>
+
+        <div>
+        @printRequest(response.req)
+        </div>
+
+    </div>
+</div>
+
+}

@@ -19,6 +19,8 @@ class RepresentationModel(
 
   val rawData: List[Map[String, Any]] = deriveRawData()
 
+  //val t: Option[Any] = rawData.head.get("accounts")
+
   val jsonData: String = deriveJsonData()
 
   val json: JValue = {
@@ -26,6 +28,8 @@ class RepresentationModel(
     implicit val serialization = jackson.Serialization
     Extraction.decompose(response.entity)
   }
+
+  json.asInstanceOf[JObject].values.get("accounts")
 
   def entityModel(): Option[EntityModel] = {
     val uri: Uri = response.req.uri

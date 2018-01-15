@@ -34,6 +34,7 @@ class DemoApplication(
   val notesRepo = new NotesRepo(dbService)
   val todosRepo = new TodosRepo(dbService)
   val accountsRepo = new AccountsRepo(dbService)
+  val patternRepo = new PatternRepository(dbService)
 
   val bookmarksService = new BookmarksService()
 
@@ -58,6 +59,9 @@ class DemoApplication(
       RouteMapping("/bms/:id/", root / PathMatcher("bms") / Segment / PathEnd, classOf[PutBookmarkResource]),
 
       //RouteMapping("/docker/container", root / PathMatcher("docker") / PathMatcher("container") ~ PathEnd, classOf[ContainersResource]),
+
+      RouteMapping("/patterns",  root / PathMatcher("patterns")  ~ PathEnd, classOf[PatternsResource]),
+      RouteMapping("/patterns/", root / PathMatcher("patterns") / PathEnd, classOf[PostPatternResource]),
 
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource]))
   }

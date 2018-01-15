@@ -1,0 +1,46 @@
+@*************************************
+* Home page.                        *
+*                                   *
+* @param msg The message to display *
+*************************************@
+@(rep: RepresentationModel, response: ResponseEventBase)
+
+@main(response) {
+
+<br><br><br>
+
+<div class="container">
+    <div class="starter-template">
+        <h1>Notes</h1>
+        <p class="lead">all notes:</p>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @for(p <- rep.rawData) {
+            <tr>
+                <th scope="row">@p.get("title")</th>
+                <td>@p.get("content")</td>
+                <td>
+                    <a href='/demo/v1/notes/@p.get("id")'>[show]</a>
+                    <a href='/demo/v1/notes/@p.get("id")/'>[update]</a>
+                </td>
+            </tr>
+            }
+
+            </tbody>
+
+        </table>
+
+        <a href='/demo/v1/patterns/'>Create New Note</a>
+
+
+    </div>
+</div>
+
+}
