@@ -29,12 +29,12 @@ class DemoApplication(
     eventService = new EventService(eventAdmin)
   }
 
-  val repo = new BookmarksRepository(dbService)
-  val dbConfigRepo = new DbConfigsRepository(dbService)
-  val notesRepo = new NotesRepo(dbService)
-  val todosRepo = new TodosRepo(dbService)
-  val accountsRepo = new AccountsRepo(dbService)
-  val patternRepo = new PatternRepository(dbService)
+  val repo = new BookmarksRepository(dbService, appModel)
+  val dbConfigRepo = new DbConfigsRepository(dbService, appModel)
+  val notesRepo = new NotesRepo(dbService, appModel)
+  val todosRepo = new TodosRepo(dbService, appModel)
+  val accountsRepo = new AccountsRepo(dbService, appModel)
+  val patternRepo = new PatternRepository(dbService, appModel)
 
   val bookmarksService = new BookmarksService()
 

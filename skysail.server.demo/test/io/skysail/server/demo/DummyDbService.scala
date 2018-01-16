@@ -1,6 +1,7 @@
 package io.skysail.server.demo
 
 import io.skysail.api.persistence.DbService
+import io.skysail.domain.model.ApplicationModel
 import io.skysail.server.demo.domain.Bookmark
 
 class DummyDbService extends DbService() {
@@ -11,7 +12,7 @@ class DummyDbService extends DbService() {
 
   override def register(classes: Class[_]*): Unit = {}
 
-  override def persist(entity: Any): String = {
+  override def persist(entity: Any, appModel: ApplicationModel): String = {
     val bm: Bookmark = entity.asInstanceOf[Bookmark]
     bookmarks += bm.id.get -> bm
     return bm.id.get

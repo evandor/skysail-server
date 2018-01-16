@@ -30,7 +30,7 @@ class BookmarksResourceTest(_system: ActorSystem)
 
   val re: RequestEvent = new RequestEvent(null, null)
   val dbService: DbService = Mockito.mock(classOf[DbService])
-  val app: ApplicationApi = new DemoApplication(null, dbService, null, null)
+  val app: DemoApplication = new DemoApplication(null, dbService, null, null)
 
   when(dbService.findGraphs(
     classOf[Bookmark],
@@ -78,7 +78,7 @@ class BookmarksResourceTest(_system: ActorSystem)
     when(ctx.request).thenReturn(request)
     val re: RequestEvent = new RequestEvent(ProcessCommand(ctx, null, null, null, null, "entity"), ca)
     val res: Unit = postBmr.post(re)
-    verify(dbService).persist("entity")
+    verify(dbService).persist("entity", app.appModel)
   }
 
 
@@ -93,7 +93,7 @@ class BookmarksResourceTest(_system: ActorSystem)
     val ca = system.actorOf(Props.apply(classOf[ControllerActor[String]]))
     val re: RequestEvent = new RequestEvent(ProcessCommand(null, null, null, List("abc"), null, bookmark), ca)
     val res: Unit = putBmr.put(re)
-    verify(dbService).persist(bookmark)
+    verify(dbService).persist(bookmark, app.appModel)
   }
 
 }

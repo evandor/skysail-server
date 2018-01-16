@@ -37,6 +37,7 @@ Require-Capability: skysail.capability.auth
 	${testlibs}
 	
 Import-Package: \
+    com.intellij.rt.debugger.agent.*,\
     !akka.testkit.*,\
     !org.scalatest.*,\
     !org.junit.runner.*,\
@@ -44,6 +45,7 @@ Import-Package: \
     *
 
 Export-Package: \
+    com.intellij.rt.debugger.agent.*,\
 	io.skysail.server.routes,\
 	io.skysail.server,\
 	io.skysail.server.actors,\

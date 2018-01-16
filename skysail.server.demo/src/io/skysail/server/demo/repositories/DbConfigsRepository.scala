@@ -1,15 +1,16 @@
 package io.skysail.server.demo.repositories
 
 import io.skysail.api.persistence.DbService
+import io.skysail.domain.model.ApplicationModel
 import io.skysail.server.demo.domain.DbConfig
 
-class DbConfigsRepository(dbService: DbService) {
+class DbConfigsRepository(dbService: DbService, appModel: ApplicationModel) {
 
   dbService.createWithSuperClass("V", DbService.tableNameFor(classOf[DbConfig]))
   dbService.register(classOf[DbConfig])
 
   def save(entity: Any): String = {
-    dbService.persist(entity)
+    dbService.persist(entity, appModel)
   }
 
   def find( /*Filter filter, Pagination pagination*/ ): List[DbConfig] = {

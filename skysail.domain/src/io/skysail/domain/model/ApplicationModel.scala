@@ -121,6 +121,11 @@ case class ApplicationModel(
     */
   def appPath(): String = "/" + name + (if (apiVersion != null) "/" + apiVersion.toString else "")
 
+  def entityRelationExists(cls: Class[_], key: String): Boolean = {
+    log info s"CLS: $cls, KEY: $key"
+    false
+  }
+
   private def build(): Unit = {
     resourceModels.filter(m => m.routeMapping.path != null).foreach {
       resourceModel =>

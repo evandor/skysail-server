@@ -108,7 +108,8 @@ class Persister(db: OrientGraph, appModel: ApplicationModel) {
     //        if (applicationModel == null) {
     //            return !edges.contains(key);
     //        }
-       //     val entityModel = appModel.getEntity(entity.getClass().getName());
+    appModel.entityRelationExists(entity.getClass, key)
+
     //        if (entityModel == null) {
     //            return true;
     //        }
@@ -132,7 +133,7 @@ class Persister(db: OrientGraph, appModel: ApplicationModel) {
     //                return false;
     //            }
     //        }
-    return true;
+    //return true;
   }
 
   private def setProperty(entity: Any, vertex: Vertex, key: String): Unit = {
