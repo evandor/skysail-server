@@ -1,7 +1,5 @@
 package io.skysail.server.demo.resources
 
-import java.util.UUID
-
 import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.HttpMethods
@@ -25,22 +23,17 @@ class PatternsResource extends ListResource[DemoApplication, Pattern] {
 
 class PostPatternResource extends PostResource[DemoApplication, Pattern] with JsonSupport7 {
 
-
   def get(requestEvent: RequestEvent): ResponseEvent[Pattern] = {
-    //      requestEvent.controllerActor ! applicationModel.entityModelFor(classOf[Pattern]).get.description()
     val f: Int => Boolean = {case _: Int => true}
     val accounts = getApplication().accountsRepo.find()
     ResponseEvent(requestEvent, Pattern(None, null, null, 0, accounts))
   }
 
   def post(requestEvent: RequestEvent) {
-    val b = getApplication().repo.save(requestEvent.cmd.entity)
+    val b = getApplication().patternRepo.save(requestEvent.cmd.entity)
     getApplication().eventService.send("Pattern created")
     val redirectTo = Some("/demo/v1/bms")
-    //requestEvent.controllerActor ! Pattern(Some(b), "a@b.com", "Mira")
     val newRequest = requestEvent.cmd.ctx.request.copy(method = HttpMethods.GET)
-    //requestEvent.cmd.ctx.copy(request = newRequest)
-    //requestEvent.copy(cmd = requestEvent.cmd.copy(ctx = requestEvent.cmd.ctx.copy)
     requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "", redirectTo)
   }
 

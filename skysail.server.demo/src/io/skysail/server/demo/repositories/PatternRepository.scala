@@ -8,7 +8,8 @@ class PatternRepository(dbService: DbService) {
   dbService.createWithSuperClass("V", DbService.tableNameFor(classOf[Pattern]))
   dbService.register(classOf[Pattern])
 
-  def save(entity: Any): String = {
+  def save(entity: Pattern): String = {
+
     dbService.persist(entity)
   }
 

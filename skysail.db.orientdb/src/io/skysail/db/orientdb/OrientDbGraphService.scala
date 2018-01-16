@@ -8,6 +8,7 @@ import com.orientechnologies.orient.graph.sql.OGraphCommandExecutorSQLFactory
 import com.orientechnologies.orient.graph.sql.functions.OGraphFunctionFactory
 import com.tinkerpop.blueprints.impls.orient._
 import io.skysail.api.persistence.DbService
+import io.skysail.domain.model.ApplicationModel
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import org.slf4j.LoggerFactory
@@ -73,8 +74,8 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     }
   }
 
-  def persist(entity: Any): String = {
-    new Persister(getGraphDb() /*, applicationModel*/ ).persist(entity)
+  def persist(entity: Any, appModel: ApplicationModel): String = {
+    new Persister(getGraphDb(), appModel).persist(entity)
   }
 
   def findGraphs[T: Manifest](cls: Class[T], sql: String /*, Map<String, Object> params*/ ): List[T] = {

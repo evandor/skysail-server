@@ -74,8 +74,8 @@ Seq[Any](format.raw/*6.57*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 15 16:14:11 CET 2018
-                  SOURCE: C:/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/PatternsResource_Get.scala.html
+                  DATE: Tue Jan 16 08:16:13 CET 2018
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/PatternsResource_Get.scala.html
                   HASH: 3c079d3906951268256a41eacebe12850143e6ff
                   MATRIX: 717->193|867->248|895->251|917->265|956->267|985->269|1392->649|1429->670|1469->672|1510->685|1575->723|1585->724|1619->737|1673->764|1683->765|1719->780|1818->852|1828->853|1859->863|1944->921|1954->922|1985->932|2085->1001|2127->1015
                   LINES: 16->6|21->6|23->8|23->8|23->8|25->10|40->25|40->25|40->25|41->26|42->27|42->27|42->27|43->28|43->28|43->28|45->30|45->30|45->30|46->31|46->31|46->31|49->34|51->36

@@ -17,6 +17,8 @@ class RepresentationModel(
 
   private val mapper = new ObjectMapper
 
+  //val entity: T = response.entity.asInstanceOf[T]
+
   val rawData: List[Map[String, Any]] = deriveRawData()
 
   //val t: Option[Any] = rawData.head.get("accounts")
@@ -29,7 +31,7 @@ class RepresentationModel(
     Extraction.decompose(response.entity)
   }
 
-  json.asInstanceOf[JObject].values.get("accounts")
+  //json.asInstanceOf[JObject].values.get("accounts")
 
   def entityModel(): Option[EntityModel] = {
     val uri: Uri = response.req.uri

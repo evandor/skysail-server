@@ -6,6 +6,7 @@
 @import html.printAppModel
 @import html.printRequest
 @import io.skysail.server.demo.domain.Account
+@import io.skysail.server.demo.domain.Pattern
 
 @(rep: RepresentationModel, response: ResponseEventBase)
 
@@ -31,15 +32,16 @@
                 <tr>
                     <th scope="row">
                         <select name="from">
-                        @for(p <- rep.rawData.head.get("accounts")) {
-                            <option value="1">@p.getClass</option>
+                        @for(p <- rep.response.entity.asInstanceOf[Pattern].accounts) {
+                            <option value="@p.id.get">@p.title</option>
                         }
                         </select>
                     </th>
                     <td>
                         <select name="to">
-                        @for(p <- rep.rawData.head.get("accounts")) {
-                        }
+                            @for(p <- rep.response.entity.asInstanceOf[Pattern].accounts) {
+                            <option value="@p.id.get">@p.title</option>
+                            }
                         </select>
                     </td>
                     <td><input type="text" name="amount" value="0"/></td>
@@ -61,8 +63,12 @@
         <div>
             <h3>json</h3>
             @rep.json<hr>
-            @rep.json.children<hr>
-            @rep.json.values.getClass<br>
+            @rep.json.values.getClass<hr>
+        </div>
+        <div>
+            <h3>response.entity</h3>
+            @rep.response.entity.getClass<hr>
+            @rep.response.entity.asInstanceOf[Pattern].accounts.head.getClass<hr>
         </div>
 
         <div>

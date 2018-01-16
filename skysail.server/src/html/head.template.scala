@@ -1,11 +1,6 @@
 
 package html
 
-import play.twirl.api.Html
-import html.main
-import io.skysail.domain.ResponseEventBase
-import io.skysail.server.RepresentationModel
-
 object head extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template0[play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
@@ -65,7 +60,7 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
               /*
                   -- GENERATED --
-                  DATE: Thu Jan 11 18:25:23 CET 2018
+                  DATE: Mon Jan 15 17:46:58 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/head.scala.html
                   HASH: 4f0e625a78a68ad5f0e14025e0da4a9aa62ef329
                   MATRIX: 532->2

@@ -1,6 +1,6 @@
 Bundle-Name: SKYSAIL :: api
 
-Bundle-Version: 0.3.0.${tstamp}
+Bundle-Version: 1.0.0.${tstamp}
 
 Bundle-Description: API Bundle for Skysail
 
@@ -17,8 +17,12 @@ Bundle-Activator: io.skysail.api.impl.Activator
 
 -buildpath: \
     ${osgi},\
+	${akka-build},\
     ${felix},\
     ${logging},\
+    skysail.domain;version=latest,\
+	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
+    org.scala-lang.modules.scala-xml;version=1.0.6,\
 	com.typesafe.akka.http;version=${akka.http.version}
 	
 Export-Package: \

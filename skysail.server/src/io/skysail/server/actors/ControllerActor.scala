@@ -205,7 +205,7 @@ class ControllerActor[T]() extends Actor {
       val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
     } catch {
-      case ex: Exception => None
+      case ex: Exception => log info s"problem: ${ex.getMessage}"; None
     }
   }
 

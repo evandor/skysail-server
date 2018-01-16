@@ -75,7 +75,7 @@ Seq[Any](format.raw/*6.57*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 08 09:54:47 CET 2018
+                  DATE: Mon Jan 15 17:45:23 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/BookmarksResource_Get.scala.html
                   HASH: 3ebeafda1ef1eaee676b0c5a04084e5f4c62f322
                   MATRIX: 718->193|868->248|896->251|918->265|957->267|986->269|1397->653|1434->674|1474->676|1515->689|1580->727|1590->728|1624->741|1687->777|1697->778|1729->789|1776->809|1786->810|1820->823|1850->826|1860->827|1892->838|1980->899|1992->902|2088->976|2158->1019|2170->1022|2269->1099|2368->1167|2410->1181|2483->1227|2495->1230|2586->1300

@@ -3,6 +3,7 @@ package io.skysail.db.orientdb
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.tinkerpop.blueprints.Vertex
 import com.tinkerpop.blueprints.impls.orient.{OrientGraph, OrientVertex}
+import io.skysail.domain.model.ApplicationModel
 import org.json4s._
 import org.slf4j.LoggerFactory
 
@@ -12,7 +13,7 @@ object Persister {
   }
 }
 
-class Persister(db: OrientGraph) {
+class Persister(db: OrientGraph, appModel: ApplicationModel) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -107,7 +108,7 @@ class Persister(db: OrientGraph) {
     //        if (applicationModel == null) {
     //            return !edges.contains(key);
     //        }
-    //        EntityModel entityModel = applicationModel.getEntity(entity.getClass().getName());
+       //     val entityModel = appModel.getEntity(entity.getClass().getName());
     //        if (entityModel == null) {
     //            return true;
     //        }
