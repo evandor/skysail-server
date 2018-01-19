@@ -11,7 +11,7 @@ services:
 install: ./gradlew --version
 
 script:
-  - ./gradlew -DbuildVersion=travis-${TRAVIS_JOB_ID} clean build
+  - ./gradlew -DbuildVersion=travis-${TRAVIS_BUILD_NUMBER} clean build
   - ./gradlew asciidoctor scaladoc
   - ./gradlew skysail.server:export.server.int
   - ./gradlew skysail.server.demo:export.server.demo.docker
@@ -21,12 +21,12 @@ script:
 after_success:
   - docker --version
   - docker build -t evandor/skysail-server skysail.server/release
-  - docker build -t evandor/skysail-server-demo:${TRAVIS_JOB_ID} skysail.server.demo/release
+  - docker build -t evandor/skysail-server-demo:${TRAVIS_BUILD_NUMBER} skysail.server.demo/release
   - docker build -t evandor/skysail-server-seed skysail.server.seed/release
   - docker images
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker push $DOCKER_USERNAME/skysail-server:latest
-  - docker push $DOCKER_USERNAME/skysail-server-demo:${TRAVIS_JOB_ID}
+  - docker push $DOCKER_USERNAME/skysail-server-demo:${TRAVIS_BUILD_NUMBER}
   - docker push $DOCKER_USERNAME/skysail-server-seed:latest
 
 #  - docker tag skysail-server $DOCKER_USERNAME/skysail-server
