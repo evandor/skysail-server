@@ -21,7 +21,7 @@ script:
 after_success:
   - docker --version
   - docker build -t evandor/skysail-server skysail.server/release
-  - docker build -t evandor/skysail-server-demo skysail.server.demo/release
+  - docker build -t evandor/skysail-server-demo:${TRAVIS_JOB_ID} skysail.server.demo/release
   - docker build -t evandor/skysail-server-seed skysail.server.seed/release
   - docker images
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"

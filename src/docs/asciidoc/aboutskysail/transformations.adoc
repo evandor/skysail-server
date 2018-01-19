@@ -7,20 +7,51 @@
 
 [ditaa]
 ....
-                   +-------------+
-                   | Asciidoctor |-------+
-                   |   diagram   |       |
-                   +-------------+       | PNG out
-                       ^                 |
-                       | ditaa in        |
-                       |                 v
- +-----------+   d   +--------+----+    /---------------\
- |           |------>+     JSON    +--> |               |
- |  OrientDb |       +-------------+    |   Beautiful   |
- |  Document |       |   !magic!   |    |    Output     |
- |     {d}   |       |             |    |               |
- +---+-------+       +-------------+    \---------------/
-     :                                    ^
-     |          Lots of work              |
-     +------------------------------------+
+                          +-------------+
+                          |   AST       |-------------------+     new
+                          |             |                   |      |
+                          +-------------+           extract |      |
+                                ^                           |      |
+                                | json4s                    |      |
+                                |                           v      v
+ +-----------+   toJson   +-----+-------+             /---------------\
+ |           |----------->+     JSON    +             |               |
+ |  OrientDb |            +-------------+             |    Entity     |
+ |  Document |                                        |    (Bean)     |
+ |     {d}   |                   +------------------->|               |
+ +---+-------+                   |                    \-------+-------/
+                                 |                            |
+                                 |                            |
+                                 |                            |
+                                 |                            v
+                          +------+------+             +---------------+
+                          |             |             |               |
+                          | Map[Str,Str]|<------------+     HTML      |
+                          |             |             |               |
+                          +-------------+             +---------------+
+
+
+....
+
+
+
+[umlet]
+....
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>60</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Hello
+AsciiDoc</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
+
 ....
