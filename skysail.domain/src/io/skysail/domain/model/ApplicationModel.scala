@@ -5,7 +5,7 @@ import java.net.URL
 import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatcher
-import com.fasterxml.jackson.annotation.{JsonGetter, JsonInclude}
+import com.fasterxml.jackson.annotation.{ JsonGetter, JsonInclude }
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMappingI
@@ -15,25 +15,25 @@ import scala.collection.mutable.LinkedHashMap
 import scala.reflect.runtime.universe._
 
 /**
-  * This is the root class of skysail's core domain, providing models of "skysail applications",
-  * which aggregate resources, their associated entities (together with the entities' fields),
-  * links between the resources and many more.
-  *
-  * A real-life ApplicationModel is setup by creating an instance and then adding resource models
-  * together with their respective paths using "addControllerModel". A controller model describes the
-  * controller responsible for the associated path together with relations amongst controllers. Furthermore,
-  * it knows about the entity class related with the controller.
-  *
-  * @constructor create a new application model, identified by its name.
-  * @param name                      the application's (unique and descriptive) name
-  * @param apiVersion                the applications API version, can be null
-  *
-  */
+ * This is the root class of skysail's core domain, providing models of "skysail applications",
+ * which aggregate resources, their associated entities (together with the entities' fields),
+ * links between the resources and many more.
+ *
+ * A real-life ApplicationModel is setup by creating an instance and then adding resource models
+ * together with their respective paths using "addControllerModel". A controller model describes the
+ * controller responsible for the associated path together with relations amongst controllers. Furthermore,
+ * it knows about the entity class related with the controller.
+ *
+ * @constructor create a new application model, identified by its name.
+ * @param name                      the application's (unique and descriptive) name
+ * @param apiVersion                the applications API version, can be null
+ *
+ */
 // TODO case class or not? Use copies when adding resourceModels etc
 case class ApplicationModel(
-                             name: String,
-                             apiVersion: ApiVersion,
-                             description: String) {
+  name: String,
+  apiVersion: ApiVersion,
+  description: String) {
 
   require(name != null, "The application's name should be unique and must not be null")
   require(name.trim().length() > 0, "The application's name must not be empty")
@@ -61,12 +61,12 @@ case class ApplicationModel(
   }
 
   /**
-    * Adds a resource model for a given route mapping.
-    *
-    * @param routeMapping the mapping is used to create the ResourceModel
-    * @return
-    */
-  def addResourceModel(routeMapping: RouteMappingI[_,_]): Option[Type] = {
+   * Adds a resource model for a given route mapping.
+   *
+   * @param routeMapping the mapping is used to create the ResourceModel
+   * @return
+   */
+  def addResourceModel(routeMapping: RouteMappingI[_, _]): Option[Type] = {
     //require(routeMapping.path != null, "The resource's path must not be null")
     require(routeMapping.resourceClass != null, "The routeMapping's resource class must not be null")
 
@@ -87,7 +87,7 @@ case class ApplicationModel(
     Some(resourceModel.entityClass)
   }
 
-  private def controllerModelFor(cls: Class[_ <: SkysailResource[_,_]]): Option[ResourceModel] = {
+  private def controllerModelFor(cls: Class[_ <: SkysailResource[_, _]]): Option[ResourceModel] = {
     resourceModels.filter { model => model.routeMapping.resourceClass == cls }.headOption
   }
 
@@ -97,7 +97,7 @@ case class ApplicationModel(
 
   def entityModelFor(clsName: String): Option[EntityModel] = entityModelsMap.get(clsName)
 
-  def entityModelFor(ssr: SkysailResource[_,_]): Option[EntityModel] = {
+  def entityModelFor(ssr: SkysailResource[_, _]): Option[EntityModel] = {
     val resModel = controllerModelFor(ssr.getClass)
     if (resModel.isEmpty) {
       None
@@ -115,14 +115,22 @@ case class ApplicationModel(
     if (resourceModel.isDefined) Some(resourceModel.get.entityModel) else None
   }
 
-
   /**
-    * @return the context path of the application, e.g. "/testapp/v2" or "/appwithoutversion".
-    */
+   * @return the context path of the application, e.g. "/testapp/v2" or "/appwithoutversion".
+   */
   def appPath(): String = "/" + name + (if (apiVersion != null) "/" + apiVersion.toString else "")
 
   def entityRelationExists(cls: Class[_], key: String): Boolean = {
     log info s"CLS: $cls, KEY: $key"
+    val fieldsAsPairs = for (field <- cls.getDeclaredFields) yield {
+      field.setAccessible(true)
+      println((field.getName, field.getType))
+    }
+    
+    val t = cls.getDeclaredFields.filter(_.getName == key).headOption.map(_.getType)
+    if (t.isDefined) {
+      return entities().filter(_ == t.get.getName).size > 0
+    }
     false
   }
 

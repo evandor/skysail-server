@@ -31,6 +31,7 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.8))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.httpcomponents.httpcore)(version>=4.4))',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.httpcomponents.httpclient)(version>=4.5))',\
+    osgi.identity;filter:='(&(osgi.identity=io.skysail.bundled.logback-gelf)(version>=1.0.4))',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.auth.none)',\
 	osgi.identity;filter:='(osgi.identity=skysail.db.orientdb)',\
 	osgi.identity;filter:='(osgi.identity=skysail.domain)',\
@@ -97,4 +98,5 @@ logback.configurationFile.path = config/local
 	skysail.server.demo;version=snapshot,\
 	skysail.server.doc;version=snapshot,\
 	skysail.domain;version=snapshot,\
-	webconsole.all;version='[0.2.0,0.2.1)'
+	webconsole.all;version='[0.2.0,0.2.1)',\
+	io.skysail.bundled.logback-gelf;version='[1.0.4,1.0.5)'

@@ -56,6 +56,8 @@ class ControllerActor[T]() extends Actor {
       log info s"  [IN] >>> COMMAND:  $cmd"
       log info s"  [IN] >>> MODEL:    $model"
       log info s"  [IN] >>> RESOURCE: $resource"
+      log info s"  [IN] >>> ENTITY:   ${cmd.entity}"
+      
 
       resource.setActorContext(context)
       resource.setApplicationModel(model)

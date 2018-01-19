@@ -55,7 +55,8 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
     // tag::resourceInstance[]
     case cmd: ProcessCommand => {
 
-      log debug s"[IN] >>> COMMAND:    $cmd"
+      log info s"[IN] >>> COMMAND:    $cmd"
+      log info s"[IN] >>> ENTITY:     ${cmd.entity}"
 
       val routesCreator = sender()
       val resourceInstance = cmd.mapping.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]

@@ -2,18 +2,16 @@ package io.skysail.server.demo.resources
 
 import java.util.UUID
 
-import akka.actor.{ ActorSelection, ActorSystem }
+import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
+import io.skysail.domain.RequestEvent
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources._
-import io.skysail.domain.{ RedirectResponseEvent, RequestEvent, ResponseEvent }
 import io.skysail.server.demo.DemoApplication
-import spray.json.{ DefaultJsonProtocol, _ }
-import akka.http.scaladsl.model.HttpMethods
 import io.skysail.server.demo.domain.Note
-import io.skysail.domain.ListResponseEvent
+import spray.json.{DefaultJsonProtocol, _}
 
 trait JsonSupport3 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val NoteFormat: RootJsonFormat[Note] = jsonFormat3(Note)
@@ -45,7 +43,7 @@ class NotesResource extends DefaultResource[DemoApplication, Note] {
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
-    formFieldMap { map =>
+    formFieldMap { map: Map[String, String] =>
       val entity = Note(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), map.getOrElse("content", "Unknown"))
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }

@@ -86,8 +86,12 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     val result = scala.collection.mutable.ListBuffer[T]()
 
     results.asScala.foreach(v => {
-      val r = v.asInstanceOf[OrientVertex]
-      result += documentToBean(r.getRecord(), cls)
+      try {
+        val r = v.asInstanceOf[OrientVertex]
+        result += documentToBean(r.getRecord(), cls)
+      } catch {
+        case _:Throwable => log warn s"not able to create bean out of $v"
+      }
     })
 
     result.toList
@@ -107,7 +111,7 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     //doc.fieldNames().foreach(fieldName => )
     val ast = parse(doc.toJSON())
     implicit val formats = DefaultFormats
-    //println("AST" + ast)
+   // println("AST" + ast)
     ast.extract[T]
   }
 

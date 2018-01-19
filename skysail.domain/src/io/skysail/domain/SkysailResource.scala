@@ -59,7 +59,7 @@ abstract class SkysailResource[S <: ApplicationApi, T: TypeTag] {
       case Success(result) =>
         val response = result.httpResponse
         complete(response)
-      case Failure(failure) => /*log error s"Failure>>> ${failure}"; */ complete(StatusCodes.BadRequest, failure)
+      case Failure(failure) => log error s"Failure>>> ${failure}";  complete(StatusCodes.BadRequest, failure)
     }
   }
 }

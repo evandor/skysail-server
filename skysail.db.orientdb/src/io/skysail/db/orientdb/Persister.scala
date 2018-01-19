@@ -45,7 +45,7 @@ class Persister(db: OrientGraph, appModel: ApplicationModel) {
       //val removeRelationData = AnnotationUtils.removeRelationData(entity);
       implicit val formats = DefaultFormats
       val e = Extraction.decompose(entity).asInstanceOf[JObject]
-      println("AST: " + e)
+      log info s"AST: $e"
 
       //val props = mapper.convertValue(entity, classOf[java.util.Map[String, Any]]).asScala.toMap
       //println("PROPS: " + props)
@@ -97,44 +97,15 @@ class Persister(db: OrientGraph, appModel: ApplicationModel) {
       //}
     } else {
       try {
-        //            edgeHandler.handleEdges(entity, vertex, properties, key);
+        edgeHandler.handleEdges(entity, vertex, jValue, key);
       } catch {
         case e: Exception => log.error(e.getMessage(), e);
       }
     }
   }
 
-  private def isProperty(entity: Any, key: String): Boolean = {
-    //        if (applicationModel == null) {
-    //            return !edges.contains(key);
-    //        }
-    appModel.entityRelationExists(entity.getClass, key)
-
-    //        if (entityModel == null) {
-    //            return true;
-    //        }
-    //        List<EntityRelation> relations = entityModel.getRelations();
-    //        boolean relationExists = relations.stream()
-    //                .map(EntityRelation::getName)
-    //                .filter(n -> n.equals(key))
-    //                .findFirst().isPresent();
-    //
-    //        if (relationExists) {
-    //        	return false;
-    //        }
-    //        if (entityModel instanceof SkysailEntityModel) {
-    //            SkysailEntityModel sem = (SkysailEntityModel)entityModel;
-    //            SkysailFieldModel field = (SkysailFieldModel) sem.getField(entity.getClass().getName() + "|" + key);
-    //            if (field == null) {
-    //            	log.warn("could not determine field for id '{}'", entity.getClass().getName() + "|" + key);
-    //            	return true;
-    //            }
-    //            if (field.getEntityType() != null) {
-    //                return false;
-    //            }
-    //        }
-    //return true;
-  }
+  private def isProperty(entity: Any, key: String) = !appModel.entityRelationExists(entity.getClass, key)
+  
 
   private def setProperty(entity: Any, vertex: Vertex, key: String): Unit = {
     try {
