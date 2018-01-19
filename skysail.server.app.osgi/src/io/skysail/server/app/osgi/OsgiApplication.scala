@@ -7,11 +7,10 @@ import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.osgi.domain.BundleDescriptor
 import io.skysail.server.app.osgi.resources.BundlesResource
-import io.skysail.server.app.{ApplicationProvider, BackendApplication}
+import io.skysail.server.app.{ ApplicationProvider, BackendApplication }
 import org.osgi.framework.BundleContext
 
-class OsgiApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem) extends
-  BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
+class OsgiApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorTrait, system: ActorSystem) extends BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
 
   override def name = "osgi"
 
@@ -20,8 +19,7 @@ class OsgiApplication(bundleContext: BundleContext, routesCreator: RoutesCreator
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher(name) / PathMatcher("v1")
     List(
-      RouteMapping("/bundles", root / PathMatcher("bundles") ~ PathEnd, classOf[BundlesResource])
-    )
+      RouteMapping("/bundles", root / PathMatcher("bundles") ~ PathEnd, classOf[BundlesResource]))
   }
 
   def getBundles(): List[BundleDescriptor] = {

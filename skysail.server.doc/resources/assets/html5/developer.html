@@ -584,9 +584,18 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#resources-4">2.8.1. Resources</a></li>
 </ul>
 </li>
-<li><a href="#transformations">2.9. Transformations</a>
+<li><a href="#rendering">2.9. Rendering</a>
 <ul class="sectlevel3">
-<li><a href="#transformations-2">2.9.1. Transformations</a></li>
+<li><a href="#rendering-2">2.9.1. Rendering</a>
+<ul class="sectlevel4">
+<li><a href="#preparing-a-backend-application-for-html-rendering">Preparing a backend application for html rendering</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#transformations">2.10. Transformations</a>
+<ul class="sectlevel3">
+<li><a href="#transformations-2">2.10.1. Transformations</a></li>
 </ul>
 </li>
 </ul>
@@ -999,9 +1008,6 @@ class DemoApplication(bundleContext: BundleContext, routesCreator: RoutesCreator
 </div>
 <div class="sect2">
 <h3 id="resources-2">2.6. Resources</h3>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
-</div>
 <div class="sect3">
 <h4 id="resources-3">2.6.1. Resources</h4>
 <div class="sect4">
@@ -1116,12 +1122,7 @@ on the http method of the request).</p>
 <div class="listingblock">
 <div class="title">matching the requests method to execute the resource&#8217;s business logic</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="scala">      cmd.ctx.request.method match {
-        case HttpMethods.GET =&gt; resource.doGet(RequestEvent(cmd, self))
-        case HttpMethods.POST =&gt; resource.asInstanceOf[PostSupport].post(RequestEvent(cmd, self))
-        case HttpMethods.PUT =&gt; resource.asInstanceOf[PutSupport].put(RequestEvent(cmd, self))
-        case e: Any =&gt; resource.get(RequestEvent(cmd, self))
-      }</code></pre>
+<pre class="CodeRay highlight"><code data-lang="scala"></code></pre>
 </div>
 </div>
 </div>
@@ -1160,14 +1161,130 @@ and passes control back to the ApplicationActor.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="transformations">2.9. Transformations</h3>
+<h3 id="rendering">2.9. Rendering</h3>
+<div class="paragraph">
+<p>Intro</p>
+</div>
+<div class="sect3">
+<h4 id="rendering-2">2.9.1. Rendering</h4>
+<div class="sect4">
+<h5 id="preparing-a-backend-application-for-html-rendering">Preparing a backend application for html rendering</h5>
+<div class="sect5">
+<h6 id="prerequisites-3">Prerequisites</h6>
+<div class="paragraph">
+<p>You need a bundle first (todo)</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="resources-directory">Resources Directory</h6>
+<div class="paragraph">
+<p>Create a "resources/templates" directory in the root of your bundle.</p>
+</div>
+<div class="paragraph">
+<p>Make sure that you have</p>
+</div>
+<div class="listingblock">
+<div class="title">bnd.bnd</div>
+<div class="content">
+<pre class="CodeRay highlight"><code>-includeresource: resources</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>set in your bnd.bnd file.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, you have to <strong>add the generated html package</strong> (see below) to the
+"Private-Package:" Directive in the bnd.bnd file.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="build-gradle-file">Build.gradle file</h6>
+<div class="paragraph">
+<p>The typical activator for a skysail backend application will look like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">buildscript {
+    repositories {
+        maven {
+            url <span class="string"><span class="delimiter">'</span><span class="content">https://plugins.gradle.org/m2/</span><span class="delimiter">'</span></span>
+        }
+    }
+    dependencies {
+        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.moowork.gradle:gradle-node-plugin:1.2.0</span><span class="delimiter">&quot;</span></span>
+        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">com.bmuschko:gradle-docker-plugin:3.0.11</span><span class="delimiter">&quot;</span></span>
+        classpath <span class="string"><span class="delimiter">&quot;</span><span class="content">gradle.plugin.io.skysail.gradle:twirlosgi-gradle-plugin:</span><span class="inline"><span class="inline-delimiter">${</span>twirlosgi_gradle_plugin_version<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+    }
+}
+
+apply <span class="key">plugin</span>: <span class="string"><span class="delimiter">'</span><span class="content">scala</span><span class="delimiter">'</span></span>
+apply <span class="key">plugin</span>: <span class="string"><span class="delimiter">'</span><span class="content">eclipse</span><span class="delimiter">'</span></span>
+apply <span class="key">plugin</span>: <span class="string"><span class="delimiter">'</span><span class="content">io.skysail.twirl.osgi</span><span class="delimiter">'</span></span>
+
+
+repositories {
+    mavenCentral()
+    maven {
+        url <span class="string"><span class="delimiter">&quot;</span><span class="content">https://plugins.gradle.org/m2/</span><span class="delimiter">&quot;</span></span>
+    }
+}
+
+dependencies {
+    compile <span class="string"><span class="delimiter">&quot;</span><span class="content">org.scala-lang:scala-library:</span><span class="inline"><span class="inline-delimiter">${</span>scala_version<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+    compile <span class="string"><span class="delimiter">&quot;</span><span class="content">org.scala-lang:scala-reflect:</span><span class="inline"><span class="inline-delimiter">${</span>scala_version<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+    <span class="comment">//scoverage 'org.scoverage:scalac-scoverage-plugin_2.11:1.1.0', 'org.scoverage:scalac-scoverage-runtime_2.11:1.1.0'</span>
+}
+
+sourceSets {
+    main {
+        scala {
+            srcDirs = [<span class="string"><span class="delimiter">'</span><span class="content">src</span><span class="delimiter">'</span></span>]
+        }
+    }
+    test {
+        scala {
+            srcDirs = [<span class="string"><span class="delimiter">'</span><span class="content">test</span><span class="delimiter">'</span></span>]
+        }
+    }
+}
+
+eclipse {
+    project {
+        buildCommand <span class="string"><span class="delimiter">'</span><span class="content">bndtools.core.bndbuilder</span><span class="delimiter">'</span></span>
+        natures <span class="string"><span class="delimiter">'</span><span class="content">bndtools.core.bndnature</span><span class="delimiter">'</span></span>
+    }
+    classpath {
+        defaultOutputDir = file(<span class="string"><span class="delimiter">'</span><span class="content">bin</span><span class="delimiter">'</span></span>)
+        containers <span class="string"><span class="delimiter">'</span><span class="content">org.scala-ide.sdt.launching.SCALA_CONTAINER</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">aQute.bnd.classpath.container</span><span class="delimiter">'</span></span>
+        file {
+            whenMerged {
+                entries.removeAll { <span class="local-variable">it</span>.kind == <span class="string"><span class="delimiter">'</span><span class="content">lib</span><span class="delimiter">'</span></span> }
+            }
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="html-template-files">HTML Template Files</h6>
+
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="transformations">2.10. Transformations</h3>
 <div class="paragraph">
 <p>&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="transformations-2">2.9.1. Transformations</h4>
-<div class="paragraph">
-<p>&#8230;&#8203;</p>
+<h4 id="transformations-2">2.10.1. Transformations</h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/diag-c82e8e8bced444a6072eb331d9312500.png" alt="diag c82e8e8bced444a6072eb331d9312500" width="540" height="280">
+</div>
 </div>
 </div>
 </div>
@@ -1299,7 +1416,7 @@ implemented to provide persistence mechanisms in skysail.</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="scala">  def createWithSuperClass(superClass: String, vertices: String*)
   def register(classes: Class[_]*)
-  def persist(entity: Any): String
+  def persist(entity: Any, appModel: ApplicationModel): String
   def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]</code></pre>
 </div>
 </div>

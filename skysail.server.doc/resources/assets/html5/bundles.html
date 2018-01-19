@@ -685,7 +685,7 @@ implemented to provide persistence mechanisms in skysail.</p>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="scala">  def createWithSuperClass(superClass: String, vertices: String*)
   def register(classes: Class[_]*)
-  def persist(entity: Any): String
+  def persist(entity: Any, appModel: ApplicationModel): String
   def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]</code></pre>
 </div>
 </div>

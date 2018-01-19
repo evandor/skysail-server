@@ -530,9 +530,11 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#travis">Travis</a></li>
 </ul>
 </li>
+<li><a href="#elasticsearch">Elasticsearch</a></li>
 <li><a href="#monitoring">Monitoring</a>
 <ul class="sectlevel2">
 <li><a href="#graylog-twentyeleven-de">Graylog @ twentyeleven.de</a></li>
+<li><a href="#goaccess">GoAccess</a></li>
 </ul>
 </li>
 </ul>
@@ -586,6 +588,14 @@ sudo visudo:</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="elasticsearch">Elasticsearch</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>~/install/elasticsearch-2.4.1/bin$ ./elasticsearch &amp;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="monitoring">Monitoring</h2>
 <div class="sectionbody">
 <div class="sect2">
@@ -603,13 +613,32 @@ tail -f /var/log/graylog-server/server.log</p>
 <p><a href="http://log.skysail.io/" class="bare">http://log.skysail.io/</a></p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="goaccess">GoAccess</h3>
+<div class="paragraph">
+<p><a href="https://goaccess.io/download#distro" class="bare">https://goaccess.io/download#distro</a></p>
+</div>
+<div class="paragraph">
+<p>echo "deb <a href="http://deb.goaccess.io/" class="bare">http://deb.goaccess.io/</a> $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list.d/goaccess.list
+wget -O - <a href="https://deb.goaccess.io/gnugpg.key" class="bare">https://deb.goaccess.io/gnugpg.key</a> | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install goaccess</p>
+</div>
+<div class="paragraph">
+<p>sudo goaccess \
+  /home/carsten/skysail/accesslogs/website.test.skysail.io-access_log \
+  /home/carsten/skysail/accesslogs/website.skysail.io-access_log \
+  /home/carsten/skysail/accesslogs/website.int.skysail.io-access_log \
+  -o /var/www/goaccess.skysail.io/public_html/index.html --log-format=COMMON --real-time-html &amp;</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0<br>
-Last updated 2017-11-12 18:25:57 CET
+Last updated 2018-01-03 14:16:47 CET
 </div>
 </div>
 </body>
