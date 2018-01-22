@@ -12,21 +12,21 @@ case class OrientAccount(
     initial: Int
 )
 
-case class Transaction(id: Option[String], from: Account, to: Account, date: Date, amout: Int)
+case class Transaction(id: Option[String], from: Account, to: Account, date: Date, amount: Int)
 
-case class Pattern(id: Option[String], from: Account, to: Account, amout: Int, accounts: List[Account] = List())//, matcher: (Int) => Boolean)
+case class Pattern(id: Option[String], from: Account, to: Account, amount: Int, accounts: List[Account] = List())//, matcher: (Int) => Boolean)
 
 case class OrientPattern(
     id:String, 
     out_from: List[OrientAccount], 
     out_to: List[OrientAccount], 
-    amout: Int
+    amount: Int
 )
 
 case class OrientPattern2(
     id:String, 
     out_from: List[OrientNode], 
-    amout: Int
+    amount: Int
 )
 
 case class OrientNode(
