@@ -1,0 +1,14 @@
+Bundle-Version: 1.1.4.${tstamp}
+
+-classpath: \
+    jars/core_2.11-1.1.4.jar,\
+    jars/async-http-client-backend_2.11-1.1.4
+    
+Export-Package: \
+    com.softwaremill.*
+    
+#Include-Resource: META-INF/services=services/orientdb
+
+#DynamicImport-Package: *
+
+Bundle-Name: sttp.jar

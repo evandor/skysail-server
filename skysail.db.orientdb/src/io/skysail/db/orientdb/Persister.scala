@@ -1,7 +1,6 @@
 package io.skysail.db.orientdb
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.tinkerpop.blueprints.Vertex
 import com.tinkerpop.blueprints.impls.orient.{OrientGraph, OrientVertex}
 import io.skysail.domain.model.ApplicationModel
 import org.json4s._
@@ -107,7 +106,7 @@ class Persister(db: OrientGraph, appModel: ApplicationModel) {
   private def isProperty(entity: Any, key: String) = !appModel.entityRelationExists(entity.getClass, key)
   
 
-  private def setProperty(entity: Any, vertex: Vertex, key: String): Unit = {
+  private def setProperty(entity: Any, vertex: OrientVertex, key: String): Unit = {
     try {
       //      if (isOfBooleanType(entity, key)) {
       //        setVertexProperty("is", entity, vertex, key);
@@ -132,7 +131,7 @@ class Persister(db: OrientGraph, appModel: ApplicationModel) {
     }
   }
 
-  private def setVertexProperty(prefix: String, entity: Any, vertex: Vertex, key: String) = {
+  private def setVertexProperty(prefix: String, entity: Any, vertex: OrientVertex, key: String) = {
     val method = entity.getClass().getMethod(Persister.getMethodName(prefix, key));
     val result = method.invoke(entity);
 

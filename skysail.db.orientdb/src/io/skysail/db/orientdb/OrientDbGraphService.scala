@@ -3,7 +3,7 @@ package io.skysail.db.orientdb
 import com.orientechnologies.orient.`object`.db.OObjectDatabaseTx
 import com.orientechnologies.orient.core.db.OPartitionedDatabasePool
 import com.orientechnologies.orient.core.record.impl.ODocument
-import com.orientechnologies.orient.core.sql.{OCommandSQL, OSQLEngine}
+import com.orientechnologies.orient.core.sql.{ OCommandSQL, OSQLEngine }
 import com.orientechnologies.orient.graph.sql.OGraphCommandExecutorSQLFactory
 import com.orientechnologies.orient.graph.sql.functions.OGraphFunctionFactory
 import com.tinkerpop.blueprints.impls.orient._
@@ -14,6 +14,12 @@ import org.json4s.jackson.JsonMethods._
 import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConverters._
+import com.orientechnologies.orient.core.index.OIndexes
+import com.orientechnologies.orient.core.db.ODatabaseDocumentInternal
+import com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal
+import com.orientechnologies.orient.core.command.traverse.OTraverse
+import com.orientechnologies.orient.core.id.ORecordId
+import com.orientechnologies.orient.core.sql.filter.OSQLPredicate
 
 class OrientDbGraphService(url: String, user: String, pass: String) extends DbService {
 
@@ -79,21 +85,62 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
   }
 
   def findGraphs[T: Manifest](cls: Class[T], sql: String /*, Map<String, Object> params*/ ): List[T] = {
-    val graph = getGraphDb()
-    val oCommand = new OCommandSQL(sql)
-    val execute = graph.command(oCommand)
-    val results: OrientDynaElementIterable = execute.execute()
+    val results = executeCommand[T](sql)
     val result = scala.collection.mutable.ListBuffer[T]()
-
     results.asScala.foreach(v => {
       try {
         val r = v.asInstanceOf[OrientVertex]
         result += documentToBean(r.getRecord(), cls)
       } catch {
-        case _:Throwable => log warn s"not able to create bean out of $v"
+        case e: Throwable => log warn s"not able to create bean out of $v: ${e.getMessage}"
       }
     })
 
+    result.toList
+  }
+
+  def findById[T: Manifest](cls: Class[T], id: String): T = {
+
+    val sql = s"SELECT * from ${DbService.tableNameFor(cls)} where id='${id}'"
+    println("executing sql " + sql)
+    val res = executeCommand(sql) //, filter.getParams());
+    //if (res.size == 0) None else res.headOption
+    val v = res.iterator().next().asInstanceOf[OrientVertex]
+    println(v)
+    val db: ODatabaseDocumentInternal = getObjectDb().getUnderlying();
+    ODatabaseRecordThreadLocal.INSTANCE.set(db);
+    val predicate: OTraverse = new OTraverse().target(new ORecordId(v.getId.toString())).fields("out", "int").limit(1)
+      .predicate(new OSQLPredicate("$depth <= 3"));
+    val document = predicate.iterator().next().asInstanceOf[ODocument]
+    //beanCache.clear();
+    documentToBean(document, cls)
+  }
+
+  def findByClass[T: Manifest](cls: Class[T]): List[T] = {
+//    val db: ODatabaseDocumentInternal = getObjectDb().getUnderlying();
+//    ODatabaseRecordThreadLocal.INSTANCE.set(db);
+//    val t = new OTraverse()
+//      .target(db.browseClass(DbService.tableNameFor(cls)).iterator())
+//      .fields("out", "in")
+//      .limit(10)
+//      .predicate(new OSQLPredicate("1 <= 3"))
+//      
+//     val result = scala.collection.mutable.ListBuffer[T]()
+//    val res = for (i <- t.iterator().asScala) 
+//    {
+//      result += documentToBean(i.asInstanceOf[ODocument], cls);
+//    } 
+    val sql = s"SELECT * from ${DbService.tableNameFor(cls)}"
+    println("executing sql " + sql)
+    val res = executeCommand(sql) //, filter.getParams());
+    //if (res.size == 0) None else res.headOption
+//    val v = res.iterator().next().asInstanceOf[OrientVertex]
+//    println(v)
+    
+    val result = scala.collection.mutable.ListBuffer[T]()
+    for (i <- res.iterator().asScala) {
+      result += documentToBean(i.asInstanceOf[OrientVertex].getRecord, cls);
+    } 
     result.toList
   }
 
@@ -104,15 +151,26 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     graph
   }
 
-  def documentToBean[T: Manifest](doc: ODocument, cls: Class[T]): T = {
+  private def documentToBean[T: Manifest](doc: ODocument, cls: Class[T]): T = {
     //populateProperties(document.toMap(), bean, new SkysailBeanUtils(bean, Locale.getDefault(), appService));
     //populateOutgoingEdges(document, bean);
     //populateIngoingEdge(document, bean);
     //doc.fieldNames().foreach(fieldName => )
-    val ast = parse(doc.toJSON())
+    val json = doc.toJSON("fetchPlan:*:-1")
+    println(json)
+    val ast = parse(json)
+    println(ast)
     implicit val formats = DefaultFormats
-   // println("AST" + ast)
+    // println("AST" + ast)
     ast.extract[T]
+  }
+
+  private def executeCommand[T](sql: String): OrientDynaElementIterable = {
+    val graph = getGraphDb()
+    val oCommand = new OCommandSQL(sql)
+    oCommand.setFetchPlan("*:-1")
+    val execute = graph.command(oCommand)
+    execute.execute()
   }
 
 }

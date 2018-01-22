@@ -1,0 +1,29 @@
+Bundle-Name: SKYSAIL :: db :: orientdb :: http
+
+Bundle-Version: 0.1.0.${tstamp}
+
+Bundle-Description: Orient DB Service Layer Bundle for skysail server (HTTP API)
+
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+
+Bundle-Activator: io.skysail.db.orientdb.http.Activator
+
+-includeresource: OSGI-OPT/src=src/
+
+-buildpath: \
+	osgi.core;version=${osgi.version},\
+	osgi.annotation;version=${osgi.annotation.version},\
+    ${akka-build},\
+	domino_2.11;version=1.1,\
+	slf4j.api;version=1.7,\
+	org.apache.commons.configuration;version=1.10.0,\
+    com.fasterxml.jackson.core.jackson-databind;version=2.9,\
+    com.fasterxml.jackson.core.jackson-core;version=2.9,\
+	skysail.api;version=${skysail.api.version},\
+	skysail.domain;version=latest,\
+	io.skysail.bundled.sttp;version=latest
+
+Private-Package: \
+    io.skysail.db.orientdb.http
+
+    

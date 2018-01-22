@@ -22,4 +22,12 @@ class DummyDbService extends DbService() {
     bookmarks.values.map(b => b.asInstanceOf[T]).toList
   }
 
+  def findByClass[T](cls: Class[T])(implicit evidence$3: Manifest[T]): List[T] = {
+    ???
+  }
+
+  def findById[T](cls: Class[T], id: String)(implicit evidence$2: Manifest[T]): T = {
+    ???
+  }
+
 }

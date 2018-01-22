@@ -12,6 +12,8 @@ Bundle-Activator: io.skysail.db.orientdb.Activator
 -includeresource: resources
 
 -buildpath: \
+    libs/blueprints-core-2.7.1.jar;version=file,\
+    libs/servlet-api-2.5.jar;version=file,\
 	osgi.core;version=${osgi.version},\
 	osgi.annotation;version=${osgi.annotation.version},\
 	${akka-build},\
@@ -38,3 +40,8 @@ Bundle-Activator: io.skysail.db.orientdb.Activator
 
 Private-Package: \
     io.skysail.db.orientdb
+
+Export-Package: \
+    javax.servlet;version=2.5,\
+    javax.servlet.annotation;version=2.5,\
+    

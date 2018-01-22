@@ -1,0 +1,27 @@
+Bundle-Version: 2.2.31.${tstamp}
+
+-classpath: \
+    jars/orientdb-client-2.2.31.jar,\
+    jars/orientdb-graphdb-2.2.31.jar,\
+    jars/orientdb-object-2.2.31.jar,\
+    jars/orientdb-server-2.2.31.jar,\
+    jars/orientdb-tools-2.2.31.jar,\
+    jars/orientdb-core-2.2.31.jar,\
+    jars/blueprints-core-2.7.1.jar,\
+    jars/blueprints-orient-graph-2.4.0.jar
+
+Export-Package: \
+    com.orientechnologies.*,\
+    com.tinkerpop.blueprints.*
+    
+Import-Package: \
+    !com.carrotsearch.hppc.*,\
+    !com.tinkerpop.gremlin.*,\
+    !javax.mail.*,\
+    *
+    
+Include-Resource: META-INF/services=services/orientdb
+
+DynamicImport-Package: *
+
+Bundle-Name: orientdb-uber.jar

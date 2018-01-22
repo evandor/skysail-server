@@ -3,6 +3,7 @@ package io.skysail.server.demo.repositories
 import io.skysail.api.persistence.DbService
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.server.demo.domain.Pattern
+import io.skysail.server.demo.domain.OrientPattern
 
 class PatternRepository(dbService: DbService, appModel: ApplicationModel) {
 
@@ -15,18 +16,13 @@ class PatternRepository(dbService: DbService, appModel: ApplicationModel) {
 
   def find( /*Filter filter, Pagination pagination*/ ): List[Pattern] = {
     val sql = "SELECT * from " + DbService.tableNameFor(classOf[Pattern])
-    //                + (!StringUtils.isNullOrEmpty(filter.getPreparedStatement()) ? " WHERE " + filter.getPreparedStatement()
-    //                        : "")
-    //                + " " + limitClause(pagination);
-    //pagination.setEntityCount(count(filter));
-    //println("executing sql " + sql)
-    dbService.findGraphs(classOf[Pattern], sql) //, filter.getParams());
+    //dbService.findGraphs(classOf[Pattern], sql) //, filter.getParams());
+    val orientPattern = dbService.findByClass(classOf[OrientPattern])
+    println(orientPattern)
+    List()
   }
 
   def find(id: String): Option[Pattern] = {
-    val sql = s"SELECT * from ${DbService.tableNameFor(classOf[Pattern])} where id='${id}'"
-    //println("executing sql " + sql)
-    val res = dbService.findGraphs(classOf[Pattern], sql) //, filter.getParams());
-    if (res.size == 0) None else res.headOption
+    Some(dbService.findById(classOf[Pattern], id))
   }
 }
