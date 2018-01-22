@@ -33,24 +33,15 @@ class AccountsSimulationTest {
           }
         }
       ],
-      "out_to":[
-        {
-          "out":"#81:1",
-          "in":{
-            "id":"d0959366-a065-4401-bbb6-85cba3abeb82",
-            "title":"ing-diba",
-            "initial":1000,
-            "in_to":["#84:0"]
-          }
-        }
-      ],"amount":99}
+      "amount":99
+    }
 
-    """"""
+    """
 
     val ast = parse(input)
     implicit val formats = DefaultFormats
 
-    val r = ast.extract[OrientPattern]
+    val r = ast.extract[OrientPattern2]
     println(r)
   }
 
