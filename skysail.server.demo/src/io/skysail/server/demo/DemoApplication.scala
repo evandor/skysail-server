@@ -60,8 +60,9 @@ class DemoApplication(
 
       //RouteMapping("/docker/container", root / PathMatcher("docker") / PathMatcher("container") ~ PathEnd, classOf[ContainersResource]),
 
-      RouteMapping("/patterns",  root / PathMatcher("patterns")  ~ PathEnd, classOf[PatternsResource]),
-      RouteMapping("/patterns/", root / PathMatcher("patterns") / PathEnd, classOf[PostPatternResource]),
+      RouteMapping("/patterns",     root / PathMatcher("patterns")  ~ PathEnd, classOf[PatternsResource]),
+      RouteMapping("/patterns/",    root / PathMatcher("patterns") / PathEnd, classOf[PostPatternResource]),
+      RouteMapping("/patterns/:id", root / PathMatcher("patterns") / Segment ~ PathEnd, classOf[PatternResource]),
 
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource]))
   }

@@ -13,6 +13,8 @@ import io.skysail.server.demo.domain.{ Account, Pattern }
 import spray.json.{ DefaultJsonProtocol, _ }
 import java.util.UUID
 import java.util.UUID
+import io.skysail.domain.resources.EntityResource
+import io.skysail.domain.ResponseEventBase
 
 trait JsonSupport7 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val AccountFormat: RootJsonFormat[Account] = jsonFormat3(Account)
@@ -59,4 +61,20 @@ class PostPatternResource extends PostResource[DemoApplication, Pattern] with Js
      
     }
   }
+}
+
+class PatternResource extends EntityResource[DemoApplication, Pattern] {
+  
+  //override def get(requestEvent: RequestEvent) = {
+  override def getEntity(re: RequestEvent): Option[Pattern] = {
+    val app: DemoApplication = getApplication()
+    val optionalPattern = app.patternRepo.find(re.cmd.urlParameter.head)
+    optionalPattern
+  }
+
+  def get(requestEvent: RequestEvent): ResponseEventBase = {
+    ???
+  }
+
+  
 }

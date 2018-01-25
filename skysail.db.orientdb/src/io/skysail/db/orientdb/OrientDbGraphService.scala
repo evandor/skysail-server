@@ -104,38 +104,28 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)} where id='${id}'"
     println("executing sql " + sql)
     val res = executeCommand(sql) //, filter.getParams());
-    //if (res.size == 0) None else res.headOption
-    val v = res.iterator().next().asInstanceOf[OrientVertex]
-    println(v)
-    val db: ODatabaseDocumentInternal = getObjectDb().getUnderlying();
-    ODatabaseRecordThreadLocal.INSTANCE.set(db);
-    val predicate: OTraverse = new OTraverse().target(new ORecordId(v.getId.toString())).fields("out", "int").limit(1)
-      .predicate(new OSQLPredicate("$depth <= 3"));
-    val document = predicate.iterator().next().asInstanceOf[ODocument]
-    //beanCache.clear();
-    documentToBean(document, cls)
+
+//    val v = res.iterator().next().asInstanceOf[OrientVertex]
+//    println(v)
+//    val db: ODatabaseDocumentInternal = getObjectDb().getUnderlying();
+//    ODatabaseRecordThreadLocal.INSTANCE.set(db);
+//    val predicate: OTraverse = new OTraverse().target(new ORecordId(v.getId.toString())).fields("out", "int").limit(1)
+//      .predicate(new OSQLPredicate("$depth <= 3"));
+//    val document = predicate.iterator().next().asInstanceOf[ODocument]
+//    //beanCache.clear();
+//    documentToBean(document, cls)
+    
+    val r = res.iterator().next().asInstanceOf[OrientVertex]
+    
+    val result = documentToBean(r.getRecord,cls)
+    
+    result.asInstanceOf[T]
   }
 
   def findByClass[T: Manifest](cls: Class[T]): List[T] = {
-//    val db: ODatabaseDocumentInternal = getObjectDb().getUnderlying();
-//    ODatabaseRecordThreadLocal.INSTANCE.set(db);
-//    val t = new OTraverse()
-//      .target(db.browseClass(DbService.tableNameFor(cls)).iterator())
-//      .fields("out", "in")
-//      .limit(10)
-//      .predicate(new OSQLPredicate("1 <= 3"))
-//      
-//     val result = scala.collection.mutable.ListBuffer[T]()
-//    val res = for (i <- t.iterator().asScala) 
-//    {
-//      result += documentToBean(i.asInstanceOf[ODocument], cls);
-//    } 
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)}"
     println("executing sql " + sql)
     val res = executeCommand(sql) //, filter.getParams());
-    //if (res.size == 0) None else res.headOption
-//    val v = res.iterator().next().asInstanceOf[OrientVertex]
-//    println(v)
     
     val result = scala.collection.mutable.ListBuffer[T]()
     for (i <- res.iterator().asScala) {
@@ -156,7 +146,10 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     //populateOutgoingEdges(document, bean);
     //populateIngoingEdge(document, bean);
     //doc.fieldNames().foreach(fieldName => )
-    val json = doc.toJSON("fetchPlan:*:-1")
+    println()
+    println("Doc: " + doc)
+    //val json = doc.toJSON("rid,version,fetchPlan:[*]*:-1")
+    val json = doc.toJSON("rid,version,fetchPlan:*:2")
     println(json)
     val ast = parse(json)
     println(ast)
@@ -168,7 +161,7 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
   private def executeCommand[T](sql: String): OrientDynaElementIterable = {
     val graph = getGraphDb()
     val oCommand = new OCommandSQL(sql)
-    oCommand.setFetchPlan("*:-1")
+    oCommand.setFetchPlan("[*]*:-1")
     val execute = graph.command(oCommand)
     execute.execute()
   }

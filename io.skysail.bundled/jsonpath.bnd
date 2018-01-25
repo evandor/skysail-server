@@ -1,0 +1,13 @@
+Bundle-Version: 0.6.10.${tstamp}
+
+-classpath: \
+    jars/jsonpath_2.11-0.6.10.jar
+    
+Export-Package: \
+    io.gatling.jsonpath.*
+    
+#Include-Resource: META-INF/services=services/orientdb
+
+#DynamicImport-Package: *
+
+Bundle-Name: sttp.jar

@@ -8,6 +8,7 @@ import org.json4s.JsonAST.JArray
 import org.json4s.jackson.JsonMethods._
 import org.json4s.{DefaultFormats, Extraction, JObject, JValue, jackson}
 import org.slf4j.LoggerFactory
+import io.gatling.jsonpath.JsonPath
 
 class RepresentationModel(
                            val response: ResponseEventBase,
@@ -41,6 +42,17 @@ class RepresentationModel(
   def linkFor(clsName: String, id: Option[Any]): String = {
     val link: Option[String] = model.linkFor(clsName)
     link.getOrElse("").replace(":id", id.getOrElse("").toString)
+  }
+  
+  def getString(path:String): String = {
+    println("XXX"+path)
+    println("XXX"+json)
+    val a = JsonPath.query(path, json)
+    println(a)
+    val b = a.right.get.next()
+    println(b)
+
+    b  .toString()
   }
 
   private def deriveRawData(): List[Map[String, Any]] = {

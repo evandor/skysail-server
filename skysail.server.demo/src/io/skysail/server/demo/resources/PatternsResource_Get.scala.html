@@ -3,6 +3,8 @@
 *                                   *
 * @param msg The message to display *
 *************************************@
+@import html._
+
 @(rep: RepresentationModel, response: ResponseEventBase)
 
 @main(response) {
@@ -11,24 +13,30 @@
 
 <div class="container">
     <div class="starter-template">
+    
+        <span>
+   ***     @rep.getString("$")
+        </span>
         <h1>Notes</h1>
         <p class="lead">all notes:</p>
         <table class="table table-sm">
             <thead>
             <tr>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Actions</th>
+                <th>Id</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Amount</th>
             </tr>
             </thead>
             <tbody>
             @for(p <- rep.rawData) {
             <tr>
-                <th scope="row">@p.get("title")</th>
-                <td>@p.get("content")</td>
+                <th scope="row">@p.get("id")</th>
+                <td>@p.get("from").get.getClass.getName</td>
+                <td>@p.get("to").get.getClass.getName</td>
                 <td>
-                    <a href='/demo/v1/notes/@p.get("id")'>[show]</a>
-                    <a href='/demo/v1/notes/@p.get("id")/'>[update]</a>
+                    <a href='/demo/v1/patterns/@p.get("id")'>[show]</a>
+                    <a href='/demo/v1/patterns/@p.get("id")/'>[update]</a>
                 </td>
             </tr>
             }
@@ -38,6 +46,26 @@
         </table>
 
         <a href='/demo/v1/patterns/'>Create New Note</a>
+
+        <div>
+            <h3>jsonData</h3>
+            @rep.jsonData
+        </div>
+
+        <div>
+            <h3>current Entity</h3>
+            <div>@rep.entityModel</div>
+            <h3>current Entity's fields</h3>
+            <div>@Html(rep.entityModel.get.fields.mkString("<br>"))</div>
+        </div>
+
+        <div>
+            @printAppModel(rep.model) { whatever => ... }
+        </div>
+
+        <div>
+            @printRequest(response.req)
+        </div>
 
 
     </div>
