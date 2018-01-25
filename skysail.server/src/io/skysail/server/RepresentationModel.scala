@@ -18,21 +18,19 @@ class RepresentationModel(
 
   private val mapper = new ObjectMapper
 
-  //val entity: T = response.entity.asInstanceOf[T]
-
   val rawData: List[Map[String, Any]] = deriveRawData()
 
-  //val t: Option[Any] = rawData.head.get("accounts")
-
   val jsonData: String = deriveJsonData()
+
+  val jsonObject: Any = {
+    mapper.readValue(jsonData, classOf[Object])
+  }
 
   val json: JValue = {
     implicit val formats = DefaultFormats
     implicit val serialization = jackson.Serialization
     Extraction.decompose(response.entity)
   }
-
-  //json.asInstanceOf[JObject].values.get("accounts")
 
   def entityModel(): Option[EntityModel] = {
     val uri: Uri = response.req.uri
@@ -45,14 +43,7 @@ class RepresentationModel(
   }
   
   def getString(path:String): String = {
-    println("XXX"+path)
-    println("XXX"+json)
-    val a = JsonPath.query(path, json)
-    println(a)
-    val b = a.right.get.next()
-    println(b)
-
-    b  .toString()
+    JsonPath.query("$"+path, jsonObject).right.get.next().toString
   }
 
   private def deriveRawData(): List[Map[String, Any]] = {

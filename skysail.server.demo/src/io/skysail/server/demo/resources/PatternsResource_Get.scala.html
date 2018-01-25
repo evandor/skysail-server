@@ -15,7 +15,7 @@
     <div class="starter-template">
     
         <span>
-   ***     @rep.getString("$")
+   ***     @rep.getString("[0]")
         </span>
         <h1>Notes</h1>
         <p class="lead">all notes:</p>
@@ -29,14 +29,14 @@
             </tr>
             </thead>
             <tbody>
-            @for(p <- rep.rawData) {
+            @for((item, i) <- rep.rawData.zipWithIndex) {
             <tr>
-                <th scope="row">@p.get("id")</th>
-                <td>@p.get("from").get.getClass.getName</td>
-                <td>@p.get("to").get.getClass.getName</td>
+                <th scope="row">@rep.getString(s"[$i].id")</th>
+                <td>@rep.getString(s"[$i].from.title")</td>
+                <td>@rep.getString(s"[$i].to.title")</td>
                 <td>
-                    <a href='/demo/v1/patterns/@p.get("id")'>[show]</a>
-                    <a href='/demo/v1/patterns/@p.get("id")/'>[update]</a>
+                    <a href='/demo/v1/patterns/@rep.getString(s"[$i].id")'>[show]</a>
+                    <a href='/demo/v1/patterns/@rep.getString(s"[$i].id")/'>[update]</a>
                 </td>
             </tr>
             }
