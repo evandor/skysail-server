@@ -53,6 +53,8 @@ class DemoApplication(
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("demo") / PathMatcher("v1")
     List(
+      RouteMapping("", root ~ PathEnd, classOf[BookmarksResource]),
+
       RouteMapping("/bms", root / PathMatcher("bms") ~ PathEnd, classOf[BookmarksResource]),
       RouteMapping("/bms/", root / PathMatcher("bms") / PathEnd, classOf[PostBookmarkResource]),
       RouteMapping("/bms/:id", root / PathMatcher("bms") / Segment ~ PathEnd, classOf[BookmarkResource]),

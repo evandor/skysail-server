@@ -19,7 +19,9 @@ class OsgiApplication(bundleContext: BundleContext, routesCreator: RoutesCreator
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher(name) / PathMatcher("v1")
     List(
-      RouteMapping("/bundles", root / PathMatcher("bundles") ~ PathEnd, classOf[BundlesResource]))
+      RouteMapping("", root ~ PathEnd, classOf[BundlesResource]),
+      RouteMapping("/bundles", root / PathMatcher("bundles") ~ PathEnd, classOf[BundlesResource])
+    )
   }
 
   def getBundles(): List[BundleDescriptor] = {

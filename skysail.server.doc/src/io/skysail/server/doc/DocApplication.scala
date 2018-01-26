@@ -22,6 +22,8 @@ class DocApplication(bundleContext: BundleContext, routesCreator: RoutesCreatorT
   override def routesMappings = {
     val root: PathMatcher[Unit] = PathMatcher("doc") / "v1"
     List(
+      RouteMapping("", root ~ PathMatchers.PathEnd, classOf[DocIndexResource]),
+
       RouteMapping("index.html", root / PathMatcher("index.html") ~ PathMatchers.PathEnd, classOf[DocIndexResource])
     )
   }
