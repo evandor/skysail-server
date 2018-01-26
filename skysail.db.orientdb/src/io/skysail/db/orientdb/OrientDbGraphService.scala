@@ -142,10 +142,6 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
   }
 
   private def documentToBean[T: Manifest](doc: ODocument, cls: Class[T]): T = {
-    //populateProperties(document.toMap(), bean, new SkysailBeanUtils(bean, Locale.getDefault(), appService));
-    //populateOutgoingEdges(document, bean);
-    //populateIngoingEdge(document, bean);
-    //doc.fieldNames().foreach(fieldName => )
     println()
     println("Doc: " + doc)
     //val json = doc.toJSON("rid,version,fetchPlan:[*]*:-1")

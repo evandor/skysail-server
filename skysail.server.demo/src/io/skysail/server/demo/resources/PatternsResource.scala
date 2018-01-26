@@ -1,20 +1,18 @@
 package io.skysail.server.demo.resources
 
-import akka.actor.{ ActorSelection, ActorSystem }
+import java.util.UUID
+
+import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.resources.{ ListResource, PostResource }
-import io.skysail.domain.{ RedirectResponseEvent, RequestEvent, ResponseEvent }
+import io.skysail.domain.resources.{EntityResource, ListResource, PostResource, PutResource}
+import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.{ Account, Pattern }
-import spray.json.{ DefaultJsonProtocol, _ }
-import java.util.UUID
-import java.util.UUID
-import io.skysail.domain.resources.EntityResource
-import io.skysail.domain.ResponseEventBase
+import io.skysail.server.demo.domain.{Account, Bookmark, Pattern}
+import spray.json.{DefaultJsonProtocol, _}
 
 trait JsonSupport7 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val AccountFormat: RootJsonFormat[Account] = jsonFormat3(Account)
@@ -51,14 +49,7 @@ class PostPatternResource extends PostResource[DemoApplication, Pattern] with Js
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
     formFieldMap { map =>
-     // if (getApplication() != null && getApplication().accountsRepo != null) {
-//        val entity = Pattern(
-//          Some(UUID.randomUUID().toString),
-//          null,//getApplication().accountsRepo.find(map.getOrElse("from", "0")).get,
-//          null,//getApplication().accountsRepo.find(map.getOrElse("to", "0")).get,
-//          Integer.parseInt(map.getOrElse("amount", "0")))
         super.createRoute(applicationActor, processCommand.copy(formFieldMap = map))
-     
     }
   }
 }
@@ -78,3 +69,26 @@ class PatternResource extends EntityResource[DemoApplication, Pattern] {
 
   
 }
+
+class PutPatternResource extends PutResource[DemoApplication, Pattern] with JsonSupport7 {
+
+  override def get(requestEvent: RequestEvent): ResponseEvent[Pattern] = {
+    val e = getApplication().patternRepo.find(requestEvent.cmd.urlParameter.head)
+    ResponseEvent(requestEvent, e.get)
+  }
+
+  override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
+    val optionalBookmark = getApplication().patternRepo.find(requestEvent.cmd.urlParameter.head)
+    val e = requestEvent.cmd.entity.asInstanceOf[Pattern]
+    val f = e.copy(id = optionalBookmark.get.id)
+    getApplication().patternRepo.save(f)
+  }
+
+  override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
+    formFieldMap { map =>
+      val entity = Bookmark(Some(UUID.randomUUID().toString), map.getOrElse("title", "Unknown"), map.getOrElse("url", "Unknown"))
+      super.createRoute(applicationActor, processCommand.copy(entity = entity))
+    }
+  }
+}
+
