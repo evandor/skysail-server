@@ -180,9 +180,11 @@ class ControllerActor[T]() extends Actor {
   }
 
   private def handleJson(response: ResponseEventBase, json: String): Unit = {
+    val e = HttpEntity(ContentType(MediaTypes.`application/json`),json)
+    val res = response.httpResponse.copy(entity = e)
     response match {
-      case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, response.httpResponse.copy(entity = json))
-      case ResponseEvent(req, _, _) => applicationActor ! ResponseEvent(req, response.entity, response.httpResponse.copy(entity = json))
+      case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, res)
+      case ResponseEvent(req, _, _) => applicationActor ! ResponseEvent(req, response.entity, res)
       case _ => log warn "unmatched response"
     }
   }
@@ -207,7 +209,7 @@ class ControllerActor[T]() extends Actor {
       val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
     } catch {
-      case ex: Exception => log info s"problem: ${ex.getMessage}"; None
+      case ex: Exception => log info s"problem: ${ex.getMessage}"; ex.printStackTrace(); None
     }
   }
 

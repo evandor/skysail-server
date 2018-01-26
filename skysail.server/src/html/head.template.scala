@@ -1,6 +1,11 @@
 
 package html
 
+import play.twirl.api.Html
+import html.main
+import io.skysail.domain.ResponseEventBase
+import io.skysail.server.RepresentationModel
+
 object head extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template0[play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
@@ -44,7 +49,13 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
   <!-- Custom styles for this template
   <link href="custom.css" rel="stylesheet">
-  -->"""))
+  -->
+
+  <script
+          src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+"""))
       }
     }
   }
@@ -60,9 +71,9 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 15 17:46:58 CET 2018
+                  DATE: Fri Jan 26 12:57:51 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/head.scala.html
-                  HASH: 4f0e625a78a68ad5f0e14025e0da4a9aa62ef329
+                  HASH: 8dc0a49ce52814b6b94403d912440cb899d0960b
                   MATRIX: 532->2
                   LINES: 17->1
                   -- GENERATED --

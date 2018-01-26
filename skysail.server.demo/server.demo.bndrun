@@ -40,7 +40,8 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.demo)',\
 	osgi.identity;filter:='(osgi.identity=webconsole.all)',\
-	osgi.identity;filter:='(osgi.identity=skysail.server.app.osgi)'
+	osgi.identity;filter:='(osgi.identity=skysail.server.app.osgi)',\
+	osgi.identity;filter:='(osgi.identity=skysail.server.app.appboard)'
 
 
 -runbundles: \
@@ -104,4 +105,5 @@ logback.configurationFile.path = config/local
 	org.codehaus.jettison.jettison;version='[1.3.7,1.3.8)',\
 	org.xerial.snappy.snappy-java;version='[1.1.1,1.1.2)',\
 	skysail.db.orientdb;version=snapshot,\
-	io.skysail.bundled.jsonpath;version='[0.6.10,0.6.11)'
+	io.skysail.bundled.jsonpath;version='[0.6.10,0.6.11)',\
+	skysail.server.app.appboard;version=snapshot

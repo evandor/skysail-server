@@ -3,16 +3,16 @@ package io.skysail.server
 import akka.http.scaladsl.model.Uri
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.skysail.domain.ResponseEventBase
-import io.skysail.domain.model.{ApplicationModel, EntityModel}
+import io.skysail.domain.model.{ ApplicationModel, EntityModel }
 import org.json4s.JsonAST.JArray
 import org.json4s.jackson.JsonMethods._
-import org.json4s.{DefaultFormats, Extraction, JObject, JValue, jackson}
+import org.json4s.{ DefaultFormats, Extraction, JObject, JValue, jackson }
 import org.slf4j.LoggerFactory
 import io.gatling.jsonpath.JsonPath
 
 class RepresentationModel(
-                           val response: ResponseEventBase,
-                           val model: ApplicationModel) {
+  val response: ResponseEventBase,
+  val model: ApplicationModel) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -41,9 +41,12 @@ class RepresentationModel(
     val link: Option[String] = model.linkFor(clsName)
     link.getOrElse("").replace(":id", id.getOrElse("").toString)
   }
-  
-  def getString(path:String): String = {
-    JsonPath.query("$"+path, jsonObject).right.get.next().toString
+
+  def getString(path: String): String = {
+    val queryResult = JsonPath.query("$" + path, jsonObject)
+    queryResult.fold(
+      ex => "Operation failed with " + ex,
+      v => if (v.hasNext) v.next().toString else "*!*")    
   }
 
   private def deriveRawData(): List[Map[String, Any]] = {

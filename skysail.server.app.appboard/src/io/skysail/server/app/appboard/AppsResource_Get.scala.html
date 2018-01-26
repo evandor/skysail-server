@@ -1,0 +1,43 @@
+@*************************************
+* Home page.                        *
+*                                   *
+* @param msg The message to display *
+*************************************@
+@import html._
+
+@(rep: RepresentationModel, response: ResponseEventBase)
+
+@main(response) {
+
+<br><br><br>
+
+<div class="container">
+    <div class="starter-template">
+    
+       <!-- <span>
+   ***     @rep.getString("")
+        </span>-->
+        <h1>Dashboard</h1>
+        <!--<p class="lead">all notes:</p>-->
+
+        <div class="row">
+            @for((item, i) <- rep.rawData.zipWithIndex) {
+              @if(rep.getString(s"[$i].name") != "_root") {
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+                        <div class="card-body">
+                            <h5 class="card-title">@rep.getString(s"[$i].name")</h5>
+                            <p class="card-text">@rep.getString(s"[$i].description")</p>
+                            <a href='@rep.getString(s"[$i].context")' class="btn btn-primary">Open</a>
+                        </div>
+                    </div>
+                </div>
+              }
+            }
+        </div>
+
+    </div>
+</div>
+
+}
