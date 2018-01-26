@@ -3,7 +3,7 @@ package io.skysail.api.persistence
 import io.skysail.domain.model.ApplicationModel
 
 object DbService {
-  def tableNameFor(cls: Class[_]): String = cls.getName.replace(".", "_").replace("_Orient","_")
+  def tableNameFor(cls: Class[_]): String = cls.getName.replace(".", "_")//.replace("_Orient","_")
 }
 
 trait DbService {

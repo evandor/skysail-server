@@ -90,4 +90,5 @@ logback.configurationFile.path = config
 	org.apache.felix.eventadmin;version='[1.4.10,1.4.11)',\
 	skysail.api;version=snapshot,\
 	skysail.domain;version=snapshot,\
-	joda-time;version='[2.9.3,2.9.4)'
+	joda-time;version='[2.9.3,2.9.4)',\
+	io.skysail.bundled.jsonpath;version='[0.6.10,0.6.11)'

@@ -11,6 +11,7 @@ class AccountsSimulationTest {
   implicit val formats = DefaultFormats
 
   @Test
+  @Ignore
   def create_orientdb_json_and_parse_back_to_entity() {
 
     val from = Account(Some("from_account"), "from_a", 10)
@@ -306,6 +307,7 @@ class AccountsSimulationTest {
   }
 
   @Test
+  @Ignore
   def test7(): Unit = {
     var input = """
 {
@@ -348,6 +350,54 @@ class AccountsSimulationTest {
       case JField("out_from", JArray(s)) => ("from", from)
       case JField("out_to", JArray(s)) => ("to", to)
     }
+    println(p.extract[Pattern])
+  }
+
+    @Test
+  def test8(): Unit = {
+    var input = """
+{
+  "id": "9e4ccd49-5d2e-4c0a-b685-1f97f08f5dde",
+  "out_from": [
+    {
+      "out": "#96:8",
+      "in": {
+        "in_from": [
+          "#98:3"
+        ],
+        "id": "0081b4ff-231b-4c52-9061-6412f4852de6",
+        "title": "ing-diba",
+        "initial": 1000
+      }
+    }
+  ],
+  "out_to": [
+    {
+      "out": "#96:8",
+      "in": {
+        "in_to": [
+          "#99:2"
+        ],
+        "id": "b9fb9581-cbce-4884-be07-cd115e78da62",
+        "title": "title",
+        "initial": 0
+      }
+    }
+  ],
+  "amount": 0
+}
+"""
+
+    val ast = parse(input)
+    println("AST: " + ast)
+    implicit val formats = DefaultFormats
+    val from = (ast \\ "out_from" \ "in")(0)
+    val to = (ast \\ "out_to" \ "in")(0)
+    val p = ast transformField {
+      case JField("out_from", JArray(s)) => ("from", from)
+      case JField("out_to", JArray(s)) => ("to", to)
+    }
+    println(p)
     println(p.extract[Pattern])
   }
 

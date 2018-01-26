@@ -11,35 +11,8 @@ class PatternRepository(dbService: DbService, appModel: ApplicationModel) {
   dbService.createWithSuperClass("V", DbService.tableNameFor(classOf[Pattern]))
   dbService.register(classOf[Pattern])
 
-  def save(entity: Any): String = {
-    dbService.persist(entity, appModel)
-  }
+  def save(entity: Any) = dbService.persist(entity, appModel)
+  def find() = dbService.findByClass(classOf[Pattern])
+  def find(id: String) = Some(dbService.findById(classOf[Pattern], id))
 
-  def find( /*Filter filter, Pagination pagination*/ ): List[Pattern] = {
-    val sql = "SELECT * from " + DbService.tableNameFor(classOf[Pattern])
-    //dbService.findGraphs(classOf[Pattern], sql) //, filter.getParams());
-    val orientPattern = dbService.findByClass[OrientPattern](classOf[OrientPattern])
-    orientPattern.map(op => {
-      println("OP: " + op)
-      val from = op.out_from.head.in
-      val to = "to..." //op.out_to.head.in
-      Pattern(
-        Some(op.id),
-        Account(Some(from.id), from.title, from.initial),
-        Account(None, to, 0),
-        op.amount)
-    }).toList
-  }
-
-  def find(id: String): Option[Pattern] = {
-    val op = dbService.findById(classOf[OrientPattern], id)
-    println("OP: " + op)
-    val from = op.out_from.head.in
-    val to = op.out_to.head.in
-    Some(Pattern(
-      Some(op.id),
-      Account(Some(from.id), from.title, from.initial),
-      Account(Some(to.id), to.title, to.initial),
-      op.amount))
-  }
 }

@@ -90,7 +90,7 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     results.asScala.foreach(v => {
       try {
         val r = v.asInstanceOf[OrientVertex]
-        result += documentToBean(r.getRecord(), cls)
+        result += documentToBeanGraph(r.getRecord(), cls)
       } catch {
         case e: Throwable => log warn s"not able to create bean out of $v: ${e.getMessage}"
       }
@@ -100,25 +100,11 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
   }
 
   def findById[T: Manifest](cls: Class[T], id: String): T = {
-
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)} where id='${id}'"
     println("executing sql " + sql)
     val res = executeCommand(sql) //, filter.getParams());
-
-//    val v = res.iterator().next().asInstanceOf[OrientVertex]
-//    println(v)
-//    val db: ODatabaseDocumentInternal = getObjectDb().getUnderlying();
-//    ODatabaseRecordThreadLocal.INSTANCE.set(db);
-//    val predicate: OTraverse = new OTraverse().target(new ORecordId(v.getId.toString())).fields("out", "int").limit(1)
-//      .predicate(new OSQLPredicate("$depth <= 3"));
-//    val document = predicate.iterator().next().asInstanceOf[ODocument]
-//    //beanCache.clear();
-//    documentToBean(document, cls)
-    
     val r = res.iterator().next().asInstanceOf[OrientVertex]
-    
-    val result = documentToBean(r.getRecord,cls)
-    
+    val result = documentToBean(r.getRecord, cls)
     result.asInstanceOf[T]
   }
 
@@ -126,11 +112,10 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)}"
     println("executing sql " + sql)
     val res = executeCommand(sql) //, filter.getParams());
-    
     val result = scala.collection.mutable.ListBuffer[T]()
     for (i <- res.iterator().asScala) {
       result += documentToBean(i.asInstanceOf[OrientVertex].getRecord, cls);
-    } 
+    }
     result.toList
   }
 
@@ -145,7 +130,25 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     println()
     println("Doc: " + doc)
     //val json = doc.toJSON("rid,version,fetchPlan:[*]*:-1")
-    val json = doc.toJSON("rid,version,fetchPlan:*:2")
+    val json = doc.toJSON("fetchPlan:*:2") /*rid,version,*/
+    println(json)
+    val ast = parse(json)
+    println(ast)
+    implicit val formats = DefaultFormats
+
+    val from = (ast \\ "out_from" \ "in")(0)
+    val to = (ast \\ "out_to" \ "in")(0)
+    val p = ast transformField {
+      case JField("out_from", JArray(s)) => ("from", from)
+      case JField("out_to", JArray(s)) => ("to", to)
+    }
+
+    println("AST2" + p)
+    p.extract[T]
+  }
+  
+  private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T]): T = {
+    val json = doc.toJSON("fetchPlan:*:-1")
     println(json)
     val ast = parse(json)
     println(ast)
