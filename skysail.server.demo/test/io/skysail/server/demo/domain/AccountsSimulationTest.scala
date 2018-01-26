@@ -58,7 +58,7 @@ class AccountsSimulationTest {
     val ast = parse(input)
     implicit val formats = DefaultFormats
 
-    val r = ast.extract[OrientPattern]
+    val r = ast.extract[Pattern]
     println(r)
   }
 
@@ -122,7 +122,7 @@ class AccountsSimulationTest {
 
     println(ast)
 
-    val r = ast.extract[OrientPattern]
+    val r = ast.extract[Pattern]
     println(r)
   }
 
@@ -148,7 +148,7 @@ class AccountsSimulationTest {
     val ast = parse(input)
     implicit val formats = DefaultFormats
 
-    val r = ast.extract[OrientPattern]
+    val r = ast.extract[Pattern]
     println(r)
   }
 
@@ -225,7 +225,7 @@ class AccountsSimulationTest {
     val ast = parse(input)
     implicit val formats = DefaultFormats
 
-    val r = ast.extract[OrientPattern]
+    val r = ast.extract[Pattern]
     println(r)
 
   }
@@ -299,7 +299,7 @@ class AccountsSimulationTest {
 
     //println("SSS: " + compact(render(s)))
 
-    println(p.extract[OrientPattern])
+    println(p.extract[Pattern])
 
     // val r = p.extract[Pattern]
     // println(r)

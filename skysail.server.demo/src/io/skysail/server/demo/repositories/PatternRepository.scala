@@ -3,8 +3,6 @@ package io.skysail.server.demo.repositories
 import io.skysail.api.persistence.DbService
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.server.demo.domain.Pattern
-import io.skysail.server.demo.domain.OrientPattern
-import io.skysail.server.demo.domain.Account
 
 class PatternRepository(dbService: DbService, appModel: ApplicationModel) {
 
