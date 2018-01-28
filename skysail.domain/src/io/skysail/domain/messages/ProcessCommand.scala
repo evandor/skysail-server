@@ -28,4 +28,10 @@ case class ProcessCommand(
                            entity: Any = null,
                            resource: Option[AsyncResource[_, _]] = None,
                            formFieldMap: Map[String,String] = Map()
-                         )
+                         ) {
+
+  override def toString: String = {
+    s"ProcessCommand(${ctx.request.method.value}@${ctx.request.uri})"
+  }
+
+}

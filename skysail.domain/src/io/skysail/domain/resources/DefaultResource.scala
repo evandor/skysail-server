@@ -55,11 +55,11 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
 
   }
 
-  final def handleListRouteMapping(re: RequestEvent) = re.controllerActor ! ListResponseEvent(re, getList(re))
+  final def handleListRouteMapping(re: RequestEvent) = re.controllerActor ! ListResponseEvent[List[T]](re, getList(re))
 
-  final def handleEntityMapping(re: RequestEvent) = re.controllerActor ! ResponseEvent(re, getEntity(re).get)
+  final def handleEntityMapping(re: RequestEvent) = re.controllerActor ! ResponseEvent[T](re, getEntity(re).get)
 
-  final def handleCreationMappingGet(re: RequestEvent) = re.controllerActor ! ResponseEvent(re, getTemplate(re))
+  final def handleCreationMappingGet(re: RequestEvent) = re.controllerActor ! ResponseEvent[T](re, getTemplate(re))
 
   final def handleCreationMappingPost(re: RequestEvent)(implicit system: ActorSystem) = {
     createEntity(re)
@@ -96,7 +96,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
   def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
   
   
-  def get(re: RequestEvent): ResponseEventBase = ListResponseEvent(re, getList(re))
+  def get(re: RequestEvent): ResponseEventBase = ListResponseEvent[List[T]](re, getList(re))
 
   def getMappings(cls: Class[_ <: DefaultResource[_, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
     val root = appModel.appRoute
@@ -117,7 +117,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
 
   def reply[U](requestEvent: RequestEvent, answer: Future[List[U]], c: List[U] => List[T]): Unit = {
     answer.onComplete {
-      case Success(s) => requestEvent.controllerActor ! ListResponseEvent(requestEvent, c.apply(s))
+      case Success(s) => requestEvent.controllerActor ! ListResponseEvent[List[T]](requestEvent, c.apply(s))
       case Failure(f) => println(s"failure $f")
     }
   }

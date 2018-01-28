@@ -27,7 +27,7 @@ Seq[Any](format.raw/*8.57*/("""
        <!-- <span>
    ***     """),_display_(/*18.13*/rep/*18.16*/.getString("")),format.raw/*18.30*/("""
         """),format.raw/*19.9*/("""</span>-->
-        <h1>Dashboard</h1>
+        <h1>Apps</h1>
         <!--<p class="lead">all notes:</p>-->
 
         <div class="row">
@@ -36,16 +36,18 @@ Seq[Any](format.raw/*8.57*/("""
                 """),format.raw/*26.17*/("""<div class="col">
                     <div class="card" style="width: 18rem;">
                         <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+
                         <div class="card-body">
-                            <h5 class="card-title">"""),_display_(/*30.53*/rep/*30.56*/.getString(s"[$i].name")),format.raw/*30.80*/("""</h5>
-                            <p class="card-text">"""),_display_(/*31.51*/rep/*31.54*/.getString(s"[$i].description")),format.raw/*31.85*/("""</p>
-                            <a href='"""),_display_(/*32.39*/rep/*32.42*/.getString(s"[$i].context")),format.raw/*32.69*/("""' class="btn btn-primary">Open</a>
+                            <h5 class="card-title"><i class="fa fa-adjust" aria-hidden="true"></i> """),_display_(/*31.101*/rep/*31.104*/.getString(s"[$i].name")),format.raw/*31.128*/("""</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">"""),_display_(/*32.72*/rep/*32.75*/.getString(s"[$i].version")),format.raw/*32.102*/("""</h6>
+                            <p class="card-text">"""),_display_(/*33.51*/rep/*33.54*/.getString(s"[$i].description")),format.raw/*33.85*/("""</p>
+                            <a href='"""),_display_(/*34.39*/rep/*34.42*/.getString(s"[$i].context")),format.raw/*34.69*/("""' class="btn btn-primary">Open</a>
                         </div>
                     </div>
                 </div>
-              """)))}),format.raw/*36.16*/("""
-            """)))}),format.raw/*37.14*/("""
-        """),format.raw/*38.9*/("""</div>
+              """)))}),format.raw/*38.16*/("""
+            """)))}),format.raw/*39.14*/("""
+        """),format.raw/*40.9*/("""</div>
 
     </div>
 </div>
@@ -66,11 +68,11 @@ Seq[Any](format.raw/*8.57*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Fri Jan 26 17:09:02 CET 2018
+                  DATE: Fri Jan 26 19:57:52 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.app.appboard/./src/io/skysail/server/app/appboard/AppsResource_Get.scala.html
-                  HASH: 3593e06089666fae9f8c8b405333b0c43dc57bab
-                  MATRIX: 185->193|545->209|695->264|724->267|747->281|787->283|816->285|952->394|964->397|999->411|1035->420|1186->544|1244->586|1284->588|1327->604|1378->646|1418->648|1463->665|1758->933|1770->936|1815->960|1898->1016|1910->1019|1962->1050|2032->1093|2044->1096|2092->1123|2254->1254|2299->1268|2335->1277
-                  LINES: 8->6|13->8|18->8|20->10|20->10|20->10|22->12|28->18|28->18|28->18|29->19|34->24|34->24|34->24|35->25|35->25|35->25|36->26|40->30|40->30|40->30|41->31|41->31|41->31|42->32|42->32|42->32|46->36|47->37|48->38
+                  HASH: 4b7442bd173066cb5a586a6e80eb1c18b7465b2e
+                  MATRIX: 185->193|545->209|695->264|724->267|747->281|787->283|816->285|952->394|964->397|999->411|1035->420|1181->539|1239->581|1279->583|1322->599|1373->641|1413->643|1458->660|1803->977|1816->980|1862->1004|1966->1081|1978->1084|2027->1111|2110->1167|2122->1170|2174->1201|2244->1244|2256->1247|2304->1274|2466->1405|2511->1419|2547->1428
+                  LINES: 8->6|13->8|18->8|20->10|20->10|20->10|22->12|28->18|28->18|28->18|29->19|34->24|34->24|34->24|35->25|35->25|35->25|36->26|41->31|41->31|41->31|42->32|42->32|42->32|43->33|43->33|43->33|44->34|44->34|44->34|48->38|49->39|50->40
                   -- GENERATED --
               */
           

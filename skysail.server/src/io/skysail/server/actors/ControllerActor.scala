@@ -1,8 +1,8 @@
 package io.skysail.server.actors
 
-import akka.actor.{Actor, ActorRef}
+import akka.actor.{ Actor, ActorRef }
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.{ContentNegotiator, MediaTypeNegotiator}
+import akka.http.scaladsl.server.{ ContentNegotiator, MediaTypeNegotiator }
 import akka.util.Timeout
 import io.skysail.domain._
 import io.skysail.domain.messages.ProcessCommand
@@ -10,15 +10,43 @@ import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.AsyncResource
 import io.skysail.server.RepresentationModel
 import io.skysail.server.actors.ApplicationActor._
-import org.json4s.JsonAST.{JArray, JString}
-import org.json4s.jackson.JsonMethods.{compact, render}
+import org.json4s.JsonAST.{ JArray, JString }
+import org.json4s.jackson.JsonMethods.{ compact, render }
 import org.json4s.jackson.Serialization
-import org.json4s.{DefaultFormats, Extraction, JObject, jackson}
+import org.json4s.{ DefaultFormats, Extraction, JObject, jackson }
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 import play.twirl.api.HtmlFormat
+import org.json4s.jackson.JsonMethods._
+import org.json4s.jackson.Serialization.write
 
 import scala.concurrent.duration.DurationInt
+import org.json4s.JsonAST.JValue
+import com.fasterxml.jackson.annotation.JsonProperty
+import org.json4s.CustomSerializer
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import org.json4s.FieldSerializer
+import io.skysail.api.ui.Link
+import io.skysail.api.Transformer
+import scala.reflect.runtime.universe._
+
+case class Person(name: String, lastLogin: ZonedDateTime) {
+  @JsonProperty
+  val test = "Test"
+  
+  val test2:List[Link] = List(Link("hi", "there"))
+
+  def test3() = "Test3"
+}
+
+case object ZDTSerializer extends CustomSerializer[ZonedDateTime](format => ( {
+  case JString(s) => ZonedDateTime.parse(s)
+}, {
+  case zdt: ZonedDateTime => JString(zdt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX")))
+}))
+
+//case object LinkSerializer extends FieldSerializer[Person] 
 
 object ControllerActor {
 
@@ -34,7 +62,7 @@ object ControllerActor {
 
 }
 
-class ControllerActor[T]() extends Actor {
+class ControllerActor() extends Actor {
 
   implicit val askTimeout: Timeout = 3.seconds
 
@@ -49,15 +77,14 @@ class ControllerActor[T]() extends Actor {
   def receive: Receive = in
 
   def in: Receive = {
-    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[_, T], bc: BundleContext) =>
+    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[_, _], bc: BundleContext) =>
       applicationActor = sender
       applicationModel = model
 
       log info s"  [IN] >>> COMMAND:  $cmd"
       log info s"  [IN] >>> MODEL:    $model"
-      log info s"  [IN] >>> RESOURCE: $resource"
+      //log info s"  [IN] >>> RESOURCE: $resource"
       log info s"  [IN] >>> ENTITY:   ${cmd.entity}"
-      
 
       resource.setActorContext(context)
       resource.setApplicationModel(model)
@@ -72,7 +99,7 @@ class ControllerActor[T]() extends Actor {
     case msg: Any => log info s"<<< IN <<<: received unknown message '$msg' in ${this.getClass.getName}"
   }
 
-  def out: Receive = {
+  def out[T:Manifest]: Receive = {
 
     case response: ListResponseEvent[T] =>
 
@@ -88,8 +115,13 @@ class ControllerActor[T]() extends Actor {
       implicit val serialization: Serialization.type = jackson.Serialization
 
       //val m = Marshal(response.entity.asInstanceOf[List[_]]).to[RequestEntity]
-      val e1 = Extraction.decompose(response.entity)
-      e1 match {
+      val e: T = response.entity
+      println(e)
+
+      //val written = org.json4s.jackson.Serialization.write[T](e)
+
+      val ast: JValue = Extraction.decompose(e)
+      ast match {
         case a: JArray =>
           val b: String = compact(render(a))
           println("YYY " + b)
@@ -105,16 +137,30 @@ class ControllerActor[T]() extends Actor {
     case response: ResponseEvent[T] =>
 
       log info s"  [OUT] >>> $response"
-
+      
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
 
-      implicit val formats: DefaultFormats.type = DefaultFormats
+      implicit val formats = DefaultFormats + ZDTSerializer + FieldSerializer[Person] ()
       implicit val serialization: Serialization.type = jackson.Serialization
 
-      val e1 = Extraction.decompose(response.entity)
+      val e: T = response.entity
+      println("class: "+ response.entity.getClass.getName)
+      println(e)
 
-      e1 match {
+      val john = Person("john", ZonedDateTime.now())
+      //val written = write(john)
+      println("+++"+Transformer.beanToJson(john))
+      
+      
+      val ast:JValue = Transformer.beanToJson(e)
+
+      println(ast)
+      //val written = org.json4s.jackson.Serialization.write(e)
+
+      //val e1 = Extraction.decompose(response.entity)
+
+      ast match {
         case a: JObject =>
           val b: String = compact(render(a))
 
@@ -174,13 +220,13 @@ class ControllerActor[T]() extends Actor {
         case _ => log warn "unmatched response"
       }
     } else {
-        log info s"        rendering fallback to json, could not load '$templateNames'"
-        handleJson(response, json)
+      log info s"        rendering fallback to json, could not load '$templateNames'"
+      handleJson(response, json)
     }
   }
 
   private def handleJson(response: ResponseEventBase, json: String): Unit = {
-    val e = HttpEntity(ContentType(MediaTypes.`application/json`),json)
+    val e = HttpEntity(ContentType(MediaTypes.`application/json`), json)
     val res = response.httpResponse.copy(entity = e)
     response match {
       case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, res)

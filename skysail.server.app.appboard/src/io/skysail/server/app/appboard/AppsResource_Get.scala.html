@@ -17,7 +17,7 @@
        <!-- <span>
    ***     @rep.getString("")
         </span>-->
-        <h1>Dashboard</h1>
+        <h1>Apps</h1>
         <!--<p class="lead">all notes:</p>-->
 
         <div class="row">
@@ -26,8 +26,10 @@
                 <div class="col">
                     <div class="card" style="width: 18rem;">
                         <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+
                         <div class="card-body">
-                            <h5 class="card-title">@rep.getString(s"[$i].name")</h5>
+                            <h5 class="card-title"><i class="fa fa-adjust" aria-hidden="true"></i> @rep.getString(s"[$i].name")</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@rep.getString(s"[$i].version")</h6>
                             <p class="card-text">@rep.getString(s"[$i].description")</p>
                             <a href='@rep.getString(s"[$i].context")' class="btn btn-primary">Open</a>
                         </div>

@@ -3,7 +3,6 @@ package io.skysail.server.demo.resources
 import java.util.UUID
 
 import akka.actor.{ActorSelection, ActorSystem}
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
@@ -11,19 +10,18 @@ import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{EntityResource, ListResource, PostResource, PutResource}
 import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.{Account, Bookmark, Pattern}
-import spray.json.{DefaultJsonProtocol, _}
+import io.skysail.server.demo.domain.{Bookmark, Pattern}
 
-trait JsonSupport7 extends SprayJsonSupport with DefaultJsonProtocol {
-  implicit val AccountFormat: RootJsonFormat[Account] = jsonFormat3(Account)
-  implicit val PatternFormat: RootJsonFormat[Pattern] = jsonFormat5(Pattern)
-}
+//trait JsonSupport7 extends SprayJsonSupport with DefaultJsonProtocol {
+//  implicit val AccountFormat: RootJsonFormat[Account] = jsonFormat3(Account)
+//  implicit val PatternFormat: RootJsonFormat[Pattern] = jsonFormat5(Pattern)
+//}
 
 class PatternsResource extends ListResource[DemoApplication, Pattern] {
   override def getList(re: RequestEvent): List[Pattern] = getApplication().patternRepo.find()
 }
 
-class PostPatternResource extends PostResource[DemoApplication, Pattern] with JsonSupport7 {
+class PostPatternResource extends PostResource[DemoApplication, Pattern] {
 
   def get(requestEvent: RequestEvent): ResponseEvent[Pattern] = {
     val f: Int => Boolean = { case _: Int => true }
@@ -70,7 +68,7 @@ class PatternResource extends EntityResource[DemoApplication, Pattern] {
   
 }
 
-class PutPatternResource extends PutResource[DemoApplication, Pattern] with JsonSupport7 {
+class PutPatternResource extends PutResource[DemoApplication, Pattern]  {
 
   override def get(requestEvent: RequestEvent): ResponseEvent[Pattern] = {
     val e = getApplication().patternRepo.find(requestEvent.cmd.urlParameter.head)

@@ -16,7 +16,11 @@ case class ResponseEvent[T](req: RequestEvent, entity: T, httpResponse: HttpResp
   extends ResponseEventBase
 
 case class ListResponseEvent[T](req: RequestEvent, entity: T, httpResponse: HttpResponse = HttpResponse(200))
-  extends ResponseEventBase
+  extends ResponseEventBase {
+
+  override def toString: String = s"ListResponseEvent(${httpResponse})"
+
+}
 
 
 case class HtmlResponseEvent(req: RequestEvent, entity: String, httpResponse: HttpResponse = HttpResponse(200))

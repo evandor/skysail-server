@@ -3,7 +3,6 @@ package io.skysail.server.demo.resources
 import java.util.UUID
 
 import akka.actor.{ActorSelection, ActorSystem}
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.RequestEvent
@@ -11,12 +10,11 @@ import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.Account
-import spray.json.{DefaultJsonProtocol, _}
 import org.slf4j.LoggerFactory
 
-trait JsonSupport4 extends SprayJsonSupport with DefaultJsonProtocol {
-  implicit val AccountFormat: RootJsonFormat[Account] = jsonFormat3(Account)
-}
+//trait JsonSupport4 extends SprayJsonSupport with DefaultJsonProtocol {
+//  implicit val AccountFormat: RootJsonFormat[Account] = jsonFormat3(Account)
+//}
 
 class AccountsResource extends DefaultResource[DemoApplication, Account] {
   

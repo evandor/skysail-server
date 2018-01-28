@@ -3,7 +3,7 @@ package io.skysail.db.orientdb
 import com.orientechnologies.orient.`object`.db.OObjectDatabaseTx
 import com.orientechnologies.orient.core.db.OPartitionedDatabasePool
 import com.orientechnologies.orient.core.record.impl.ODocument
-import com.orientechnologies.orient.core.sql.{ OCommandSQL, OSQLEngine }
+import com.orientechnologies.orient.core.sql.{OCommandSQL, OSQLEngine}
 import com.orientechnologies.orient.graph.sql.OGraphCommandExecutorSQLFactory
 import com.orientechnologies.orient.graph.sql.functions.OGraphFunctionFactory
 import com.tinkerpop.blueprints.impls.orient._
@@ -14,12 +14,7 @@ import org.json4s.jackson.JsonMethods._
 import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConverters._
-import com.orientechnologies.orient.core.index.OIndexes
-import com.orientechnologies.orient.core.db.ODatabaseDocumentInternal
-import com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal
-import com.orientechnologies.orient.core.command.traverse.OTraverse
-import com.orientechnologies.orient.core.id.ORecordId
-import com.orientechnologies.orient.core.sql.filter.OSQLPredicate
+import io.skysail.api.Transformer
 
 class OrientDbGraphService(url: String, user: String, pass: String) extends DbService {
 
@@ -148,13 +143,12 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
   }
   
   private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T]): T = {
-    val json = doc.toJSON("fetchPlan:*:-1")
-    println(json)
-    val ast = parse(json)
-    println(ast)
-    implicit val formats = DefaultFormats
-    // println("AST" + ast)
-    ast.extract[T]
+//    val json: String = doc.toJSON("fetchPlan:*:-1")
+//    val ast = parse(json)
+//    implicit val formats = DefaultFormats
+//    ast.extract[T]
+
+    Transformer.jsonStringToBean(doc.toJSON("fetchPlan:*:-1"))
   }
 
   private def executeCommand[T](sql: String): OrientDynaElementIterable = {

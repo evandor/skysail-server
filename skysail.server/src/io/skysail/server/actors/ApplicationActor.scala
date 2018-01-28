@@ -55,8 +55,8 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
     // tag::resourceInstance[]
     case cmd: ProcessCommand => {
 
-      log info s"[IN] >>> COMMAND:    $cmd"
-      log info s"[IN] >>> ENTITY:     ${cmd.entity}"
+      log info s"COMMAND: $cmd"
+      //log info s"[IN] >>> ENTITY:     ${cmd.entity}"
 
       val routesCreator = sender()
       val resourceInstance = cmd.mapping.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
@@ -100,7 +100,7 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
   }
 
   private def createController = {
-    context.actorOf(Props.apply(classOf[ControllerActor[String]]), "controllerActor$" + cnt.getAndIncrement)
+    context.actorOf(Props.apply(classOf[ControllerActor]), "controllerActor$" + cnt.getAndIncrement)
   }
 
 

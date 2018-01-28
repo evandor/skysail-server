@@ -3,11 +3,23 @@ package io.skysail.server.demo.domain
 import java.util.Date
 
 import io.skysail.api.ddd.Entity
+import io.skysail.api.ui.Link
+import com.fasterxml.jackson.annotation.JsonGetter
 
+//@JsonProperty(value = "_links")
 case class Account(
                     id: Option[String],
                     title: String,
-                    balance: Int = 0) extends Entity[String]
+                    balance: Int = 0
+                    //_links:List[Link] = List(Link("self", "hier"))
+                  ) { //extends Entity[String] {
+
+//  @JsonGetter
+//  val links = List(Link("self", "hier"))
+
+  val test2:List[Link] = List(Link("hi", "there"))
+
+}
 
 case class OrientAccount(
     id: String,
