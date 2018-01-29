@@ -18,6 +18,9 @@ import org.osgi.framework.BundleContext
 import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Success}
 
+import scala.reflect.runtime.{universe => ru}
+import ru._
+
 object ApplicationActor {
 
   case class GetAppModel()
@@ -60,7 +63,7 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
 
       val routesCreator = sender()
       val resourceInstance = cmd.mapping.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
-      val controllerActor = createController
+      val controllerActor = createController(cmd.mapping.resourceClass)
 
       val skysailContext = SkysailContext(cmd, appModel, resourceInstance, bundleContext)
       val res = (controllerActor ? skysailContext).mapTo[ResponseEventBase]
@@ -99,9 +102,19 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
     }
   }
 
-  private def createController = {
+  private def createController(res: Class[_ <: SkysailResource[_, _]]) = {
+    //typeOf[res]
     context.actorOf(Props.apply(classOf[ControllerActor]), "controllerActor$" + cnt.getAndIncrement)
   }
 
+  private def createInstance(tpe:Type): Any = {
+    val mirror = ru.runtimeMirror(getClass.getClassLoader)
+    val clsSym = tpe.typeSymbol.asClass
+    val clsMirror = mirror.reflectClass(clsSym)
+    val ctorSym = tpe.decl(ru.termNames.CONSTRUCTOR).asMethod
+    val ctorMirror = clsMirror.reflectConstructor(ctorSym)
+    val instance = ctorMirror()
+    return instance
+}
 
 }
