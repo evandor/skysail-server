@@ -71,7 +71,7 @@ class BookmarksResourceTest(_system: ActorSystem)
 
 
   "a post request on postResource" should "return nonNull response event" in {
-    val p: Props = Props.apply(classOf[ControllerActor[String]])//, testProbe.ref)
+    val p: Props = Props.apply(classOf[ControllerActor])//, testProbe.ref)
     val ca = system.actorOf(p)
     var ctx = Mockito.mock(classOf[RequestContext])
     var request = HttpRequest() //Mockito.mock(classOf[HttpRequest])
@@ -90,7 +90,7 @@ class BookmarksResourceTest(_system: ActorSystem)
 
   "a put request on putResource" should "return nonNull response event" in {
     var bookmark = Bookmark(Some("abc"), "new", "value")
-    val ca = system.actorOf(Props.apply(classOf[ControllerActor[String]]))
+    val ca = system.actorOf(Props.apply(classOf[ControllerActor]))
     val re: RequestEvent = new RequestEvent(ProcessCommand(null, null, null, List("abc"), null, bookmark), ca)
     val res: Unit = putBmr.put(re)
     verify(dbService).persist(bookmark, app.appModel)
