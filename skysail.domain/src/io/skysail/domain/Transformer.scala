@@ -24,13 +24,19 @@ object Transformer {
   }
 
   def beanToJson[T: Manifest](bean: T): JValue = {
-    
+    implicit val serialization: Serialization.type = jackson.Serialization
+    implicit val formats = DefaultFormats + FieldSerializer[T]()
+    Extraction.decompose(bean)
+  }
+
+  def listToJson[T: Manifest](bean: List[T]): JValue = {
+
     implicit val serialization: Serialization.type = jackson.Serialization
     implicit val formats = DefaultFormats + FieldSerializer[T]()
     println(bean)
     //val john = Person("john", ZonedDateTime.now())
 
-    
+
     val e1 = Extraction.decompose(bean)
 
     //val written = write(bean)

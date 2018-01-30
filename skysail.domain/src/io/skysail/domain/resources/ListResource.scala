@@ -27,12 +27,12 @@ abstract class ListResource[S <: ApplicationApi, T: TypeTag] extends AsyncResour
 
   def getList(requestEvent: RequestEvent): List[T] = List()
 
-  def reply(requestEvent: RequestEvent, answer: Future[List[_]]): Unit = {
-    answer.onComplete {
-      case Success(s) => requestEvent.controllerActor ! ListResponseEvent(requestEvent, answer)
-      case Failure(f) => println(s"failure $f")
-    }
-  }
+//  def reply(requestEvent: RequestEvent, answer: Future[List[_]]): Unit = {
+//    answer.onComplete {
+//      case Success(s) => requestEvent.controllerActor ! ListResponseEvent(requestEvent, answer)
+//      case Failure(f) => println(s"failure $f")
+//    }
+//  }
 
   def reply[U](requestEvent: RequestEvent, answer: Future[List[U]], c: List[U] => List[T]): Unit = {
     answer.onComplete {

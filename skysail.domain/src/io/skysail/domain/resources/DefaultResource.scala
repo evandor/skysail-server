@@ -34,6 +34,14 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
   
   val entityManifest: Manifest[T] = Transformer.toManifest
 
+//  val listManifest: Manifest[List[T]] = {
+//    try {
+//      Transformer.toManifest
+//    } catch {
+//      case _:Any => println("no list manifest for " +  typeOf[T]); null
+//    }
+//  }
+
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     // tag::methodMatch[]
 
@@ -62,7 +70,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
 
   final def handleListRouteMapping(re: RequestEvent) = {
     val list = getList(re)
-    re.controllerActor ! ListResponseEvent[List[T]](re, list)//, entityManifest)
+    re.controllerActor ! ListResponseEvent[T](re, list, entityManifest)
   }
 
   final def handleEntityMapping(re: RequestEvent) = {
@@ -107,7 +115,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
   def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
   
   
-  def get(re: RequestEvent): ResponseEventBase = ListResponseEvent[List[T]](re, getList(re))
+  def get(re: RequestEvent): ResponseEventBase = ListResponseEvent[T](re, getList(re))
 
   def getMappings(cls: Class[_ <: DefaultResource[_, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
     val root = appModel.appRoute
@@ -119,19 +127,19 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
       UpdateMapping(s"/${entityName}s/:id/", root / PathMatcher(s"${entityName}s") / Segment / PathEnd, cls.asInstanceOf[Class[SkysailResource[_, T]]]))
   }
 
-  def reply(requestEvent: RequestEvent, answer: Future[List[_]]): Unit = {
-    answer.onComplete {
-      case Success(s) => requestEvent.controllerActor ! ListResponseEvent(requestEvent, answer)
-      case Failure(f) => println(s"failure $f")
-    }
-  }
-
-  def reply[U](requestEvent: RequestEvent, answer: Future[List[U]], c: List[U] => List[T]): Unit = {
-    answer.onComplete {
-      case Success(s) => requestEvent.controllerActor ! ListResponseEvent[List[T]](requestEvent, c.apply(s))
-      case Failure(f) => println(s"failure $f")
-    }
-  }
+//  def reply(requestEvent: RequestEvent, answer: Future[List[_]]): Unit = {
+//    answer.onComplete {
+//      case Success(s) => requestEvent.controllerActor ! ListResponseEvent(requestEvent, answer)
+//      case Failure(f) => println(s"failure $f")
+//    }
+//  }
+//
+//  def reply[U](requestEvent: RequestEvent, answer: Future[List[U]], c: List[U] => List[T]): Unit = {
+//    answer.onComplete {
+//      case Success(s) => requestEvent.controllerActor ! ListResponseEvent[List[T]](requestEvent, c.apply(s))
+//      case Failure(f) => println(s"failure $f")
+//    }
+//  }
   
   
 
