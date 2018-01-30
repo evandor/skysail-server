@@ -15,6 +15,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.reflect.runtime.universe._
 import scala.util.{ Failure, Success }
+import org.json4s.JsonAST.JValue
+import scala.reflect.ClassTag
+import scala.reflect.ManifestFactory
 
 /**
  * A DefaultResource[S,T] provides a list of route mappings to list, show, create, update and delete
@@ -57,7 +60,15 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
 
   final def handleListRouteMapping(re: RequestEvent) = re.controllerActor ! ListResponseEvent[List[T]](re, getList(re))
 
-  final def handleEntityMapping(re: RequestEvent) = re.controllerActor ! ResponseEvent[T](re, getEntity(re).get)
+  final def handleEntityMapping(re: RequestEvent) = {
+    val entity = getEntity(re).get
+    
+    val m = toManifest
+    
+    val json: JValue = Transformer.beanToJson(entity)(m)
+    println("hier: " + json)
+    re.controllerActor ! ResponseEvent[T](re, entity)
+  }
 
   final def handleCreationMappingGet(re: RequestEvent) = re.controllerActor ! ResponseEvent[T](re, getTemplate(re))
 
@@ -120,6 +131,24 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
       case Success(s) => requestEvent.controllerActor ! ListResponseEvent[List[T]](requestEvent, c.apply(s))
       case Failure(f) => println(s"failure $f")
     }
+  }
+  
+  private def toManifest[T:TypeTag]: Manifest[T] = {
+    val t = typeTag[T]
+    val mirror = t.mirror
+    def toManifestRec(t: Type): Manifest[_] = {
+      val clazz = ClassTag[T](mirror.runtimeClass(t)).runtimeClass
+      if (t.typeArgs.length == 1) {
+        val arg = toManifestRec(t.typeArgs.head)
+        ManifestFactory.classType(clazz, arg)
+      } else if (t.typeArgs.length > 1) {
+        val args = t.typeArgs.map(x => toManifestRec(x))
+        ManifestFactory.classType(clazz, args.head, args.tail: _*)
+      } else {
+        ManifestFactory.classType(clazz)
+      }
+    }
+    toManifestRec(t.tpe).asInstanceOf[Manifest[T]]
   }
 
 }

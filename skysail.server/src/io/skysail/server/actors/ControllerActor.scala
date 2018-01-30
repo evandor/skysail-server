@@ -150,7 +150,8 @@ class ControllerActor() extends Actor {
 
       val john = Person("john", ZonedDateTime.now())
       //val written = write(john)
-      println("+++"+Transformer.beanToJson(john))
+      val v = Transformer.beanToJson(john)
+      println("+++"+v)
       
       
       val ast:JValue = Transformer.beanToJson(e)
