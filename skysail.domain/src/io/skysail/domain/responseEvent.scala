@@ -15,7 +15,7 @@ sealed trait ResponseEventBase {
 case class ResponseEvent[T](req: RequestEvent, entity: T, entityManifest: Manifest[T] = null, httpResponse: HttpResponse = HttpResponse(200))
   extends ResponseEventBase
 
-case class ListResponseEvent[T](req: RequestEvent, entity: T, httpResponse: HttpResponse = HttpResponse(200))
+case class ListResponseEvent[T](req: RequestEvent, entity: T, /*entityManifest: Manifest[S] = null,*/ httpResponse: HttpResponse = HttpResponse(200))
   extends ResponseEventBase {
 
   override def toString: String = s"ListResponseEvent(${httpResponse})"

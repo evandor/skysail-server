@@ -60,12 +60,13 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
 
   }
 
-  final def handleListRouteMapping(re: RequestEvent) = re.controllerActor ! ListResponseEvent[List[T]](re, getList(re))
+  final def handleListRouteMapping(re: RequestEvent) = {
+    val list = getList(re)
+    re.controllerActor ! ListResponseEvent[List[T]](re, list)//, entityManifest)
+  }
 
   final def handleEntityMapping(re: RequestEvent) = {
     val entity = getEntity(re).get
-    //val json: JValue = Transformer.beanToJson(entity)(entityManifest)
-    //println("hier: " + json)
     re.controllerActor ! ResponseEvent[T](re, entity, entityManifest)
   }
 

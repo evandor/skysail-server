@@ -99,9 +99,9 @@ class ControllerActor() extends Actor {
     case msg: Any => log info s"<<< IN <<<: received unknown message '$msg' in ${this.getClass.getName}"
   }
 
-  def out[T:Manifest]: Receive = {
+  def out: Receive = {
 
-    case response: ListResponseEvent[T] =>
+    case response: ListResponseEvent[_] =>
 
       log info s"  [OUT] >>> $response"
 
@@ -114,13 +114,12 @@ class ControllerActor() extends Actor {
       implicit val formats: DefaultFormats.type = DefaultFormats
       implicit val serialization: Serialization.type = jackson.Serialization
 
-      //val m = Marshal(response.entity.asInstanceOf[List[_]]).to[RequestEntity]
-      val e: T = response.entity
-      println(e)
+      val ast:JValue = if (response.entityManifest != null) {
+        Transformer.beanToJson(response.entity)(response.entityManifest)
+      } else {
+        Transformer.beanToJson(response.entity)
+      }
 
-      //val written = org.json4s.jackson.Serialization.write[T](e)
-
-      val ast: JValue = Extraction.decompose(e)
       ast match {
         case a: JArray =>
           val b: String = compact(render(a))
@@ -134,7 +133,7 @@ class ControllerActor() extends Actor {
         case _ => log warn "unknown match"
       }
 
-    case response: ResponseEvent[T] =>
+    case response: ResponseEvent[_] =>
 
       log info s"  [OUT] >>> $response"
       
@@ -207,7 +206,7 @@ class ControllerActor() extends Actor {
 
     if (answer.isDefined) {
       response match {
-        case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, response.httpResponse.copy(entity = answer.get))
+        case ListResponseEvent(req, _,_, _) => applicationActor ! ListResponseEvent(req, response.entity,null,  response.httpResponse.copy(entity = answer.get))
         case ResponseEvent(req, _, _, _) => applicationActor ! ResponseEvent(req, response.entity, null, response.httpResponse.copy(entity = answer.get))
         case _ => log warn "unmatched response"
       }
@@ -221,7 +220,7 @@ class ControllerActor() extends Actor {
     val e = HttpEntity(ContentType(MediaTypes.`application/json`), json)
     val res = response.httpResponse.copy(entity = e)
     response match {
-      case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, res)
+      case ListResponseEvent(req, _, _, _) => applicationActor ! ListResponseEvent(req, response.entity, null, res)
       case ResponseEvent(req, _, _,_) => applicationActor ! ResponseEvent(req, response.entity, null, res)
       case _ => log warn "unmatched response"
     }
