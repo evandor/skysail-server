@@ -12,10 +12,6 @@ import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.Account
 import org.slf4j.LoggerFactory
 
-//trait JsonSupport4 extends SprayJsonSupport with DefaultJsonProtocol {
-//  implicit val AccountFormat: RootJsonFormat[Account] = jsonFormat3(Account)
-//}
-
 class AccountsResource extends DefaultResource[DemoApplication, Account] {
   
   private val log = LoggerFactory.getLogger(this.getClass)

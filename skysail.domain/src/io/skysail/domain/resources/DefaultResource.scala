@@ -1,6 +1,6 @@
 package io.skysail.domain.resources
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor.{ActorRef, ActorSystem}
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
@@ -11,13 +11,7 @@ import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.routes._
 import org.slf4j.LoggerFactory
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import scala.reflect.runtime.universe._
-import scala.util.{ Failure, Success }
-import org.json4s.JsonAST.JValue
-import scala.reflect.ClassTag
-import scala.reflect.ManifestFactory
 
 /**
  * A DefaultResource[S,T] provides a list of route mappings to list, show, create, update and delete
@@ -25,8 +19,8 @@ import scala.reflect.ManifestFactory
  *
  * It handles associated requests to the endpoints of the mappings.
  *
- * @param <S> the backend application serving the resource
- * @param <T> the entity associated with the resource, typically an aggregate root
+ * S the backend application serving the resource
+ * T the entity associated with the resource, typically an aggregate root
  */
 abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
 
@@ -34,17 +28,8 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
   
   val entityManifest: Manifest[T] = Transformer.toManifest
 
-//  val listManifest: Manifest[List[T]] = {
-//    try {
-//      Transformer.toManifest
-//    } catch {
-//      case _:Any => println("no list manifest for " +  typeOf[T]); null
-//    }
-//  }
-
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     // tag::methodMatch[]
-
     cmd.mapping match {
       case c: ListRouteMapping[_, _] => handleListRouteMapping(RequestEvent(cmd, controller))
       case c: EntityMapping[_, _] => handleEntityMapping(RequestEvent(cmd, controller))
@@ -97,8 +82,6 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
     re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterPut(re))
     
   }
-  
-  
 
   def getList(requestEvent: RequestEvent): List[T]
 
@@ -120,27 +103,13 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
   def getMappings(cls: Class[_ <: DefaultResource[_, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
     val root = appModel.appRoute
     val entityName = typeOf[T].typeSymbol.name.toString().toLowerCase()
+    val theClass = cls.asInstanceOf[Class[SkysailResource[_, T]]]
     List(
-      ListRouteMapping(s"/${entityName}s", root / PathMatcher(s"${entityName}s") ~ PathEnd, cls.asInstanceOf[Class[SkysailResource[_, T]]]),
-      CreationMapping(s"/${entityName}s/", root / PathMatcher(s"${entityName}s") / PathEnd, cls.asInstanceOf[Class[SkysailResource[_, T]]]),
-      EntityMapping(s"/${entityName}s/:id", root / PathMatcher(s"${entityName}s") / Segment ~ PathEnd, cls.asInstanceOf[Class[SkysailResource[_, T]]]),
-      UpdateMapping(s"/${entityName}s/:id/", root / PathMatcher(s"${entityName}s") / Segment / PathEnd, cls.asInstanceOf[Class[SkysailResource[_, T]]]))
+      ListRouteMapping(s"/${entityName}s", root / PathMatcher(s"${entityName}s") ~ PathEnd, theClass),
+      CreationMapping(s"/${entityName}s/", root / PathMatcher(s"${entityName}s") / PathEnd, theClass),
+      EntityMapping(s"/${entityName}s/:id", root / PathMatcher(s"${entityName}s") / Segment ~ PathEnd,  theClass),
+      UpdateMapping(s"/${entityName}s/:id/", root / PathMatcher(s"${entityName}s") / Segment / PathEnd, theClass)
+    s)
   }
-
-//  def reply(requestEvent: RequestEvent, answer: Future[List[_]]): Unit = {
-//    answer.onComplete {
-//      case Success(s) => requestEvent.controllerActor ! ListResponseEvent(requestEvent, answer)
-//      case Failure(f) => println(s"failure $f")
-//    }
-//  }
-//
-//  def reply[U](requestEvent: RequestEvent, answer: Future[List[U]], c: List[U] => List[T]): Unit = {
-//    answer.onComplete {
-//      case Success(s) => requestEvent.controllerActor ! ListResponseEvent[List[T]](requestEvent, c.apply(s))
-//      case Failure(f) => println(s"failure $f")
-//    }
-//  }
-  
-  
 
 }

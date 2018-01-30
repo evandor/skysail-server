@@ -58,7 +58,7 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
     // tag::resourceInstance[]
     case cmd: ProcessCommand => {
 
-      log info s"COMMAND: $cmd"
+      log debug s"COMMAND: $cmd"
       //log info s"[IN] >>> ENTITY:     ${cmd.entity}"
 
       val routesCreator = sender()

@@ -1,35 +1,29 @@
 package io.skysail.server.actors
 
-import akka.actor.{ Actor, ActorRef }
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
+import akka.actor.{Actor, ActorRef}
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.{ ContentNegotiator, MediaTypeNegotiator }
+import akka.http.scaladsl.server.{ContentNegotiator, MediaTypeNegotiator}
 import akka.util.Timeout
-import io.skysail.domain._
+import com.fasterxml.jackson.annotation.JsonProperty
+import io.skysail.api.ui.Link
+import io.skysail.domain.{Transformer, _}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.AsyncResource
 import io.skysail.server.RepresentationModel
 import io.skysail.server.actors.ApplicationActor._
-import org.json4s.JsonAST.{ JArray, JString }
-import org.json4s.jackson.JsonMethods.{ compact, render }
+import org.json4s.JsonAST.{JArray, JString, JValue}
+import org.json4s.jackson.JsonMethods.{compact, render}
 import org.json4s.jackson.Serialization
-import org.json4s.{ DefaultFormats, Extraction, JObject, jackson }
+import org.json4s.{CustomSerializer, DefaultFormats, FieldSerializer, JObject, jackson}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 import play.twirl.api.HtmlFormat
-import org.json4s.jackson.JsonMethods._
-import org.json4s.jackson.Serialization.write
 
 import scala.concurrent.duration.DurationInt
-import org.json4s.JsonAST.JValue
-import com.fasterxml.jackson.annotation.JsonProperty
-import org.json4s.CustomSerializer
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import org.json4s.FieldSerializer
-import io.skysail.api.ui.Link
-import io.skysail.domain.Transformer
-import scala.reflect.runtime.universe._
 
 case class Person(name: String, lastLogin: ZonedDateTime) {
   @JsonProperty
@@ -81,10 +75,10 @@ class ControllerActor() extends Actor {
       applicationActor = sender
       applicationModel = model
 
-      log info s"  [IN] >>> COMMAND:  $cmd"
-      log info s"  [IN] >>> MODEL:    $model"
+      log debug s"  [IN] >>> COMMAND:  $cmd"
+      log debug s"  [IN] >>> MODEL:    $model"
       //log info s"  [IN] >>> RESOURCE: $resource"
-      log info s"  [IN] >>> ENTITY:   ${cmd.entity}"
+      log debug s"  [IN] >>> ENTITY:   ${cmd.entity}"
 
       resource.setActorContext(context)
       resource.setApplicationModel(model)
@@ -103,7 +97,7 @@ class ControllerActor() extends Actor {
 
     case response: ListResponseEvent[T] =>
 
-      log info s"  [OUT] >>> $response"
+      log debug s"  [OUT] >>> $response"
 
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
@@ -124,7 +118,7 @@ class ControllerActor() extends Actor {
       ast match {
         case a: JArray =>
           val b: String = compact(render(a))
-          println("YYY " + b)
+          //println("YYY " + b)
           if (negotiator.isAccepted(MediaTypes.`text/html`)) {
             handleHtmlWithFallback(response, b)
           } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
@@ -136,7 +130,7 @@ class ControllerActor() extends Actor {
 
     case response: ResponseEvent[T] =>
 
-      log info s"  [OUT] >>> $response"
+      log debug s"  [OUT] >>> $response"
       
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
@@ -173,11 +167,11 @@ class ControllerActor() extends Actor {
           applicationActor ! response
       }
     case response: HtmlResponseEvent =>
-      log info s"  [OUT] >>> $response"
+      log debug s"  [OUT] >>> $response"
       val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, response.entity)
       applicationActor ! response.copy(entity = response.entity, httpResponse = response.httpResponse.copy(entity = answer))
     case response: RedirectResponseEvent =>
-      log info s"  [OUT] >>> $response"
+      log debug s"  [OUT] >>> $response"
       val answer = HttpEntity(ContentTypes.`text/html(UTF-8)`, response.entity)
       val uri = response.redirectTo.getOrElse("/").toString
       applicationActor ! response.copy(
@@ -188,12 +182,12 @@ class ControllerActor() extends Actor {
           headers = headers.Location(akka.http.scaladsl.model.Uri(uri)) :: Nil,
           entity = answer))
     case response: AsyncResponseEvent =>
-      log info s"  [OUT] >>> $response"
+      log debug s"  [OUT] >>> $response"
       log info s"async response event, no action needed"
 
     case msg: Any =>
       log warn "============================================================================"
-      log info s"  [OUT] >>> $msg' in ${this.getClass.getName}"
+      log warn s"  [OUT] >>> $msg' in ${this.getClass.getName}"
       log warn "============================================================================"
   }
 
@@ -212,7 +206,7 @@ class ControllerActor() extends Actor {
         case _ => log warn "unmatched response"
       }
     } else {
-      log info s"        rendering fallback to json, could not load '$templateNames'"
+      log debug s"        rendering fallback to json, could not load '$templateNames'"
       handleJson(response, json)
     }
   }
@@ -247,7 +241,7 @@ class ControllerActor() extends Actor {
       val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
     } catch {
-      case ex: Exception => log info s"problem: ${ex.getMessage}"; /*ex.printStackTrace();*/ None
+      case ex: Exception => log debug s"problem: ${ex.getMessage}"; /*ex.printStackTrace();*/ None
     }
   }
 
