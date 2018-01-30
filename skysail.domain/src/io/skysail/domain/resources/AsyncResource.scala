@@ -10,12 +10,15 @@ import io.skysail.domain.{RequestEvent, ResponseEventBase, SkysailResource}
 
 import scala.concurrent.duration.DurationInt
 import scala.reflect.runtime.universe._
+import io.skysail.domain.Transformer
 
 abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
   extends SkysailResource[S, T]
     with ActorContextAware {
 
   implicit val timeout: Timeout = 3.seconds
+
+  //val entityManifest: Manifest[T] = Transformer.toManifest
 
   def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit
 

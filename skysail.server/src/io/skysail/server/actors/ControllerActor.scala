@@ -28,7 +28,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import org.json4s.FieldSerializer
 import io.skysail.api.ui.Link
-import io.skysail.api.Transformer
+import io.skysail.domain.Transformer
 import scala.reflect.runtime.universe._
 
 case class Person(name: String, lastLogin: ZonedDateTime) {
@@ -144,22 +144,13 @@ class ControllerActor() extends Actor {
       implicit val formats = DefaultFormats + ZDTSerializer + FieldSerializer[Person] ()
       implicit val serialization: Serialization.type = jackson.Serialization
 
-      val e: T = response.entity
-      println("class: "+ response.entity.getClass.getName)
-      println(e)
+      val ast:JValue = if (response.entityManifest != null) {
+        Transformer.beanToJson(response.entity)(response.entityManifest)
+      } else {
+        Transformer.beanToJson(response.entity)
+      }
 
-      val john = Person("john", ZonedDateTime.now())
-      //val written = write(john)
-      val v = Transformer.beanToJson(john)
-      println("+++"+v)
-      
-      
-      val ast:JValue = Transformer.beanToJson(e)
-
-      println(ast)
-      //val written = org.json4s.jackson.Serialization.write(e)
-
-      //val e1 = Extraction.decompose(response.entity)
+      //println(ast)
 
       ast match {
         case a: JObject =>
@@ -217,7 +208,7 @@ class ControllerActor() extends Actor {
     if (answer.isDefined) {
       response match {
         case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, response.httpResponse.copy(entity = answer.get))
-        case ResponseEvent(req, _, _) => applicationActor ! ResponseEvent(req, response.entity, response.httpResponse.copy(entity = answer.get))
+        case ResponseEvent(req, _, _, _) => applicationActor ! ResponseEvent(req, response.entity, null, response.httpResponse.copy(entity = answer.get))
         case _ => log warn "unmatched response"
       }
     } else {
@@ -231,7 +222,7 @@ class ControllerActor() extends Actor {
     val res = response.httpResponse.copy(entity = e)
     response match {
       case ListResponseEvent(req, _, _) => applicationActor ! ListResponseEvent(req, response.entity, res)
-      case ResponseEvent(req, _, _) => applicationActor ! ResponseEvent(req, response.entity, res)
+      case ResponseEvent(req, _, _,_) => applicationActor ! ResponseEvent(req, response.entity, null, res)
       case _ => log warn "unmatched response"
     }
   }

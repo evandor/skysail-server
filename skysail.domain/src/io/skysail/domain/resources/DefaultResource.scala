@@ -31,6 +31,8 @@ import scala.reflect.ManifestFactory
 abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
+  
+  val entityManifest: Manifest[T] = Transformer.toManifest
 
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     // tag::methodMatch[]
@@ -62,12 +64,9 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
 
   final def handleEntityMapping(re: RequestEvent) = {
     val entity = getEntity(re).get
-    
-    val m = toManifest
-    
-    val json: JValue = Transformer.beanToJson(entity)(m)
-    println("hier: " + json)
-    re.controllerActor ! ResponseEvent[T](re, entity)
+    //val json: JValue = Transformer.beanToJson(entity)(entityManifest)
+    //println("hier: " + json)
+    re.controllerActor ! ResponseEvent[T](re, entity, entityManifest)
   }
 
   final def handleCreationMappingGet(re: RequestEvent) = re.controllerActor ! ResponseEvent[T](re, getTemplate(re))
@@ -133,22 +132,6 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
     }
   }
   
-  private def toManifest[T:TypeTag]: Manifest[T] = {
-    val t = typeTag[T]
-    val mirror = t.mirror
-    def toManifestRec(t: Type): Manifest[_] = {
-      val clazz = ClassTag[T](mirror.runtimeClass(t)).runtimeClass
-      if (t.typeArgs.length == 1) {
-        val arg = toManifestRec(t.typeArgs.head)
-        ManifestFactory.classType(clazz, arg)
-      } else if (t.typeArgs.length > 1) {
-        val args = t.typeArgs.map(x => toManifestRec(x))
-        ManifestFactory.classType(clazz, args.head, args.tail: _*)
-      } else {
-        ManifestFactory.classType(clazz)
-      }
-    }
-    toManifestRec(t.tpe).asInstanceOf[Manifest[T]]
-  }
+  
 
 }

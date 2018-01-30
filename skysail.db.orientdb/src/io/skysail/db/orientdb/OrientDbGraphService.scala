@@ -14,7 +14,7 @@ import org.json4s.jackson.JsonMethods._
 import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConverters._
-import io.skysail.api.Transformer
+import io.skysail.domain.Transformer
 
 class OrientDbGraphService(url: String, user: String, pass: String) extends DbService {
 

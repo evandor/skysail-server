@@ -5,6 +5,11 @@ import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson.Serialization.read
 import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
+import scala.reflect.runtime.universe._
+import scala.util.{ Failure, Success }
+import org.json4s.JsonAST.JValue
+import scala.reflect.ClassTag
+import scala.reflect.ManifestFactory
 
 object Transformer {
 
@@ -33,4 +38,21 @@ object Transformer {
     e1
   }
 
+  def toManifest[T:TypeTag]: Manifest[T] = {
+    val t = typeTag[T]
+    val mirror = t.mirror
+    def toManifestRec(t: Type): Manifest[_] = {
+      val clazz = ClassTag[T](mirror.runtimeClass(t)).runtimeClass
+      if (t.typeArgs.length == 1) {
+        val arg = toManifestRec(t.typeArgs.head)
+        ManifestFactory.classType(clazz, arg)
+      } else if (t.typeArgs.length > 1) {
+        val args = t.typeArgs.map(x => toManifestRec(x))
+        ManifestFactory.classType(clazz, args.head, args.tail: _*)
+      } else {
+        ManifestFactory.classType(clazz)
+      }
+    }
+    toManifestRec(t.tpe).asInstanceOf[Manifest[T]]
+  }
 }
