@@ -10,7 +10,7 @@ import io.skysail.api.ui.{Link, Linkable}
 case class Bookmark(
                      id: Option[String],
                      title: String, url: String,
-                     variants:List[Bookmark] = List()) extends Entity[String] with Linkable {
+                     variants: List[Bookmark] = List()) extends Entity[String] with Linkable {
 
   override def _links = List(Link("self", "hier"))
 
@@ -20,6 +20,10 @@ case class Bookmark(
   //val variants1 = "xxx"
 
 }
+
+case class BookmarkList(
+                         bookmarks: List[Bookmark]
+                       )
 
 //class BookmarkWithVariants(id: String, title: String, url: String, val hits: Seq[(String, List[String])])
 //  extends Bookmark(Some(id), title, url) {

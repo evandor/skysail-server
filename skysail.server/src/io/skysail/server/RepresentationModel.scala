@@ -3,12 +3,12 @@ package io.skysail.server
 import akka.http.scaladsl.model.Uri
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.skysail.domain.ResponseEventBase
-import io.skysail.domain.model.{ ApplicationModel, EntityModel }
+import io.skysail.domain.model.{ApplicationModel, EntityModel}
 import org.json4s.JsonAST.JArray
 import org.json4s.jackson.JsonMethods._
-import org.json4s.{ DefaultFormats, Extraction, JObject, JValue, jackson }
+import org.json4s.{DefaultFormats, Extraction, JObject, JValue, jackson}
 import org.slf4j.LoggerFactory
-import io.gatling.jsonpath.JsonPath
+import io.gatling.jsonpath.{JPError, JsonPath}
 
 class RepresentationModel(
   val response: ResponseEventBase,
@@ -47,6 +47,14 @@ class RepresentationModel(
     queryResult.fold(
       ex => "Operation failed with " + ex,
       v => if (v.hasNext) v.next().toString else "*!*")    
+  }
+
+  def itemsOf(path: String): Iterator[Any] = {
+    val queryResult = JsonPath.query("$" + path, jsonObject)
+    queryResult.fold(
+      ex => List[Any]().iterator,
+      v => v
+    )
   }
 
   private def deriveRawData(): List[Map[String, Any]] = {

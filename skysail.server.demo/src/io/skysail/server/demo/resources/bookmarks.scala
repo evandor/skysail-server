@@ -11,7 +11,7 @@ import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{AsyncResource, ListResource, PostResource, PutResource}
 import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent}
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.Bookmark
+import io.skysail.server.demo.domain.{Bookmark, BookmarkList}
 import spray.json.{DefaultJsonProtocol, _}
 
 import scala.util.matching.Regex
@@ -22,8 +22,11 @@ trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val bookmarkFormat: RootJsonFormat[Bookmark] = jsonFormat4(Bookmark)
 }
 
-class BookmarksResource extends ListResource[DemoApplication, Bookmark] {
-  override def getList(re: RequestEvent): List[Bookmark] = getApplication().repo.find()
+//class BookmarksResource extends ListResource[DemoApplication, Bookmark] {
+class BookmarksResource extends EntityResource[DemoApplication, BookmarkList] {
+  override def getEntity(re: RequestEvent): Option[BookmarkList] = Some(BookmarkList(getApplication().repo.find()))
+
+  override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 }
 
 class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with JsonSupport {

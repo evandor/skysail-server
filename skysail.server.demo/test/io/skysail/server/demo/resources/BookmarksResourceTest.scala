@@ -60,10 +60,10 @@ class BookmarksResourceTest(_system: ActorSystem)
     putBmr.setApplication(app)
   }
 
-  "the listResource" should "return data from the repository" in {
-    val res = bsmr.getList(re).iterator.asJava
-    assertThat(res).containsOnlyOnce(Bookmark(Some("id"), "title", "url"))
-  }
+//  "the listResource" should "return data from the repository" in {
+//    val res = bsmr.getList(re).iterator.asJava
+//    assertThat(res).containsOnlyOnce(Bookmark(Some("id"), "title", "url"))
+//  }
 
   "a get request on postResource" should "return nonNull response event" in {
     assertThat(postBmr.get(re)).isNotNull

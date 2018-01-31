@@ -24,6 +24,10 @@ Seq[Any](format.raw/*6.57*/("""
 
 """),format.raw/*10.1*/("""<br><br><br>
 
+    <span>
+        ***     """),_display_(/*13.18*/rep/*13.21*/.itemsOf(".bookmarks")),format.raw/*13.43*/(""" """),format.raw/*13.44*/("""***
+    </span>
+
 <div class="container">
     <div class="starter-template">
         <h1>Bookmarks</h1>
@@ -37,22 +41,22 @@ Seq[Any](format.raw/*6.57*/("""
             </tr>
             </thead>
             <tbody>
-            """),_display_(/*25.14*/for(p <- rep.rawData) yield /*25.35*/ {_display_(Seq[Any](format.raw/*25.37*/("""
-            """),format.raw/*26.13*/("""<tr>
-                <th scope="row">"""),_display_(/*27.34*/p/*27.35*/.get("title")),format.raw/*27.48*/("""</th>
-                <td><a href='"""),_display_(/*28.31*/p/*28.32*/.get("url")),format.raw/*28.43*/("""' target='demo_bms_"""),_display_(/*28.63*/p/*28.64*/.get("title")),format.raw/*28.77*/("""'>"""),_display_(/*28.80*/p/*28.81*/.get("url")),format.raw/*28.92*/("""</a></td>
+            """),_display_(/*29.14*/for(p <- rep.rawData) yield /*29.35*/ {_display_(Seq[Any](format.raw/*29.37*/("""
+            """),format.raw/*30.13*/("""<tr>
+                <th scope="row">"""),_display_(/*31.34*/p/*31.35*/.get("title")),format.raw/*31.48*/("""</th>
+                <td><a href='"""),_display_(/*32.31*/p/*32.32*/.get("url")),format.raw/*32.43*/("""' target='demo_bms_"""),_display_(/*32.63*/p/*32.64*/.get("title")),format.raw/*32.77*/("""'>"""),_display_(/*32.80*/p/*32.81*/.get("url")),format.raw/*32.92*/("""</a></td>
                 <td>
-                    <a href='"""),_display_(/*30.31*/rep/*30.34*/.linkFor("io.skysail.server.demo.resources.BookmarkResource", p.get("id"))),format.raw/*30.108*/("""'>[show]</a>
-                    <a href='"""),_display_(/*31.31*/rep/*31.34*/.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.get("id"))),format.raw/*31.111*/("""'>[update]</a>
+                    <a href='"""),_display_(/*34.31*/rep/*34.34*/.linkFor("io.skysail.server.demo.resources.BookmarkResource", p.get("id"))),format.raw/*34.108*/("""'>[show]</a>
+                    <a href='"""),_display_(/*35.31*/rep/*35.34*/.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.get("id"))),format.raw/*35.111*/("""'>[update]</a>
                 </td>
             </tr>
-            """)))}),format.raw/*34.14*/("""
+            """)))}),format.raw/*38.14*/("""
 
-            """),format.raw/*36.13*/("""</tbody>
+            """),format.raw/*40.13*/("""</tbody>
 
         </table>
 
-        <a href='"""),_display_(/*40.19*/rep/*40.22*/.linkFor("io.skysail.server.demo.resources.PostBookmarkResource",None)),format.raw/*40.92*/("""'>Create New Bookmark</a>
+        <a href='"""),_display_(/*44.19*/rep/*44.22*/.linkFor("io.skysail.server.demo.resources.PostBookmarkResource",None)),format.raw/*44.92*/("""'>Create New Bookmark</a>
 
         <hr>
         <a href="/doc/v1/index.html" target="_docs">Doc</a>
@@ -75,11 +79,11 @@ Seq[Any](format.raw/*6.57*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 15 17:45:23 CET 2018
-                  SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/BookmarksResource_Get.scala.html
-                  HASH: 3ebeafda1ef1eaee676b0c5a04084e5f4c62f322
-                  MATRIX: 718->193|868->248|896->251|918->265|957->267|986->269|1397->653|1434->674|1474->676|1515->689|1580->727|1590->728|1624->741|1687->777|1697->778|1729->789|1776->809|1786->810|1820->823|1850->826|1860->827|1892->838|1980->899|1992->902|2088->976|2158->1019|2170->1022|2269->1099|2368->1167|2410->1181|2483->1227|2495->1230|2586->1300
-                  LINES: 16->6|21->6|23->8|23->8|23->8|25->10|40->25|40->25|40->25|41->26|42->27|42->27|42->27|43->28|43->28|43->28|43->28|43->28|43->28|43->28|43->28|43->28|45->30|45->30|45->30|46->31|46->31|46->31|49->34|51->36|55->40|55->40|55->40
+                  DATE: Wed Jan 31 17:44:01 CET 2018
+                  SOURCE: C:/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/BookmarksResource_Get.scala.html
+                  HASH: 846cd6a03f8247fce531346f857cd2c32dc2b37c
+                  MATRIX: 718->193|868->248|896->251|918->265|957->267|986->269|1055->311|1067->314|1110->336|1139->337|1553->724|1590->745|1630->747|1671->760|1736->798|1746->799|1780->812|1843->848|1853->849|1885->860|1932->880|1942->881|1976->894|2006->897|2016->898|2048->909|2136->970|2148->973|2244->1047|2314->1090|2326->1093|2425->1170|2524->1238|2566->1252|2639->1298|2651->1301|2742->1371
+                  LINES: 16->6|21->6|23->8|23->8|23->8|25->10|28->13|28->13|28->13|28->13|44->29|44->29|44->29|45->30|46->31|46->31|46->31|47->32|47->32|47->32|47->32|47->32|47->32|47->32|47->32|47->32|49->34|49->34|49->34|50->35|50->35|50->35|53->38|55->40|59->44|59->44|59->44
                   -- GENERATED --
               */
           

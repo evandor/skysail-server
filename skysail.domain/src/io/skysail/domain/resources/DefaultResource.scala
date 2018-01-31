@@ -109,7 +109,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
       CreationMapping(s"/${entityName}s/", root / PathMatcher(s"${entityName}s") / PathEnd, theClass),
       EntityMapping(s"/${entityName}s/:id", root / PathMatcher(s"${entityName}s") / Segment ~ PathEnd,  theClass),
       UpdateMapping(s"/${entityName}s/:id/", root / PathMatcher(s"${entityName}s") / Segment / PathEnd, theClass)
-    s)
+    )
   }
 
 }
