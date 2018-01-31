@@ -17,7 +17,7 @@ trait JsonSupport3 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val NoteFormat: RootJsonFormat[Note] = jsonFormat3(Note)
 }
 
-class NotesResource extends DefaultResource[DemoApplication, Note] {
+class NotesResource extends DefaultResource[DemoApplication, Note, String] {
 
   override def getList(re: RequestEvent) = getApplication().notesRepo.find()
 

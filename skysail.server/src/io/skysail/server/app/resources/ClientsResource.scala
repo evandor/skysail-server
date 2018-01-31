@@ -12,7 +12,7 @@ case class Client(name: String) extends Linkable {
   override def _links = List(Link("self", s"clients/$name"))
 }
 
-class ClientsResource() extends ListResource[RootApplication, Client] {
+class ClientsResource() extends ListResource[RootApplication, Client, String] {
 
   override def get(requestEvent: RequestEvent) = {
     val clients = getApplication().appService.clients

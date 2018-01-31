@@ -26,7 +26,7 @@ case class ProcessCommand(
                            urlParameter: List[String],
                            unmatchedPath: Uri.Path,
                            entity: Any = null,
-                           resource: Option[AsyncResource[_, _]] = None,
+                           resource: Option[AsyncResource[_, _,_]] = None,
                            formFieldMap: Map[String,String] = Map()
                          ) {
 

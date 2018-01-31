@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe._
 
-abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T] with PutSupport {
+abstract class PutResource[S <: ApplicationApi, T: TypeTag, L:TypeTag] extends AsyncResource[S, T, L] with PutSupport {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 

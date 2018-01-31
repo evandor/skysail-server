@@ -71,7 +71,7 @@ class ControllerActor() extends Actor {
   def receive: Receive = in
 
   def in: Receive = {
-    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[_, _], bc: BundleContext) =>
+    case SkysailContext(cmd: ProcessCommand, model: ApplicationModel, resource: AsyncResource[_, _, _], bc: BundleContext) =>
       applicationActor = sender
       applicationModel = model
 
@@ -225,7 +225,7 @@ class ControllerActor() extends Actor {
     //log.error(reason, "Restarting due to [{}] when processing [{}]", reason.getMessage, message.getOrElse(""))
   }
 
-  private def getHtmlTemplates(req: RequestEvent, resource: Option[AsyncResource[_, _]]) = {
+  private def getHtmlTemplates(req: RequestEvent, resource: Option[AsyncResource[_, _,  _]]) = {
     val resName = req.cmd.mapping.resourceClass
     if (resource.isDefined)
       resource.get.getHtmlTemplates(req)

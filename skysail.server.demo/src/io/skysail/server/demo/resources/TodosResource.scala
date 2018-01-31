@@ -17,7 +17,7 @@ trait JsonSupport5 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val TodoFormat: RootJsonFormat[Todo] = jsonFormat3(Todo)
 }
 
-class TodosResource extends DefaultResource[DemoApplication, Todo] {
+class TodosResource extends DefaultResource[DemoApplication, Todo, String] {
 
   override def getList(re: RequestEvent) = getApplication().todosRepo.find()
 

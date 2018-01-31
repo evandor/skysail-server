@@ -5,7 +5,7 @@ import io.skysail.domain.resources.ListResource
 import io.skysail.server.app.osgi.OsgiApplication
 import io.skysail.server.app.osgi.domain.BundleDescriptor
 
-class BundlesResource extends ListResource[OsgiApplication, BundleDescriptor] {
+class BundlesResource extends ListResource[OsgiApplication, BundleDescriptor, String] {
 
   override def getList(requestEvent: RequestEvent): List[BundleDescriptor] = {
     getApplication().getBundles()

@@ -14,18 +14,18 @@ import org.slf4j.LoggerFactory
 import scala.reflect.runtime.universe._
 
 /**
- * A DefaultResource[S,T] provides a list of route mappings to list, show, create, update and delete
- * entities of type T.
- *
- * It handles associated requests to the endpoints of the mappings.
- *
- * S the backend application serving the resource
- * T the entity associated with the resource, typically an aggregate root
- */
-abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
+  * A DefaultResource[S,T] provides a list of route mappings to list, show, create, update and delete
+  * entities of type T.
+  *
+  * It handles associated requests to the endpoints of the mappings.
+  *
+  * S the backend application serving the resource
+  * T the entity associated with the resource, typically an aggregate root
+  */
+abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] extends AsyncResource[S, T, L] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
-  
+
   val entityManifest: Manifest[T] = Transformer.toManifest
 
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
@@ -80,7 +80,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
     updateEntity(re)
     val newRequest = re.cmd.ctx.request.copy(method = HttpMethods.GET) // ???
     re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterPut(re))
-    
+
   }
 
   def getList(requestEvent: RequestEvent): List[T]
@@ -90,26 +90,26 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
   def getTemplate(re: RequestEvent): T
 
   def getRedirectAfterPost(re: RequestEvent): Option[String]
-  
+
   def getRedirectAfterPut(re: RequestEvent): Option[String]
 
   def createEntity(re: RequestEvent)(implicit system: ActorSystem): String
-  
+
   def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
-  
-  
+
+
   def get(re: RequestEvent): ResponseEventBase = ListResponseEvent[T](re, getList(re))
 
-  def getMappings(cls: Class[_ <: DefaultResource[_, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
+  def getMappings(cls: Class[_ <: DefaultResource[_, _, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
     val root = appModel.appRoute
     val entityName = typeOf[T].typeSymbol.name.toString().toLowerCase()
     val theClass = cls.asInstanceOf[Class[SkysailResource[_, T]]]
     List(
       ListRouteMapping(s"/${entityName}s", root / PathMatcher(s"${entityName}s") ~ PathEnd, theClass),
       CreationMapping(s"/${entityName}s/", root / PathMatcher(s"${entityName}s") / PathEnd, theClass),
-      EntityMapping(s"/${entityName}s/:id", root / PathMatcher(s"${entityName}s") / Segment ~ PathEnd,  theClass),
+      EntityMapping(s"/${entityName}s/:id", root / PathMatcher(s"${entityName}s") / Segment ~ PathEnd, theClass),
       UpdateMapping(s"/${entityName}s/:id/", root / PathMatcher(s"${entityName}s") / Segment / PathEnd, theClass)
-    s)
+    )
   }
 
 }

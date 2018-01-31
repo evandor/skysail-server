@@ -17,7 +17,7 @@ import io.skysail.server.demo.domain.{Bookmark, Pattern}
 //  implicit val PatternFormat: RootJsonFormat[Pattern] = jsonFormat5(Pattern)
 //}
 
-class PatternsResource extends ListResource[DemoApplication, Pattern] {
+class PatternsResource extends ListResource[DemoApplication, Pattern, String] {
   override def getList(re: RequestEvent): List[Pattern] = getApplication().patternRepo.find()
 }
 
@@ -68,7 +68,7 @@ class PatternResource extends EntityResource[DemoApplication, Pattern] {
   
 }
 
-class PutPatternResource extends PutResource[DemoApplication, Pattern]  {
+class PutPatternResource extends PutResource[DemoApplication, Pattern, String]  {
 
   override def get(requestEvent: RequestEvent): ResponseEvent[Pattern] = {
     val e = getApplication().patternRepo.find(requestEvent.cmd.urlParameter.head)

@@ -22,7 +22,7 @@ trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val bookmarkFormat: RootJsonFormat[Bookmark] = jsonFormat4(Bookmark)
 }
 
-class BookmarksResource extends ListResource[DemoApplication, Bookmark] {
+class BookmarksResource extends ListResource[DemoApplication, Bookmark, String] {
   override def getList(re: RequestEvent): List[Bookmark] = getApplication().repo.find()
 }
 
@@ -52,7 +52,7 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] with 
   }
 }
 
-class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] with JsonSupport {
+class PutBookmarkResource extends PutResource[DemoApplication, Bookmark, String] with JsonSupport {
 
   override def get(requestEvent: RequestEvent): ResponseEvent[Bookmark] = {
     val optionalBookmark = getApplication().repo.find(requestEvent.cmd.urlParameter.head)

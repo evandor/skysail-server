@@ -29,7 +29,7 @@ case class EsIndex(health: String, status: String, index: String, pri: String, r
 case class Mapping()
 
 
-class IndicesResource extends ListResource[DemoApplication, EsIndex] {
+class IndicesResource extends ListResource[DemoApplication, EsIndex, String] {
 
   private val httpclient = HttpClients.createDefault
 

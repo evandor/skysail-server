@@ -8,7 +8,7 @@ sealed trait ResponseEventBase {
   val entity: Any
   val httpResponse: HttpResponse
 
-  def getResource: Option[AsyncResource[_, _]] = req.cmd.resource
+  def getResource: Option[AsyncResource[_, _, _]] = req.cmd.resource
   
 }
 

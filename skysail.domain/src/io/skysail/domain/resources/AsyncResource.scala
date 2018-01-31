@@ -10,9 +10,8 @@ import io.skysail.domain.{RequestEvent, ResponseEventBase, SkysailResource}
 
 import scala.concurrent.duration.DurationInt
 import scala.reflect.runtime.universe._
-import io.skysail.domain.Transformer
 
-abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
+abstract class AsyncResource[S <: ApplicationApi, T: TypeTag, L: TypeTag]
   extends SkysailResource[S, T]
     with ActorContextAware {
 

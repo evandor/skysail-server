@@ -9,10 +9,10 @@ import io.skysail.domain.RequestEvent
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.Account
+import io.skysail.server.demo.domain.{Account, AccountList}
 import org.slf4j.LoggerFactory
 
-class AccountsResource extends DefaultResource[DemoApplication, Account] {
+class AccountsResource extends DefaultResource[DemoApplication, Account, AccountList] {
   
   private val log = LoggerFactory.getLogger(this.getClass)
 

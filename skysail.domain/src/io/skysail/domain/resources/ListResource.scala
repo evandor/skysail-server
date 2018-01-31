@@ -12,7 +12,7 @@ import scala.concurrent.Future
 import scala.reflect.runtime.universe._
 import scala.util.{Failure, Success}
 
-abstract class ListResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
+abstract class ListResource[S <: ApplicationApi, T: TypeTag, L:TypeTag] extends AsyncResource[S, T, L] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 

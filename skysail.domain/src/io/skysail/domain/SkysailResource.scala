@@ -17,7 +17,7 @@ import scala.util.{Failure, Success}
 
 object SkysailResource {
 
-  implicit class TypeDetector[T: TypeTag](related: SkysailResource[_,T]) {
+  implicit class TypeDetector[T:TypeTag](related: SkysailResource[_, T]) {
     def getType(): Type = typeOf[T]
   }
 
@@ -59,7 +59,7 @@ abstract class SkysailResource[S <: ApplicationApi, T: TypeTag] {
       case Success(result) =>
         val response = result.httpResponse
         complete(response)
-      case Failure(failure) => log error s"Failure>>> ${failure}";  complete(StatusCodes.BadRequest, failure)
+      case Failure(failure) => log error s"Failure>>> ${failure}"; complete(StatusCodes.BadRequest, failure)
     }
   }
 }

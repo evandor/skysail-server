@@ -16,7 +16,7 @@ class DocIndexResource() extends EntityResource[DocApplication, String] {
   override def getEntity(requestEvent: RequestEvent) = Some("hi")
 }
 
-abstract class DocResource extends AsyncStaticResource[DocApplication, String] {
+abstract class DocResource extends AsyncStaticResource[DocApplication, String, String] {
 
   override def get(requestEvent: RequestEvent) = {
     getAsync(requestEvent)

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe._
 
-abstract class PostResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T] with PostSupport {
+abstract class PostResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T, String] with PostSupport {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 

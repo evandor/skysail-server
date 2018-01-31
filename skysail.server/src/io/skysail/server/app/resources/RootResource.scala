@@ -20,7 +20,7 @@ case class RootInfo(
                      info: String = "you are seeing this as no applications have been deployed yet."
                    )
 
-class RootResource extends AsyncEntityResource[RootApplication,RootInfo] {
+class RootResource extends AsyncEntityResource[RootApplication,RootInfo,String] {
   
   private val log = LoggerFactory.getLogger(this.getClass)
 

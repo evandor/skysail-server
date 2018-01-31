@@ -5,13 +5,13 @@ import io.skysail.domain.RequestEvent
 import io.skysail.domain.resources.ListResource
 import io.skysail.server.app.bundlerepo.ObrApplication
 
-case class ReposResource() extends ListResource[ObrApplication, Repository] {
+case class ReposResource() extends ListResource[ObrApplication, Repository, String] {
 
   override def getList(requestEvent: RequestEvent) = getApplication().repoService.listRepos
 
 }
 
-case class ResourcesResource() extends ListResource[ObrApplication, Resource] {
+case class ResourcesResource() extends ListResource[ObrApplication, Resource, String] {
 
   override def getList(requestEvent: RequestEvent) = getApplication().repoService.list("")
 

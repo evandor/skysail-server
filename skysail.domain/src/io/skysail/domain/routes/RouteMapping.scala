@@ -62,11 +62,11 @@ case class RouteMapping[S: TypeTag, T: TypeTag](
                                                  override val resourceClass: Class[_ <: SkysailResource[_, T]])
   extends RouteMappingI[S, T](path, pathMatcher, resourceClass)
 
-case class ListRouteMapping[S: TypeTag, T: TypeTag](
+case class ListRouteMapping[S: TypeTag, L: TypeTag](
                                                      override val path: String,
                                                      override val pathMatcher: PathMatcher[S],
-                                                     override val resourceClass: Class[_ <: SkysailResource[_, T]])
-  extends RouteMappingI[S, T](path, pathMatcher, resourceClass)
+                                                     override val resourceClass: Class[_ <: SkysailResource[_, L]])
+  extends RouteMappingI[S, L](path, pathMatcher, resourceClass)
 
 case class CreationMapping[S: TypeTag, T: TypeTag](
                                                     override val path: String,
