@@ -187,11 +187,11 @@ class ControllerActor() extends Actor {
       log warn "============================================================================"
   }
 
-  private def handleHtmlWithFallback[T:ClassTag](response: ResponseEventBase, json: String): Unit = {
+  private def handleHtmlWithFallback[T:ClassTag](response: ResponseEventBase, json: String)(implicit ct: ClassTag[T]): Unit = {
     val templateNames = getHtmlTemplates(response.req, response.getResource)
     val loader = response.req.cmd.mapping.resourceClass.getClassLoader
     val answer: Option[ResponseEntity] = templateNames
-      .map(name => tryLoading[T](name, response, loader))
+      .map(name => tryLoading[T](name, response, loader)(ct))
       .find(_.isDefined)
       .flatMap(identity)
 
@@ -232,7 +232,7 @@ class ControllerActor() extends Actor {
   private def tryLoading[T](templateName: String, response: ResponseEventBase, loader: ClassLoader)(implicit ct: ClassTag[T]): Option[ResponseEntity] = {
     try {
       val resourceHtmlClass = loader.loadClass(templateName)
-      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase]/*, ct.runtimeClass*/)
+      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase], ct.runtimeClass)
       val rep = new RepresentationModel(response, applicationModel)
       val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
