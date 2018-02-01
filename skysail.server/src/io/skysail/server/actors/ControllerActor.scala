@@ -147,14 +147,14 @@ class ControllerActor() extends Actor {
           val b: String = compact(render(a))
 
           if (negotiator.isAccepted(MediaTypes.`text/html`)) {
-            handleHtmlWithFallback(response, b)
+            handleHtmlWithFallback[T](response, b)
           } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
             handleJson(response, b)
           }
         case a: JString =>
           val b: String = compact(render(a))
           if (negotiator.isAccepted(MediaTypes.`text/html`)) {
-            handleHtmlWithFallback(response, b)
+            handleHtmlWithFallback[T](response, b)
           } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
             handleJson(response, b)
           }
