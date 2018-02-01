@@ -120,7 +120,7 @@ class ControllerActor() extends Actor {
           val b: String = compact(render(a))
           //println("YYY " + b)
           if (negotiator.isAccepted(MediaTypes.`text/html`)) {
-            handleHtmlWithFallback(response, b)
+            handleHtmlWithFallback[T](response, b)
           } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
             handleJson(response, b)
           }
@@ -191,11 +191,11 @@ class ControllerActor() extends Actor {
       log warn "============================================================================"
   }
 
-  private def handleHtmlWithFallback(response: ResponseEventBase, json: String): Unit = {
+  private def handleHtmlWithFallback[T](response: ResponseEventBase, json: String): Unit = {
     val templateNames = getHtmlTemplates(response.req, response.getResource)
     val loader = response.req.cmd.mapping.resourceClass.getClassLoader
     val answer: Option[ResponseEntity] = templateNames
-      .map(name => tryLoading(name, response, loader))
+      .map(name => tryLoading[T](name, response, loader))
       .find(_.isDefined)
       .flatMap(identity)
 
@@ -233,10 +233,10 @@ class ControllerActor() extends Actor {
       List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
   }
 
-  private def tryLoading(templateName: String, response: ResponseEventBase, loader: ClassLoader): Option[ResponseEntity] = {
+  private def tryLoading[T](templateName: String, response: ResponseEventBase, loader: ClassLoader): Option[ResponseEntity] = {
     try {
       val resourceHtmlClass = loader.loadClass(templateName)
-      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase])
+      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase], classOf[T])
       val rep = new RepresentationModel(response, applicationModel)
       val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
