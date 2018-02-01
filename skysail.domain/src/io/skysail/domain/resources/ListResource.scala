@@ -16,6 +16,8 @@ abstract class ListResource[S <: ApplicationApi, T: TypeTag] extends AsyncResour
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
+  val entityManifest: Manifest[T] = Transformer.toManifest
+
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     cmd.ctx.request.method match {
       case HttpMethods.GET => doGet(RequestEvent(cmd, controller))

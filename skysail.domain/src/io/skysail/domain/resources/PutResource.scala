@@ -5,7 +5,7 @@ import akka.actor.{ActorRef, ActorSystem}
 import akka.http.scaladsl.model.HttpMethods
 import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.{PutSupport, RequestEvent, ResponseEventBase}
+import io.skysail.domain.{PutSupport, RequestEvent, ResponseEventBase, Transformer}
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe._
@@ -13,6 +13,8 @@ import scala.reflect.runtime.universe._
 abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T] with PutSupport {
 
   private val log = LoggerFactory.getLogger(this.getClass)
+
+  val entityManifest: Manifest[T] = Transformer.toManifest
 
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     cmd.ctx.request.method match {

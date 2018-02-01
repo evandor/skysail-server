@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory
 import play.twirl.api.HtmlFormat
 
 import scala.concurrent.duration.DurationInt
+import scala.reflect.ClassTag
 
 case class Person(name: String, lastLogin: ZonedDateTime) {
   @JsonProperty
@@ -93,7 +94,7 @@ class ControllerActor() extends Actor {
     case msg: Any => log info s"<<< IN <<<: received unknown message '$msg' in ${this.getClass.getName}"
   }
 
-  def out[T:Manifest]: Receive = {
+  def out[T:Manifest, ClassTag]: Receive = {
 
     case response: ListResponseEvent[T] =>
 
@@ -135,16 +136,11 @@ class ControllerActor() extends Actor {
       val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
       val acceptedMediaRanges = negotiator.acceptedMediaRanges
 
-      implicit val formats = DefaultFormats + ZDTSerializer + FieldSerializer[Person] ()
-      implicit val serialization: Serialization.type = jackson.Serialization
-
       val ast:JValue = if (response.entityManifest != null) {
         Transformer.beanToJson(response.entity)(response.entityManifest)
       } else {
         Transformer.beanToJson(response.entity)
       }
-
-      //println(ast)
 
       ast match {
         case a: JObject =>
@@ -191,7 +187,7 @@ class ControllerActor() extends Actor {
       log warn "============================================================================"
   }
 
-  private def handleHtmlWithFallback[T](response: ResponseEventBase, json: String): Unit = {
+  private def handleHtmlWithFallback[T:ClassTag](response: ResponseEventBase, json: String): Unit = {
     val templateNames = getHtmlTemplates(response.req, response.getResource)
     val loader = response.req.cmd.mapping.resourceClass.getClassLoader
     val answer: Option[ResponseEntity] = templateNames
@@ -233,10 +229,10 @@ class ControllerActor() extends Actor {
       List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
   }
 
-  private def tryLoading[T](templateName: String, response: ResponseEventBase, loader: ClassLoader): Option[ResponseEntity] = {
+  private def tryLoading[T](templateName: String, response: ResponseEventBase, loader: ClassLoader)(implicit ct: ClassTag[T]): Option[ResponseEntity] = {
     try {
       val resourceHtmlClass = loader.loadClass(templateName)
-      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase], classOf[T])
+      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase]/*, ct.runtimeClass*/)
       val rep = new RepresentationModel(response, applicationModel)
       val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))

@@ -4,7 +4,7 @@ import akka.actor.{ActorRef, ActorSystem}
 import akka.http.scaladsl.model.HttpMethods
 import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.{ListResponseEvent, RequestEvent, ResponseEvent}
+import io.skysail.domain.{ListResponseEvent, RequestEvent, ResponseEvent, Transformer}
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,25 +16,13 @@ abstract class EntityResource[S <: ApplicationApi, T: TypeTag] extends AsyncReso
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
+  val entityManifest: Manifest[T] = Transformer.toManifest
+
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     val req = RequestEvent(cmd, controller)
     req.controllerActor ! ResponseEvent(req, getEntity(req))
   }
   
   def getEntity(re: RequestEvent): Option[T]
-
-//  def reply[U](requestEvent: RequestEvent, answer: Future[U], c: U => T) = {
-//    answer.onComplete {
-//      case Success(s) => requestEvent.controllerActor ! ListResponseEvent(requestEvent, c.apply(s))
-//      case Failure(f) => println(s"failure ${f}")
-//    }
-//  }
-//
-//  def entityReply[U](requestEvent: RequestEvent, answer: Future[U], c: U => T) = {
-//    answer.onComplete {
-//      case Success(s) => requestEvent.controllerActor ! ResponseEvent(requestEvent, c.apply(s))
-//      case Failure(f) => println(s"failure ${f}")
-//    }
-//  }
 
 }
