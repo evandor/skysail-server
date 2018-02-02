@@ -3,6 +3,8 @@ package io.skysail.domain
 import akka.http.scaladsl.model.HttpResponse
 import io.skysail.domain.resources.AsyncResource
 
+import scala.reflect.ClassTag
+
 sealed trait ResponseEventBase {
   val req: RequestEvent
   val entity: Any
@@ -12,15 +14,20 @@ sealed trait ResponseEventBase {
   
 }
 
-case class ResponseEvent[T](req: RequestEvent, entity: T, entityManifest: Manifest[T] = null, httpResponse: HttpResponse = HttpResponse(200))
+case class ResponseEvent[T](
+                             req: RequestEvent,
+                             entity: T,
+                             entityManifest: Manifest[T] = null,
+                             entityClassTag: ClassTag[T] = null,
+                             httpResponse: HttpResponse = HttpResponse(200))
   extends ResponseEventBase
 
-case class ListResponseEvent[T](req: RequestEvent, entity: List[T], entityManifest: Manifest[T] = null, httpResponse: HttpResponse = HttpResponse(200))
-  extends ResponseEventBase {
-
-  override def toString: String = s"ListResponseEvent(${httpResponse})"
-
-}
+//case class ListResponseEvent[T](req: RequestEvent, entity: List[T], entityManifest: Manifest[T] = null, httpResponse: HttpResponse = HttpResponse(200))
+//  extends ResponseEventBase {
+//
+//  override def toString: String = s"ListResponseEvent(${httpResponse})"
+//
+//}
 
 
 case class HtmlResponseEvent(req: RequestEvent, entity: String, httpResponse: HttpResponse = HttpResponse(200))

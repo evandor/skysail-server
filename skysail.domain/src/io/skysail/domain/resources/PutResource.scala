@@ -8,6 +8,7 @@ import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.{PutSupport, RequestEvent, ResponseEventBase, Transformer}
 import org.slf4j.LoggerFactory
 
+import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
 abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T] with PutSupport {
@@ -15,6 +16,7 @@ abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResourc
   private val log = LoggerFactory.getLogger(this.getClass)
 
   val entityManifest: Manifest[T] = Transformer.toManifest
+  val entityClassTag: ClassTag[T] = Transformer.toClassTag
 
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     cmd.ctx.request.method match {

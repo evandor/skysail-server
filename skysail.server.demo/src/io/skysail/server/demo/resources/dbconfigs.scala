@@ -13,7 +13,6 @@ import io.skysail.server.demo.DemoApplication
 import spray.json.{ DefaultJsonProtocol, _ }
 import akka.http.scaladsl.model.HttpMethods
 import io.skysail.server.demo.domain.DbConfig
-import io.skysail.domain.ListResponseEvent
 
 trait JsonSupport2 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val DbConfigFormat: RootJsonFormat[DbConfig] = jsonFormat3(DbConfig)

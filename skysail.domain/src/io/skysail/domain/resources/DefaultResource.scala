@@ -11,6 +11,7 @@ import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.routes._
 import org.slf4j.LoggerFactory
 
+import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
 /**
@@ -27,11 +28,12 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
   private val log = LoggerFactory.getLogger(this.getClass)
   
   val entityManifest: Manifest[T] = Transformer.toManifest
+  val entityClassTag: ClassTag[T] = Transformer.toClassTag
 
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     // tag::methodMatch[]
     cmd.mapping match {
-      case c: ListRouteMapping[_, _] => handleListRouteMapping(RequestEvent(cmd, controller))
+      //case c: ListRouteMapping[_, _] => handleListRouteMapping(RequestEvent(cmd, controller))
       case c: EntityMapping[_, _] => handleEntityMapping(RequestEvent(cmd, controller))
       case c: CreationMapping[_, _] => {
         cmd.ctx.request.method match {
@@ -47,20 +49,20 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
           case _ => log warn s"unknown UpdateMapping"
         }
       }
-      case _ => log warn s"unknown mapping"
+      case _ => log warn s"unknown mapping ${cmd.mapping}"
     }
     // end::methodMatch[]
 
   }
 
-  final def handleListRouteMapping(re: RequestEvent) = {
-    val list = getList(re)
-    re.controllerActor ! ListResponseEvent[T](re, list, entityManifest)
-  }
+//  final def handleListRouteMapping(re: RequestEvent) = {
+//    val list = getList(re)
+//    re.controllerActor ! ResponseEvent[T](re, list, entityManifest)
+//  }
 
   final def handleEntityMapping(re: RequestEvent) = {
     val entity = getEntity(re).get
-    re.controllerActor ! ResponseEvent[T](re, entity, entityManifest)
+    re.controllerActor ! ResponseEvent[T](re, entity, entityManifest, entityClassTag)
   }
 
   final def handleCreationMappingGet(re: RequestEvent) = re.controllerActor ! ResponseEvent[T](re, getTemplate(re))
@@ -98,7 +100,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
   def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
   
   
-  def get(re: RequestEvent): ResponseEventBase = ListResponseEvent[T](re, getList(re))
+ // def get(re: RequestEvent): ResponseEventBase = ResponseEvent[T](re, getList(re))
 
   def getMappings(cls: Class[_ <: DefaultResource[_, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
     val root = appModel.appRoute

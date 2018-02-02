@@ -5,20 +5,19 @@ import java.time.format.DateTimeFormatter
 
 import akka.actor.{Actor, ActorRef}
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.{ContentNegotiator, MediaTypeNegotiator}
+import akka.http.scaladsl.server.MediaTypeNegotiator
 import akka.util.Timeout
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.skysail.api.ui.Link
-import io.skysail.domain.{Transformer, _}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.AsyncResource
+import io.skysail.domain.{Transformer, _}
 import io.skysail.server.RepresentationModel
 import io.skysail.server.actors.ApplicationActor._
-import org.json4s.JsonAST.{JArray, JString, JValue}
+import org.json4s.JsonAST.{JString, JValue}
 import org.json4s.jackson.JsonMethods.{compact, render}
-import org.json4s.jackson.Serialization
-import org.json4s.{CustomSerializer, DefaultFormats, FieldSerializer, JObject, jackson}
+import org.json4s.{CustomSerializer, JObject}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 import play.twirl.api.HtmlFormat
@@ -96,38 +95,38 @@ class ControllerActor() extends Actor {
 
   def out[T:Manifest, ClassTag]: Receive = {
 
-    case response: ListResponseEvent[T] =>
-
-      log debug s"  [OUT] >>> $response"
-
-      val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
-      val acceptedMediaRanges = negotiator.acceptedMediaRanges
-
-      val cn = ContentNegotiator(response.req.cmd.ctx.request.headers)
-      val amr = cn.mtn.acceptedMediaRanges
-
-      implicit val formats: DefaultFormats.type = DefaultFormats
-      implicit val serialization: Serialization.type = jackson.Serialization
-
-      val ast:JValue = if (response.entityManifest != null) {
-        val em: Manifest[T] = response.entityManifest
-        Transformer.listToJson(response.entity)(em)
-      } else {
-        Transformer.beanToJson(response.entity)
-      }
-
-      ast match {
-        case a: JArray =>
-          val b: String = compact(render(a))
-          //println("YYY " + b)
-          if (negotiator.isAccepted(MediaTypes.`text/html`)) {
-            handleHtmlWithFallback[T](response, b)
-          } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
-            handleJson(response, b)
-          }
-
-        case _ => log warn "unknown match"
-      }
+//    case response: ListResponseEvent[T] =>
+//
+//      log debug s"  [OUT] >>> $response"
+//
+//      val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
+//      val acceptedMediaRanges = negotiator.acceptedMediaRanges
+//
+//      val cn = ContentNegotiator(response.req.cmd.ctx.request.headers)
+//      val amr = cn.mtn.acceptedMediaRanges
+//
+//      implicit val formats: DefaultFormats.type = DefaultFormats
+//      implicit val serialization: Serialization.type = jackson.Serialization
+//
+//      val ast:JValue = if (response.entityManifest != null) {
+//        val em: Manifest[T] = response.entityManifest
+//        Transformer.listToJson(response.entity)(em)
+//      } else {
+//        Transformer.beanToJson(response.entity)
+//      }
+//
+//      ast match {
+//        case a: JArray =>
+//          val b: String = compact(render(a))
+//          //println("YYY " + b)
+//          if (negotiator.isAccepted(MediaTypes.`text/html`)) {
+//            handleHtmlWithFallback[T](response, b)
+//          } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
+//            handleJson(response, b)
+//          }
+//
+//        case _ => log warn "unknown match"
+//      }
 
     case response: ResponseEvent[T] =>
 
@@ -147,14 +146,15 @@ class ControllerActor() extends Actor {
           val b: String = compact(render(a))
 
           if (negotiator.isAccepted(MediaTypes.`text/html`)) {
-            handleHtmlWithFallback[T](response, b)
+            val ct: reflect.ClassTag[T] = response.entityClassTag
+            handleHtmlWithFallback[T](response, b, ct.runtimeClass.asInstanceOf[Class[T]])
           } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
             handleJson(response, b)
           }
         case a: JString =>
           val b: String = compact(render(a))
           if (negotiator.isAccepted(MediaTypes.`text/html`)) {
-            handleHtmlWithFallback[T](response, b)
+            handleHtmlWithFallback[T](response, b, null)
           } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
             handleJson(response, b)
           }
@@ -187,18 +187,20 @@ class ControllerActor() extends Actor {
       log warn "============================================================================"
   }
 
-  private def handleHtmlWithFallback[T:ClassTag](response: ResponseEventBase, json: String)(implicit ct: ClassTag[T]): Unit = {
+  private def handleHtmlWithFallback[T:ClassTag](response: ResponseEvent[T], json: String, ct: Class[T]): Unit = {
+                                                //(implicit ct: ClassTag[T]): Unit = {
     val templateNames = getHtmlTemplates(response.req, response.getResource)
     val loader = response.req.cmd.mapping.resourceClass.getClassLoader
+    val ct: reflect.ClassTag[T] = response.entityClassTag
     val answer: Option[ResponseEntity] = templateNames
-      .map(name => tryLoading[T](name, response, loader)(ct))
+      .map(name => tryLoading[T](name, response, loader))
       .find(_.isDefined)
       .flatMap(identity)
 
     if (answer.isDefined) {
       response match {
-        case ListResponseEvent(req, _,_, _) => applicationActor ! ListResponseEvent(req, response.entity.asInstanceOf[List[_]], null, response.httpResponse.copy(entity = answer.get))
-        case ResponseEvent(req, _, _, _) => applicationActor ! ResponseEvent(req, response.entity, null, response.httpResponse.copy(entity = answer.get))
+        //case ListResponseEvent(req, _,_, _) => applicationActor ! ListResponseEvent(req, response.entity.asInstanceOf[List[_]], null, response.httpResponse.copy(entity = answer.get))
+        case ResponseEvent(req, _,_, _, _) => applicationActor ! ResponseEvent(req, response.entity, null, null, response.httpResponse.copy(entity = answer.get))
         case _ => log warn "unmatched response"
       }
     } else {
@@ -211,8 +213,8 @@ class ControllerActor() extends Actor {
     val e = HttpEntity(ContentType(MediaTypes.`application/json`), json)
     val res = response.httpResponse.copy(entity = e)
     response match {
-      case ListResponseEvent(req, _, _,  _) => applicationActor ! ListResponseEvent(req, response.entity.asInstanceOf[List[_]],  null,res)
-      case ResponseEvent(req, _, _,_) => applicationActor ! ResponseEvent(req, response.entity, null, res)
+      //case ListResponseEvent(req, _, _,  _) => applicationActor ! ListResponseEvent(req, response.entity.asInstanceOf[List[_]],  null,res)
+      case ResponseEvent(req, _, _,_,_) => applicationActor ! ResponseEvent(req, response.entity, null,null, res)
       case _ => log warn "unmatched response"
     }
   }
@@ -229,10 +231,24 @@ class ControllerActor() extends Actor {
       List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
   }
 
-  private def tryLoading[T](templateName: String, response: ResponseEventBase, loader: ClassLoader)(implicit ct: ClassTag[T]): Option[ResponseEntity] = {
+  private def tryLoading[T](templateName: String, response: ResponseEvent[T], loader: ClassLoader, ct: Class[T]): Option[ResponseEntity] = {
+                           //(implicit ct: ClassTag[T]): Option[ResponseEntity] = {
     try {
       val resourceHtmlClass = loader.loadClass(templateName)
-      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase], ct.runtimeClass)
+      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase], ct)
+      val rep = new RepresentationModel(response, applicationModel)
+      val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
+      Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
+    } catch {
+      case ex: Exception => log debug s"problem: ${ex.getMessage}"; /*ex.printStackTrace();*/ None
+    }
+  }
+
+  private def tryLoading[T](templateName: String, response: ResponseEvent[T], loader: ClassLoader): Option[ResponseEntity] = {
+    //(implicit ct: ClassTag[T]): Option[ResponseEntity] = {
+    try {
+      val resourceHtmlClass = loader.loadClass(templateName)
+      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase])
       val rep = new RepresentationModel(response, applicationModel)
       val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))

@@ -1,7 +1,7 @@
 package io.skysail.server.app.resources
 
-import io.skysail.domain.{AsyncResponseEvent, ListResponseEvent, RequestEvent}
-import io.skysail.domain.resources.ListResource
+import io.skysail.domain.resources.EntityResource
+import io.skysail.domain.{RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.app.RootApplication
 import org.slf4j.LoggerFactory
 
@@ -10,7 +10,7 @@ import scala.util.{Failure, Success}
 
 case class Application(name: String, context: String, description: String)
 
-class AppsResource() extends ListResource[RootApplication, Application] {
+class AppsResource() extends EntityResource[RootApplication, Application] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -18,13 +18,17 @@ class AppsResource() extends ListResource[RootApplication, Application] {
     val appService = getApplication().appService
     val apps = appService.getAllApplications(this.actorContext.system)
     apps.onComplete {
-      case Success(s) => requestEvent.controllerActor ! ListResponseEvent(requestEvent,s)
+      case Success(s) => requestEvent.controllerActor ! ResponseEvent(requestEvent,s)
       case Failure(f) => log error s"failure $f"; null
     }
   }
 
-  override def get(requestEvent: RequestEvent):AsyncResponseEvent = {
-    getAsync(requestEvent)
-    AsyncResponseEvent(requestEvent)
-  }
+//  override def getEntity(requestEvent: RequestEvent):AsyncResponseEvent = {
+//    getAsync(requestEvent)
+//    AsyncResponseEvent(requestEvent)
+//  }
+
+  override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+
+  override def getEntity(re: RequestEvent): Option[Application] = ???
 }

@@ -8,7 +8,7 @@ import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.resources.{AsyncResource, ListResource, PostResource, PutResource}
+import io.skysail.domain.resources.{AsyncResource, PostResource, PutResource}
 import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent}
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Bookmark, BookmarkList}

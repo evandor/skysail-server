@@ -1,13 +1,11 @@
 package io.skysail.server.actors
 
-import akka.actor.{Actor, ActorLogging, ActorRef, PoisonPill, Props}
 import java.util.concurrent.atomic.AtomicInteger
 
+import akka.actor.{Actor, ActorLogging, Props}
 import akka.http.scaladsl.server.RequestContext
-import io.skysail.domain.ListResponseEvent
-import io.skysail.domain.model.ApplicationModel
-import org.osgi.framework.Bundle
 import io.skysail.server.actors.BundleActor._
+import org.osgi.framework.Bundle
 import org.osgi.framework.wiring.BundleWiring
 
 object BundleActor {
@@ -19,8 +17,6 @@ object BundleActor {
 class BundleActor(bundle: Bundle) extends Actor with ActorLogging {
   
   val cnt = new AtomicInteger(0)
-
-  import context._
 
   def receive: Receive = {
     case gr: GetResource => getResource(gr)

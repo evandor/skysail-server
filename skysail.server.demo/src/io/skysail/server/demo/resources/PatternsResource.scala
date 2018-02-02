@@ -7,7 +7,7 @@ import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.resources.{EntityResource, ListResource, PostResource, PutResource}
+import io.skysail.domain.resources.{EntityResource, PostResource, PutResource}
 import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Bookmark, Pattern}
@@ -17,8 +17,11 @@ import io.skysail.server.demo.domain.{Bookmark, Pattern}
 //  implicit val PatternFormat: RootJsonFormat[Pattern] = jsonFormat5(Pattern)
 //}
 
-class PatternsResource extends ListResource[DemoApplication, Pattern] {
-  override def getList(re: RequestEvent): List[Pattern] = getApplication().patternRepo.find()
+class PatternsResource extends EntityResource[DemoApplication, Pattern] {
+  //override def getList(re: RequestEvent): List[Pattern] = getApplication().patternRepo.find()
+  override def getEntity(re: RequestEvent): Option[Pattern] = ???
+
+  override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 }
 
 class PostPatternResource extends PostResource[DemoApplication, Pattern] {

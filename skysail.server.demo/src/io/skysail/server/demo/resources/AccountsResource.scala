@@ -5,7 +5,7 @@ import java.util.UUID
 import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import io.skysail.domain.RequestEvent
+import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
@@ -48,5 +48,6 @@ class AccountsResource extends DefaultResource[DemoApplication, Account] {
     }
   }
 
+  override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 }
 

@@ -48,4 +48,8 @@ object Transformer {
     }
     toManifestRec(t.tpe).asInstanceOf[Manifest[T]]
   }
+
+  def toClassTag[T: TypeTag]: ClassTag[T] = {
+    ClassTag[T]( typeTag[T].mirror.runtimeClass( typeTag[T].tpe ) )
+  }
 }

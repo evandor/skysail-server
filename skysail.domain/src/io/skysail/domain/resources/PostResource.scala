@@ -7,6 +7,7 @@ import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.{PostSupport, RequestEvent, ResponseEvent, Transformer}
 import org.slf4j.LoggerFactory
 
+import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
 abstract class PostResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T] with PostSupport {
@@ -14,6 +15,7 @@ abstract class PostResource[S <: ApplicationApi, T: TypeTag] extends AsyncResour
   private val log = LoggerFactory.getLogger(this.getClass)
 
   val entityManifest: Manifest[T] = Transformer.toManifest
+  val entityClassTag: ClassTag[T] = Transformer.toClassTag
 
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     cmd.ctx.request.method match {
