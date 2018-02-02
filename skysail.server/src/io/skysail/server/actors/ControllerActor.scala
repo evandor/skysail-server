@@ -95,39 +95,6 @@ class ControllerActor() extends Actor {
 
   def out[T:Manifest, ClassTag]: Receive = {
 
-//    case response: ListResponseEvent[T] =>
-//
-//      log debug s"  [OUT] >>> $response"
-//
-//      val negotiator = new MediaTypeNegotiator(response.req.cmd.ctx.request.headers)
-//      val acceptedMediaRanges = negotiator.acceptedMediaRanges
-//
-//      val cn = ContentNegotiator(response.req.cmd.ctx.request.headers)
-//      val amr = cn.mtn.acceptedMediaRanges
-//
-//      implicit val formats: DefaultFormats.type = DefaultFormats
-//      implicit val serialization: Serialization.type = jackson.Serialization
-//
-//      val ast:JValue = if (response.entityManifest != null) {
-//        val em: Manifest[T] = response.entityManifest
-//        Transformer.listToJson(response.entity)(em)
-//      } else {
-//        Transformer.beanToJson(response.entity)
-//      }
-//
-//      ast match {
-//        case a: JArray =>
-//          val b: String = compact(render(a))
-//          //println("YYY " + b)
-//          if (negotiator.isAccepted(MediaTypes.`text/html`)) {
-//            handleHtmlWithFallback[T](response, b)
-//          } else if (negotiator.isAccepted(MediaTypes.`application/json`)) {
-//            handleJson(response, b)
-//          }
-//
-//        case _ => log warn "unknown match"
-//      }
-
     case response: ResponseEvent[T] =>
 
       log debug s"  [OUT] >>> $response"
@@ -193,7 +160,7 @@ class ControllerActor() extends Actor {
     val loader = response.req.cmd.mapping.resourceClass.getClassLoader
     val ct: reflect.ClassTag[T] = response.entityClassTag
     val answer: Option[ResponseEntity] = templateNames
-      .map(name => tryLoading[T](name, response, loader))
+      .map(name => tryLoading[T](name, response, loader, ct.runtimeClass.asInstanceOf[Class[T]]))
       .find(_.isDefined)
       .flatMap(identity)
 
@@ -237,20 +204,7 @@ class ControllerActor() extends Actor {
       val resourceHtmlClass = loader.loadClass(templateName)
       val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase], ct)
       val rep = new RepresentationModel(response, applicationModel)
-      val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
-      Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
-    } catch {
-      case ex: Exception => log debug s"problem: ${ex.getMessage}"; /*ex.printStackTrace();*/ None
-    }
-  }
-
-  private def tryLoading[T](templateName: String, response: ResponseEvent[T], loader: ClassLoader): Option[ResponseEntity] = {
-    //(implicit ct: ClassTag[T]): Option[ResponseEntity] = {
-    try {
-      val resourceHtmlClass = loader.loadClass(templateName)
-      val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase])
-      val rep = new RepresentationModel(response, applicationModel)
-      val r2 = applyMethod.invoke(resourceHtmlClass, rep, response).asInstanceOf[HtmlFormat.Appendable]
+      val r2 = applyMethod.invoke(resourceHtmlClass, rep, response, response.entity.asInstanceOf[Object]).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
     } catch {
       case ex: Exception => log debug s"problem: ${ex.getMessage}"; /*ex.printStackTrace();*/ None
