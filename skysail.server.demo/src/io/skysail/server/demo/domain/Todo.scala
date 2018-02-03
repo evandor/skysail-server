@@ -9,3 +9,7 @@ import io.skysail.api.ddd.Entity
   */
 case class Todo(id: Option[String], title: String, content: String) extends Entity[String]
 
+
+case class TodoList(
+                         todos: List[Todo]
+                       )

@@ -31,8 +31,9 @@ Seq[Any](format.raw/*1.46*/("""
     """),format.raw/*15.5*/("""<!--<custom-element></custom-element>-->
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>"""))
@@ -51,9 +52,9 @@ Seq[Any](format.raw/*1.46*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Fri Jan 26 12:57:51 CET 2018
+                  DATE: Sat Feb 03 10:57:08 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/main.scala.html
-                  HASH: 02ce20fa70d479487329843cf6139e7bbb2d35f9
+                  HASH: 5321f6111eee00d70e358ce0596bf78289f456ea
                   MATRIX: 466->1|605->45|632->46|726->115|752->121|779->122|847->164|876->172|909->179|937->186|970->192
                   LINES: 12->1|17->1|18->2|22->6|22->6|23->7|27->11|27->11|29->13|29->13|31->15
                   -- GENERATED --

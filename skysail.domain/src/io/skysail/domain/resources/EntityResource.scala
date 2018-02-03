@@ -19,7 +19,7 @@ abstract class EntityResource[S <: ApplicationApi, T: TypeTag] extends AsyncReso
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     val req = RequestEvent(cmd, controller)
     val entity = getEntity(req)
-    req.controllerActor ! ResponseEvent[T](req, entity.get, entityManifest, entityClassTag)
+    req.controllerActor ! ResponseEvent[T](req, entity.get)(entityManifest, entityClassTag)
   }
   
   def getEntity(re: RequestEvent): Option[T]

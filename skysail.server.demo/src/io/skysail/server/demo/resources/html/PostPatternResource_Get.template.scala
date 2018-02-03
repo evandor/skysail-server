@@ -10,15 +10,15 @@ import io.skysail.server.RepresentationModel
 /*8.2*/import io.skysail.server.demo.domain.Account
 /*9.2*/import io.skysail.server.demo.domain.Pattern
 
-object PostPatternResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[RepresentationModel,ResponseEventBase,play.twirl.api.HtmlFormat.Appendable] {
+object PostPatternResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template3[RepresentationModel,ResponseEventBase,Object,play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
-  def apply/*11.2*/(rep: RepresentationModel, response: ResponseEventBase):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*11.2*/(rep: RepresentationModel, response: ResponseEventBase, o: Object):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*11.57*/("""
+Seq[Any](format.raw/*11.68*/("""
 
 """),_display_(/*13.2*/main(response)/*13.16*/ {_display_(Seq[Any](format.raw/*13.18*/("""
 
@@ -104,9 +104,9 @@ Seq[Any](format.raw/*11.57*/("""
     }
   }
 
-  def render(rep:RepresentationModel,response:ResponseEventBase): play.twirl.api.HtmlFormat.Appendable = apply(rep,response)
+  def render(rep:RepresentationModel,response:ResponseEventBase,o:Object): play.twirl.api.HtmlFormat.Appendable = apply(rep,response,o)
 
-  def f:((RepresentationModel,ResponseEventBase) => play.twirl.api.HtmlFormat.Appendable) = (rep,response) => apply(rep,response)
+  def f:((RepresentationModel,ResponseEventBase,Object) => play.twirl.api.HtmlFormat.Appendable) = (rep,response,o) => apply(rep,response,o)
 
   def ref: this.type = this
 
@@ -115,10 +115,10 @@ Seq[Any](format.raw/*11.57*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Tue Jan 16 09:05:00 CET 2018
+                  DATE: Sat Feb 03 09:40:25 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/PostPatternResource_Get.scala.html
-                  HASH: 33b160984a92a6a9a8a70dfe46daadc151eb4a2e
-                  MATRIX: 187->193|220->220|252->246|304->292|703->339|854->394|883->397|906->411|946->413|975->415|1584->997|1660->1057|1700->1059|1757->1088|1800->1104|1810->1105|1838->1112|1868->1115|1878->1116|1905->1122|1971->1157|2024->1182|2184->1315|2260->1375|2300->1377|2357->1406|2400->1422|2410->1423|2438->1430|2468->1433|2478->1434|2505->1440|2575->1479|2628->1504|3060->1909|3072->1912|3102->1921|3138->1930|3225->1990|3237->1993|3263->1998|3308->2016|3320->2019|3362->2040|3473->2124|3485->2127|3531->2152|3576->2170|3588->2173|3670->2234|3786->2323|3798->2326|3831->2338|3928->2408|3998->2457|4071->2503|4104->2527|4156->2541|4185->2542|4221->2547|4257->2556|4315->2587|4362->2613|4398->2622
+                  HASH: 79bb675d8831e3b86750cbd431d3379c33fba6d4
+                  MATRIX: 187->193|220->220|252->246|304->292|710->339|872->405|901->408|924->422|964->424|993->426|1602->1008|1678->1068|1718->1070|1775->1099|1818->1115|1828->1116|1856->1123|1886->1126|1896->1127|1923->1133|1989->1168|2042->1193|2202->1326|2278->1386|2318->1388|2375->1417|2418->1433|2428->1434|2456->1441|2486->1444|2496->1445|2523->1451|2593->1490|2646->1515|3078->1920|3090->1923|3120->1932|3156->1941|3243->2001|3255->2004|3281->2009|3326->2027|3338->2030|3380->2051|3491->2135|3503->2138|3549->2163|3594->2181|3606->2184|3688->2245|3804->2334|3816->2337|3849->2349|3946->2419|4016->2468|4089->2514|4122->2538|4174->2552|4203->2553|4239->2558|4275->2567|4333->2598|4380->2624|4416->2633
                   LINES: 8->6|9->7|10->8|11->9|16->11|21->11|23->13|23->13|23->13|25->15|45->35|45->35|45->35|46->36|46->36|46->36|46->36|46->36|46->36|46->36|47->37|48->38|52->42|52->42|52->42|53->43|53->43|53->43|53->43|53->43|53->43|53->43|54->44|55->45|71->61|71->61|71->61|72->62|75->65|75->65|75->65|76->66|76->66|76->66|80->70|80->70|80->70|81->71|81->71|81->71|86->76|86->76|86->76|88->78|88->78|92->82|92->82|92->82|92->82|92->82|93->83|96->86|96->86|97->87
                   -- GENERATED --
               */

@@ -11,15 +11,14 @@ sealed trait ResponseEventBase {
   val httpResponse: HttpResponse
 
   def getResource: Option[AsyncResource[_, _]] = req.cmd.resource
-  
+
 }
 
 case class ResponseEvent[T](
                              req: RequestEvent,
                              entity: T,
-                             entityManifest: Manifest[T] = null,
-                             entityClassTag: ClassTag[T] = null,
                              httpResponse: HttpResponse = HttpResponse(200))
+                           (implicit val entityManifest: Manifest[T], val entityClassTag: ClassTag[T])
   extends ResponseEventBase
 
 //case class ListResponseEvent[T](req: RequestEvent, entity: List[T], entityManifest: Manifest[T] = null, httpResponse: HttpResponse = HttpResponse(200))

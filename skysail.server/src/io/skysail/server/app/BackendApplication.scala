@@ -123,14 +123,14 @@ abstract class BackendApplication(
     */
   def routesMappings: List[RouteMappingI[_, _]]
 
-  def defaultResources: List[Class[_ <: DefaultResource[_, _]]] = List()
+  def defaultResources: List[Class[_ <: DefaultResource[_, _,_]]] = List()
 
   private def defaultRoutes(appModel: ApplicationModel): List[RouteMappingI[_, _]] = {
     //defaultResources.map(cls => DefaultResource.getMappings(cls, appModel)).flatten
     println(defaultResources)
     defaultResources
-      .map((cls: Class[_ <: DefaultResource[_, _]]) => {
-        val newClass: DefaultResource[_, _] = cls.newInstance()
+      .map((cls: Class[_ <: DefaultResource[_, _, _]]) => {
+        val newClass: DefaultResource[_,_, _] = cls.newInstance()
         newClass.getMappings(cls, appModel)
       })
       .flatten

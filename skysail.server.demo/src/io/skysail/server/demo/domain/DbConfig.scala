@@ -10,3 +10,6 @@ import io.skysail.api.ddd.Entity
   */
 case class DbConfig(id: Option[String], key: String, values: String) extends Entity[String]
 
+case class DbConfigList(
+                       dbConfis: List[DbConfig]
+                       )

@@ -6,19 +6,19 @@ import html.main
 import io.skysail.domain.ResponseEventBase
 import io.skysail.server.RepresentationModel
 
-object DbConfigsResource_Form extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[RepresentationModel,ResponseEventBase,play.twirl.api.HtmlFormat.Appendable] {
+object DbConfigsResource_Form extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template3[RepresentationModel,ResponseEventBase,Object,play.twirl.api.HtmlFormat.Appendable] {
 
   /*************************************
 * Home page.                        *
 *                                   *
 * @param msg The message to display *
 *************************************/
-  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase, o: Object):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*6.57*/("""
+Seq[Any](format.raw/*6.68*/("""
 
 """),_display_(/*8.2*/main(response)/*8.16*/ {_display_(Seq[Any](format.raw/*8.18*/("""
 
@@ -60,9 +60,9 @@ Seq[Any](format.raw/*6.57*/("""
     }
   }
 
-  def render(rep:RepresentationModel,response:ResponseEventBase): play.twirl.api.HtmlFormat.Appendable = apply(rep,response)
+  def render(rep:RepresentationModel,response:ResponseEventBase,o:Object): play.twirl.api.HtmlFormat.Appendable = apply(rep,response,o)
 
-  def f:((RepresentationModel,ResponseEventBase) => play.twirl.api.HtmlFormat.Appendable) = (rep,response) => apply(rep,response)
+  def f:((RepresentationModel,ResponseEventBase,Object) => play.twirl.api.HtmlFormat.Appendable) = (rep,response,o) => apply(rep,response,o)
 
   def ref: this.type = this
 
@@ -71,10 +71,10 @@ Seq[Any](format.raw/*6.57*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Mon Jan 15 17:45:23 CET 2018
+                  DATE: Sat Feb 03 09:40:24 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/DbConfigsResource_Form.scala.html
-                  HASH: fef31f19dfbf459b7636608847d807b709467bee
-                  MATRIX: 719->193|869->248|897->251|919->265|958->267|987->269
+                  HASH: 4f21ca1fa19474a86e131b690ba915b633504284
+                  MATRIX: 726->193|887->259|915->262|937->276|976->278|1005->280
                   LINES: 16->6|21->6|23->8|23->8|23->8|25->10
                   -- GENERATED --
               */

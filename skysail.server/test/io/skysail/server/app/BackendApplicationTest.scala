@@ -10,21 +10,21 @@ import io.skysail.api.ddd.Entity
 import io.skysail.api.ui.{Link, Linkable}
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.resources.{ListResource, PostResource}
+import io.skysail.domain.resources.{EntityResource, PostResource}
 import io.skysail.domain.routes.RouteMapping
-import io.skysail.domain.{RequestEvent, ResponseEvent}
+import io.skysail.domain.{RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.routes.RoutesCreator
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{BeforeAndAfterAll, FlatSpecLike, Matchers}
 
 
 case class Bookmark(id: Option[String], title: String, url: String) extends Entity[String] with Linkable {
   override def _links = List(Link("self", "hier"))
 }
 
-class BookmarksResource extends ListResource[TestApp, Bookmark] {
-  override def getList(re: RequestEvent): List[Bookmark] = ??? //getApplication().repo.find()
+class BookmarksResource extends EntityResource[TestApp, Bookmark] {
+  //override def getList(re: RequestEvent): List[Bookmark] = ??? //getApplication().repo.find()
+  override def getEntity(re: RequestEvent): Option[Bookmark] = ???
+
+  override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 }
 
 class PostBookmarkResource extends PostResource[TestApp, Bookmark] /*with JsonSupport */ {

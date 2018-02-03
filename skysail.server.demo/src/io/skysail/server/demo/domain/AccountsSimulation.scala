@@ -15,13 +15,13 @@ case class Account(
 
 }
 
-//case class AccountList(
-//                        accounts: List[Account]
-//                      ) extends Linkable {
-//
-//  override val _links: List[Link] = List(Link("self", "here"))
-//
-//}
+case class AccountList(
+                        accounts: List[Account]
+                      ) extends Linkable {
+
+  override val _links: List[Link] = List(Link("self", "here"))
+
+}
 
 case class Transaction(
                         id: Option[String],

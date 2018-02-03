@@ -10,16 +10,16 @@ import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.Todo
+import io.skysail.server.demo.domain.{Todo, TodoList}
 import spray.json.{DefaultJsonProtocol, _}
 
 trait JsonSupport5 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val TodoFormat: RootJsonFormat[Todo] = jsonFormat3(Todo)
 }
 
-class TodosResource extends DefaultResource[DemoApplication, Todo] {
+class TodosResource extends DefaultResource[DemoApplication, Todo, TodoList] {
 
-  override def getList(re: RequestEvent) = getApplication().todosRepo.find()
+  override def getList(re: RequestEvent) = TodoList(getApplication().todosRepo.find())
 
   override def getEntity(re: RequestEvent) = getApplication().todosRepo.find(re.cmd.urlParameter.head)
 

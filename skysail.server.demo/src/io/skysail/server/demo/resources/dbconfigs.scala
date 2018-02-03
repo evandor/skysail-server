@@ -2,25 +2,24 @@ package io.skysail.server.demo.resources
 
 import java.util.UUID
 
-import akka.actor.{ ActorSelection, ActorSystem }
+import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources._
-import io.skysail.domain.{ RedirectResponseEvent, RequestEvent, ResponseEvent }
+import io.skysail.domain.{RequestEvent, ResponseEvent}
 import io.skysail.server.demo.DemoApplication
-import spray.json.{ DefaultJsonProtocol, _ }
-import akka.http.scaladsl.model.HttpMethods
-import io.skysail.server.demo.domain.DbConfig
+import io.skysail.server.demo.domain.{DbConfig, DbConfigList}
+import spray.json.{DefaultJsonProtocol, _}
 
 trait JsonSupport2 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val DbConfigFormat: RootJsonFormat[DbConfig] = jsonFormat3(DbConfig)
 }
 
-class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig] {
+class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig,DbConfigList] {
 
-  override def getList(re: RequestEvent) = getApplication().dbConfigRepo.find()
+  override def getList(re: RequestEvent) = DbConfigList(getApplication().dbConfigRepo.find())
 
   override def getEntity(re: RequestEvent) = getApplication().dbConfigRepo.find(re.cmd.urlParameter.head)
 

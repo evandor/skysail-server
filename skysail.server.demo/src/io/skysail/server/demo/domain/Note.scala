@@ -9,3 +9,6 @@ import io.skysail.api.ddd.Entity
   */
 case class Note(id: Option[String], title: String, content: String) extends Entity[String]
 
+case class NoteList(
+                         notes: List[Note]
+                       )

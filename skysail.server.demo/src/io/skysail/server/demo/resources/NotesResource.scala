@@ -10,16 +10,16 @@ import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.Note
+import io.skysail.server.demo.domain.{Note, NoteList}
 import spray.json.{DefaultJsonProtocol, _}
 
 trait JsonSupport3 extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val NoteFormat: RootJsonFormat[Note] = jsonFormat3(Note)
 }
 
-class NotesResource extends DefaultResource[DemoApplication, Note] {
+class NotesResource extends DefaultResource[DemoApplication, Note, NoteList] {
 
-  override def getList(re: RequestEvent) = getApplication().notesRepo.find()
+  override def getList(re: RequestEvent) = NoteList( getApplication().notesRepo.find())
 
   override def getEntity(re: RequestEvent) = getApplication().notesRepo.find(re.cmd.urlParameter.head)
 

@@ -23,17 +23,20 @@ import scala.reflect.runtime.universe._
  * S the backend application serving the resource
  * T the entity associated with the resource, typically an aggregate root
  */
-abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, List[T]] {
+abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] extends AsyncResource[S, List[T]] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
   
   val entityManifest: Manifest[T] = Transformer.toManifest
   val entityClassTag: ClassTag[T] = Transformer.toClassTag
 
+  val listManifest: Manifest[L] = Transformer.toManifest
+  val listClassTag: ClassTag[L] = Transformer.toClassTag
+
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     // tag::methodMatch[]
     cmd.mapping match {
-      //case c: ListRouteMapping[_, _] => handleListRouteMapping(RequestEvent(cmd, controller))
+      case c: ListRouteMapping[_, _] => handleListRouteMapping(RequestEvent(cmd, controller))
       case c: EntityMapping[_, _] => handleEntityMapping(RequestEvent(cmd, controller))
       case c: CreationMapping[_, _] => {
         cmd.ctx.request.method match {
@@ -55,17 +58,20 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
 
   }
 
-//  final def handleListRouteMapping(re: RequestEvent) = {
-//    val list = getList(re)
-//    re.controllerActor ! ResponseEvent[T](re, list, entityManifest)
-//  }
+  final def handleListRouteMapping(re: RequestEvent) = {
+    val list: L = getList(re)
+    println(listManifest)
+    re.controllerActor ! ResponseEvent[L](re, list)(listManifest, listClassTag)
+  }
 
   final def handleEntityMapping(re: RequestEvent) = {
     val entity = getEntity(re).get
-    re.controllerActor ! ResponseEvent[T](re, entity, entityManifest, entityClassTag)
+    re.controllerActor ! ResponseEvent[T](re, entity)(entityManifest, entityClassTag)
   }
 
-  final def handleCreationMappingGet(re: RequestEvent) = re.controllerActor ! ResponseEvent[T](re, getTemplate(re))
+  final def handleCreationMappingGet(re: RequestEvent) = {
+    re.controllerActor ! ResponseEvent[T](re, getTemplate(re))(entityManifest, entityClassTag)
+  }
 
   final def handleCreationMappingPost(re: RequestEvent)(implicit system: ActorSystem) = {
     createEntity(re)
@@ -75,7 +81,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
 
   def handleUpdateMappingGet(re: RequestEvent): Unit = {
     val optionalEntity = getEntity(re)
-    re.controllerActor ! ResponseEvent(re, optionalEntity.get)
+    re.controllerActor ! ResponseEvent(re, optionalEntity.get)(entityManifest, entityClassTag)
   }
 
   def handleUpdateMappingPut(re: RequestEvent)(implicit system: ActorSystem) = {
@@ -85,7 +91,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
     
   }
 
-  def getList(requestEvent: RequestEvent): List[T]
+  def getList(requestEvent: RequestEvent): L
 
   def getEntity(re: RequestEvent): Option[T]
 
@@ -102,7 +108,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag] extends AsyncRes
   
  // def get(re: RequestEvent): ResponseEventBase = ResponseEvent[T](re, getList(re))
 
-  def getMappings(cls: Class[_ <: DefaultResource[_, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
+  def getMappings(cls: Class[_ <: DefaultResource[_, _,_]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
     val root = appModel.appRoute
     val entityName = typeOf[T].typeSymbol.name.toString().toLowerCase()
     val theClass = cls.asInstanceOf[Class[SkysailResource[_, T]]]

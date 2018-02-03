@@ -6,19 +6,19 @@ import html.main
 import io.skysail.domain.ResponseEventBase
 import io.skysail.server.RepresentationModel
 
-object PostBookmarkResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[RepresentationModel,ResponseEventBase,play.twirl.api.HtmlFormat.Appendable] {
+object PostBookmarkResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template4[RepresentationModel,ResponseEventBase,Object,Object,play.twirl.api.HtmlFormat.Appendable] {
 
   /*************************************
 * Home page.                        *
 *                                   *
 * @param msg The message to display *
 *************************************/
-  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase, e:Object, o: Object):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*6.57*/("""
+Seq[Any](format.raw/*6.78*/("""
 
 """),_display_(/*8.2*/main(response)/*8.16*/ {_display_(Seq[Any](format.raw/*8.18*/("""
 
@@ -60,9 +60,9 @@ Seq[Any](format.raw/*6.57*/("""
     }
   }
 
-  def render(rep:RepresentationModel,response:ResponseEventBase): play.twirl.api.HtmlFormat.Appendable = apply(rep,response)
+  def render(rep:RepresentationModel,response:ResponseEventBase,e:Object,o:Object): play.twirl.api.HtmlFormat.Appendable = apply(rep,response,e,o)
 
-  def f:((RepresentationModel,ResponseEventBase) => play.twirl.api.HtmlFormat.Appendable) = (rep,response) => apply(rep,response)
+  def f:((RepresentationModel,ResponseEventBase,Object,Object) => play.twirl.api.HtmlFormat.Appendable) = (rep,response,e,o) => apply(rep,response,e,o)
 
   def ref: this.type = this
 
@@ -71,10 +71,10 @@ Seq[Any](format.raw/*6.57*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Tue Jan 16 08:16:12 CET 2018
+                  DATE: Sat Feb 03 09:40:24 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/PostBookmarkResource_Get.scala.html
-                  HASH: a0bfcb46ab61f9f82f99dd6439c8df2a88cbd9fc
-                  MATRIX: 721->193|871->248|899->251|921->265|960->267|989->269|1181->434|1193->437|1277->500
+                  HASH: f28591991af2eca5a1329ca47bea66e2e2a30d9b
+                  MATRIX: 735->193|906->269|934->272|956->286|995->288|1024->290|1216->455|1228->458|1312->521
                   LINES: 16->6|21->6|23->8|23->8|23->8|25->10|31->16|31->16|31->16
                   -- GENERATED --
               */

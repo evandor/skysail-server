@@ -6,19 +6,19 @@ import html.main
 import io.skysail.domain.ResponseEventBase
 import io.skysail.server.RepresentationModel
 
-object ListResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[RepresentationModel,ResponseEventBase,play.twirl.api.HtmlFormat.Appendable] {
+object ListResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template3[RepresentationModel,ResponseEventBase,AnyRef,play.twirl.api.HtmlFormat.Appendable] {
 
   /*************************************
 * Home page.                        *
 *                                   *
 * @param msg The message to display *
 *************************************/
-  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase, entity: AnyRef):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*6.57*/("""
+Seq[Any](format.raw/*6.73*/("""
 
 """),_display_(/*8.2*/main(response)/*8.16*/ {_display_(Seq[Any](format.raw/*8.18*/("""
 
@@ -89,9 +89,9 @@ Seq[Any](format.raw/*6.57*/("""
     }
   }
 
-  def render(rep:RepresentationModel,response:ResponseEventBase): play.twirl.api.HtmlFormat.Appendable = apply(rep,response)
+  def render(rep:RepresentationModel,response:ResponseEventBase,entity:AnyRef): play.twirl.api.HtmlFormat.Appendable = apply(rep,response,entity)
 
-  def f:((RepresentationModel,ResponseEventBase) => play.twirl.api.HtmlFormat.Appendable) = (rep,response) => apply(rep,response)
+  def f:((RepresentationModel,ResponseEventBase,AnyRef) => play.twirl.api.HtmlFormat.Appendable) = (rep,response,entity) => apply(rep,response,entity)
 
   def ref: this.type = this
 
@@ -100,10 +100,10 @@ Seq[Any](format.raw/*6.57*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Sun Jan 21 08:54:43 CET 2018
+                  DATE: Sat Feb 03 08:11:07 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/ListResource_Get.scala.html
-                  HASH: 919e947022cad4087a754e34a9d8a48426cf21a3
-                  MATRIX: 680->193|830->248|858->251|880->265|919->267|948->269|1206->500|1266->544|1306->546|1355->567|1387->572|1397->573|1449->604|1503->627|1544->640|1631->700|1668->721|1708->723|1749->736|1814->774|1824->775|1858->788|1921->824|1931->825|1963->836|2010->856|2020->857|2054->870|2084->873|2094->874|2126->885|2216->948|2226->949|2257->959|2329->1004|2339->1005|2370->1015|2470->1084|2512->1098|2668->1227|2680->1230|2710->1239|2746->1248|2849->1324|2861->1327|2894->1339|2991->1409|3061->1458|3138->1508|3171->1532|3223->1546|3252->1547|3288->1552|3324->1561|3386->1596|3433->1622|3469->1631|3597->1733|3620->1747|3669->1758|3699->1761|3765->1800|3791->1805|3837->1821
+                  HASH: 1344247612ef5ce27e030fa11c2e30f0fd319c4a
+                  MATRIX: 687->193|853->264|881->267|903->281|942->283|971->285|1229->516|1289->560|1329->562|1378->583|1410->588|1420->589|1472->620|1526->643|1567->656|1654->716|1691->737|1731->739|1772->752|1837->790|1847->791|1881->804|1944->840|1954->841|1986->852|2033->872|2043->873|2077->886|2107->889|2117->890|2149->901|2239->964|2249->965|2280->975|2352->1020|2362->1021|2393->1031|2493->1100|2535->1114|2691->1243|2703->1246|2733->1255|2769->1264|2872->1340|2884->1343|2917->1355|3014->1425|3084->1474|3161->1524|3194->1548|3246->1562|3275->1563|3311->1568|3347->1577|3409->1612|3456->1638|3492->1647|3620->1749|3643->1763|3692->1774|3722->1777|3788->1816|3814->1821|3860->1837
                   LINES: 16->6|21->6|23->8|23->8|23->8|25->10|34->19|34->19|34->19|35->20|35->20|35->20|35->20|36->21|37->22|40->25|40->25|40->25|41->26|42->27|42->27|42->27|43->28|43->28|43->28|43->28|43->28|43->28|43->28|43->28|43->28|45->30|45->30|45->30|46->31|46->31|46->31|49->34|51->36|59->44|59->44|59->44|60->45|64->49|64->49|64->49|66->51|66->51|70->55|70->55|70->55|70->55|70->55|71->56|74->59|74->59|75->60|83->68|83->68|83->68|84->69|84->69|84->69|85->70
                   -- GENERATED --
               */
