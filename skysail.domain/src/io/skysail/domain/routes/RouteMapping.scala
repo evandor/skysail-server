@@ -85,3 +85,9 @@ case class EntityMapping[S: TypeTag, T: TypeTag](
                                                   override val pathMatcher: PathMatcher[S],
                                                   override val resourceClass: Class[_ <: SkysailResource[_, T]])
   extends RouteMappingI[S, T](path, pathMatcher, resourceClass)
+
+case class ConcreteRouteMapping[S <: io.skysail.domain.app.ApplicationApi: TypeTag, T: TypeTag](
+                                                 override val path: String,
+                                                 override val pathMatcher: PathMatcher[S],
+                                                 val resource: SkysailResource[S, T])
+  extends RouteMappingI[S, T](path, pathMatcher, resource.getClass)

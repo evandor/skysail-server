@@ -7,15 +7,15 @@ import io.skysail.domain.ResponseEventBase
 import io.skysail.server.RepresentationModel
 /*6.2*/import html._
 
-object PatternsResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[RepresentationModel,ResponseEventBase,play.twirl.api.HtmlFormat.Appendable] {
+object PatternsResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template3[RepresentationModel,ResponseEventBase,Object,play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
-  def apply/*8.2*/(rep: RepresentationModel, response: ResponseEventBase):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*8.2*/(rep: RepresentationModel, response: ResponseEventBase, o: Object):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*8.57*/("""
+Seq[Any](format.raw/*8.68*/("""
 
 """),_display_(/*10.2*/main(response)/*10.16*/ {_display_(Seq[Any](format.raw/*10.18*/("""
 
@@ -86,9 +86,9 @@ Seq[Any](format.raw/*8.57*/("""
     }
   }
 
-  def render(rep:RepresentationModel,response:ResponseEventBase): play.twirl.api.HtmlFormat.Appendable = apply(rep,response)
+  def render(rep:RepresentationModel,response:ResponseEventBase,o:Object): play.twirl.api.HtmlFormat.Appendable = apply(rep,response,o)
 
-  def f:((RepresentationModel,ResponseEventBase) => play.twirl.api.HtmlFormat.Appendable) = (rep,response) => apply(rep,response)
+  def f:((RepresentationModel,ResponseEventBase,Object) => play.twirl.api.HtmlFormat.Appendable) = (rep,response,o) => apply(rep,response,o)
 
   def ref: this.type = this
 
@@ -97,10 +97,10 @@ Seq[Any](format.raw/*8.57*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Thu Jan 25 16:28:43 CET 2018
+                  DATE: Tue Feb 06 12:36:43 CET 2018
                   SOURCE: C:/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/PatternsResource_Get.scala.html
-                  HASH: 0f2e9751749208b39970a9e45ecf324fca43aada
-                  MATRIX: 187->193|551->209|701->264|730->267|753->281|793->283|822->285|954->390|966->393|1004->410|1040->419|1403->755|1461->797|1501->799|1542->812|1607->850|1619->853|1662->875|1716->902|1728->905|1779->935|1833->962|1845->965|1894->993|1996->1068|2008->1071|2051->1093|2139->1154|2151->1157|2194->1179|2294->1248|2336->1262|2506->1405|2518->1408|2548->1417|2584->1426|2687->1502|2699->1505|2732->1517|2829->1587|2899->1636|2976->1686|3009->1710|3061->1724|3090->1725|3126->1730|3162->1739|3224->1774|3271->1800|3307->1809
+                  HASH: 443fd392ad634058767bafca5357fddff5b09e37
+                  MATRIX: 187->193|558->209|719->275|748->278|771->292|811->294|840->296|972->401|984->404|1022->421|1058->430|1421->766|1479->808|1519->810|1560->823|1625->861|1637->864|1680->886|1734->913|1746->916|1797->946|1851->973|1863->976|1912->1004|2014->1079|2026->1082|2069->1104|2157->1165|2169->1168|2212->1190|2312->1259|2354->1273|2524->1416|2536->1419|2566->1428|2602->1437|2705->1513|2717->1516|2750->1528|2847->1598|2917->1647|2994->1697|3027->1721|3079->1735|3108->1736|3144->1741|3180->1750|3242->1785|3289->1811|3325->1820
                   LINES: 8->6|13->8|18->8|20->10|20->10|20->10|22->12|28->18|28->18|28->18|29->19|42->32|42->32|42->32|43->33|44->34|44->34|44->34|45->35|45->35|45->35|46->36|46->36|46->36|48->38|48->38|48->38|49->39|49->39|49->39|52->42|54->44|62->52|62->52|62->52|63->53|67->57|67->57|67->57|69->59|69->59|73->63|73->63|73->63|73->63|73->63|74->64|77->67|77->67|78->68
                   -- GENERATED --
               */

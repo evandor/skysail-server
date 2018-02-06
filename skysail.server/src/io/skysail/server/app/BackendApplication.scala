@@ -14,6 +14,8 @@ import io.skysail.domain.routes._
 import io.skysail.server.{Constants, RoutesCreatorTrait}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
+import akka.http.scaladsl.server.PathMatchers._
+import io.skysail.server.app.resources.AppModelResource
 
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
@@ -94,7 +96,6 @@ abstract class BackendApplication(
 
     routes ++= routesMappings.map { routeMapping =>
       val entityClass = appModel.addResourceModel(routeMapping)
-      //println("entityClass: " + entityClass)
       routesCreator.createRoute(routeMapping, this)
     }
 
@@ -104,9 +105,12 @@ abstract class BackendApplication(
 
     routes ++= defaultRoutes(appModel).map { routeMapping =>
       val entityClass = appModel.addResourceModel(routeMapping)
-      //println("entityClass: " + entityClass)
       routesCreator.createRoute(routeMapping, this)
     }
+
+    val res = new AppModelResource().asInstanceOf[SkysailResource[RootApplication, AppModelResource]]
+    //val appModelMapping = ConcreteRouteMapping[RootApplication, AppModelResource]("/_model", appModel.appRoute / PathMatcher("_model") ~ PathEnd, res)
+    //routes += routesCreator.createRoute(appModelMapping, this)
 
     routes.size match {
       case 0 => log warn "no routes are defined"; null

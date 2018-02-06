@@ -7,7 +7,7 @@ import akka.http.scaladsl.server.Directives.formFieldMap
 import akka.http.scaladsl.server.PathMatchers._
 import akka.http.scaladsl.server.{PathMatcher, Route}
 import io.skysail.api.ddd.Entity
-import io.skysail.api.ui.{Link, Linkable}
+import io.skysail.api.ui.{Link, Linkable, TextLink}
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{EntityResource, PostResource}
@@ -17,7 +17,7 @@ import io.skysail.server.routes.RoutesCreator
 
 
 case class Bookmark(id: Option[String], title: String, url: String) extends Entity[String] with Linkable {
-  override def _links = List(Link("self", "hier"))
+  override def _links = List(TextLink("self", "hier",""))
 }
 
 class BookmarksResource extends EntityResource[TestApp, Bookmark] {
