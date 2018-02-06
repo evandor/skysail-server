@@ -1,17 +1,44 @@
 package io.skysail.server.demo.domain
 
-import org.junit.Test
+import io.skysail.domain.Transformer
+import org.json4s
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
-import org.junit.Ignore
+import org.junit.{Ignore, Test}
 
 class AccountsSimulationTest {
 
   implicit val serialization = jackson.Serialization
   implicit val formats = DefaultFormats
 
+
   @Test
-  @Ignore
+  def accountToJson(): Unit = {
+    val account = Account(Some("from_account"), "from_a", 10)
+    val json: json4s.JValue = Transformer.beanToJson(account)
+    println(json)
+    //assertTrue(json.toString == "JObject(List((id,JString(from_account)), (title,JString(from_a)), (balance,JInt(10)), (_links,JArray(List(JObject(List((rel,JString(self)), (href,JString(here)))))))))")
+                             //    JObject(List((id,JString(from_account)), (title,JString(from_a)), (balance,JInt(10)), (_links,JArray(List(JObject(List((text,JString(here)), (rel,JString(self)), (href,JString(xx)), (target,JString(_self)), (title,JString()), (style,JString()))))))))
+
+  }
+
+  @Test
+  def accountsToJson(): Unit = {
+    val account = Account(Some("from_account"), "from_a", 10)
+    val accountList = AccountList(List(account))
+    val json: json4s.JValue = Transformer.beanToJson(accountList)
+    println(json)
+  }
+
+    @Test
+  def bookmarkToJson(): Unit = {
+    val bm = Bookmark(Some("id"), "title", "url")
+    val json: json4s.JValue = Transformer.beanToJson(bm)
+    println(json)
+    //assertTrue(json.toString == "JObject(List((id,JString(from_account)), (title,JString(from_a)), (balance,JInt(10)), (_links,JArray(List(JObject(List((rel,JString(self)), (href,JString(here)))))))))")
+  }
+
+  @Test
   def create_orientdb_json_and_parse_back_to_entity() {
 
     val from = Account(Some("from_account"), "from_a", 10)
@@ -25,17 +52,8 @@ class AccountsSimulationTest {
   @Test
   @Ignore
   def test() {
-    //    var input = """
-    //    {
-    //      "id":"532bcabc-bd01-4f8f-b3f6-90a1dcdfb6b2",
-    //      "out_from":[{"out":"#96:6","in":{"id":"0081b4ff-231b-4c52-9061-6412f4852de6","title":"ing-diba","initial":1000,
-    //      "in_from":["#98:1"]}}],"out_to":[{"out":"#96:6","in":{"id":"f41b8ca5-5378-45d5-9998-1a2511a63b08",
-    //      "title":"another test",
-    //      "initial":0,
-    //      "in_to":["#99:0"]}}],
-    //      "amount":1000}
-    //    """
-    var input = """
+    var input =
+    """
 
     {
       "id":"1148f9fa-d677-4d69-9138-805a945a5752",
@@ -65,29 +83,8 @@ class AccountsSimulationTest {
   @Test
   @Ignore
   def test2() {
-    //    var input = """
-    //    {
-    //      "id":"532bcabc-bd01-4f8f-b3f6-90a1dcdfb6b2",
-    //      "out_from":[
-    //        {
-    //          "out":"#96:6",
-    //          "in":{
-    //            "id":"0081b4ff-231b-4c52-9061-6412f4852de6",
-    //            "title":"ing-diba",
-    //            "initial":1000,
-    //            "in_from":["#98:1"]
-    //          }
-    //        }
-    //      ],
-    //      "title":"another test",
-    //      "initial":0,
-    //      "in_to":[
-    //        "#99:0"
-    //      ]}}],
-    //      "amount":1000
-    //    }
-    //    """
-    var input = """
+    var input =
+    """
     {
       "id":"532bcabc-bd01-4f8f-b3f6-90a1dcdfb6b2",
       "out_from":[
@@ -155,7 +152,8 @@ class AccountsSimulationTest {
   @Test
   @Ignore
   def test5(): Unit = {
-    var input = """
+    var input =
+      """
 {
   "@rid": "#96:7",
   "@version": 1,
@@ -233,7 +231,8 @@ class AccountsSimulationTest {
   @Test
   @Ignore
   def test6(): Unit = {
-    var input = """
+    var input =
+      """
 {
   "@rid": "#96:8",
   "@version": 1,
@@ -309,7 +308,8 @@ class AccountsSimulationTest {
   @Test
   @Ignore
   def test7(): Unit = {
-    var input = """
+    var input =
+      """
 {
   "id": "9e4ccd49-5d2e-4c0a-b685-1f97f08f5dde",
   "out_from": [
@@ -344,8 +344,8 @@ class AccountsSimulationTest {
 
     val ast = parse(input)
     implicit val formats = DefaultFormats
-    val from = (ast \\ "out_from" \ "in")(0)
-    val to = (ast \\ "out_to" \ "in")(0)
+    val from = (ast \\ "out_from" \ "in") (0)
+    val to = (ast \\ "out_to" \ "in") (0)
     val p = ast transformField {
       case JField("out_from", JArray(s)) => ("from", from)
       case JField("out_to", JArray(s)) => ("to", to)
@@ -353,9 +353,10 @@ class AccountsSimulationTest {
     println(p.extract[Pattern])
   }
 
-    @Test
+  @Test
   def test8(): Unit = {
-    var input = """
+    var input =
+      """
 {
   "id": "9e4ccd49-5d2e-4c0a-b685-1f97f08f5dde",
   "out_from": [
@@ -391,8 +392,8 @@ class AccountsSimulationTest {
     val ast = parse(input)
     println("AST: " + ast)
     implicit val formats = DefaultFormats
-    val from = (ast \\ "out_from" \ "in")(0)
-    val to = (ast \\ "out_to" \ "in")(0)
+    val from = (ast \\ "out_from" \ "in") (0)
+    val to = (ast \\ "out_to" \ "in") (0)
     val p = ast transformField {
       case JField("out_from", JArray(s)) => ("from", from)
       case JField("out_to", JArray(s)) => ("to", to)

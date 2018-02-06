@@ -15,11 +15,11 @@ import akka.util.Timeout
 import io.skysail.api.security.AuthenticationService
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.routes.{RouteMapping, RouteMappingI}
-import io.skysail.server.{Constants, RoutesCreatorTrait}
+import io.skysail.domain.routes.RouteMappingI
 import io.skysail.server.TunnelDirectives._
 import io.skysail.server.actors.{BundleActor, BundlesActor}
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
+import io.skysail.server.{Constants, RoutesCreatorTrait}
 import org.osgi.framework.Bundle
 import org.osgi.framework.wiring.{BundleCapability, BundleWiring}
 import org.slf4j.LoggerFactory
@@ -120,7 +120,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
       } ~
       path("c4") {
         parameterMap { map =>
-          println("MAP: " + map)
+         // println("MAP: " + map)
           complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "hier we are"))
         }
       }

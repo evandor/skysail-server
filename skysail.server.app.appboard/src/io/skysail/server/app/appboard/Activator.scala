@@ -16,11 +16,11 @@ class Activator extends DominoActivator {
   whenBundleActive {
 
     onStart {
-      println("Bundle started")
+      //println("Bundle started")
     }
 
     onStop {
-      println("Bundle stopped")
+      //println("Bundle stopped")
     }
 
     whenServicesPresent[RoutesCreatorTrait, ActorSystem] { (routesCreator, actorSystem) =>

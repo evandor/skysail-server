@@ -26,6 +26,7 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
   <link rel="stylesheet"    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" async>
   <link rel="stylesheet"    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet"    href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto|Slabo+27px" async>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
  <!-- <script src="https://polygit.org/components/webcomponentsjs/webcomponents-loader.js"></script>
 
@@ -71,9 +72,9 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
               /*
                   -- GENERATED --
-                  DATE: Sat Feb 03 10:57:08 CET 2018
+                  DATE: Sun Feb 04 09:37:08 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/head.scala.html
-                  HASH: 87137561571886b7d3c64fe631edcb3175800b67
+                  HASH: 01d667a6d5cf292d6dbbacdc36d5ee5354b92fb1
                   MATRIX: 532->2
                   LINES: 17->1
                   -- GENERATED --

@@ -50,3 +50,6 @@ Bundle-Activator: io.skysail.server.app.appboard.Activator
 Private-Package: \
     io.skysail.server.app.appboard,\
     io.skysail.server.app.appboard.html
+
+Export-Package: \
+    io.skysail.server.app.appboard.domain

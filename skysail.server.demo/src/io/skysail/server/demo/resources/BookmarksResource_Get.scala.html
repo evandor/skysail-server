@@ -7,41 +7,52 @@
 
 @main(response) {
 
-<br><br><br>
-
-<div class="container">
-    <div class="starter-template">
-        <h1>Bookmarks</h1>
-        <p class="lead">all bookmarks:</p>
-        <table class="table table-sm">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Url</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            @for(p <- bms.bookmarks) {
-            <tr>
-                <th scope="row">@p.title</th>
-                <td><a href='@p.url' target='demo_bms_@p.title)'>@p.url</a></td>
-                <td>
-                    <a href='@rep.linkFor("io.skysail.server.demo.resources.BookmarkResource", p.id)'>[show]</a>
-                    <a href='@rep.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.id)'>[update]</a>
-                </td>
-            </tr>
-            }
-
-            </tbody>
-
-        </table>
-
-        <a href='@rep.linkFor("io.skysail.server.demo.resources.PostBookmarkResource",None)'>Create New Bookmark</a>
-
-        <hr>
-        <a href="/doc/v1/index.html" target="_docs">Doc</a>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">@rep.model.name</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+        </button>
     </div>
+</div>
+
+<div class="row">
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Url</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(p <- bms.bookmarks) {
+        <tr>
+            <th scope="row">@p.title</th>
+            <td><a href='@p.url' target='demo_bms_@p.title)'>@p.url</a></td>
+            <td>
+                @for(l <- p._links) {
+                @Html(l.toHtml(p.id.get))&nbsp;
+                }
+            </td>
+        </tr>
+        }
+
+        </tbody>
+
+    </table>
+    <hr>
+    @for(l <- bms._links) {
+    @Html(l.toHtml)
+    }
+
+    <hr>
+    <a href="/doc/v1/index.html" target="_docs">Doc</a>
 </div>
 
 }

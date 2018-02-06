@@ -1,7 +1,7 @@
 package io.skysail.server.app.resources
 
 import com.fasterxml.jackson.annotation.{JsonAutoDetect, JsonProperty}
-import io.skysail.api.ui.{Link, Linkable}
+import io.skysail.api.ui.{Linkable, TextLink}
 import io.skysail.domain.resources.EntityResource
 import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.server.app.RootApplication
@@ -9,7 +9,7 @@ import io.skysail.server.app.RootApplication
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 case class Client(name: String) extends Linkable {
   @JsonProperty("_links")
-  override def _links = List(Link("self", s"clients/$name"))
+  override def _links = List(TextLink("self", s"clients/$name",""))
 }
 
 class ClientsResource() extends EntityResource[RootApplication, Client] {

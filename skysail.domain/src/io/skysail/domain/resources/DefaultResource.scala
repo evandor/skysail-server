@@ -60,7 +60,6 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
 
   final def handleListRouteMapping(re: RequestEvent) = {
     val list: L = getList(re)
-    println(listManifest)
     re.controllerActor ! ResponseEvent[L](re, list)(listManifest, listClassTag)
   }
 

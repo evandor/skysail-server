@@ -5,41 +5,41 @@
 *************************************@
 @import html._
 
-@(rep: RepresentationModel, response: ResponseEventBase)
+@(rep: RepresentationModel, response: ResponseEventBase, appList: io.skysail.domain.app.ApplicationList)
 
 @main(response) {
 
-<br><br><br>
-
-<div class="container">
-    <div class="starter-template">
-    
-       <!-- <span>
-   ***     @rep.getString("")
-        </span>-->
-        <h1>Apps</h1>
-        <!--<p class="lead">all notes:</p>-->
-
-        <div class="row">
-            @for((item, i) <- rep.rawData.zipWithIndex) {
-              @if(rep.getString(s"[$i].name") != "_root") {
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <!--<img class="card-img-top" src="..." alt="Card image cap">-->
-
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fa fa-adjust" aria-hidden="true"></i> @rep.getString(s"[$i].name")</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@rep.getString(s"[$i].version")</h6>
-                            <p class="card-text">@rep.getString(s"[$i].description")</p>
-                            <a href='@rep.getString(s"[$i].context")' class="btn btn-primary">Open</a>
-                        </div>
-                    </div>
-                </div>
-              }
-            }
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Applications</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>
         </div>
-
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+        </button>
     </div>
+</div>
+
+<div class="row">
+    @for(p <- appList.applications) {
+    @if(p.name != "_root") {
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+
+            <div class="card-body">
+                <h5 class="card-title"><i class="fa fa-adjust" aria-hidden="true"></i> @p.name</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@p.version</h6>
+                <p class="card-text">@p.description</p>
+                <a href='@p.context' class="btn btn-primary">Open</a>
+            </div>
+        </div>
+    </div>
+    }
+    }
 </div>
 
 }

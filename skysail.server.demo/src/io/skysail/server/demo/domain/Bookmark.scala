@@ -1,29 +1,30 @@
 package io.skysail.server.demo.domain
 
 import io.skysail.api.ddd.Entity
-import io.skysail.api.ui.{Link, Linkable}
-
-//object Bookmark {
-//  implicit val colorFormat = jsonFormat1(Bookmark)
-//}
+import io.skysail.api.ui.{ButtonLink, IconLink, Link, Linkable}
 
 case class Bookmark(
                      id: Option[String],
-                     title: String, url: String,
-                     variants: List[Bookmark] = List()) extends Entity[String] with Linkable {
+                     title: String,
+                     url: String
+                   ) extends Entity[String] with Linkable {
 
-  override def _links = List(Link("self", "hier"))
-
-  // see RootJsonFormat
-  // https://github.com/spray/spray-json
-  //@JsonProperty
-  //val variants1 = "xxx"
+  override val _links: List[Link] = List(
+    IconLink("show",   "fas fa-eye",   "/demo/v1/bms/${id}",  "color:#000066", "show entity"),
+    IconLink("update", "fa fa-edit",   "/demo/v1/bms/${id}/", "", "update entity"),
+    IconLink("delete", "fas fa-trash", "/demo/v1/bms/${id}/", "color:Tomato", "delete entity")
+  )
 
 }
 
+
 case class BookmarkList(
                          bookmarks: List[Bookmark]
-                       )
+                       ) extends Linkable {
+  override def _links: List[Link] = List(
+    ButtonLink("create-form", "create new Bookmark", "/demo/v1/bms/", style = "btn btn-outline-primary")
+  )
+}
 
 //class BookmarkWithVariants(id: String, title: String, url: String, val hits: Seq[(String, List[String])])
 //  extends Bookmark(Some(id), title, url) {

@@ -6,14 +6,14 @@ import html.main
 import io.skysail.domain.ResponseEventBase
 import io.skysail.server.RepresentationModel
 
-object BookmarkResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template3[RepresentationModel,ResponseEventBase,Object,play.twirl.api.HtmlFormat.Appendable] {
+object BookmarkResource_Get extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template3[RepresentationModel,ResponseEventBase,io.skysail.server.demo.domain.Bookmark,play.twirl.api.HtmlFormat.Appendable] {
 
   /*************************************
 * Home page.                        *
 *                                   *
 * @param msg The message to display *
 *************************************/
-  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase, o: Object):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*6.2*/(rep: RepresentationModel, response: ResponseEventBase, bm: io.skysail.server.demo.domain.Bookmark):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
@@ -23,7 +23,7 @@ Seq[Any](format.raw/*8.26*/("""
   """),format.raw/*9.3*/("""render(json)
   "hi"
 """)))};
-Seq[Any](format.raw/*6.68*/("""
+Seq[Any](format.raw/*6.101*/("""
 
 """),format.raw/*11.2*/("""
 
@@ -91,9 +91,9 @@ Seq[Any](format.raw/*6.68*/("""
     }
   }
 
-  def render(rep:RepresentationModel,response:ResponseEventBase,o:Object): play.twirl.api.HtmlFormat.Appendable = apply(rep,response,o)
+  def render(rep:RepresentationModel,response:ResponseEventBase,bm:io.skysail.server.demo.domain.Bookmark): play.twirl.api.HtmlFormat.Appendable = apply(rep,response,bm)
 
-  def f:((RepresentationModel,ResponseEventBase,Object) => play.twirl.api.HtmlFormat.Appendable) = (rep,response,o) => apply(rep,response,o)
+  def f:((RepresentationModel,ResponseEventBase,io.skysail.server.demo.domain.Bookmark) => play.twirl.api.HtmlFormat.Appendable) = (rep,response,bm) => apply(rep,response,bm)
 
   def ref: this.type = this
 
@@ -102,10 +102,10 @@ Seq[Any](format.raw/*6.68*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Sat Feb 03 09:40:24 CET 2018
+                  DATE: Sun Feb 04 11:50:48 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/BookmarkResource_Get.scala.html
-                  HASH: fa125d3286df4a444f0f0ad582e4fdd064ef104f
-                  MATRIX: 724->193|868->262|881->268|975->286|1004->289|1064->259|1093->310|1122->313|1145->327|1185->329|1214->331|1369->459|1381->462|1425->485|1515->548|1527->551|1556->559|1617->593|1629->596|1666->612|1727->646|1739->649|1769->658|1830->692|1842->695|1868->700|2186->991|2198->994|2246->1020|2339->1086|2351->1089|2396->1113|2534->1224|2575->1244|2661->1303|2717->1343|2757->1345|2800->1361|2849->1394|2889->1396|2936->1415|3037->1489|3047->1490|3103->1525|3133->1528|3143->1529|3200->1564|3301->1634|3346->1648|3387->1661|3482->1729|3494->1732|3538->1755|3708->1898|3720->1901|3750->1910
+                  HASH: 502376290a5b7f3dd22760001ea34a4e6841372c
+                  MATRIX: 756->193|933->295|946->301|1040->319|1069->322|1130->292|1159->343|1188->346|1211->360|1251->362|1280->364|1435->492|1447->495|1491->518|1581->581|1593->584|1622->592|1683->626|1695->629|1732->645|1793->679|1805->682|1835->691|1896->725|1908->728|1934->733|2252->1024|2264->1027|2312->1053|2405->1119|2417->1122|2462->1146|2600->1257|2641->1277|2727->1336|2783->1376|2823->1378|2866->1394|2915->1427|2955->1429|3002->1448|3103->1522|3113->1523|3169->1558|3199->1561|3209->1562|3266->1597|3367->1667|3412->1681|3453->1694|3548->1762|3560->1765|3604->1788|3774->1931|3786->1934|3816->1943
                   LINES: 16->6|20->8|20->8|22->8|23->9|26->6|28->11|30->13|30->13|30->13|32->15|36->19|36->19|36->19|38->21|38->21|38->21|40->23|40->23|40->23|42->25|42->25|42->25|44->27|44->27|44->27|54->37|54->37|54->37|55->38|55->38|55->38|60->43|60->43|64->47|64->47|64->47|65->48|65->48|65->48|66->49|68->51|68->51|68->51|68->51|68->51|68->51|71->54|72->55|73->56|75->58|75->58|75->58|83->66|83->66|83->66
                   -- GENERATED --
               */

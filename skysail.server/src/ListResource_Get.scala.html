@@ -1,17 +1,10 @@
-@*************************************
-* Home page.                        *
-*                                   *
-* @param msg The message to display *
-*************************************@
 @(rep: RepresentationModel, response: ResponseEventBase, entity: AnyRef)
 
 @main(response) {
 
-<br><br><br>
-
 <div class="container">
     <div class="starter-template">
-        <h1>Yeah</h1>
+        <h1>@rep.model.name</h1>
         <p class="lead">all bookmarks:</p>
         <table class="table table-sm">
             <thead>

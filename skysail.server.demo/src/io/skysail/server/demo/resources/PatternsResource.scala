@@ -63,11 +63,6 @@ class PatternResource extends EntityResource[DemoApplication, Pattern] {
     val optionalPattern = app.patternRepo.find(re.cmd.urlParameter.head)
     optionalPattern
   }
-
-  def get(requestEvent: RequestEvent): ResponseEventBase = {
-    ???
-  }
-
   
 }
 

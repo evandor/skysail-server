@@ -1,11 +1,9 @@
 package io.skysail.domain.model
 
-import java.net.URL
-
 import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatcher
-import com.fasterxml.jackson.annotation.{ JsonGetter, JsonInclude }
+import com.fasterxml.jackson.annotation.{JsonGetter, JsonInclude}
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMappingI
@@ -124,7 +122,7 @@ case class ApplicationModel(
     log info s"CLS: $cls, KEY: $key"
     val fieldsAsPairs = for (field <- cls.getDeclaredFields) yield {
       field.setAccessible(true)
-      println((field.getName, field.getType))
+      //println((field.getName, field.getType))
     }
     
     val t = cls.getDeclaredFields.filter(_.getName == key).headOption.map(_.getType)

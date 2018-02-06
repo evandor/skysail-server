@@ -3,7 +3,7 @@ package io.skysail.server.demo.domain
 import java.util.Date
 
 import io.skysail.api.ddd.Entity
-import io.skysail.api.ui.{Link, Linkable}
+import io.skysail.api.ui.{Link, Linkable, TextLink}
 
 case class Account(
                     id: Option[String],
@@ -11,7 +11,8 @@ case class Account(
                     balance: Int = 0
                   ) extends Entity[String] with Linkable {
 
-  override val _links: List[Link] = List(Link("self", "here"))
+  // type annotation is necessary for json serialization (!?)
+  override val _links: List[Link] = List(TextLink("self", "here","xx"))
 
 }
 
@@ -19,7 +20,7 @@ case class AccountList(
                         accounts: List[Account]
                       ) extends Linkable {
 
-  override val _links: List[Link] = List(Link("self", "here"))
+  override val _links: List[Link] = List(TextLink("self", "here","xxx"))
 
 }
 

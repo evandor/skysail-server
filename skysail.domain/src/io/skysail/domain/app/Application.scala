@@ -23,3 +23,7 @@ object Application {
   * @param description a short description of the application
   */
 case class Application(name: String, version: String, context: String, description: String)
+
+case class ApplicationList(
+                            applications: List[Application]
+                          )

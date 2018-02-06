@@ -9,7 +9,7 @@ import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.MediaTypeNegotiator
 import akka.util.Timeout
 import com.fasterxml.jackson.annotation.JsonProperty
-import io.skysail.api.ui.Link
+import io.skysail.api.ui.{Link, TextLink}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.AsyncResource
@@ -30,7 +30,7 @@ case class Person(name: String, lastLogin: ZonedDateTime) {
   @JsonProperty
   val test = "Test"
 
-  val test2: List[Link] = List(Link("hi", "there"))
+  val test2: List[Link] = List(TextLink("hi", "there",""))
 
   def test3() = "Test3"
 }
@@ -108,7 +108,7 @@ class ControllerActor() extends Actor {
       } else {
         Transformer.beanToJson(response.entity)
       }
-
+      println(ast)
       ast match {
         case a: JObject =>
           val b: String = compact(render(a))
@@ -177,7 +177,7 @@ class ControllerActor() extends Actor {
     }
   }
 
-  private def handleJson[T:Manifest](response: ResponseEventBase, json: String): Unit = {
+  private def handleJson[T:Manifest: ClassTag](response: ResponseEventBase, json: String): Unit = {
     val e = HttpEntity(ContentType(MediaTypes.`application/json`), json)
     val res = response.httpResponse.copy(entity = e)
     response match {
@@ -209,8 +209,8 @@ class ControllerActor() extends Actor {
       val r2 = applyMethod.invoke(resourceHtmlClass, rep, response, response.entity.asInstanceOf[Object]).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))
     } catch {
-      case ex: Exception => log debug s"problem!: ${ex.getMessage}"; None
-      case ex: Throwable => log debug s"problem!!: ${ex.getMessage}"; None
+      case ex: ClassNotFoundException => log debug s"problem: ${ex.getMessage}"; None
+      case ex: Exception => log info s"problem!: ${ex.getMessage}"; ex.printStackTrace(); None
     }
   }
 

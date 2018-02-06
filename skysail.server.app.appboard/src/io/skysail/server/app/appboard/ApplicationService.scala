@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.pattern.ask
 import akka.util.Timeout
 import io.skysail.api.ui.Client
+import io.skysail.domain.app.Application
 import io.skysail.server.actors.ApplicationsActor
 
 import scala.concurrent.Future

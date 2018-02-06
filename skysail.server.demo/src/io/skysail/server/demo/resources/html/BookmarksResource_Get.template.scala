@@ -22,41 +22,52 @@ Seq[Any](format.raw/*6.106*/("""
 
 """),_display_(/*8.2*/main(response)/*8.16*/ {_display_(Seq[Any](format.raw/*8.18*/("""
 
-"""),format.raw/*10.1*/("""<br><br><br>
-
-<div class="container">
-    <div class="starter-template">
-        <h1>Bookmarks</h1>
-        <p class="lead">all bookmarks:</p>
-        <table class="table table-sm">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Url</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            """),_display_(/*25.14*/for(p <- bms.bookmarks) yield /*25.37*/ {_display_(Seq[Any](format.raw/*25.39*/("""
-            """),format.raw/*26.13*/("""<tr>
-                <th scope="row">"""),_display_(/*27.34*/p/*27.35*/.title),format.raw/*27.41*/("""</th>
-                <td><a href='"""),_display_(/*28.31*/p/*28.32*/.url),format.raw/*28.36*/("""' target='demo_bms_"""),_display_(/*28.56*/p/*28.57*/.title),format.raw/*28.63*/(""")'>"""),_display_(/*28.67*/p/*28.68*/.url),format.raw/*28.72*/("""</a></td>
-                <td>
-                    <a href='"""),_display_(/*30.31*/rep/*30.34*/.linkFor("io.skysail.server.demo.resources.BookmarkResource", p.id)),format.raw/*30.101*/("""'>[show]</a>
-                    <a href='"""),_display_(/*31.31*/rep/*31.34*/.linkFor("io.skysail.server.demo.resources.PutBookmarkResource", p.id)),format.raw/*31.104*/("""'>[update]</a>
-                </td>
-            </tr>
-            """)))}),format.raw/*34.14*/("""
-
-            """),format.raw/*36.13*/("""</tbody>
-
-        </table>
-
-        <a href='"""),_display_(/*40.19*/rep/*40.22*/.linkFor("io.skysail.server.demo.resources.PostBookmarkResource",None)),format.raw/*40.92*/("""'>Create New Bookmark</a>
-
-        <hr>
-        <a href="/doc/v1/index.html" target="_docs">Doc</a>
+"""),format.raw/*10.1*/("""<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">"""),_display_(/*11.21*/rep/*11.24*/.model.name),format.raw/*11.35*/("""</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+        </button>
     </div>
+</div>
+
+<div class="row">
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Url</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        """),_display_(/*34.10*/for(p <- bms.bookmarks) yield /*34.33*/ {_display_(Seq[Any](format.raw/*34.35*/("""
+        """),format.raw/*35.9*/("""<tr>
+            <th scope="row">"""),_display_(/*36.30*/p/*36.31*/.title),format.raw/*36.37*/("""</th>
+            <td><a href='"""),_display_(/*37.27*/p/*37.28*/.url),format.raw/*37.32*/("""' target='demo_bms_"""),_display_(/*37.52*/p/*37.53*/.title),format.raw/*37.59*/(""")'>"""),_display_(/*37.63*/p/*37.64*/.url),format.raw/*37.68*/("""</a></td>
+            <td>
+                """),_display_(/*39.18*/for(l <- p._links) yield /*39.36*/ {_display_(Seq[Any](format.raw/*39.38*/("""
+                """),_display_(/*40.18*/Html(l.toHtml(p.id.get))),format.raw/*40.42*/("""&nbsp;
+                """)))}),format.raw/*41.18*/("""
+            """),format.raw/*42.13*/("""</td>
+        </tr>
+        """)))}),format.raw/*44.10*/("""
+
+        """),format.raw/*46.9*/("""</tbody>
+
+    </table>
+    <hr>
+    """),_display_(/*50.6*/for(l <- bms._links) yield /*50.26*/ {_display_(Seq[Any](format.raw/*50.28*/("""
+    """),_display_(/*51.6*/Html(l.toHtml)),format.raw/*51.20*/("""
+    """)))}),format.raw/*52.6*/("""
+
+    """),format.raw/*54.5*/("""<hr>
+    <a href="/doc/v1/index.html" target="_docs">Doc</a>
 </div>
 
 """)))}))
@@ -75,11 +86,11 @@ Seq[Any](format.raw/*6.106*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Fri Feb 02 18:00:08 CET 2018
+                  DATE: Mon Feb 05 11:43:05 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/BookmarksResource_Get.scala.html
-                  HASH: 48ebc02a548da142dbb4fff3f4c8b303e6324292
-                  MATRIX: 761->193|961->297|989->300|1011->314|1050->316|1079->318|1490->702|1529->725|1569->727|1610->740|1675->778|1685->779|1712->785|1775->821|1785->822|1810->826|1857->846|1867->847|1894->853|1925->857|1935->858|1960->862|2048->923|2060->926|2149->993|2219->1036|2231->1039|2323->1109|2422->1177|2464->1191|2537->1237|2549->1240|2640->1310
-                  LINES: 16->6|21->6|23->8|23->8|23->8|25->10|40->25|40->25|40->25|41->26|42->27|42->27|42->27|43->28|43->28|43->28|43->28|43->28|43->28|43->28|43->28|43->28|45->30|45->30|45->30|46->31|46->31|46->31|49->34|51->36|55->40|55->40|55->40
+                  HASH: 380b3b60da96d92e7de662a5e52c0a06e303d63b
+                  MATRIX: 761->193|961->297|989->300|1011->314|1050->316|1079->318|1239->451|1251->454|1283->465|1966->1121|2005->1144|2045->1146|2081->1155|2142->1189|2152->1190|2179->1196|2238->1228|2248->1229|2273->1233|2320->1253|2330->1254|2357->1260|2388->1264|2398->1265|2423->1269|2494->1313|2528->1331|2568->1333|2613->1351|2658->1375|2713->1399|2754->1412|2814->1441|2851->1451|2914->1488|2950->1508|2990->1510|3022->1516|3057->1530|3093->1536|3126->1542
+                  LINES: 16->6|21->6|23->8|23->8|23->8|25->10|26->11|26->11|26->11|49->34|49->34|49->34|50->35|51->36|51->36|51->36|52->37|52->37|52->37|52->37|52->37|52->37|52->37|52->37|52->37|54->39|54->39|54->39|55->40|55->40|56->41|57->42|59->44|61->46|65->50|65->50|65->50|66->51|66->51|67->52|69->54
                   -- GENERATED --
               */
           

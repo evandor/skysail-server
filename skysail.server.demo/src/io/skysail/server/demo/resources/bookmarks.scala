@@ -93,7 +93,7 @@ class BookmarkResource extends EntityResource[DemoApplication, Bookmark] {
       val variants = lists.map(l => Bookmark(None, "-", l)).toList
 
 
-      val bmWithVariants = new Bookmark(bm.id, "*" + bm.title + "*", bm.url, variants)
+      val bmWithVariants = new Bookmark(bm.id, "*" + bm.title + "*", bm.url/*, variants*/)
 
       //ResponseEvent(requestEvent, bmWithVariants)
       Some(bmWithVariants)
@@ -101,10 +101,6 @@ class BookmarkResource extends EntityResource[DemoApplication, Bookmark] {
       //ResponseEvent(requestEvent, bm)
       Some(bm)
     }
-  }
-
-  def get(requestEvent: RequestEvent): ResponseEventBase = {
-    ???
   }
 
 

@@ -26,3 +26,5 @@ case class BundleDescriptor(
                              registeredServiceIds: List[String],
                              usedServiceIds: List[String]
                            )
+
+case class BundleDescriptorList(bundles: List[BundleDescriptor])
