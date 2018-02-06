@@ -39,6 +39,14 @@ class AccountsSimulationTest {
   }
 
   @Test
+  def bookmarksToJson(): Unit = {
+    val bm = Bookmark(Some("id"), "title", "url")
+    val bookmarkList = BookmarkList(List(bm))
+    val json: json4s.JValue = Transformer.beanToJson(bookmarkList)
+    println(json)
+  }
+
+  @Test
   def create_orientdb_json_and_parse_back_to_entity() {
 
     val from = Account(Some("from_account"), "from_a", 10)

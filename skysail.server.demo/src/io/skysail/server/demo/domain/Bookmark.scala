@@ -1,7 +1,7 @@
 package io.skysail.server.demo.domain
 
 import io.skysail.api.ddd.Entity
-import io.skysail.api.ui.{ButtonLink, IconLink, Link, Linkable}
+import io.skysail.api.ui._
 
 case class Bookmark(
                      id: Option[String],
@@ -21,7 +21,8 @@ case class Bookmark(
 case class BookmarkList(
                          bookmarks: List[Bookmark]
                        ) extends Linkable {
-  override def _links: List[Link] = List(
+
+  override val _links: List[Link] = List(
     ButtonLink("create-form", "create new Bookmark", "/demo/v1/bms/", style = "btn btn-outline-primary")
   )
 }
