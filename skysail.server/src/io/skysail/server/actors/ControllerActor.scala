@@ -1,24 +1,20 @@
 package io.skysail.server.actors
 
 import java.lang.reflect.Method
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 import akka.actor.{Actor, ActorRef}
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.MediaTypeNegotiator
 import akka.util.Timeout
-import com.fasterxml.jackson.annotation.JsonProperty
-import io.skysail.api.ui.{Link, TextLink}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.AsyncResource
 import io.skysail.domain.{Transformer, _}
 import io.skysail.server.RepresentationModel
 import io.skysail.server.actors.ApplicationActor._
+import org.json4s.JObject
 import org.json4s.JsonAST.{JString, JValue}
 import org.json4s.jackson.JsonMethods.{compact, render}
-import org.json4s.{CustomSerializer, JObject}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 import play.twirl.api.HtmlFormat
@@ -26,20 +22,12 @@ import play.twirl.api.HtmlFormat
 import scala.concurrent.duration.DurationInt
 import scala.reflect.ClassTag
 
-case class Person(name: String, lastLogin: ZonedDateTime) {
-  @JsonProperty
-  val test = "Test"
 
-  val test2: List[Link] = List(TextLink("hi", "there",""))
-
-  def test3() = "Test3"
-}
-
-case object ZDTSerializer extends CustomSerializer[ZonedDateTime](format => ( {
-  case JString(s) => ZonedDateTime.parse(s)
-}, {
-  case zdt: ZonedDateTime => JString(zdt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX")))
-}))
+//case object ZDTSerializer extends CustomSerializer[ZonedDateTime](format => ( {
+//  case JString(s) => ZonedDateTime.parse(s)
+//}, {
+//  case zdt: ZonedDateTime => JString(zdt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX")))
+//}))
 
 //case object LinkSerializer extends FieldSerializer[Person] 
 
@@ -108,7 +96,7 @@ class ControllerActor() extends Actor {
       } else {
         Transformer.beanToJson(response.entity)
       }
-      println(ast)
+      //println(ast)
       ast match {
         case a: JObject =>
           val b: String = compact(render(a))

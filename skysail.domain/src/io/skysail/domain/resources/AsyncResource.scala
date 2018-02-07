@@ -42,6 +42,7 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
         }
       }
       case c: RouteMapping[_, _] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
+      case crm: ConcreteRouteMapping[_,_,_] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
     }
 
   }

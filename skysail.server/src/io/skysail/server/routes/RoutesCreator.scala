@@ -15,7 +15,7 @@ import akka.util.Timeout
 import io.skysail.api.security.AuthenticationService
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.routes.RouteMappingI
+import io.skysail.domain.routes.{ConcreteRouteMapping, RouteMappingI}
 import io.skysail.server.TunnelDirectives._
 import io.skysail.server.actors.{BundleActor, BundlesActor}
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
@@ -71,8 +71,12 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
 
   def createRoute(mapping: RouteMappingI[_, _], appProvider: ApplicationProvider): Route = {
     val appRoute = appProvider.appModel().appRoute
+    val resourceClassName = if (mapping.resourceClass != null)
+      mapping.resourceClass.getSimpleName
+    else
+      mapping.asInstanceOf[ConcreteRouteMapping[_,_,_]].resource.getClass.getSimpleName
     log info s" >>> creating route from [${appProvider.appModel().appPath()}]${mapping.path} -> " +
-      s"${mapping.resourceClass.getSimpleName}[${mapping.getEntityType()}]"
+      s"${resourceClassName}[${mapping.getEntityType()}]"
 
     val route: Route =
       staticResources() ~
@@ -245,7 +249,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
     extractUnmatchedPath { unmatchedPath =>
       val applicationActor = RoutesCreator.getApplicationActorSelection(system, appProvider.getClass.getName)
       //val clazz = mapping.resourceClass
-      val resourceInstance = mapping.resourceClass.newInstance()
+      val resourceInstance = mapping.resourceInstance//resourceClass.newInstance()
       val processCommand = ProcessCommand(ctx, mapping, appProvider.application(), urlParameter, unmatchedPath)
 
       resourceInstance.createRoute(applicationActor, processCommand)(system)

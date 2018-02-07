@@ -12,15 +12,6 @@ class AppsResource() extends EntityResource[AppboardApplication, ApplicationList
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
-//  def getAsync(requestEvent: RequestEvent): Unit = {
-//    val appService = getApplication().appService
-//    val apps: Future[List[Application]] = appService.getAllApplications(this.actorContext.system)
-//    apps.onComplete {
-//      case Success(s) => requestEvent.controllerActor ! ResponseEvent(requestEvent,s)
-//      case Failure(f) => log error s"failure $f"; null
-//    }
-//  }
-
   override def getEntity(re: RequestEvent): Option[ApplicationList] = {
     val appService = getApplication().appService
     val apps: Future[List[Application]] = appService.getAllApplications(this.actorContext.system)

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
-abstract class EntityResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S,List[T]] {
+abstract class EntityResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S,T] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 

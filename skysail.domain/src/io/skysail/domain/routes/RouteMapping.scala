@@ -34,15 +34,13 @@ abstract sealed class RouteMappingI[S: TypeTag, T /*<: DddElement*/ : TypeTag](
   }
 
   def getEntityType(): Type = {
-    val t = resourceClass.newInstance().getType()
+    val t = resourceInstance.getType()
     t match {
       case TypeRef(utype, usymbol, args) =>
-        //println(resourceClass + ": \n - " + List(utype, usymbol, args).mkString("\n - "))
         if (args.size > 0)
-          //println(" - " + args.head + "(" + args.head.getClass + ")")
           args.head
         else
-          t //println(" - ...")
+          t
     }
 
   }
@@ -52,6 +50,10 @@ abstract sealed class RouteMappingI[S: TypeTag, T /*<: DddElement*/ : TypeTag](
       case TypeRef(_, _, args) => args
     }
     typeOf[S]
+  }
+
+  def resourceInstance(): SkysailResource[_, T] = {
+    resourceClass.newInstance()
   }
 
 }
@@ -86,8 +88,26 @@ case class EntityMapping[S: TypeTag, T: TypeTag](
                                                   override val resourceClass: Class[_ <: SkysailResource[_, T]])
   extends RouteMappingI[S, T](path, pathMatcher, resourceClass)
 
-case class ConcreteRouteMapping[S <: io.skysail.domain.app.ApplicationApi: TypeTag, T: TypeTag](
-                                                 override val path: String,
-                                                 override val pathMatcher: PathMatcher[S],
-                                                 val resource: SkysailResource[S, T])
-  extends RouteMappingI[S, T](path, pathMatcher, resource.getClass)
+case class ConcreteRouteMapping[S: TypeTag, T: TypeTag, U <: io.skysail.domain.app.ApplicationApi : TypeTag](
+                                                                                                              override val path: String,
+                                                                                                              override val pathMatcher: PathMatcher[S],
+                                                                                                              val resource: SkysailResource[U, T])
+  extends RouteMappingI[S, T](path, pathMatcher, resource.getClass) {
+
+  //  override def getEntityType(): Type = {
+  //    val t = resource.getType()
+  //    t match {
+  //      case TypeRef(utype, usymbol, args) =>
+  //        if (args.size > 0)
+  //          args.head
+  //        else
+  //          t
+  //    }
+  //  }
+
+  override def resourceInstance(): SkysailResource[_, T] = {
+    resource
+  }
+
+
+}

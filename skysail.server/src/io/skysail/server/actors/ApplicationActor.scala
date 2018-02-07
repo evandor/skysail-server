@@ -11,13 +11,13 @@ import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.{ResponseEventBase, SkysailResource}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
+import io.skysail.domain.routes.ConcreteRouteMapping
 import io.skysail.server.actors.ApplicationActor._
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.osgi.framework.BundleContext
 
 import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Success}
-
 import scala.reflect.runtime.{universe => ru}
 import ru._
 
@@ -62,7 +62,14 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
       //log info s"[IN] >>> ENTITY:     ${cmd.entity}"
 
       val routesCreator = sender()
-      val resourceInstance = cmd.mapping.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
+
+
+      val resourceInstance = cmd.mapping match {
+        case crm: ConcreteRouteMapping[_,_,_] => crm.resource
+        case mapping: Any => cmd.mapping.resourceInstance.asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
+      }
+
+      //val resourceInstance = cmd.mapping.resourceClass.newInstance().asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
       val controllerActor = createController(cmd.mapping.resourceClass)
 
       val skysailContext = SkysailContext(cmd, appModel, resourceInstance, bundleContext)

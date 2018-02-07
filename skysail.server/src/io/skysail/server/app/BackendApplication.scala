@@ -11,11 +11,11 @@ import io.skysail.domain.app.{ApiVersion, ApplicationApi}
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.DefaultResource
 import io.skysail.domain.routes._
+import io.skysail.server.app.resources.AppModelResource
 import io.skysail.server.{Constants, RoutesCreatorTrait}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
 import akka.http.scaladsl.server.PathMatchers._
-import io.skysail.server.app.resources.AppModelResource
 
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
@@ -108,9 +108,11 @@ abstract class BackendApplication(
       routesCreator.createRoute(routeMapping, this)
     }
 
-    val res = new AppModelResource().asInstanceOf[SkysailResource[RootApplication, AppModelResource]]
-    //val appModelMapping = ConcreteRouteMapping[RootApplication, AppModelResource]("/_model", appModel.appRoute / PathMatcher("_model") ~ PathEnd, res)
-    //routes += routesCreator.createRoute(appModelMapping, this)
+    val res = new AppModelResource(appModel)
+    val pm: PathMatcher[Unit] = appModel.appRoute / PathMatcher("_model") ~ PathEnd
+    val appModelMapping = ConcreteRouteMapping("/_model", pm, res)
+    //val appModelMapping: RouteMappingI[Unit, AppModelDescription] = RouteMapping("/_model", pm, classOf[AppModelResource])
+    routes += routesCreator.createRoute(appModelMapping, this)
 
     routes.size match {
       case 0 => log warn "no routes are defined"; null

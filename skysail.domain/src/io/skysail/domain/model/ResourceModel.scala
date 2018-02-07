@@ -1,9 +1,7 @@
 package io.skysail.domain.model
 
-import java.net.URL
-
 import akka.http.scaladsl.model.Uri
-import io.skysail.domain.routes.{RouteMapping, RouteMappingI}
+import io.skysail.domain.routes.RouteMappingI
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe._

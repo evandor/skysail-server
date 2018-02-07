@@ -23,7 +23,7 @@ import scala.reflect.runtime.universe._
  * S the backend application serving the resource
  * T the entity associated with the resource, typically an aggregate root
  */
-abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] extends AsyncResource[S, List[T]] {
+abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] extends AsyncResource[S, T] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
   
