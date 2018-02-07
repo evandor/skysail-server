@@ -6,7 +6,8 @@ import io.skysail.api.ui._
 case class Bookmark(
                      id: Option[String],
                      title: String,
-                     url: String
+                     url: String,
+                     favIcon: Option[String] = Some("http://www.spiegel.de/favicon.ico")
                    ) extends Entity[String] with Linkable {
 
   override val _links: List[Link] = List(

@@ -1,0 +1,13 @@
+Bundle-Version: 0.3.4.${tstamp}
+
+-classpath: \
+    jars/scoup_2.11-0.3.4.jar
+    
+Export-Package: \
+    com.themillhousegroup.scoup.*
+    
+#Include-Resource: META-INF/services=services/orientdb
+
+#DynamicImport-Package: *
+
+Bundle-Name: scoup.jar

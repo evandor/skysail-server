@@ -11,7 +11,9 @@
         <h4>Resources</h4>
         <ul>
             @for(r <- m.resources) {
-            <li><a href="/@m.name/@{m.version}@r.path">@r.path</a>, @r.resClass</li>
+                <li><a href="/@m.name/@{m.version}@r.path">@r.path</a> -
+                    <a target="_blank"
+                        href="@r.githubPath">@r.resClass</a></li>
             }
         </ul>
 

@@ -10,10 +10,10 @@ import io.skysail.domain.{AsyncResponseEvent, HtmlResponseEvent, RequestEvent, R
 
 class DocIndexResource() extends EntityResource[DocApplication, String] {
   override def get(requestEvent: RequestEvent) = {
-    ResponseEvent(requestEvent, "hi")
+    ResponseEvent(requestEvent, "hi3")
   }
 
-  override def getEntity(requestEvent: RequestEvent) = Some("hi")
+  override def getEntity(requestEvent: RequestEvent) = Some("hi2")
 }
 
 abstract class DocResource extends AsyncStaticResource[DocApplication, String] {

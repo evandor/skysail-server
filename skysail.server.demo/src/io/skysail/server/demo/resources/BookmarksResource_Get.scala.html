@@ -34,7 +34,7 @@
         @for(p <- bms.bookmarks) {
         <tr>
             <th scope="row">@p.title</th>
-            <td><a href='@p.url' target='demo_bms_@p.title)'>@p.url</a></td>
+            <td><img src='@p.favIcon.getOrElse("thesource")'>&nbsp;<a href='@p.url' target='demo_bms_@p.title'>@p.url</a></td>
             <td>
                 @for(l <- p._links) {
                 @Html(l.toHtml(p.id.get))&nbsp;
