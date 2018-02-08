@@ -11,12 +11,10 @@ import io.skysail.domain.resources.{EntityResource, PostResource, PutResource}
 import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Bookmark, BookmarkList}
+import org.jsoup.Jsoup
 
 import scala.util.matching.Regex
-
-//trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
-//  implicit val bookmarkFormat: RootJsonFormat[Bookmark] = jsonFormat4(Bookmark)
-//}
+import io.skysail.server.demo.services.HttpService
 
 class BookmarksResource extends EntityResource[DemoApplication, BookmarkList] {
   override def getEntity(re: RequestEvent): Option[BookmarkList] = Some(BookmarkList(getApplication().repo.find()))
@@ -31,13 +29,20 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] {
   }
 
   def post(requestEvent: RequestEvent) {
-    val b = getApplication().repo.save(requestEvent.cmd.entity)
+    var bookmark: Bookmark = requestEvent.cmd.entity.asInstanceOf[Bookmark]
+   // val enrichedBookmark = HttpService.enrich(bookmark)
+    val httpDoc = Jsoup.connect(bookmark.url).get
+    if (bookmark.title == "") {
+      bookmark = bookmark.copy(title = httpDoc.title())
+    }
+    
+    val favicon = httpDoc.head().select("link[href~=.*\\.(ico|png)]").first();
+    bookmark = bookmark.copy(favIcon = Some(favicon.attr("href")))
+
+    val b = getApplication().repo.save(bookmark)
     getApplication().eventService.send("bookmark created")
     val redirectTo = Some("/demo/v1/bms")
-    //requestEvent.controllerActor ! Bookmark(Some(b), "a@b.com", "Mira")
     val newRequest = requestEvent.cmd.ctx.request.copy(method = HttpMethods.GET)
-    //requestEvent.cmd.ctx.copy(request = newRequest)
-    //requestEvent.copy(cmd = requestEvent.cmd.copy(ctx = requestEvent.cmd.ctx.copy)
     requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "", redirectTo)
   }
 

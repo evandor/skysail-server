@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1517418053000" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1518072901000" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="ch.qos.logback.classic"/>
@@ -13675,6 +13675,97 @@ Caused by: java.lang.NumberFormatException: For input string: "${range;[==,=+)}"
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.jsoup"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.11.2"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="f4b843e5012648676117f1cadf0adbd5dff91f0cb07b888d6b4d6e7cbb9737db"/>
+      <attribute name="url" value="org.jsoup/org.jsoup-1.11.2.jar"/>
+      <attribute name="size" type="Long" value="392351"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="org.jsoup"/>
+      <attribute name="bundle-version" type="Version" value="1.11.2"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="org.jsoup"/>
+      <attribute name="bundle-version" type="Version" value="1.11.2"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.jsoup"/>
+      <attribute name="version" type="Version" value="1.11.2"/>
+      <attribute name="bundle-symbolic-name" value="org.jsoup"/>
+      <attribute name="bundle-version" type="Version" value="1.11.2"/>
+      <directive name="uses" value="org.jsoup.nodes,org.jsoup.parser,org.jsoup.safety"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.jsoup.examples"/>
+      <attribute name="version" type="Version" value="1.11.2"/>
+      <attribute name="bundle-symbolic-name" value="org.jsoup"/>
+      <attribute name="bundle-version" type="Version" value="1.11.2"/>
+      <directive name="uses" value="org.jsoup.nodes"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.jsoup.helper"/>
+      <attribute name="version" type="Version" value="1.11.2"/>
+      <attribute name="bundle-symbolic-name" value="org.jsoup"/>
+      <attribute name="bundle-version" type="Version" value="1.11.2"/>
+      <directive name="uses" value="javax.xml.parsers,org.jsoup,org.jsoup.nodes,org.jsoup.parser,org.jsoup.select,org.w3c.dom"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.jsoup.nodes"/>
+      <attribute name="version" type="Version" value="1.11.2"/>
+      <attribute name="bundle-symbolic-name" value="org.jsoup"/>
+      <attribute name="bundle-version" type="Version" value="1.11.2"/>
+      <directive name="uses" value="org.jsoup,org.jsoup.parser,org.jsoup.select"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.jsoup.parser"/>
+      <attribute name="version" type="Version" value="1.11.2"/>
+      <attribute name="bundle-symbolic-name" value="org.jsoup"/>
+      <attribute name="bundle-version" type="Version" value="1.11.2"/>
+      <directive name="uses" value="org.jsoup.nodes"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.jsoup.safety"/>
+      <attribute name="version" type="Version" value="1.11.2"/>
+      <attribute name="bundle-symbolic-name" value="org.jsoup"/>
+      <attribute name="bundle-version" type="Version" value="1.11.2"/>
+      <directive name="uses" value="org.jsoup.nodes"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.jsoup.select"/>
+      <attribute name="version" type="Version" value="1.11.2"/>
+      <attribute name="bundle-symbolic-name" value="org.jsoup"/>
+      <attribute name="bundle-version" type="Version" value="1.11.2"/>
+      <directive name="uses" value="org.jsoup.nodes"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.net.ssl)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.stream)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
     </requirement>
   </resource>
   <resource>
