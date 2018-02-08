@@ -36,7 +36,8 @@ Require-Capability: skysail.capability.auth
 	org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
 	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
 	${testlibs},\
-	io.skysail.bundled.jsonpath;version=0.6
+	io.skysail.bundled.jsonpath;version=0.6,\
+	org.jsoup;version=1.11
 	
 Import-Package: \
     !akka.testkit.*,\
@@ -49,6 +50,7 @@ Export-Package: \
 	io.skysail.server.routes,\
 	io.skysail.server,\
 	io.skysail.server.actors,\
+	io.skysail.server.adapter,\
 	io.skysail.server.app,\
 	io.skysail.server.app.resources,\
 	io.skysail.server.app.resources.html,\

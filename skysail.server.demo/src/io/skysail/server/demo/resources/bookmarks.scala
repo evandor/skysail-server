@@ -9,12 +9,13 @@ import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{EntityResource, PostResource, PutResource}
 import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent, ResponseEventBase}
+import io.skysail.server.adapter.JSoupAdapter
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Bookmark, BookmarkList}
-import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 
+import scala.util.{Success, Try}
 import scala.util.matching.Regex
-import io.skysail.server.demo.services.HttpService
 
 class BookmarksResource extends EntityResource[DemoApplication, BookmarkList] {
   override def getEntity(re: RequestEvent): Option[BookmarkList] = Some(BookmarkList(getApplication().repo.find()))
@@ -29,16 +30,14 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] {
   }
 
   def post(requestEvent: RequestEvent) {
-    var bookmark = requestEvent.cmd.entity//.asInstanceOf[Bookmark]
-   // val enrichedBookmark = HttpService.enrich(bookmark)
-//    val httpDoc = Jsoup.connect(bookmark.url).get
-//    if (bookmark.title == "") {
-//      bookmark = bookmark.copy(title = httpDoc.title())
-//    }
-    
-//    val favicon = httpDoc.head().select("link[href~=.*\\.(ico|png)]").first();
-//    bookmark = bookmark.copy(favIcon = Some(favicon.attr("href")))
-
+    var bookmark = requestEvent.cmd.entity.asInstanceOf[Bookmark]
+    val metadata: Try[Document] = new JSoupAdapter().readFrom(bookmark.url)
+    metadata match {
+      case Success(v) =>
+        bookmark = bookmark.copy(title = v.title())
+        val favicon = v.head().select("link[href~=.*\\.(ico|png)]").first();
+        bookmark = bookmark.copy(favIcon = Some(bookmark.url+favicon.attr("href")))
+    }
     val b = getApplication().repo.save(bookmark)
     getApplication().eventService.send("bookmark created")
     val redirectTo = Some("/demo/v1/bms")
