@@ -67,6 +67,8 @@ class DemoApplication(
       RouteMapping("/patterns/:id",  root / PathMatcher("patterns") / Segment ~ PathEnd, classOf[PatternResource]),
       RouteMapping("/patterns/:id/", root / PathMatcher("patterns") / Segment / PathEnd, classOf[PutPatternResource]),
 
+      RouteMapping("/beans", root / PathMatcher("beans") ~ PathEnd, classOf[BeansResource]),
+
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource]))
   }
 

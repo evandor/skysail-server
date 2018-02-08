@@ -29,15 +29,15 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] {
   }
 
   def post(requestEvent: RequestEvent) {
-    var bookmark: Bookmark = requestEvent.cmd.entity.asInstanceOf[Bookmark]
+    var bookmark = requestEvent.cmd.entity//.asInstanceOf[Bookmark]
    // val enrichedBookmark = HttpService.enrich(bookmark)
-    val httpDoc = Jsoup.connect(bookmark.url).get
-    if (bookmark.title == "") {
-      bookmark = bookmark.copy(title = httpDoc.title())
-    }
+//    val httpDoc = Jsoup.connect(bookmark.url).get
+//    if (bookmark.title == "") {
+//      bookmark = bookmark.copy(title = httpDoc.title())
+//    }
     
-    val favicon = httpDoc.head().select("link[href~=.*\\.(ico|png)]").first();
-    bookmark = bookmark.copy(favIcon = Some(favicon.attr("href")))
+//    val favicon = httpDoc.head().select("link[href~=.*\\.(ico|png)]").first();
+//    bookmark = bookmark.copy(favIcon = Some(favicon.attr("href")))
 
     val b = getApplication().repo.save(bookmark)
     getApplication().eventService.send("bookmark created")

@@ -20,7 +20,7 @@ class BoorkmarksRoutesTest() extends DemoApplicationTest {
       Get("/demo/v1/bms") ~> router ~> check {
         status shouldBe OK
         contentType shouldBe `text/html(UTF-8)`
-        responseAs[String] should include("create New Bookmark")
+        responseAs[String] should include("create new Bookmark")
       }
     }
 
