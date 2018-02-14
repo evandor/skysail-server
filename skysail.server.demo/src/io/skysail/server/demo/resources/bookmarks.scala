@@ -35,8 +35,10 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] {
     metadata match {
       case Success(v) =>
         bookmark = bookmark.copy(title = v.title())
-        val favicon = v.head().select("link[href~=.*\\.(ico|png)]").first();
-        bookmark = bookmark.copy(favIcon = Some(bookmark.url+favicon.attr("href")))
+        val favicon = v.head().select("link[href~=.*\\.(ico|png)]").first()
+        if (favicon != null) {
+            bookmark = bookmark.copy(favIcon = Some(bookmark.url+favicon.attr("href")))
+        }
       case Failure(f) => // ignore
     }
     val b = getApplication().repo.save(bookmark)
