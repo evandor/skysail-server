@@ -3,7 +3,6 @@ package io.skysail.server.adapter
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
-import scala.util.control.NonFatal
 import scala.util.{Failure, Success, Try}
 
 class JSoupAdapter {
@@ -12,7 +11,8 @@ class JSoupAdapter {
     try {
       Success(Jsoup.connect(url).get)
     } catch {
-      case NonFatal(e) => Failure(e)
+      //case NonFatal(e) => Failure(e)
+      case e: Any => Failure(e)
     }
 
   }

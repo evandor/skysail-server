@@ -38,6 +38,7 @@ logback.configurationFile.path = config
 	osgi.identity;filter:='(&(osgi.identity=org.apache.felix.configadmin)(version>=1.8.16))',\
 	osgi.identity;filter:='(&(osgi.identity=com.typesafe.akka.slf4j)(version>=2.5.3))',\
 	osgi.identity;filter:='(&(osgi.identity=skysail.server.auth.none)(version>=0.1.0.201711031636))',\
+	osgi.identity;filter:='(&(osgi.identity=org.jsoup)(version>=1.11.2))',\
 	osgi.identity;filter:='(osgi.identity=skysail.server)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
 	osgi.identity;filter:='(&(osgi.identity=org.apache.httpcomponents.httpclient)(version>=4.5.3))',\
@@ -91,4 +92,5 @@ logback.configurationFile.path = config
 	skysail.api;version=snapshot,\
 	skysail.domain;version=snapshot,\
 	joda-time;version='[2.9.3,2.9.4)',\
-	io.skysail.bundled.jsonpath;version='[0.6.10,0.6.11)'
+	io.skysail.bundled.jsonpath;version='[0.6.10,0.6.11)',\
+	org.jsoup;version='[1.11.2,1.11.3)'

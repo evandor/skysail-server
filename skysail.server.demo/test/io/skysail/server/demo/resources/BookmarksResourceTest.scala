@@ -6,7 +6,6 @@ import akka.http.scaladsl.server.RequestContext
 import akka.testkit.TestKit
 import io.skysail.api.persistence.DbService
 import io.skysail.domain.RequestEvent
-import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.server.actors.ControllerActor
 import io.skysail.server.demo.DemoApplication
@@ -17,8 +16,6 @@ import org.mockito.Mockito
 import org.mockito.Mockito._
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
-
-import scala.collection.JavaConverters._
 
 @RunWith(classOf[JUnitRunner])
 class BookmarksResourceTest(_system: ActorSystem)
@@ -76,9 +73,10 @@ class BookmarksResourceTest(_system: ActorSystem)
     var ctx = Mockito.mock(classOf[RequestContext])
     var request = HttpRequest() //Mockito.mock(classOf[HttpRequest])
     when(ctx.request).thenReturn(request)
-    val re: RequestEvent = new RequestEvent(ProcessCommand(ctx, null, null, null, null, "entity"), ca)
+    val entity = Bookmark(Some("id"), "title","url")
+    val re: RequestEvent = new RequestEvent(ProcessCommand(ctx, null, null, null, null, entity), ca)
     val res: Unit = postBmr.post(re)
-    verify(dbService).persist("entity", app.appModel)
+    verify(dbService).persist(entity, app.appModel)
   }
 
 

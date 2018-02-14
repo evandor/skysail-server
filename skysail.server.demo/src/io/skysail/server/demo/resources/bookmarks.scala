@@ -14,7 +14,7 @@ import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Bookmark, BookmarkList}
 import org.jsoup.nodes.Document
 
-import scala.util.{Success, Try}
+import scala.util.{Failure, Success, Try}
 import scala.util.matching.Regex
 
 class BookmarksResource extends EntityResource[DemoApplication, BookmarkList] {
@@ -37,6 +37,7 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] {
         bookmark = bookmark.copy(title = v.title())
         val favicon = v.head().select("link[href~=.*\\.(ico|png)]").first();
         bookmark = bookmark.copy(favIcon = Some(bookmark.url+favicon.attr("href")))
+      case Failure(f) => // ignore
     }
     val b = getApplication().repo.save(bookmark)
     getApplication().eventService.send("bookmark created")
