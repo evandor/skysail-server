@@ -90,4 +90,5 @@ logback.configurationFile.path = config
 	skysail.domain;version=snapshot,\
 	joda-time;version='[2.9.3,2.9.4)',\
 	io.skysail.bundled.jsonpath;version='[0.6.10,0.6.11)',\
-	org.jsoup;version='[1.11.2,1.11.3)'
+	org.jsoup;version='[1.11.2,1.11.3)',\
+	org.apache.felix.configadmin;version='[1.8.16,1.8.17)'
