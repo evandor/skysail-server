@@ -5,7 +5,7 @@ import java.net.URL
 import akka.actor.{ActorRef, ActorSystem}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources.{AsyncStaticResource, EntityResource}
-import io.skysail.domain.{AsyncResponseEvent, HtmlResponseEvent, RequestEvent, ResponseEvent}
+import io.skysail.domain._
 
 
 class DocIndexResource() extends EntityResource[DocApplication, String] {
@@ -29,6 +29,8 @@ abstract class DocResource extends AsyncStaticResource[DocApplication, String] {
     val content = scala.io.Source.fromInputStream(is).mkString
     requestEvent.controllerActor ! HtmlResponseEvent(requestEvent, content)
   }
+
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = null
 }
 
 class MetaDocResource() extends DocResource {

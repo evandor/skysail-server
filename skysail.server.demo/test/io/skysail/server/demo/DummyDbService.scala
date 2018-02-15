@@ -30,4 +30,5 @@ class DummyDbService extends DbService() {
     ???
   }
 
+  override def delete[T: Manifest](cls: Class[T], id: String): Boolean = ???
 }

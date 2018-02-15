@@ -8,13 +8,13 @@ import com.orientechnologies.orient.graph.sql.OGraphCommandExecutorSQLFactory
 import com.orientechnologies.orient.graph.sql.functions.OGraphFunctionFactory
 import com.tinkerpop.blueprints.impls.orient._
 import io.skysail.api.persistence.DbService
+import io.skysail.domain.Transformer
 import io.skysail.domain.model.ApplicationModel
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConverters._
-import io.skysail.domain.Transformer
 
 class OrientDbGraphService(url: String, user: String, pass: String) extends DbService {
 
@@ -79,7 +79,7 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     new Persister(getGraphDb(), appModel).persist(entity)
   }
 
-  def findGraphs[T: Manifest](cls: Class[T], sql: String /*, Map<String, Object> params*/ ): List[T] = {
+  def findGraphs[T: Manifest](cls: Class[T], sql: String /*, Map<String, Object> params*/): List[T] = {
     val results = executeCommand[T](sql)
     val result = scala.collection.mutable.ListBuffer[T]()
     results.asScala.foreach(v => {
@@ -94,9 +94,10 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     result.toList
   }
 
+  // TODO return Option
   def findById[T: Manifest](cls: Class[T], id: String): T = {
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)} where id='${id}'"
-    println("executing sql " + sql)
+    //println("executing sql " + sql)
     val res = executeCommand(sql) //, filter.getParams());
     val r = res.iterator().next().asInstanceOf[OrientVertex]
     val result = documentToBean(r.getRecord, cls)
@@ -131,8 +132,8 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     println(ast)
     implicit val formats = DefaultFormats
 
-    val from = (ast \\ "out_from" \ "in")(0)
-    val to = (ast \\ "out_to" \ "in")(0)
+    val from = (ast \\ "out_from" \ "in") (0)
+    val to = (ast \\ "out_to" \ "in") (0)
     val p = ast transformField {
       case JField("out_from", JArray(s)) => ("from", from)
       case JField("out_to", JArray(s)) => ("to", to)
@@ -141,13 +142,8 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     println("AST2" + p)
     p.extract[T]
   }
-  
-  private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T]): T = {
-//    val json: String = doc.toJSON("fetchPlan:*:-1")
-//    val ast = parse(json)
-//    implicit val formats = DefaultFormats
-//    ast.extract[T]
 
+  private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T]): T = {
     Transformer.jsonStringToBean(doc.toJSON("fetchPlan:*:-1"))
   }
 
@@ -159,4 +155,16 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     execute.execute()
   }
 
+  override def delete[T: Manifest](cls: Class[T], id: String): Boolean = {
+    val sql = s"SELECT * from ${DbService.tableNameFor(cls)} where id='${id}'"
+    val res = executeCommand(sql) //, filter.getParams());
+    val r = res.iterator().next().asInstanceOf[OrientVertex]
+
+    val graphDb = getGraphDb()
+    val sql2 = s"DELETE VERTEX ${DbService.tableNameFor(cls)} WHERE @rid=${r.getId}"
+    println("executing sql2 " + sql2)
+    graphDb.command(new OCommandSQL(sql2)).execute()
+    graphDb.commit()
+    true
+  }
 }

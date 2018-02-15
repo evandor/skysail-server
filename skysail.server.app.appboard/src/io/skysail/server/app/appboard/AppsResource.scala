@@ -1,6 +1,6 @@
 package io.skysail.server.app.appboard
 
-import io.skysail.domain.RequestEvent
+import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.app.{Application, ApplicationList}
 import io.skysail.domain.resources.EntityResource
 import org.slf4j.LoggerFactory
@@ -20,4 +20,5 @@ class AppsResource() extends EntityResource[AppboardApplication, ApplicationList
     Some(ApplicationList(r))
   }
 
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = null
 }

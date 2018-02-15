@@ -74,7 +74,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
     val resourceClassName = if (mapping.resourceClass != null)
       mapping.resourceClass.getSimpleName
     else
-      mapping.asInstanceOf[ConcreteRouteMapping[_,_,_]].resource.getClass.getSimpleName
+      mapping.asInstanceOf[ConcreteRouteMapping[_, _, _]].resource.getClass.getSimpleName
     log info s" >>> creating route from [${appProvider.appModel().appPath()}]${mapping.path} -> " +
       s"${resourceClassName}[${mapping.getEntityType()}]"
 
@@ -104,10 +104,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
         .result()
 
     handleRejections(myRejectionHandler) {
-      /*if (appProvider.nativeRoute().isDefined)
-        appProvider.nativeRoute().get ~ route
-      else*/
-        route
+      route
     }
   }
 
@@ -124,7 +121,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
       } ~
       path("c4") {
         parameterMap { map =>
-         // println("MAP: " + map)
+          // println("MAP: " + map)
           complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "hier we are"))
         }
       }
@@ -224,14 +221,17 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
           } ~
             post {
               extractRequestContext {
-                ctx =>
-                  routeWithUnmatchedPath2(ctx, mapping, appProvider, pathParameter)
+                ctx => routeWithUnmatchedPath2(ctx, mapping, appProvider, pathParameter)
               }
             } ~
             put {
               extractRequestContext {
-                ctx =>
-                  routeWithUnmatchedPath2(ctx, mapping, appProvider, pathParameter)
+                ctx => routeWithUnmatchedPath2(ctx, mapping, appProvider, pathParameter)
+              }
+            } ~
+            delete {
+              extractRequestContext {
+                ctx => routeWithUnmatchedPath2(ctx, mapping, appProvider, pathParameter)
               }
             }
         }
@@ -249,7 +249,8 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
     extractUnmatchedPath { unmatchedPath =>
       val applicationActor = RoutesCreator.getApplicationActorSelection(system, appProvider.getClass.getName)
       //val clazz = mapping.resourceClass
-      val resourceInstance = mapping.resourceInstance//resourceClass.newInstance()
+      val resourceInstance = mapping.resourceInstance
+      //resourceClass.newInstance()
       val processCommand = ProcessCommand(ctx, mapping, appProvider.application(), urlParameter, unmatchedPath)
 
       resourceInstance.createRoute(applicationActor, processCommand)(system)

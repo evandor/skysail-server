@@ -7,7 +7,8 @@ case class Bookmark(
                      id: Option[String],
                      title: String,
                      url: String,
-                     favIcon: Option[String] = Some("http://www.spiegel.de/favicon.ico")
+                     favIcon: Option[String] = Some("http://www.spiegel.de/favicon.ico"),
+                     hash: Option[String] = None
                    ) extends Entity[String] with Linkable {
 
   override val _links: List[Link] = List(

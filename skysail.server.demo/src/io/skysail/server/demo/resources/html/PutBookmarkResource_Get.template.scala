@@ -53,6 +53,13 @@ Seq[Any](format.raw/*6.67*/("""
             </table>
         </form>
 
+        <hr>
+        <form action='.?_method=DELETE' method="POST">
+            <th colspan="2">
+                <input type="submit" value="delete">
+            </th>
+        </form>
+
     </div>
 </div>
 
@@ -72,9 +79,9 @@ Seq[Any](format.raw/*6.67*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Sat Feb 03 09:31:23 CET 2018
+                  DATE: Wed Feb 14 18:32:25 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/PutBookmarkResource_Get.scala.html
-                  HASH: 78bdb64620edad77463a1b54fcc14210cdd12779
+                  HASH: b9ce1e53d1d836032f254178dc196397585e12f0
                   MATRIX: 727->193|887->258|915->261|937->275|976->277|1005->279|1192->439|1204->442|1233->450|1645->835|1657->838|1705->864|1802->934|1814->937|1859->961
                   LINES: 16->6|21->6|23->8|23->8|23->8|25->10|31->16|31->16|31->16|43->28|43->28|43->28|44->29|44->29|44->29
                   -- GENERATED --

@@ -22,6 +22,7 @@ abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResourc
     cmd.ctx.request.method match {
       case HttpMethods.GET => doGet(RequestEvent(cmd, controller))
       case HttpMethods.PUT => asInstanceOf[PutSupport].put(RequestEvent(cmd, controller))
+      case HttpMethods.DELETE => doDelete(RequestEvent(cmd, controller))
       case e: Any => log error "not supported"
     }
   }
@@ -29,4 +30,5 @@ abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResourc
 
   def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit
 
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = null
 }

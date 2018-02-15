@@ -1,6 +1,6 @@
 package io.skysail.server.app.resources
 
-import io.skysail.domain.{RedirectResponseEvent, RequestEvent}
+import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEventBase}
 import io.skysail.domain.resources.EntityResource
 import io.skysail.server.app.RootApplication
 import io.skysail.domain.resources.AsyncEntityResource
@@ -25,4 +25,7 @@ class RootRedirectResource() extends AsyncEntityResource[RootApplication,String]
   def getEntity(re: RequestEvent): Option[Nothing] = {
     ???
   }
+
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
+
 }

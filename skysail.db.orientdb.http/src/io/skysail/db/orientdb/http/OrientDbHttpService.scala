@@ -32,4 +32,6 @@ class OrientDbHttpService(url: String, user: String, pass: String) extends DbSer
   def findGraphs[T](cls: Class[T], sql: String)(implicit evidence$1: Manifest[T]): List[T] = {
     ???
   }
+
+  override def delete[T: Manifest](cls: Class[T], id: String): Boolean = ???
 }

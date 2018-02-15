@@ -29,4 +29,8 @@ class BookmarksRepository (dbService: DbService, appModel: ApplicationModel) {
     val res = dbService.findGraphs(classOf[Bookmark], sql) //, filter.getParams());
     if (res.size == 0) None else res.headOption
   }
+
+  def delete(id: String): Boolean = {
+    dbService.delete(classOf[Bookmark],id)
+  }
 }

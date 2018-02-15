@@ -15,5 +15,6 @@ trait DbService {
   def findGraphs[T:Manifest](cls: Class[T], sql: String): List[T]
   def findById[T:Manifest](cls: Class[T], id: String): T
   def findByClass[T:Manifest](cls: Class[T]): List[T]
+  def delete[T:Manifest](cls: Class[T], id: String): Boolean
   // end::methods[]
 }

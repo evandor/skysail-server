@@ -1,6 +1,6 @@
 package io.skysail.server.app.resources
 
-import io.skysail.domain.RequestEvent
+import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.app.ApplicationList
 import io.skysail.domain.resources.EntityResource
 import io.skysail.server.app.RootApplication
@@ -31,5 +31,8 @@ class AppsResource() extends EntityResource[RootApplication, ApplicationList] {
     val r = Await.result(apps, 1.seconds)
     Some(ApplicationList(r))
   }
+
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
+
 
 }

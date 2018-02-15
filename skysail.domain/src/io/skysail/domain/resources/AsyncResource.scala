@@ -53,6 +53,12 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
 
   def get(requestEvent: RequestEvent): ResponseEventBase
 
+  final def doDelete(requestEvent: RequestEvent): Unit = {
+    requestEvent.controllerActor ! delete(requestEvent)
+  }
+
+  def delete(requestEvent: RequestEvent): ResponseEventBase
+
   implicit class TypeDetector[T: TypeTag](related: SkysailResource[_, T]) {
     def getType(): Type = typeOf[T]
   }

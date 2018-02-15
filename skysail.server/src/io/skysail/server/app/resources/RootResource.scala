@@ -1,17 +1,14 @@
 package io.skysail.server.app.resources
 
 import io.skysail.api.ProductUtils
-import io.skysail.domain.{AsyncResponseEvent, RequestEvent, ResponseEvent}
-import io.skysail.domain.resources.EntityResource
+import io.skysail.domain.resources.AsyncEntityResource
+import io.skysail.domain.{RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.app.RootApplication
 import org.osgi.framework.Bundle
+import org.slf4j.LoggerFactory
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.Success
-import io.skysail.domain.resources.AsyncEntityResource
-import io.skysail.domain.ResponseEventBase
-import scala.util.Failure
-import org.slf4j.LoggerFactory
+import scala.util.{Failure, Success}
 
 case class RootInfo(
                      title: String,
@@ -48,8 +45,6 @@ class RootResource extends AsyncEntityResource[RootApplication,RootInfo] {
     ???
   }
 
-//  override def get(requestEvent: RequestEvent):AsyncResponseEvent = {
-//    getEntity(requestEvent)
-//    AsyncResponseEvent(requestEvent)
-//  }
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
+
 }

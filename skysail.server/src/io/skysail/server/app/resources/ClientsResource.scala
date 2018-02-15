@@ -21,5 +21,8 @@ class ClientsResource() extends EntityResource[RootApplication, Client] {
   }
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
+
 }
 

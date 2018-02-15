@@ -12,6 +12,7 @@ import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent, Re
 import io.skysail.server.adapter.JSoupAdapter
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Bookmark, BookmarkList}
+import io.skysail.server.demo.services.BookmarksService
 import org.jsoup.nodes.Document
 
 import scala.util.{Failure, Success, Try}
@@ -21,6 +22,11 @@ class BookmarksResource extends EntityResource[DemoApplication, BookmarkList] {
   override def getEntity(re: RequestEvent): Option[BookmarkList] = Some(BookmarkList(getApplication().repo.find()))
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = {
+    RedirectResponseEvent(requestEvent,"", Some(".."))
+  }
+
 }
 
 class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] {
@@ -31,17 +37,8 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] {
 
   def post(requestEvent: RequestEvent) {
     var bookmark = requestEvent.cmd.entity.asInstanceOf[Bookmark]
-    val metadata: Try[Document] = new JSoupAdapter().readFrom(bookmark.url)
-    metadata match {
-      case Success(v) =>
-        bookmark = bookmark.copy(title = v.title())
-        val favicon = v.head().select("link[href~=.*\\.(ico|png)]").first()
-        if (favicon != null) {
-            bookmark = bookmark.copy(favIcon = Some(bookmark.url+favicon.attr("href")))
-        }
-      case Failure(f) => // ignore
-    }
-    val b = getApplication().repo.save(bookmark)
+    val bmWithMetadata = BookmarksService.addMetadata(bookmark)
+    val b = getApplication().repo.save(bmWithMetadata)
     getApplication().eventService.send("bookmark created")
     val redirectTo = Some("/demo/v1/bms")
     val newRequest = requestEvent.cmd.ctx.request.copy(method = HttpMethods.GET)
@@ -76,6 +73,15 @@ class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] {
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
+
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = {
+    //val optionalBookmark = getApplication().repo.find(requestEvent.cmd.urlParameter.head)
+    //if (optionalBookmark.isDefined) {
+      getApplication().repo.delete(requestEvent.cmd.urlParameter.head)
+    //}
+    RedirectResponseEvent(requestEvent,"", Some("/demo/v1/bms"))
+  }
+
 }
 
 class BookmarkResource extends EntityResource[DemoApplication, Bookmark] {

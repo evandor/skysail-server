@@ -26,5 +26,6 @@ abstract class EntityResource[S <: ApplicationApi, T: TypeTag] extends AsyncReso
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = { null }
 
+  override def delete(requestEvent: RequestEvent): ResponseEventBase = null
 
 }
