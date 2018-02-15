@@ -3,17 +3,20 @@ package io.skysail.server.demo.services
 import io.skysail.server.adapter.JSoupAdapter
 import io.skysail.server.demo.domain.Bookmark
 import java.security.MessageDigest
+
 import org.jsoup.nodes.Document
+import org.slf4j.LoggerFactory
 
 import scala.util.{Failure, Success, Try}
 
 object BookmarksService {
 
+  private val log = LoggerFactory.getLogger(this.getClass)
 
   def addMetadata(bookmark: Bookmark) = {
     var bm = bookmark
     //.copy()
-    val metadata: Try[Document] = new JSoupAdapter().readFrom(bookmark.url)
+    val metadata = new JSoupAdapter().readFrom(bookmark.url).asInstanceOf[Try[Document]]
     metadata match {
       case Success(v) =>
         bm = bm.copy(title = v.title())
@@ -22,33 +25,23 @@ object BookmarksService {
           bm = bm.copy(favIcon = Some(bookmark.url + favicon.attr("href")))
         }
         bm = bm.copy(hash = Some(generateHash(v)))
-      case Failure(f) => // ignore
+      case Failure(f) => log info s"problem getting metadata for ${bookmark.url}"
     }
     bm
   }
 
-  private def generateHash(v: Document) = {
-    val md = MessageDigest.getInstance("SHA-1")
-    val bytesBuffer = new Array[Byte](1024)
-    var bytesRead = -1
-
-//    import java.io.ByteArrayInputStream
-//    https://stackoverflow.com/questions/247161/how-do-i-turn-a-string-into-a-inputstreamreader-in-java
-//    val inputStream = new ByteArrayInputStream(v.body().toString.getBytes(charset))
-//
-//    while ( {
-//      (bytesRead = inputStream.read(bytesBuffer)) != -1
-//    }) digest.update(bytesBuffer, 0, bytesRead)
-//
-//    val hashedBytes = digest.digest
-//
-//    return convertByteArrayToHexString(hashedBytes)
-    ""
+  private def convertByteArrayToHexString(hashedBytes: Array[Byte]) = {
+    val sb = new StringBuffer()
+    for (i <- 0 to hashedBytes.length) {
+      sb.append(Integer.toString((hashedBytes(i) & 0xff) + 0x100, 16).substring(1))
+    }
+    sb.toString
   }
 
-  //def createApplication(app: Bookmark): Future[Option[String]] = ???
-
-  //def getApplication(id: String): Future[Option[Bookmark]] = ???
-
+  private def generateHash(v: Document) = {
+    val bytes = v.body().toString.getBytes(v.charset())
+    String.format("%064x",
+      new java.math.BigInteger(1, java.security.MessageDigest.getInstance("SHA-1").digest(bytes)))
+  }
 
 }

@@ -36,7 +36,7 @@ class DemoApplication(
   val accountsRepo = new AccountsRepo(dbService, appModel)
   val patternRepo = new PatternRepository(dbService, appModel)
 
-  val bookmarksService = new BookmarksService()
+  //val bookmarksService = new BookmarksService()
 
   //val dockerClient = DockerClientBuilder.getInstance().build()
 

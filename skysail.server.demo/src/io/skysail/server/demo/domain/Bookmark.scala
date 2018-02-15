@@ -3,12 +3,23 @@ package io.skysail.server.demo.domain
 import io.skysail.api.ddd.Entity
 import io.skysail.api.ui._
 
+object State {
+  sealed trait EnumVal
+  case object NEW extends EnumVal
+  case object NOT_FOUND extends EnumVal
+  case object UNCHANGED extends EnumVal
+  case object CHANGED extends EnumVal
+}
+
+import io.skysail.server.demo.domain._
+
 case class Bookmark(
                      id: Option[String],
                      title: String,
                      url: String,
                      favIcon: Option[String] = Some("http://www.spiegel.de/favicon.ico"),
-                     hash: Option[String] = None
+                     hash: Option[String] = None,
+                     state: Option[State.EnumVal] = Some(State.NEW)
                    ) extends Entity[String] with Linkable {
 
   override val _links: List[Link] = List(

@@ -33,3 +33,10 @@ after_success:
 
 notifications:
     slack: skysail-io:QGRw4Q2CzA56P0c9p5M5xwlm
+    webhooks:
+      urls:
+        - http://jenkins.twentyeleven.de/generic-webhook-trigger/invoke
+      on_success: always # default: always
+      on_failure: never # default: always
+      on_cancel: never # default: always
+      on_error: never # default: always
