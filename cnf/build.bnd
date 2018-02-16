@@ -17,6 +17,11 @@
 		pretty = true; \
 		local = ${build}/release
 
+-plugin.4.BuildRepo: \
+	aQute.bnd.deployer.repository.LocalIndexedRepo; \
+		name = BuildRepo; \
+		local = ${user.home}/.bnd/shared/skysail
+
 -releaserepo: Release
 -baselinerepo: Release
 
