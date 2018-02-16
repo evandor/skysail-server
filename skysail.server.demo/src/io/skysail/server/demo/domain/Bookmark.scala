@@ -18,8 +18,9 @@ case class Bookmark(
                      title: String,
                      url: String,
                      favIcon: Option[String] = Some("http://www.spiegel.de/favicon.ico"),
-                     hash: Option[String] = None,
-                     created: Option[Long] = Some(Instant.now.getEpochSecond),
+                     hash: String = "",
+                     created: Long = Instant.MIN.getEpochSecond,
+                     clicked: Integer = 0,
                      state: Option[State.EnumVal] = Some(State.NEW)
                    ) extends Entity[String] with Linkable {
 

@@ -31,4 +31,6 @@ class DummyDbService extends DbService() {
   }
 
   override def delete[T: Manifest](cls: Class[T], id: String): Boolean = ???
+
+  override def findGraphs2[T: Manifest](template: T, sql: String): List[T] = ???
 }

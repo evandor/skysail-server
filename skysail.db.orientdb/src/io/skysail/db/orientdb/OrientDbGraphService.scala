@@ -94,6 +94,21 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     result.toList
   }
 
+  def findGraphs2[T: Manifest](template: T, sql: String): List[T] = {
+    val results = executeCommand[T](sql)
+    val result = scala.collection.mutable.ListBuffer[T]()
+    results.asScala.foreach(v => {
+      try {
+        val r = v.asInstanceOf[OrientVertex]
+        result += documentToBeanWithTemplate(r.getRecord(), template)
+      } catch {
+        case e: Throwable => log warn s"not able to create bean out of $v: ${e.getMessage}"
+      }
+    })
+
+    result.toList
+  }
+
   // TODO return Option
   def findById[T: Manifest](cls: Class[T], id: String): T = {
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)} where id='${id}'"
@@ -145,6 +160,10 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
 
   private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T]): T = {
     Transformer.jsonStringToBean(doc.toJSON("fetchPlan:*:-1"))
+  }
+
+  private def documentToBeanWithTemplate[T: Manifest](doc: ODocument, template: T): T = {
+    Transformer.jsonStringToBeanWithTemplate(doc.toJSON("fetchPlan:*:-1"), template)
   }
 
   private def executeCommand[T](sql: String): OrientDynaElementIterable = {

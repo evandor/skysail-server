@@ -1,13 +1,37 @@
 package io.skysail.server.demo.services
 
 import java.time.Instant
+import java.util.concurrent.TimeUnit
 
+import akka.actor.ActorSystem
 import io.skysail.server.adapter.JSoupAdapter
 import io.skysail.server.demo.domain.Bookmark
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
 
+import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success, Try}
+
+object BookmarkSchedulerService {
+
+  private val log = LoggerFactory.getLogger(this.getClass)
+
+  def checkBookmarks(actorSystem: ActorSystem) = {
+    val scheduler = actorSystem.scheduler
+    val task = new Runnable {
+      def run() {
+        log.info("Hello")
+      }
+    }
+    implicit val executor = actorSystem.dispatcher
+
+    scheduler.schedule(
+      initialDelay = Duration(5, TimeUnit.SECONDS),
+      interval = Duration(10, TimeUnit.SECONDS),
+      runnable = task)
+  }
+
+}
 
 object BookmarksService {
 
@@ -24,10 +48,10 @@ object BookmarksService {
         if (favicon != null) {
           bm = bm.copy(favIcon = Some(bookmark.url + favicon.attr("href")))
         }
-        bm = bm.copy(hash = Some(generateHash(v)))
+        bm = bm.copy(hash = generateHash(v))
       case Failure(f) => log info s"problem getting metadata for ${bookmark.url}"
     }
-    bm.copy(created = Some(Instant.now.getEpochSecond))
+    bm.copy(created = Instant.now.getEpochSecond)
   }
 
   private def convertByteArrayToHexString(hashedBytes: Array[Byte]) = {

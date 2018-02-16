@@ -51,7 +51,7 @@ Seq[Any](format.raw/*6.106*/("""
         """),format.raw/*36.9*/("""<tr>
             <th scope="row">"""),_display_(/*37.30*/p/*37.31*/.title),format.raw/*37.37*/("""</th>
             <td><img src='"""),_display_(/*38.28*/p/*38.29*/.favIcon.getOrElse("thesource")),format.raw/*38.60*/("""'>&nbsp;<a href='"""),_display_(/*38.78*/p/*38.79*/.url),format.raw/*38.83*/("""' target='demo_bms_"""),_display_(/*38.103*/p/*38.104*/.title),format.raw/*38.110*/("""'>"""),_display_(/*38.113*/p/*38.114*/.url),format.raw/*38.118*/("""</a></td>
-            <td><script>document.write(moment.unix("""),_display_(/*39.53*/p/*39.54*/.created),format.raw/*39.62*/(""").format("dd.MM.yyyy"));</script></td>
+            <td><script>document.write(moment.unix("""),_display_(/*39.53*/p/*39.54*/.created),format.raw/*39.62*/(""").format("DD.MM.YYYY"));</script></td>
             <td>
                 """),_display_(/*41.18*/for(l <- p._links) yield /*41.36*/ {_display_(Seq[Any](format.raw/*41.38*/("""
                 """),_display_(/*42.18*/Html(l.toHtml(p.id.get))),format.raw/*42.42*/("""&nbsp;
@@ -90,9 +90,9 @@ Seq[Any](format.raw/*6.106*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Thu Feb 15 19:57:11 CET 2018
+                  DATE: Fri Feb 16 07:43:54 CET 2018
                   SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/BookmarksResource_Get.scala.html
-                  HASH: 2ab1d7d3860b0baa65c012801c059b5f50ec7b31
+                  HASH: ee401861ab5a2d062685fb47727cd69b22cccfae
                   MATRIX: 761->193|961->297|989->300|1011->314|1050->316|1079->318|1239->451|1251->454|1283->465|1995->1150|2034->1173|2074->1175|2110->1184|2171->1218|2181->1219|2208->1225|2268->1258|2278->1259|2330->1290|2375->1308|2385->1309|2410->1313|2458->1333|2469->1334|2497->1340|2528->1343|2539->1344|2565->1348|2654->1410|2664->1411|2693->1419|2793->1492|2827->1510|2867->1512|2912->1530|2957->1554|3012->1578|3053->1591|3113->1620|3150->1630|3213->1667|3249->1687|3289->1689|3321->1695|3356->1709|3392->1715|3425->1721
                   LINES: 16->6|21->6|23->8|23->8|23->8|25->10|26->11|26->11|26->11|50->35|50->35|50->35|51->36|52->37|52->37|52->37|53->38|53->38|53->38|53->38|53->38|53->38|53->38|53->38|53->38|53->38|53->38|53->38|54->39|54->39|54->39|56->41|56->41|56->41|57->42|57->42|58->43|59->44|61->46|63->48|67->52|67->52|67->52|68->53|68->53|69->54|71->56
                   -- GENERATED --

@@ -14,8 +14,20 @@ object Transformer {
   //implicit val formats = DefaultFormats + ZDTSerializer + FieldSerializer[Person]()
   implicit val serialization: Serialization.type = jackson.Serialization
 
+  // TODO chec https://stackoverflow.com/questions/15943957/is-it-possible-to-make-json4s-not-to-throw-exception-when-required-field-is-miss
   def jsonStringToBean[T: Manifest](jsonStr: String): T = {
-    read[T](jsonStr)
+
+    val r = org.json4s.native.JsonMethods.parse(jsonStr).extractOpt[T]
+    println("RRR:" + r)
+    val r2 = read[T](jsonStr)
+    println("RRR2:" + r2)
+    r2
+  }
+
+  def jsonStringToBeanWithTemplate[T: Manifest](jsonStr: String, template: T): T = {
+    val defaultsJson = Extraction.decompose(template)
+    val valueJson = JsonUtil.jValue(jsonStr)
+    (defaultsJson merge valueJson).extract[T]
   }
 
   def beanToJson[T: Manifest](bean: T): JValue = {
@@ -51,5 +63,19 @@ object Transformer {
 
   def toClassTag[T: TypeTag]: ClassTag[T] = {
     ClassTag[T]( typeTag[T].mirror.runtimeClass( typeTag[T].tpe ) )
+  }
+
+  object JsonUtil {
+    import java.nio.charset.StandardCharsets.UTF_8
+    import java.io.{InputStreamReader, ByteArrayInputStream}
+
+    def jValue(json: String): JValue = {
+      jValue(json.getBytes(UTF_8))
+    }
+
+    def jValue(json: Array[Byte]): JValue = {
+      val reader = new InputStreamReader(new ByteArrayInputStream(json), UTF_8)
+      native.JsonParser.parse(reader)
+    }
   }
 }

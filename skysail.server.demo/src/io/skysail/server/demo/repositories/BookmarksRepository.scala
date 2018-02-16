@@ -1,5 +1,7 @@
 package io.skysail.server.demo.repositories
 
+import java.time.Instant
+
 import io.skysail.api.persistence.DbService
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.server.demo.domain.Bookmark
@@ -20,13 +22,13 @@ class BookmarksRepository (dbService: DbService, appModel: ApplicationModel) {
     //                + " " + limitClause(pagination);
     //pagination.setEntityCount(count(filter));
     //println("executing sql " + sql)
-    dbService.findGraphs(classOf[Bookmark], sql) //, filter.getParams());
+    dbService.findGraphs2(Bookmark(None, "",""), sql) //, filter.getParams());
   }
 
   def find(id: String): Option[Bookmark] = {
     val sql = s"SELECT * from ${DbService.tableNameFor(classOf[Bookmark])} where id='${id}'"
     //println("executing sql " + sql)
-    val res = dbService.findGraphs(classOf[Bookmark], sql) //, filter.getParams());
+    val res: Seq[Bookmark] = dbService.findGraphs2(Bookmark(None, "", "", created = Instant.MIN.getEpochSecond), sql) //, filter.getParams());
     if (res.size == 0) None else res.headOption
   }
 

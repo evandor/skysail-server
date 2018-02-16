@@ -11,7 +11,7 @@ import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import io.skysail.server.demo.domain.DbConfig
 import io.skysail.server.demo.repositories._
 import io.skysail.server.demo.resources.{DbConfigsResource, _}
-import io.skysail.server.demo.services.{BookmarksService, EventService}
+import io.skysail.server.demo.services.{BookmarkSchedulerService, EventService}
 import org.osgi.framework.BundleContext
 import org.osgi.service.event.EventAdmin
 
@@ -36,7 +36,7 @@ class DemoApplication(
   val accountsRepo = new AccountsRepo(dbService, appModel)
   val patternRepo = new PatternRepository(dbService, appModel)
 
-  //val bookmarksService = new BookmarksService()
+  BookmarkSchedulerService.checkBookmarks(system)
 
   //val dockerClient = DockerClientBuilder.getInstance().build()
 
