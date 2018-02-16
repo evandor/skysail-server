@@ -10,7 +10,7 @@
 	org.apache.felix.gogo.command;version='[1.0.2,1.0.3)',\
 	org.apache.felix.gogo.runtime;version='[1.0.10,1.0.11)',\
 	webconsole.all;version='[0.1.18,0.1.19)',\
-	skysail.domain;version=snapshot,\
+	skysail.domain;version=${skysail.domain.version},\
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
 	ch.qos.logback.core;version='[1.2.3,1.2.4)',\
 	com.fasterxml.jackson.core.jackson-annotations;version='[2.9.2,2.9.3)',\

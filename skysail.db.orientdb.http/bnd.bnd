@@ -20,7 +20,7 @@ Bundle-Activator: io.skysail.db.orientdb.http.Activator
     com.fasterxml.jackson.core.jackson-databind;version=2.9,\
     com.fasterxml.jackson.core.jackson-core;version=2.9,\
 	skysail.api;version=${skysail.api.version},\
-	skysail.domain;version=latest,\
+	skysail.domain;version=${skysail.domain.version},\
 	io.skysail.bundled.sttp;version=latest
 
 Private-Package: \

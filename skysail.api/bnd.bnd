@@ -20,7 +20,7 @@ Bundle-Activator: io.skysail.api.impl.Activator
 	${akka-build},\
 	${felix},\
 	${logging},\
-	skysail.domain;version=latest,\
+	skysail.domain;version=${skysail.domain.version},\
 	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
 	org.scala-lang.modules.scala-xml;version=1.0.6,\
 	com.typesafe.akka.http;version=${akka.http.version},\

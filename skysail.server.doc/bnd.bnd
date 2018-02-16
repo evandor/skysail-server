@@ -28,7 +28,7 @@ Bundle-Activator: io.skysail.server.doc.DocActivator
 	com.springsource.org.junit,\
 	org.scala-lang.modules.scala-xml;version='[1.0.6,1.0.7)',\
 	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
-	skysail.domain;version=latest
+	skysail.domain;version=${skysail.domain.version}
 Private-Package: \
 	io.skysail.server.doc,\
 	io.skysail.server.doc.html
