@@ -1,9 +1,9 @@
 package io.skysail.server.demo.services
 
+import java.time.Instant
+
 import io.skysail.server.adapter.JSoupAdapter
 import io.skysail.server.demo.domain.Bookmark
-import java.security.MessageDigest
-
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
 
@@ -27,7 +27,7 @@ object BookmarksService {
         bm = bm.copy(hash = Some(generateHash(v)))
       case Failure(f) => log info s"problem getting metadata for ${bookmark.url}"
     }
-    bm
+    bm.copy(created = Some(Instant.now.getEpochSecond))
   }
 
   private def convertByteArrayToHexString(hashedBytes: Array[Byte]) = {

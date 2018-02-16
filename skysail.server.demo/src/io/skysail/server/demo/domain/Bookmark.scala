@@ -1,5 +1,7 @@
 package io.skysail.server.demo.domain
 
+import java.time.Instant
+
 import io.skysail.api.ddd.Entity
 import io.skysail.api.ui._
 
@@ -11,14 +13,13 @@ object State {
   case object CHANGED extends EnumVal
 }
 
-import io.skysail.server.demo.domain._
-
 case class Bookmark(
                      id: Option[String],
                      title: String,
                      url: String,
                      favIcon: Option[String] = Some("http://www.spiegel.de/favicon.ico"),
                      hash: Option[String] = None,
+                     created: Option[Long] = Some(Instant.now.getEpochSecond),
                      state: Option[State.EnumVal] = Some(State.NEW)
                    ) extends Entity[String] with Linkable {
 
