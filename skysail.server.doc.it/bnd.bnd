@@ -13,7 +13,7 @@ Test-Cases: io.skysail.server.doc.it.SkysailServerDocIntegrationTest
 	org.apache.httpcomponents.httpcore;version=4.4,\
 	org.apache.httpcomponents.httpclient;version=4.5,\
 	skysail.domain;version=${skysail.domain.version},\
-	skysail.server;version=latest,\
+	skysail.server;version=${skysail.server.version},\
 	slf4j.api;version=1.7
 	
 
