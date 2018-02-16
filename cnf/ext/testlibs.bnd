@@ -1,0 +1,7 @@
+testlibs: \
+    org.scalatest;version=3.0,\
+    org.scalactic;version=3.0,\
+    com.springsource.org.junit,\
+    org.mockito.mockito-all;version=1.10,\
+    org.assertj.core;version=3.8,\
+    com.typesafe.akka.testkit;version=${akka.version}

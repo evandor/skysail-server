@@ -1,0 +1,72 @@
+@*************************************
+* Home page.                        *
+*                                   *
+* @param msg The message to display *
+*************************************@
+@(rep: RepresentationModel, response: ResponseEventBase, bm: io.skysail.server.app.bookmarks.domain.Bookmark)
+
+@render(json: String) = {
+  render(json)
+  "hi"
+}
+
+@main(response) {
+
+<br><br><br>
+
+<div class="container">
+    <div class="starter-template">
+        <h1><a href="/demo/v1/bms">Bookmarks</a> &gt; @rep.rawData.head.get("id")</h1>
+        <p class="lead">show bookmark:</p>
+        <div>@rep.rawData</div>
+        <hr>
+        <div>@rep.response.entity</div>
+        <hr>
+        <div>@rep.jsonData</div>
+        <hr>
+        <div>@rep.json</div>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Url</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row"><input type="text" name="title" value='@rep.rawData.head.get("title")'/></th>
+                <td><input type="url" name="url" value='@rep.rawData.head.get("url")'/></td>
+            </tr>
+
+            <tr>
+                <th colspan="2">
+                    <a href='#'>@render(rep.jsonData)</a>
+                </th>
+            </tr>
+
+            @for(p <- rep.rawData(0).get("variants")) {
+              @for(q <- p.asInstanceOf[List[_]]) {
+                  <tr>
+                    <th colspan="2">
+                      <a href='@q.asInstanceOf[Map[String,_]]("url")'>@q.asInstanceOf[Map[String,_]]("url")</a>
+                    </th>
+                  </tr>
+              }
+            }
+            <tr>
+                <th colspan="2">
+                    <a href='@rep.rawData.head.get("id")/'>edit bookmark</a>
+                </th>
+            </tr>
+            </tbody>
+
+        </table>
+
+        yyyyy
+        <dom-element json="@rep.jsonData"></dom-element>
+
+
+    </div>
+</div>
+
+}

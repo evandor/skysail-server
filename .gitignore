@@ -1,17 +1,22 @@
-*.class
-
-.DS_Store
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.war
-*.ear
-*.bat
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-/.gradle/
-/reports/
+/bin/
+/bin_test/*
+bin_test
+!generated/
+generated/*
+generated/
 /generated/
-/cnf_bnd_2_4/
+.cache-main
+.cache-tests
+.classpath
+.project
+/.settings/
+.settings/
+.DS_Store
+.gradle/
+.metadata
+/.idea/
+build/
+out/
+bin/
+*.iml
+/skysail.server/.cache-main

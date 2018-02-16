@@ -1,8 +1,9 @@
-runsystempackages:\
+runsystempackages: \
     com.sun.image.codec.jpeg,\
     com.sun.management,\
     com.sun.net.httpserver,\
     javafx.application,\
+    javafx.fxml,\
     javafx.scene,\
     javafx.scene.control,\
     javafx.scene.layout,\
@@ -17,21 +18,24 @@ runsystempackages:\
     javafx.scene.web,\
     javafx.util,\
     javafx.scene.paint,\
-    javax.imageio.spi,\
+    javax.annotation.meta,\
     javax.crypto,\
     javax.crypto.spec,\
+    javax.imageio.spi,\
     javax.script,\
     javax.net,\
     javax.net.ssl,\
     javax.security.auth.x500,\
     javax.sql,\
-    javax.xml.stream,\
+    javax.mail,\
+    javax.mail.internet,\
     javax.naming,\
     javax.naming.directory,\
     javax.naming.ldap,\
     javax.xml.bind,\
     javax.xml.bind.annotation,\
     javax.xml.bind.annotation.adapters,\
+    javax.xml.stream,\
     javax.activation,\
     javax.security.auth.callback,\
     javax.naming.spi,\
@@ -43,6 +47,7 @@ runsystempackages:\
     javax.xml.transform.stax,\
     sun.reflect,\
     sun.misc,\
+    sun.net,\
     org.ietf.jgss,\
     netscape.javascript,\
     sun.nio.ch

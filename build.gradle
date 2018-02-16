@@ -1,34 +1,55 @@
-/*
- * Master Gradle build script
- *
- * Depends on bndPlugin property set by settings.gradle.
- * and bnd_* values from gradle.properties.
- */
+// Available to customize the build
 
-import aQute.bnd.build.Workspace
-import aQute.bnd.osgi.Constants
-
-/* Add bnd gradle plugin as a script dependency */
-buildscript {
-  dependencies {
-    classpath bndPlugin
-  }
+plugins {
+    id "org.asciidoctor.convert" version "1.5.3"
+    id 'com.github.jruby-gradle.base' version '1.4.0'
 }
 
-/* Initialize the bnd workspace */
-Workspace.setDriver(Constants.BNDDRIVER_GRADLE)
-Workspace.addGestalt(Constants.GESTALT_BATCH, null)
-ext.bndWorkspace = new Workspace(rootDir, bnd_cnf)
-if (bndWorkspace == null) {
-  throw new GradleException("Unable to load workspace ${rootDir}/${bnd_cnf}")
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+dependencies {
+    gems files('gradle/gems/asciidoctor-diagram-1.5.4.gem')
 }
 
-ext.cnf = rootProject.project(bnd_cnf)
+asciidoctorj {
+    version = '1.5.5'
+}
 
-/* Configure the subprojects */
-subprojects {
-  def bndProject = bndWorkspace.getProject(name)
-  if (bndProject != null) {
-    plugins.apply 'biz.aQute.bnd'
-  }
+task copyImagesFromBundles(type: Copy) {
+    from 'skysail.domain/src/docs/asciidoc/images'
+    into 'build/asciidoc/html5/images'
+
+    from 'skysail.server.doc/src/docs/asciidoc/images'
+    into 'build/asciidoc/html5/images'
+}
+
+asciidoctor {
+    dependsOn copyImagesFromBundles, jrubyPrepare
+    requires = ['asciidoctor-diagram']
+    gemPath = jrubyPrepare.outputDir
+    attributes  \
+         'build-gradle': file('build.gradle'),
+            'source-highlighter': 'coderay',
+            'imagesdir': 'images',
+            'toc': 'left',
+            'icons': 'font',
+            'setanchors': '',
+            'idprefix': '',
+            'idseparator': '-',
+            'docinfo1': ''
+}
+
+task wrapper(type: Wrapper) {
+    jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
+}
+
+task createAndCopyDocumentationToDocBundle(dependsOn: asciidoctor, type: Copy) {
+    from 'build/asciidoc/html5'
+    into 'skysail.server.doc/resources/assets/html5'
+}
+
+configure(createAndCopyDocumentationToDocBundle) {
+    group = 'documentation'
+    description = 'Creates Asciidoc html5 documentation and copies it to skysail.server.doc'
 }

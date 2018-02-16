@@ -1,0 +1,92 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+        classpath "com.bmuschko:gradle-docker-plugin:3.0.11"
+        classpath "gradle.plugin.io.skysail.gradle:twirlosgi-gradle-plugin:${twirlosgi_gradle_plugin_version}"
+        classpath "gradle.plugin.org.scoverage:gradle-scoverage:2.1.0"
+    }
+}
+
+apply plugin: 'scala'
+apply plugin: 'java'
+apply plugin: 'org.scoverage'
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'eclipse'
+apply plugin: 'io.skysail.twirl.osgi'
+
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+dependencies {
+    compile "org.scala-lang:scala-library:${scala_version}"
+    compile "org.scala-lang:scala-reflect:${scala_version}"
+    scoverage 'org.scoverage:scalac-scoverage-plugin_2.11:1.1.0', 'org.scoverage:scalac-scoverage-runtime_2.11:1.1.0'
+}
+
+sourceSets {
+    main {
+        scala {
+            srcDirs = ['src']
+        }
+    }
+    test {
+        scala {
+            srcDirs = ['test']
+        }
+    }
+}
+
+eclipse {
+    project {
+        buildCommand 'bndtools.core.bndbuilder'
+        natures 'bndtools.core.bndnature'
+    }
+    classpath {
+        defaultOutputDir = file('bin')
+        containers 'org.scala-ide.sdt.launching.SCALA_CONTAINER', 'aQute.bnd.classpath.container'
+        file {
+            whenMerged {
+                entries.removeAll { it.kind == 'lib' }
+            }
+        }
+    }
+}
+
+task copyConf(type : Copy) {
+    println "copying configuration"
+    from "config"
+    into "release/config"
+}
+
+task copyRunnables(type : Copy) {
+    println "copying executable"
+    from "generated/distributions/executable"
+    into "release"
+}
+
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+task buildImage(type: DockerBuildImage) {
+    //dependsOn createDockerfile
+    inputDir = project.file('release')//createDockerfile.destFile.parentFile
+    tag = 'evandor/skysail-server-demo'
+    //noCache = true
+}
+
+task runnable(dependsOn: ['copyConf', 'copyRunnables']) {
+    println "copying configuration..."
+}
+
+
