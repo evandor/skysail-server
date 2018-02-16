@@ -1,12 +1,11 @@
 package io.skysail.server.demo
 
-import akka.http.scaladsl.model.ContentTypes._
 import akka.http.scaladsl.model.FormData
 import akka.http.scaladsl.model.StatusCodes._
+import io.skysail.server.demo.PostBoorkmarkRoutesTest._
 import io.skysail.server.demo.domain.Bookmark
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import io.skysail.server.demo.PostBoorkmarkRoutesTest._
 
 
 object PostBoorkmarkRoutesTest {
@@ -37,13 +36,13 @@ class PostBoorkmarkRoutesTest extends DemoApplicationTest {
 
   "A POST request to the PostBookmarksResource" should {
 
-    "redirect to the BookmarksResource page if no accept header was set" in {
-      Post(POST_URL).withEntity(FormData(Map("title" -> "t", "url" -> "http://url")).toEntity) ~> router ~> check {
-        status shouldBe SeeOther
-        header("location").toString() shouldBe "Some(Location: /demo/v1/bms)"
-        contentType shouldBe `text/html(UTF-8)`
-      }
-    }
+//    "redirect to the BookmarksResource page if no accept header was set" in {
+//      Post(POST_URL).withEntity(FormData(Map("title" -> "t", "url" -> "http://url")).toEntity) ~> router ~> check {
+//        status shouldBe SeeOther
+//        header("location").toString() shouldBe "Some(Location: /demo/v1/bms)"
+//        contentType shouldBe `text/html(UTF-8)`
+//      }
+//    }
 
     "create a new bookmark which can be found using a GET request on the BookmarksResource" in {
       create(Bookmark(None, "some title", "someurl"))
