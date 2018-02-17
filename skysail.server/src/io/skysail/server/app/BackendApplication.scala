@@ -112,8 +112,13 @@ abstract class BackendApplication(
     val pm: PathMatcher[Unit] = appModel.appRoute / PathMatcher("_model") ~ PathEnd
     val appModelMapping = ConcreteRouteMapping("/_model", pm, res)
     //val appModelMapping: RouteMappingI[Unit, AppModelDescription] = RouteMapping("/_model", pm, classOf[AppModelResource])
-    routes += routesCreator.createRoute(appModelMapping, this)
-
+    
+    if (routesCreator != null) {
+      routes += routesCreator.createRoute(appModelMapping, this)
+    } else {
+      log warn "routesCreator was null"
+    }
+   
     routes.size match {
       case 0 => log warn "no routes are defined"; null
       case 1 => routes.head
