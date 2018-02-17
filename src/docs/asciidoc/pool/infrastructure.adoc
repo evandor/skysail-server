@@ -25,6 +25,8 @@ Currently, there are two build systems, jenkins@twentyeleven und Travis CI
 Jenkins is using the multibranch pipeline plugin and evaluates the file
 *Jenkinsfile_multibranch* from the root folder.
 
+new: http://85.25.22.126:8080/ defined in install/docker/jenkins
+
 ==== specific setup
 
 In order to create docker images, the following change was made in /etc/sudoers using
@@ -37,6 +39,10 @@ carsten ALL = NOPASSWD: /home/carsten/.hudson/jobs/skysail-server.multibranch/br
 
 
 === Travis
+
+== Sonar
+
+in ~/install/docker/sonarqube$ sudo docker-compose up
 
 == Elasticsearch
 
