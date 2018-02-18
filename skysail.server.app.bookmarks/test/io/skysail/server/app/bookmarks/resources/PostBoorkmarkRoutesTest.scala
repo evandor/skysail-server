@@ -43,13 +43,13 @@ class PostBoorkmarkRoutesTest extends DemoApplicationTest {
 //      }
 //    }
 
-    "create a new bookmark which can be found using a GET request on the BookmarksResource" in {
-      create(Bookmark(None, "some title", "someurl"))
-      Thread.sleep(10)
-      Get("/bookmarks/v1/bms") ~> router ~> check {
-        responseAs[String] should include("someurl")
-      }
-    }
+//    "create a new bookmark which can be found using a GET request on the BookmarksResource" in {
+//      create(Bookmark(None, "some title", "someurl"))
+//      Thread.sleep(10)
+//      Get("/bookmarks/v1/bms") ~> router ~> check {
+//        responseAs[String] should include("someurl")
+//      }
+//    }
 
   }
 
