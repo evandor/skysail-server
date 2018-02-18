@@ -40,6 +40,10 @@ carsten ALL = NOPASSWD: /home/carsten/.hudson/jobs/skysail-server.multibranch/br
 
 === Travis
 
+== orientdb
+
+
+
 == Sonar
 
 in ~/install/docker/sonarqube$ sudo docker-compose up
