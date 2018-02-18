@@ -8,7 +8,7 @@ import io.skysail.server.app.bookmarks.domain.Bookmark
 import io.skysail.server.app.bookmarks.resources.PostBoorkmarkRoutesTest._
 
 object PostBoorkmarkRoutesTest {
-  val POST_URL = "/demo/v1/bms/"
+  val POST_URL = "/bookmarks/v1/bms/"
 }
 
 @RunWith(classOf[JUnitRunner])
@@ -38,7 +38,7 @@ class PostBoorkmarkRoutesTest extends DemoApplicationTest {
 //    "redirect to the BookmarksResource page if no accept header was set" in {
 //      Post(POST_URL).withEntity(FormData(Map("title" -> "t", "url" -> "http://url")).toEntity) ~> router ~> check {
 //        status shouldBe SeeOther
-//        header("location").toString() shouldBe "Some(Location: /demo/v1/bms)"
+//        header("location").toString() shouldBe "Some(Location: /bookmarks/v1/bms)"
 //        contentType shouldBe `text/html(UTF-8)`
 //      }
 //    }
@@ -46,7 +46,7 @@ class PostBoorkmarkRoutesTest extends DemoApplicationTest {
     "create a new bookmark which can be found using a GET request on the BookmarksResource" in {
       create(Bookmark(None, "some title", "someurl"))
       Thread.sleep(10)
-      Get("/demo/v1/bms") ~> router ~> check {
+      Get("/bookmarks/v1/bms") ~> router ~> check {
         responseAs[String] should include("someurl")
       }
     }
