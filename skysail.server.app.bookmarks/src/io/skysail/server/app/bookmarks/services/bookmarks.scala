@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.duration.Duration
-import scala.util.{Failure, Success, Try}
+import scala.util.{ Failure, Success, Try }
 import io.skysail.server.app.bookmarks.domain.Bookmark
 
 object BookmarkSchedulerService {
@@ -17,18 +17,22 @@ object BookmarkSchedulerService {
   private val log = LoggerFactory.getLogger(this.getClass)
 
   def checkBookmarks(actorSystem: ActorSystem) = {
-    val scheduler = actorSystem.scheduler
-    val task = new Runnable {
-      def run() {
-        log.info("Hello")
+    if (actorSystem == null) {
+      log warn s"cannot check bookmarks as actorSystem was null"
+    } else {
+      val scheduler = actorSystem.scheduler
+      val task = new Runnable {
+        def run() {
+          log.info("Hello")
+        }
       }
-    }
-    implicit val executor = actorSystem.dispatcher
+      implicit val executor = actorSystem.dispatcher
 
-    scheduler.schedule(
-      initialDelay = Duration(5, TimeUnit.SECONDS),
-      interval = Duration(10, TimeUnit.SECONDS),
-      runnable = task)
+      scheduler.schedule(
+        initialDelay = Duration(5, TimeUnit.SECONDS),
+        interval = Duration(10, TimeUnit.SECONDS),
+        runnable = task)
+    }
   }
 
 }
@@ -64,7 +68,8 @@ object BookmarksService {
 
   private def generateHash(v: Document) = {
     val bytes = v.body().toString.getBytes(v.charset())
-    String.format("%064x",
+    String.format(
+      "%064x",
       new java.math.BigInteger(1, java.security.MessageDigest.getInstance("SHA-1").digest(bytes)))
   }
 
