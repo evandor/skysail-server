@@ -24,9 +24,9 @@ case class Bookmark(
                    ) extends Entity[String] with Linkable {
 
   override val _links: List[Link] = List(
-    IconLink("show",   "fas fa-eye",   "/demo/v1/bms/${id}",  "color:#000066", "show entity"),
-    IconLink("update", "fa fa-edit",   "/demo/v1/bms/${id}/", "", "update entity"),
-    IconLink("delete", "fas fa-trash", "/demo/v1/bms/${id}/", "color:Tomato", "delete entity")
+    IconLink("show",   "fas fa-eye",   "/bookmarks/v1/bms/${id}",  "color:#000066", "show entity"),
+    IconLink("update", "fa fa-edit",   "/bookmarks/v1/bms/${id}/", "", "update entity"),
+    IconLink("delete", "fas fa-trash", "/bookmarks/v1/bms/${id}/", "color:Tomato", "delete entity")
   )
 
 }
@@ -37,7 +37,7 @@ case class BookmarkList(
                        ) extends Linkable {
 
   override val _links: List[Link] = List(
-    ButtonLink("create-form", "create new Bookmark", "/demo/v1/bms/", style = "btn btn-outline-primary")
+    ButtonLink("create-form", "create new Bookmark", "/bookmarks/v1/bms/", style = "btn btn-outline-primary")
   )
 }
 

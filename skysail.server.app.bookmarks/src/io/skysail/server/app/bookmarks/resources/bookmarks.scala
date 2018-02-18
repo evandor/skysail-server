@@ -41,7 +41,7 @@ class PostBookmarkResource extends PostResource[BookmarksApplication, Bookmark] 
     val bmWithMetadata = BookmarksService.addMetadata(bookmark)
     val b = getApplication().repo.save(bmWithMetadata)
    // getApplication().eventService.send("bookmark created")
-    val redirectTo = Some("/demo/v1/bms")
+    val redirectTo = Some("/bookmarks/v1/bms")
     val newRequest = requestEvent.cmd.ctx.request.copy(method = HttpMethods.GET)
     requestEvent.controllerActor ! RedirectResponseEvent(requestEvent, "", redirectTo)
   }
@@ -80,7 +80,7 @@ class PutBookmarkResource extends PutResource[BookmarksApplication, Bookmark] {
     //if (optionalBookmark.isDefined) {
       getApplication().repo.delete(requestEvent.cmd.urlParameter.head)
     //}
-    RedirectResponseEvent(requestEvent,"", Some("/demo/v1/bms"))
+    RedirectResponseEvent(requestEvent,"", Some("/bookmarks/v1/bms"))
   }
 
 }

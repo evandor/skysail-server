@@ -52,3 +52,8 @@ Private-Package: \
 	io.skysail.server.app.bookmarks.services,\
 	io.skysail.server.app.bookmarks.repository
     
+Import-Package: \
+	!akka.http.scaladsl.testkit.*,\
+	!org.scalactic.*,\
+	!org.scalatest.*,\
+	*
