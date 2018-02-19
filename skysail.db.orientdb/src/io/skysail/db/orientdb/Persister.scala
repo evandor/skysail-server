@@ -2,6 +2,7 @@ package io.skysail.db.orientdb
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.tinkerpop.blueprints.impls.orient.{OrientGraph, OrientVertex}
+import io.skysail.api.ddd.Entity
 import io.skysail.domain.model.ApplicationModel
 import org.json4s._
 import org.slf4j.LoggerFactory
@@ -62,11 +63,11 @@ class Persister(db: OrientGraph, appModel: ApplicationModel) {
 
   private def determineVertex(entity: Any): OrientVertex = {
     var vertex: OrientVertex = null
-    //        if (entity.getId() != null) {
-    //            vertex = db.getVertex(entity.getId());
-    //        } else {
-    vertex = db.addVertex("class:" + entity.getClass().getName().replace(".", "_"), Nil: _*);
-    //        }
+    if (entity.asInstanceOf[Entity[_]] != null) {
+      vertex = db.getVertex(entity.asInstanceOf[Entity[_]].id);
+    } else {
+      vertex = db.addVertex("class:" + entity.getClass().getName().replace(".", "_"), Nil: _*);
+    }
     vertex;
   }
 
