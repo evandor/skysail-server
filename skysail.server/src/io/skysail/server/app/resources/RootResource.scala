@@ -46,5 +46,6 @@ class RootResource extends AsyncEntityResource[RootApplication,RootInfo] {
   }
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 }

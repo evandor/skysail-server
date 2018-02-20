@@ -27,5 +27,6 @@ class RootRedirectResource() extends AsyncEntityResource[RootApplication,String]
   }
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 }

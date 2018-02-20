@@ -1,6 +1,6 @@
 package io.skysail.domain.resources
 
-import akka.actor.{ActorRef, ActorSystem}
+import akka.actor.{ ActorRef, ActorSystem }
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
@@ -26,7 +26,7 @@ import scala.reflect.runtime.universe._
 abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] extends AsyncResource[S, T] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
-  
+
   val entityManifest: Manifest[T] = Transformer.toManifest
   val entityClassTag: ClassTag[T] = Transformer.toClassTag
 
@@ -87,7 +87,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
     updateEntity(re)
     val newRequest = re.cmd.ctx.request.copy(method = HttpMethods.GET) // ???
     re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterPut(re))
-    
+
   }
 
   def getList(requestEvent: RequestEvent): L
@@ -97,27 +97,28 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
   def getTemplate(re: RequestEvent): T
 
   def getRedirectAfterPost(re: RequestEvent): Option[String]
-  
+
   def getRedirectAfterPut(re: RequestEvent): Option[String]
 
   def createEntity(re: RequestEvent)(implicit system: ActorSystem): String
-  
-  def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
-  
-  
- // def get(re: RequestEvent): ResponseEventBase = ResponseEvent[T](re, getList(re))
 
-  def getMappings(cls: Class[_ <: DefaultResource[_, _,_]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
+  def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
+
+  // def get(re: RequestEvent): ResponseEventBase = ResponseEvent[T](re, getList(re))
+
+  def getMappings(cls: Class[_ <: DefaultResource[_, _, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
     val root = appModel.appRoute
     val entityName = typeOf[T].typeSymbol.name.toString().toLowerCase()
     val theClass = cls.asInstanceOf[Class[SkysailResource[_, T]]]
     List(
       ListRouteMapping(s"/${entityName}s", root / PathMatcher(s"${entityName}s") ~ PathEnd, theClass),
       CreationMapping(s"/${entityName}s/", root / PathMatcher(s"${entityName}s") / PathEnd, theClass),
-      EntityMapping(s"/${entityName}s/:id", root / PathMatcher(s"${entityName}s") / Segment ~ PathEnd,  theClass),
-      UpdateMapping(s"/${entityName}s/:id/", root / PathMatcher(s"${entityName}s") / Segment / PathEnd, theClass)
-    )
+      EntityMapping(s"/${entityName}s/:id", root / PathMatcher(s"${entityName}s") / Segment ~ PathEnd, theClass),
+      UpdateMapping(s"/${entityName}s/:id/", root / PathMatcher(s"${entityName}s") / Segment / PathEnd, theClass))
   }
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = null
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }
