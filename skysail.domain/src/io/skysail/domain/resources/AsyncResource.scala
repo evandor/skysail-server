@@ -10,6 +10,7 @@ import io.skysail.domain.{RequestEvent, ResponseEventBase, SkysailResource}
 
 import scala.concurrent.duration.DurationInt
 import scala.reflect.runtime.universe._
+import io.skysail.domain.PutSupport
 
 abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
   extends SkysailResource[S, T]
@@ -52,11 +53,17 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
   }
 
   def get(requestEvent: RequestEvent): ResponseEventBase
+  
+  def doPut(requestEvent: RequestEvent) = {
+    requestEvent.controllerActor ! put(requestEvent)
+  }
 
   final def doDelete(requestEvent: RequestEvent): Unit = {
     requestEvent.controllerActor ! delete(requestEvent)
   }
 
+  def put(requestEvent: RequestEvent): ResponseEventBase
+  
   def delete(requestEvent: RequestEvent): ResponseEventBase
 
   implicit class TypeDetector[T: TypeTag](related: SkysailResource[_, T]) {

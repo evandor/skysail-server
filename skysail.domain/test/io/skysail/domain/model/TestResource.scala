@@ -13,6 +13,10 @@ class OrdersResource extends EntityResource[TestApp, Order] {
   override def getEntity(re: RequestEvent): Option[Order] = ???
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+
+  def put(requestEvent: RequestEvent): ResponseEventBase = {
+    ???
+  }
 }
 
 class OrderResource extends EntityResource[TestApp, Order] {
@@ -22,4 +26,8 @@ class OrderResource extends EntityResource[TestApp, Order] {
   }
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+
+  def put(requestEvent: RequestEvent): ResponseEventBase = {
+    ???
+  }
 }

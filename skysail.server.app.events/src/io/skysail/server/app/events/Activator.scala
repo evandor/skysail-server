@@ -2,9 +2,9 @@ package io.skysail.server.app.events
 
 import akka.actor.ActorSystem
 import domino.DominoActivator
-import io.skysail.server.RoutesCreatorTrait
-import io.skysail.server.app.ApplicationProvider
 import org.slf4j.LoggerFactory
+import io.skysail.server.app.ApplicationProvider
+import io.skysail.server.RoutesCreatorTrait
 
 class Activator extends DominoActivator {
 

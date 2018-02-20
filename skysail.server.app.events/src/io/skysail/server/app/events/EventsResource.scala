@@ -11,4 +11,8 @@ class EventsResource extends EntityResource[EventApplication, Event] {
   override def getEntity(re: RequestEvent): Option[Event] = ???
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+
+  def put(requestEvent: RequestEvent): ResponseEventBase = {
+    ???
+  }
 }

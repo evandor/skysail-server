@@ -6,6 +6,7 @@ import io.skysail.api.ddd.Entity
 import io.skysail.domain.model.ApplicationModel
 import org.json4s._
 import org.slf4j.LoggerFactory
+import com.orientechnologies.orient.core.id.ORID
 
 object Persister {
   def getMethodName(prefix: String, key: String): String = {
@@ -13,7 +14,7 @@ object Persister {
   }
 }
 
-class Persister(db: OrientGraph, appModel: ApplicationModel) {
+class Persister(db: OrientGraph, appModel: ApplicationModel, orid: Option[ORID] = None) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -63,8 +64,8 @@ class Persister(db: OrientGraph, appModel: ApplicationModel) {
 
   private def determineVertex(entity: Any): OrientVertex = {
     var vertex: OrientVertex = null
-    if (entity.asInstanceOf[Entity[_]] != null) {
-      vertex = db.getVertex(entity.asInstanceOf[Entity[_]].id);
+    if (orid.isDefined) {
+      vertex = db.getVertex(orid.get);
     } else {
       vertex = db.addVertex("class:" + entity.getClass().getName().replace(".", "_"), Nil: _*);
     }
