@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 
 import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
+import akka.actor.ActorSystem
 
 case class Application(name: String, context: String, description: String)
 
@@ -33,7 +34,8 @@ class AppsResource() extends EntityResource[RootApplication, ApplicationList] {
   }
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
+  def put(requestEvent: RequestEvent)(implicit system: ActorSystem) = null
 
 
 }

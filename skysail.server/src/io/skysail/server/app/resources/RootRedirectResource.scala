@@ -4,6 +4,7 @@ import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEventBase
 import io.skysail.domain.resources.EntityResource
 import io.skysail.server.app.RootApplication
 import io.skysail.domain.resources.AsyncEntityResource
+import akka.actor.ActorSystem
 
 class RootRedirectResource() extends AsyncEntityResource[RootApplication,String] {
   
@@ -27,6 +28,7 @@ class RootRedirectResource() extends AsyncEntityResource[RootApplication,String]
   }
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+    def put(requestEvent: RequestEvent)(implicit system: ActorSystem) = null
+
 
 }

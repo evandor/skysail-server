@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
+import akka.actor.ActorSystem
 
 case class RootInfo(
                      title: String,
@@ -46,6 +47,7 @@ class RootResource extends AsyncEntityResource[RootApplication,RootInfo] {
   }
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+    def put(requestEvent: RequestEvent)(implicit system: ActorSystem) = null
+
 
 }

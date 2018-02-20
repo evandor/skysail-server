@@ -5,6 +5,7 @@ import io.skysail.api.ui.{Linkable, TextLink}
 import io.skysail.domain.resources.EntityResource
 import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.server.app.RootApplication
+import akka.actor.ActorSystem
 
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 case class Client(name: String) extends Linkable {
@@ -23,7 +24,8 @@ class ClientsResource() extends EntityResource[RootApplication, Client] {
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+   def put(requestEvent: RequestEvent)(implicit system: ActorSystem) = null
+
 
 }
 
