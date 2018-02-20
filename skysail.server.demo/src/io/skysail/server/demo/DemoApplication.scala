@@ -16,6 +16,7 @@ import org.osgi.framework.BundleContext
 import org.osgi.service.event.EventAdmin
 
 import scala.concurrent.ExecutionContextExecutor
+import io.skysail.server.demo.resources.PatternsResource
 
 class DemoApplication(
   bundleContext: BundleContext,

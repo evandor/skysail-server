@@ -83,7 +83,5 @@ class IndicesResource extends EntityResource[DemoApplication, EsIndex] {
 
   override def getEntity(re: RequestEvent): Option[EsIndex] = ???
 
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
-
 }
 

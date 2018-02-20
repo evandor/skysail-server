@@ -51,7 +51,9 @@ class NotesResource extends DefaultResource[DemoApplication, Note, NoteList] {
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
 
 }
 

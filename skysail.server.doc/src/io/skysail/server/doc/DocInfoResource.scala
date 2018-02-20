@@ -12,6 +12,5 @@ case class DocInfoResource() extends EntityResource {
 
   override def getEntity(requestEvent: RequestEvent) = ???
 
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 }

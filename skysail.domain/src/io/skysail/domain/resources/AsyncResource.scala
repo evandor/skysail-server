@@ -1,20 +1,19 @@
 package io.skysail.domain.resources
 
-import akka.actor.{ActorRef, ActorSystem}
+import akka.actor.{ ActorRef, ActorSystem }
 import akka.http.scaladsl.model.HttpMethods
 import akka.util.Timeout
 import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.routes._
-import io.skysail.domain.{RequestEvent, ResponseEventBase, SkysailResource}
+import io.skysail.domain.{ RequestEvent, ResponseEventBase, SkysailResource }
 
 import scala.concurrent.duration.DurationInt
 import scala.reflect.runtime.universe._
-import io.skysail.domain.PutSupport
 
 abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
   extends SkysailResource[S, T]
-    with ActorContextAware {
+  with ActorContextAware {
 
   implicit val timeout: Timeout = 3.seconds
 
@@ -32,8 +31,7 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
       }
       case c: ListRouteMapping[_, _] => List(
         "html.ListResource_Get",
-        s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get"
-      )
+        s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
       case c: EntityMapping[_, _] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Entity")
       case c: UpdateMapping[_, _] => {
         req.cmd.ctx.request.method match {
@@ -43,31 +41,45 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
         }
       }
       case c: RouteMapping[_, _] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
-      case crm: ConcreteRouteMapping[_,_,_] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
+      case crm: ConcreteRouteMapping[_, _, _] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
     }
 
   }
+
+  implicit class TypeDetector[T: TypeTag](related: SkysailResource[_, T]) {
+    def getType(): Type = typeOf[T]
+  }
+
+  // --- handing GETs ---
 
   final def doGet(requestEvent: RequestEvent): Unit = {
     requestEvent.controllerActor ! get(requestEvent)
   }
 
   def get(requestEvent: RequestEvent): ResponseEventBase
-  
-  def doPut(requestEvent: RequestEvent)(implicit system: ActorSystem) = {
+
+  // --- handing POSTs ---
+
+  final def doPost(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
+    requestEvent.controllerActor ! post(requestEvent)
+  }
+
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase
+
+  // --- handing PUTs ---
+
+  final def doPut(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
     requestEvent.controllerActor ! put(requestEvent)
   }
+
+  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase
+
+  // --- handing DELETEs ---
 
   final def doDelete(requestEvent: RequestEvent): Unit = {
     requestEvent.controllerActor ! delete(requestEvent)
   }
 
-  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit
-  
   def delete(requestEvent: RequestEvent): ResponseEventBase
-
-  implicit class TypeDetector[T: TypeTag](related: SkysailResource[_, T]) {
-    def getType(): Type = typeOf[T]
-  }
 
 }

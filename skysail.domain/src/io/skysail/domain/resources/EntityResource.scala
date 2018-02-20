@@ -27,5 +27,15 @@ abstract class EntityResource[S <: ApplicationApi, T: TypeTag] extends AsyncReso
   override def get(requestEvent: RequestEvent): ResponseEventBase = { null }
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = null
+  
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    log info s"noop implementation of POST in EntityResource"
+    null
+  }
+
+  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    log info s"noop implementation of PUT in EntityResource"
+    null
+  }
 
 }

@@ -5,13 +5,13 @@ import akka.actor.{ActorRef, ActorSystem}
 import akka.http.scaladsl.model.HttpMethods
 import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.{PutSupport, RequestEvent, ResponseEventBase, Transformer}
+import io.skysail.domain.{RequestEvent, ResponseEventBase, Transformer}
 import org.slf4j.LoggerFactory
 
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
-abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T] with PutSupport {
+abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -26,11 +26,15 @@ abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResourc
       case e: Any => log error "not supported"
     }
   }
-  def get(requestEvent: RequestEvent): ResponseEventBase
 
-  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit
-
-  override def delete(requestEvent: RequestEvent): ResponseEventBase = null
-
+  final def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    log error "PutResources cannot handle POST Requests"
+    throw new UnsupportedOperationException()
+  }
+  
+  def delete(requestEvent: RequestEvent): ResponseEventBase = {
+    log warn "overwrite this method to support deletion on a PutResource"
+    throw new UnsupportedOperationException()
+  }
   
 }

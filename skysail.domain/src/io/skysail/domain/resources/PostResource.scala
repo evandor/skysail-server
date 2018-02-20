@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
-abstract class PostResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T] with PostSupport {
+abstract class PostResource[S <: ApplicationApi, T: TypeTag] extends AsyncResource[S, T] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -20,17 +20,19 @@ abstract class PostResource[S <: ApplicationApi, T: TypeTag] extends AsyncResour
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     cmd.ctx.request.method match {
       case HttpMethods.GET => doGet(RequestEvent(cmd, controller))
-      case HttpMethods.POST => {
-        asInstanceOf[PostSupport].post(RequestEvent(cmd, controller))
-      }
+      case HttpMethods.POST => doPost(RequestEvent(cmd, controller))
       case e: Any => log error "not supported"
     }
   }
 
+  final def put(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    log error "PostResources cannot handle PUT Requests"
+    throw new UnsupportedOperationException();
+  }
+  
+  final def delete(requestEvent: RequestEvent): ResponseEventBase = {
+    log error "PostResources cannot handle DELETE Requests"
+    throw new UnsupportedOperationException();
+  }
 
-  def get(requestEvent: RequestEvent): ResponseEvent[T]
-
-  def post(requestEvent: RequestEvent): Unit
-
-  override def delete(requestEvent: RequestEvent): ResponseEventBase = null
 }

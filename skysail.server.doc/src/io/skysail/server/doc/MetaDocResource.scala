@@ -14,7 +14,6 @@ class DocIndexResource() extends EntityResource[DocApplication, String] {
   }
 
   override def getEntity(requestEvent: RequestEvent) = Some("hi2")
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 }
 
@@ -40,7 +39,14 @@ class MetaDocResource() extends DocResource {
   override def handleRequest(cmd: ProcessCommand, self: ActorRef)(implicit system: ActorSystem): Unit = {
     get(RequestEvent(cmd, self))
   }
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
+
+  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
 
 }
 
@@ -49,7 +55,14 @@ class DevDocResource() extends DocResource {
   override def handleRequest(cmd: ProcessCommand, self: ActorRef)(implicit system: ActorSystem): Unit = {
     get(RequestEvent(cmd, self))
   }
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
+
+  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
 }
 
 class HistoryDocResource() extends DocResource {
@@ -57,5 +70,12 @@ class HistoryDocResource() extends DocResource {
   override def handleRequest(cmd: ProcessCommand, self: ActorRef)(implicit system: ActorSystem): Unit = {
     get(RequestEvent(cmd, self))
   }
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
+
+  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
 }

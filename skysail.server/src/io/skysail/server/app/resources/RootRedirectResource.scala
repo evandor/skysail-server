@@ -30,5 +30,9 @@ class RootRedirectResource() extends AsyncEntityResource[RootApplication,String]
   override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
     def put(requestEvent: RequestEvent)(implicit system: ActorSystem) = null
 
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
+
 
 }

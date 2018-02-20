@@ -23,7 +23,6 @@ class PatternsResource extends EntityResource[DemoApplication, Pattern] {
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 }
 
@@ -57,7 +56,9 @@ class PostPatternResource extends PostResource[DemoApplication, Pattern] {
     }
   }
 
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
 
 }
 
@@ -70,9 +71,6 @@ class PatternResource extends EntityResource[DemoApplication, Pattern] {
     optionalPattern
   }
 
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
-
-
 }
 
 class PutPatternResource extends PutResource[DemoApplication, Pattern]  {
@@ -82,11 +80,12 @@ class PutPatternResource extends PutResource[DemoApplication, Pattern]  {
     ResponseEvent(requestEvent, e.get)
   }
 
-  override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
+  override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
     val optionalBookmark = getApplication().patternRepo.find(requestEvent.cmd.urlParameter.head)
     val e = requestEvent.cmd.entity.asInstanceOf[Pattern]
     val f = e.copy(id = optionalBookmark.get.id)
     getApplication().patternRepo.save(f)
+    null
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
@@ -95,8 +94,6 @@ class PutPatternResource extends PutResource[DemoApplication, Pattern]  {
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
-
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 }
 

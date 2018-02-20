@@ -13,8 +13,4 @@ class AppModelResource(model: ApplicationModel) extends EntityResource[RootAppli
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = { null }
 
-  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
-    ???
-  }
-
 }

@@ -58,8 +58,9 @@ class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig,DbConf
     }
   }
 
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
-
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
+    ???
+  }
 
 }
 

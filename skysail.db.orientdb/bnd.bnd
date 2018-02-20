@@ -8,8 +8,8 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Bundle-Activator: io.skysail.db.orientdb.Activator
 
-#OSGI-OPT/src=src/,
--includeresource: resources
+
+-includeresource: OSGI-OPT/src=src/,resources
 
 -buildpath: \
     libs/blueprints-core-2.7.1.jar;version=file,\

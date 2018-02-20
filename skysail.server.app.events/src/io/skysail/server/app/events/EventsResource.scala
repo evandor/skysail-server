@@ -2,6 +2,7 @@ package io.skysail.server.app.events
 
 import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.resources.EntityResource
+import akka.actor.ActorSystem
 
 class EventsResource extends EntityResource[EventApplication, Event] {
 
@@ -12,7 +13,4 @@ class EventsResource extends EntityResource[EventApplication, Event] {
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
-  def put(requestEvent: RequestEvent): ResponseEventBase = {
-    ???
-  }
 }

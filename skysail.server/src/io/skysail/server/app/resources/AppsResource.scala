@@ -35,7 +35,5 @@ class AppsResource() extends EntityResource[RootApplication, ApplicationList] {
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = {null}
 
-  def put(requestEvent: RequestEvent)(implicit system: ActorSystem) = null
-
 
 }

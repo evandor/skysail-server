@@ -118,5 +118,8 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
   }
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = null
+  
+    def put(requestEvent: RequestEvent)(implicit system: ActorSystem) = {null}
+
 
 }

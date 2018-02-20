@@ -14,6 +14,7 @@ import io.skysail.domain.resources.{EntityResource, PostResource}
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.domain.{RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.routes.RoutesCreator
+import io.skysail.domain.RedirectResponseEvent
 
 
 case class Bookmark(id: Option[String], title: String, url: String) extends Entity[String] with Linkable {
@@ -26,17 +27,15 @@ class BookmarksResource extends EntityResource[TestApp, Bookmark] {
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
-
 }
 
 class PostBookmarkResource extends PostResource[TestApp, Bookmark] /*with JsonSupport */ {
 
   def get(requestEvent: RequestEvent) = ResponseEvent(requestEvent, Bookmark(None, "", ""))
 
-  def post(requestEvent: RequestEvent) {
+  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
     //val b = getApplication().repo.save(requestEvent.cmd.entity)
-    requestEvent.controllerActor ! Bookmark(Some(""), "a@b.com", "Mira")
+    RedirectResponseEvent(requestEvent, "",Some(""))//Bookmark(Some(""), "a@b.com", "Mira"), "")
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
@@ -45,8 +44,6 @@ class PostBookmarkResource extends PostResource[TestApp, Bookmark] /*with JsonSu
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
-
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 }
 

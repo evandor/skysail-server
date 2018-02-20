@@ -63,6 +63,4 @@ class BeansResource extends EntityResource[DemoApplication, SpringBeanList]{
     httpclient.execute(httpget, responseHandler)
   }
 
-  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
-
 }
