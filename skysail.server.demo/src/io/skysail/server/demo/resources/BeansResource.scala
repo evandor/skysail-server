@@ -4,7 +4,7 @@ import akka.http.scaladsl.model.{ContentTypes, ResponseEntity}
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
 import akka.util.ByteString
-import io.skysail.domain.{RequestEvent, Transformer}
+import io.skysail.domain.{RequestEvent, ResponseEventBase, Transformer}
 import io.skysail.domain.resources.EntityResource
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.SpringBeanList
@@ -62,4 +62,7 @@ class BeansResource extends EntityResource[DemoApplication, SpringBeanList]{
     }
     httpclient.execute(httpget, responseHandler)
   }
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }

@@ -5,7 +5,7 @@ import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
 import akka.util.ByteString
 import de.heikoseeberger.akkahttpjson4s.Json4sSupport._
-import io.skysail.domain.RequestEvent
+import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.resources.EntityResource
 import io.skysail.server.demo.DemoApplication
 import org.apache.http.HttpResponse
@@ -82,5 +82,8 @@ class IndicesResource extends EntityResource[DemoApplication, EsIndex] {
   override def get(requestEvent: RequestEvent) = ???
 
   override def getEntity(re: RequestEvent): Option[EsIndex] = ???
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }
 

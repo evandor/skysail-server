@@ -25,6 +25,9 @@ class BookmarksResource extends EntityResource[TestApp, Bookmark] {
   override def getEntity(re: RequestEvent): Option[Bookmark] = ???
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }
 
 class PostBookmarkResource extends PostResource[TestApp, Bookmark] /*with JsonSupport */ {
@@ -42,6 +45,9 @@ class PostBookmarkResource extends PostResource[TestApp, Bookmark] /*with JsonSu
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }
 
 class TestApp extends BackendApplication(null, routesCreator = new RoutesCreator(null), null) {

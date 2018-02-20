@@ -26,6 +26,7 @@ class BookmarksResource extends EntityResource[DemoApplication, BookmarkList] {
   override def delete(requestEvent: RequestEvent): ResponseEventBase = {
     RedirectResponseEvent(requestEvent,"", Some(".."))
   }
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 }
 
@@ -51,6 +52,8 @@ class PostBookmarkResource extends PostResource[DemoApplication, Bookmark] {
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }
 
 class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] {
@@ -81,6 +84,8 @@ class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] {
     //}
     RedirectResponseEvent(requestEvent,"", Some("/demo/v1/bms"))
   }
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 }
 
@@ -115,6 +120,8 @@ class BookmarkResource extends EntityResource[DemoApplication, Bookmark] {
       Some(bm)
     }
   }
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
 
 
 }

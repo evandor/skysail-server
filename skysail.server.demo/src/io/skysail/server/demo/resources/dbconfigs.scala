@@ -8,7 +8,7 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.resources._
-import io.skysail.domain.{RequestEvent, ResponseEvent}
+import io.skysail.domain.{RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{DbConfig, DbConfigList}
 import spray.json.{DefaultJsonProtocol, _}
@@ -57,6 +57,9 @@ class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig,DbConf
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 
 }
 

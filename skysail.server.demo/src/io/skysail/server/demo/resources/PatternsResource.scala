@@ -22,6 +22,9 @@ class PatternsResource extends EntityResource[DemoApplication, Pattern] {
   override def getEntity(re: RequestEvent): Option[Pattern] = ???
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }
 
 class PostPatternResource extends PostResource[DemoApplication, Pattern] {
@@ -53,6 +56,9 @@ class PostPatternResource extends PostResource[DemoApplication, Pattern] {
         super.createRoute(applicationActor, processCommand.copy(formFieldMap = map))
     }
   }
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }
 
 class PatternResource extends EntityResource[DemoApplication, Pattern] {
@@ -63,7 +69,10 @@ class PatternResource extends EntityResource[DemoApplication, Pattern] {
     val optionalPattern = app.patternRepo.find(re.cmd.urlParameter.head)
     optionalPattern
   }
-  
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
+
 }
 
 class PutPatternResource extends PutResource[DemoApplication, Pattern]  {
@@ -86,5 +95,8 @@ class PutPatternResource extends PutResource[DemoApplication, Pattern]  {
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }
 

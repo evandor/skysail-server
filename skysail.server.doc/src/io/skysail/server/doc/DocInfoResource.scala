@@ -1,6 +1,6 @@
 package io.skysail.server.doc
 
-import io.skysail.domain.RequestEvent
+import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.resources.EntityResource
 
 case class DocInfoResource() extends EntityResource {
@@ -11,4 +11,7 @@ case class DocInfoResource() extends EntityResource {
   }
 
   override def getEntity(requestEvent: RequestEvent) = ???
+
+  override def put(requestEvent: RequestEvent): ResponseEventBase = { null }
+
 }
