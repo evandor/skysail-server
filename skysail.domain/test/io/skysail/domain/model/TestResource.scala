@@ -1,7 +1,8 @@
 package io.skysail.domain.model
 
+import akka.actor.ActorSystem
 import io.skysail.domain.app.ApplicationApi
-import io.skysail.domain.resources.{EntityResource}
+import io.skysail.domain.resources.EntityResource
 import io.skysail.domain.{RequestEvent, ResponseEventBase}
 
 class TestApp extends ApplicationApi {}
@@ -14,9 +15,8 @@ class OrdersResource extends EntityResource[TestApp, Order] {
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
-  def put(requestEvent: RequestEvent): ResponseEventBase = {
-    ???
-  }
+  override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = ???
+
 }
 
 class OrderResource extends EntityResource[TestApp, Order] {
@@ -27,7 +27,6 @@ class OrderResource extends EntityResource[TestApp, Order] {
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
-  def put(requestEvent: RequestEvent): ResponseEventBase = {
-    ???
-  }
+  override def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = ???
+
 }

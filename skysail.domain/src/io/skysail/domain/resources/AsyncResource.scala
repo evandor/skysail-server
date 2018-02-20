@@ -54,7 +54,7 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
 
   def get(requestEvent: RequestEvent): ResponseEventBase
   
-  def doPut(requestEvent: RequestEvent) = {
+  def doPut(requestEvent: RequestEvent)(implicit system: ActorSystem) = {
     requestEvent.controllerActor ! put(requestEvent)
   }
 
@@ -62,7 +62,7 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
     requestEvent.controllerActor ! delete(requestEvent)
   }
 
-  def put(requestEvent: RequestEvent): ResponseEventBase
+  def put(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit
   
   def delete(requestEvent: RequestEvent): ResponseEventBase
 
