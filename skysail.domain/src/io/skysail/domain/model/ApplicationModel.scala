@@ -3,7 +3,7 @@ package io.skysail.domain.model
 import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatcher
-import com.fasterxml.jackson.annotation.{JsonGetter, JsonInclude}
+//import com.fasterxml.jackson.annotation.{JsonGetter, JsonInclude}
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMappingI
@@ -39,8 +39,8 @@ case class ApplicationModel(
   private val log = LoggerFactory.getLogger(this.getClass())
 
   /** The list of resourceModels of this applicationModel. */
-  @JsonInclude
-  @JsonGetter
+  //@JsonInclude
+  //@JsonGetter
   val resourceModels = scala.collection.mutable.ListBuffer[ResourceModel]()
 
   /** The map between */

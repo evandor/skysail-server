@@ -21,10 +21,7 @@ Bundle-Activator: io.skysail.api.impl.Activator
 	${felix},\
 	${logging},\
 	skysail.domain;version=${skysail.domain.version},\
-	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
-	org.scala-lang.modules.scala-xml;version=1.0.6,\
-	com.typesafe.akka.http;version=${akka.http.version},\
-	io.skysail.bundled.json4s_2.11-3.5.1;version=3.5
+	com.typesafe.akka.http;version=${akka.http.version}
 	
 Export-Package: \
 	io.skysail.api,\

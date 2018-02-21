@@ -16,8 +16,6 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 -buildpath: \
 	${osgi},\
 	${akka-build},\
-	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
-    org.scala-lang.modules.scala-xml;version=1.0.6,\
 	${testlibs},\
 	slf4j.api;version=1.7,\
     io.skysail.bundled.json4s_2.11-3.5.1;version=3.5
