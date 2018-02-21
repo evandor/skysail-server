@@ -5,7 +5,7 @@
 <div class="container">
     <div class="starter-template">
         <h1>@rep.model.name</h1>
-        <p class="lead">all bookmarks:</p>
+        <p class="lead">all entities:</p>
         <table class="table table-sm">
             <thead>
             <tr>
@@ -31,6 +31,11 @@
         </table>
 
         <a href='./'>Create New Entity</a>
+
+        <div>
+            <h3>links</h3>
+            @rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]._links.filter(_.rel == "create-form")
+        </div>
 
         <div>
             <h3>jsonData</h3>

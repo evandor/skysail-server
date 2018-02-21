@@ -1,6 +1,7 @@
 package io.skysail.server.demo.domain
 
 import io.skysail.api.ddd.Entity
+import io.skysail.api.ui.{ButtonLink, Link, Linkable}
 
 /**
   * @param id
@@ -11,4 +12,10 @@ case class Note(id: Option[String], title: String, content: String) extends Enti
 
 case class NoteList(
                          notes: List[Note]
-                       )
+                       ) extends Linkable {
+
+  override val _links: List[Link] = List(
+    ButtonLink("create-form", "create new Note", "/demo/v1/notes/", style = "btn btn-outline-primary")
+  )
+
+}
