@@ -65,7 +65,8 @@ class PutBookmarkResource extends PutResource[DemoApplication, Bookmark] {
     val updatedBookmark = requestEvent.cmd.entity.asInstanceOf[Bookmark]
     val bookmarkToSave = updatedBookmark.copy(id = optionalBookmark.get.id)
     getApplication().repo.save(bookmarkToSave)
-    null
+    val redirectTo = Some("/demo/v1/bms")
+    RedirectResponseEvent(requestEvent, "", redirectTo)
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {

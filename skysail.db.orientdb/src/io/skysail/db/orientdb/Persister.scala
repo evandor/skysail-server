@@ -14,7 +14,7 @@ object Persister {
   }
 }
 
-class Persister(db: OrientGraph, appModel: ApplicationModel, orid: Option[ORID] = None) {
+class Persister(db: OrientGraph, appModel: ApplicationModel, optionalVertex: Option[OrientVertex] = None) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -64,8 +64,8 @@ class Persister(db: OrientGraph, appModel: ApplicationModel, orid: Option[ORID] 
 
   private def determineVertex(entity: Any): OrientVertex = {
     var vertex: OrientVertex = null
-    if (orid.isDefined) {
-      vertex = db.getVertex(orid.get);
+    if (optionalVertex.isDefined) {
+      vertex = db.getVertex(optionalVertex.get.getIdentity);
     } else {
       vertex = db.addVertex("class:" + entity.getClass().getName().replace(".", "_"), Nil: _*);
     }

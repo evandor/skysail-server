@@ -1,6 +1,7 @@
 Bundle-Name: SKYSAIL :: db :: orientdb
 
-Bundle-Version: 0.1.2.${tstamp}
+# released 0.1.2
+Bundle-Version: 0.1.3.${tstamp}
 
 Bundle-Description: Orient DB Service Layer Bundle for skysail server
 

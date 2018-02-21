@@ -78,8 +78,8 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
 
   def persist(entity: Any, appModel: ApplicationModel): String = {
     if (entity.isInstanceOf[Entity[_]] && entity.asInstanceOf[Entity[_]].id.isDefined) {
-      val r = findByBusinessId(entity.getClass(), entity.asInstanceOf[Entity[_]].id.get.toString()).get
-      new Persister(getGraphDb(), appModel, Some(r.getIdentity)).persist(entity)
+      val r = findByBusinessId(entity.getClass(), entity.asInstanceOf[Entity[_]].id.get.toString())
+      new Persister(getGraphDb(), appModel, r).persist(entity)
     } else {
       new Persister(getGraphDb(), appModel).persist(entity)
     }
