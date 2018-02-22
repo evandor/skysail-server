@@ -16,7 +16,7 @@ case class ResourceModel(routeMapping: RouteMappingI[_,_]) {
 
   require(routeMapping.resourceClass != null, "A ResourceModel's resource class must not be null")
 
-  private val log = LoggerFactory.getLogger(this.getClass())
+  private val log = LoggerFactory.getLogger(this.getClass)
 
   val entityClass: Type = routeMapping.getEntityType()
   var linkModel: LinkModel2 = _

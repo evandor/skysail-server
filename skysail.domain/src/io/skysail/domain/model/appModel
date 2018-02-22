@@ -1,0 +1,23 @@
+@startuml
+
+class ApplicationModel {
+  +ApplicationModel (name: String, apiVersion: ApiVersion, description: String)
+  -List[ResourceModel] resourceModels
+  +addResourceModel(routeMapping: RouteMappingI[_, _]): Option[Type]
+  +id: String
+  +appRoute: PathMatcher[Unit]
+}
+
+class ResourceModel {
+  +ResourceModel (RouteMapping[_,_] routeMapping)
+  entityClass: Type
+}
+
+class EntityModel {
+  +EntityModel (entityClass: Type)
+}
+
+ApplicationModel "1 " -- "0..n " ResourceModel
+ResourceModel "1..n " -- "1 " EntityModel
+
+@enduml
