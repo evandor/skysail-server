@@ -3,6 +3,7 @@ package io.skysail.server
 import akka.http.scaladsl.model.Uri
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.gatling.jsonpath.JsonPath
+import io.skysail.api.ui.ListPayload
 import io.skysail.domain.ResponseEventBase
 import io.skysail.domain.model.{ApplicationModel, EntityModel}
 import org.json4s.JsonAST.JArray
@@ -11,8 +12,8 @@ import org.json4s.{DefaultFormats, Extraction, JObject, JValue, jackson}
 import org.slf4j.LoggerFactory
 
 class RepresentationModel(
-  val response: ResponseEventBase,
-  val model: ApplicationModel) {
+                           val response: ResponseEventBase,
+                           val model: ApplicationModel) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -46,7 +47,7 @@ class RepresentationModel(
     val queryResult = JsonPath.query("$" + path, jsonObject)
     queryResult.fold(
       ex => "Operation failed with " + ex,
-      v => if (v.hasNext) v.next().toString else "*!*")    
+      v => if (v.hasNext) v.next().toString else "*!*")
   }
 
   def itemsOf(path: String): Iterator[Any] = {
@@ -61,8 +62,14 @@ class RepresentationModel(
     implicit val formats = DefaultFormats
     implicit val serialization = jackson.Serialization
     //val r = responseEvent.resource
-    val e = Extraction.decompose(response.entity)
+    val payload = if (response.entity.isInstanceOf[ListPayload[_]]) {
+      response.entity.asInstanceOf[ListPayload[_]].payload
+    } else {
+      response.entity
+    }
+    val e = Extraction.decompose(payload)
     //.asInstanceOf[JArray]
+    println("E: " + e)
     val res = e match {
       case _: JArray => {
         e.children.map(c => {
@@ -78,6 +85,7 @@ class RepresentationModel(
         log info s"$a"
         Nil
     }
+    println("RES: " + res)
     res
   }
 

@@ -9,7 +9,7 @@ abstract class Link(val rel: String, val href: String, val target: String, val t
   def theStyle() = if (style == "") "" else s" style='$style'"
   def theTitle() = if (title == "") "" else s" title='$title'"
   def theClass() = if (style == "") "" else s" class='$style'"
-
+  
 }
 
 case class IconLink(

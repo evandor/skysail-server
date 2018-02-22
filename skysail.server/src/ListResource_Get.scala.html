@@ -17,12 +17,9 @@
             <tbody>
             @for(p <- rep.rawData) {
             <tr>
-                <th scope="row">@p.get("title")</th>
-                <td><a href='@p.get("url")' target='demo_bms_@p.get("title")'>@p.get("url")</a></td>
-                <td>
-                    <a href='./@p.get("id")'>[show]</a>
-                    <a href='./@p.get("id")/'>[update]</a>
-                </td>
+              @for(f <- rep.entityModel.get.fields.reverse) {
+                <td>@p.get(f.name.split("\\.").reverse.head)</td>
+              }
             </tr>
             }
 
@@ -34,7 +31,12 @@
 
         <div>
             <h3>links</h3>
-            @rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]._links.filter(_.rel == "create-form")
+            @Html(rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]._links.filter(_.rel == "create-form").headOption.map(_.toHtml()).getOrElse(""))
+        </div>
+
+        <div>
+            <h3>rawData</h3>
+            @rep.rawData
         </div>
 
         <div>

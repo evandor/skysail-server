@@ -18,9 +18,9 @@ object Transformer {
   def jsonStringToBean[T: Manifest](jsonStr: String): T = {
 
     val r = org.json4s.native.JsonMethods.parse(jsonStr).extractOpt[T]
-    println("RRR:" + r)
+    //println("RRR:" + r)
     val r2 = read[T](jsonStr)
-    println("RRR2:" + r2)
+    //println("RRR2:" + r2)
     r2
   }
 
