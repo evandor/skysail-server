@@ -16,11 +16,11 @@ object Transformer {
 
   // TODO chec https://stackoverflow.com/questions/15943957/is-it-possible-to-make-json4s-not-to-throw-exception-when-required-field-is-miss
   def jsonStringToBean[T: Manifest](jsonStr: String): T = {
-
+    println("JSON: " + jsonStr)
     val r = org.json4s.native.JsonMethods.parse(jsonStr).extractOpt[T]
-    //println("RRR:" + r)
+    println("RRR:" + r)
     val r2 = read[T](jsonStr)
-    //println("RRR2:" + r2)
+    println("RRR2:" + r2)
     r2
   }
 

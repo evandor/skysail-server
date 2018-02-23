@@ -43,8 +43,8 @@ class ApplicationModelTest extends FlatSpec with BeforeAndAfterEach {
 
   "An ApplicationModel" should "do" in {
     appModel.addResourceModel(RouteMapping("str", null, classOf[OrdersResource]))
-    assert(!appModel.entityRelationExists(classOf[String], "item"))
-    assert(!appModel.entityRelationExists(classOf[String], "price"))
+    assert(!appModel.entityRelationExists(classOf[Order], "name"))
+    assert(appModel.entityRelationExists(classOf[Order], "address"))
   }
 
 }

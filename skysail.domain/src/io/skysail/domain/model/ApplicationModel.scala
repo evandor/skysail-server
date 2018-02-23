@@ -116,16 +116,20 @@ case class ApplicationModel(
     */
   def appPath(): String = "/" + name + (if (apiVersion != null) "/" + apiVersion.toString else "")
 
-  def entityRelationExists(cls: Class[_], key: String): Boolean = {
-    log info s"CLS: $cls, KEY: $key"
-    val fieldsAsPairs = for (field <- cls.getDeclaredFields) yield {
+  def entityRelationExists(entityClass: Class[_], memberKey: String): Boolean = {
+    log info s"CLS: $entityClass, KEY: $memberKey"
+    val fieldsAsPairs = for (field <- entityClass.getDeclaredFields) yield {
       field.setAccessible(true)
-      //println((field.getName, field.getType))
     }
 
-    val t = cls.getDeclaredFields.find(_.getName == key).map(_.getType)
+    val t = entityClass.getDeclaredFields.find(_.getName == memberKey).map(_.getType)
+
+    val es = entities()
     if (t.isDefined) {
-      return entities().contains(t.get.getName)
+      val n = t.get.getName
+      println("xxx" +  n)
+      return !(n.startsWith("java") || n.startsWith("scala") || !n.contains("."))
+      //return es.contains(t.get.getName)
     }
     false
   }

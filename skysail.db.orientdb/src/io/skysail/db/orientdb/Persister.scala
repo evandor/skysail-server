@@ -18,9 +18,11 @@ class Persister(db: OrientGraph, appModel: ApplicationModel, optionalVertex: Opt
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
-  val edgeHandler = new EdgeHandler(/*(identifiable) -> execute(identifiable), */ db)
-
   val mapper = new ObjectMapper()
+
+  val helper = new OrientDbHelper(appModel)
+
+  val edgeHandler = new EdgeHandler(/*(identifiable) -> execute(identifiable), */ db,helper)
 
   def persist(entity: Any): String = {
     runInTransaction(entity).toString
@@ -52,7 +54,7 @@ class Persister(db: OrientGraph, appModel: ApplicationModel, optionalVertex: Opt
       //println("PROPS: " + props)
       //props.keys.foreach(setPropertyOrCreateEdge(entity, vertex, props));
 
-      e.obj.foreach(jField => setPropertyOrCreateEdge2(entity, vertex, jField))
+      e.obj.foreach(jField => helper.setPropertyOrCreateEdge(entity.getClass, vertex, jField, edgeHandler))
 
       vertex;
     } catch {
@@ -72,76 +74,76 @@ class Persister(db: OrientGraph, appModel: ApplicationModel, optionalVertex: Opt
     vertex;
   }
 
-  def setPropertyOrCreateEdge(entity: Any, vertex: OrientVertex, props: Map[String, Any]): String => Unit = {
-    key: String => {
-      if (isProperty(entity, key)) {
-        //System.out.println(entity.getClass() + ": " + key + ":= \""+properties.get(key)+"\"");
-        if (props.get(key) != null && !("class".equals(key))) {
-          setProperty(entity, vertex, key);
-        }
-      } else {
-        //System.out.println(entity.getClass() + ": " + key + ":= [EDGE]");
-        try {
-          //            edgeHandler.handleEdges(entity, vertex, properties, key);
-        } catch {
-          case e: Exception => log.error(e.getMessage(), e);
-        }
-      }
-    }
-  }
+//  def setPropertyOrCreateEdge(entity: Any, vertex: OrientVertex, props: Map[String, Any]): String => Unit = {
+//    key: String => {
+//      if (isProperty(entity, key)) {
+//        //System.out.println(entity.getClass() + ": " + key + ":= \""+properties.get(key)+"\"");
+//        if (props.get(key) != null && !("class".equals(key))) {
+//          setProperty(entity, vertex, key);
+//        }
+//      } else {
+//        //System.out.println(entity.getClass() + ": " + key + ":= [EDGE]");
+//        try {
+//          //            edgeHandler.handleEdges(entity, vertex, properties, key);
+//        } catch {
+//          case e: Exception => log.error(e.getMessage(), e);
+//        }
+//      }
+//    }
+//  }
 
-  def setPropertyOrCreateEdge2(entity: Any, vertex: OrientVertex, jValue: JField) = {
-    val key = jValue._1
-    if (isProperty(entity, key)) {
-      //if (props.get(key) != null && !("class".equals(key))) {
-      setProperty2(vertex, jValue);
-      //}
-    } else {
-      try {
-        edgeHandler.handleEdges(entity, vertex, jValue, key);
-      } catch {
-        case e: Exception => log.error(e.getMessage(), e);
-      }
-    }
-  }
+//  def setPropertyOrCreateEdge2(entity: Any, vertex: OrientVertex, jValue: JField) = {
+//    val key = jValue._1
+//    if (isProperty(entity, key)) {
+//      //if (props.get(key) != null && !("class".equals(key))) {
+//      helper.setProperty2(vertex, jValue);
+//      //}
+//    } else {
+//      try {
+//        edgeHandler.handleEdges(entity, vertex, jValue, key);
+//      } catch {
+//        case e: Exception => log.error(e.getMessage(), e);
+//      }
+//    }
+//  }
 
   private def isProperty(entity: Any, key: String) = !appModel.entityRelationExists(entity.getClass, key)
   
 
-  private def setProperty(entity: Any, vertex: OrientVertex, key: String): Unit = {
-    try {
-      //      if (isOfBooleanType(entity, key)) {
-      //        setVertexProperty("is", entity, vertex, key);
-      //      } else {
-      setVertexProperty("get", entity, vertex, key);
-      //      }
-    } catch {
-      case e: Exception => log.error(e.getMessage(), e);
-    }
-  }
+//  private def setProperty(entity: Any, vertex: OrientVertex, key: String): Unit = {
+//    try {
+//      //      if (isOfBooleanType(entity, key)) {
+//      //        setVertexProperty("is", entity, vertex, key);
+//      //      } else {
+//      setVertexProperty("get", entity, vertex, key);
+//      //      }
+//    } catch {
+//      case e: Exception => log.error(e.getMessage(), e);
+//    }
+//  }
 
-  def setProperty2(vertex: OrientVertex, jValue: JField) = {
-    jValue._2 match {
-      case string: JString =>
-        log info s"setting Property('${jValue._1}','${string.s}')"
-        vertex.setProperty(jValue._1, string.s)
-      case jInt: JInt =>
-        log info s"setting Property('${jValue._1}','${jInt.num}')"
-        val v = jInt.num.toInt
-        vertex.setProperty(jValue._1, v)
-      case _: Any => log warn s"no idea what to do, trying to match '${jValue._2}'"
-    }
-  }
+//  def setProperty2(vertex: OrientVertex, jValue: JField) = {
+//    jValue._2 match {
+//      case string: JString =>
+//        log info s"setting Property('${jValue._1}','${string.s}')"
+//        vertex.setProperty(jValue._1, string.s)
+//      case jInt: JInt =>
+//        log info s"setting Property('${jValue._1}','${jInt.num}')"
+//        val v = jInt.num.toInt
+//        vertex.setProperty(jValue._1, v)
+//      case _: Any => log warn s"no idea what to do, trying to match '${jValue._2}'"
+//    }
+//  }
 
-  private def setVertexProperty(prefix: String, entity: Any, vertex: OrientVertex, key: String) = {
-    val method = entity.getClass().getMethod(Persister.getMethodName(prefix, key));
-    val result = method.invoke(entity);
-
-    //    if (result instanceof ValueObject) {
-    //      vertex.setProperty(key, ((ValueObject)result).getValue().toString());
-    //    } else {
-    vertex.setProperty(key, result);
-    //    }
-  }
+//  private def setVertexProperty(prefix: String, entity: Any, vertex: OrientVertex, key: String) = {
+//    val method = entity.getClass().getMethod(Persister.getMethodName(prefix, key));
+//    val result = method.invoke(entity);
+//
+//    //    if (result instanceof ValueObject) {
+//    //      vertex.setProperty(key, ((ValueObject)result).getValue().toString());
+//    //    } else {
+//    vertex.setProperty(key, result);
+//    //    }
+//  }
 
 }
