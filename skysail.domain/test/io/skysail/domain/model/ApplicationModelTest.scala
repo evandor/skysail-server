@@ -1,7 +1,5 @@
 package io.skysail.domain.model
 
-import java.net.URL
-
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMapping
 import org.junit.runner.RunWith
@@ -40,12 +38,13 @@ class ApplicationModelTest extends FlatSpec with BeforeAndAfterEach {
 
   "An ApplicationModel" should "return the entity for a given url" in {
     appModel.addResourceModel(RouteMapping("str", null, classOf[OrdersResource]))
-    //appModel.entityModelFor(new URL("test"))
+    //appModel.puml.entityModelFor(new URL("test"))
   }
 
   "An ApplicationModel" should "do" in {
     appModel.addResourceModel(RouteMapping("str", null, classOf[OrdersResource]))
-    assert(appModel.entityRelationExists(classOf[String], "key") )
+    assert(!appModel.entityRelationExists(classOf[String], "item"))
+    assert(!appModel.entityRelationExists(classOf[String], "price"))
   }
 
 }

@@ -20,7 +20,6 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
     org.scala-lang.modules.scala-xml;version=1.0.6,\
 	slf4j.api;version=1.7,\
     io.skysail.bundled.json4s_2.11-3.5.1;version=3.5
-	
 
 Export-Package: \
 	io.skysail.domain,\

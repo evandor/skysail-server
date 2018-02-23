@@ -76,7 +76,7 @@
 //    val entity = Bookmark(Some("id"), "title","url")
 //    val re: RequestEvent = new RequestEvent(ProcessCommand(ctx, null, null, null, null, entity), ca)
 //    val res: Unit = postBmr.post(re)
-//    verify(dbService).persist(entity, app.appModel)
+//    verify(dbService).persist(entity, app.appModel.puml)
 //  }
 //
 //
@@ -91,7 +91,7 @@
 //    val ca = system.actorOf(Props.apply(classOf[ControllerActor]))
 //    val re: RequestEvent = new RequestEvent(ProcessCommand(null, null, null, List("abc"), null, bookmark), ca)
 //    val res: Unit = putBmr.put(re)
-//    verify(dbService).persist(bookmark, app.appModel)
+//    verify(dbService).persist(bookmark, app.appModel.puml)
 //  }
 //
 //}

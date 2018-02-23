@@ -137,7 +137,7 @@ abstract class BackendApplication(
   def defaultResources: List[Class[_ <: DefaultResource[_, _,_]]] = List()
 
   private def defaultRoutes(appModel: ApplicationModel): List[RouteMappingI[_, _]] = {
-    //defaultResources.map(cls => DefaultResource.getMappings(cls, appModel)).flatten
+    //defaultResources.map(cls => DefaultResource.getMappings(cls, appModel.puml)).flatten
     println(defaultResources)
     defaultResources
       .map((cls: Class[_ <: DefaultResource[_, _, _]]) => {

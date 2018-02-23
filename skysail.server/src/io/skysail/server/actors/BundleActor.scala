@@ -29,7 +29,7 @@ class BundleActor(bundle: Bundle) extends Actor with ActorLogging {
     case gc: GetClassloader => {
        sender ! bundle.adapt(classOf[BundleWiring]).getClassLoader
     }
-    //case _: ApplicationActor.GetAppModel => sender ! appModel
+    //case _: ApplicationActor.GetAppModel => sender ! appModel.puml
     case msg: Any => log info s"IN: received unknown message '$msg' in ${this.getClass.getName}"
   }
 
