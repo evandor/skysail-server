@@ -18,7 +18,11 @@ Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
 	${akka-build},\
 	${testlibs},\
     org.scala-lang.modules.scala-xml;version=1.0.6,\
-	slf4j.api;version=1.7,\
+    com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
+	com.fasterxml.jackson.core.jackson-databind;version=2.9,\
+	com.fasterxml.jackson.core.jackson-core;version=2.9,\
+   	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
+    slf4j.api;version=1.7,\
     io.skysail.bundled.json4s_2.11-3.5.1;version=3.5
 
 Export-Package: \

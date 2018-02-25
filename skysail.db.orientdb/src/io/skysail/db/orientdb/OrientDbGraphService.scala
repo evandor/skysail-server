@@ -3,19 +3,17 @@ package io.skysail.db.orientdb
 import com.orientechnologies.orient.`object`.db.OObjectDatabaseTx
 import com.orientechnologies.orient.core.db.OPartitionedDatabasePool
 import com.orientechnologies.orient.core.record.impl.ODocument
-import com.orientechnologies.orient.core.sql.{ OCommandSQL, OSQLEngine }
+import com.orientechnologies.orient.core.sql.{OCommandSQL, OSQLEngine}
 import com.orientechnologies.orient.graph.sql.OGraphCommandExecutorSQLFactory
 import com.orientechnologies.orient.graph.sql.functions.OGraphFunctionFactory
 import com.tinkerpop.blueprints.impls.orient._
+import io.skysail.api.ddd.Entity
 import io.skysail.api.persistence.DbService
 import io.skysail.domain.Transformer
 import io.skysail.domain.model.ApplicationModel
-import org.json4s._
-import org.json4s.jackson.JsonMethods._
 import org.slf4j.LoggerFactory
 
 import scala.collection.JavaConverters._
-import io.skysail.api.ddd.Entity
 
 class OrientDbGraphService(url: String, user: String, pass: String) extends DbService {
 
@@ -147,26 +145,15 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
   private def documentToBean[T: Manifest](doc: ODocument, cls: Class[T]): T = {
     println()
     println("Doc: " + doc)
-    //val json = doc.toJSON("rid,version,fetchPlan:[*]*:-1")
     val json = doc.toJSON("fetchPlan:*:2") /*rid,version,*/
-    println(json)
-    val ast = parse(json)
-    println(ast)
-    implicit val formats = DefaultFormats
-
-    val from = (ast \\ "out_from" \ "in")(0)
-    val to = (ast \\ "out_to" \ "in")(0)
-    val p = ast transformField {
-      case JField("out_from", JArray(s)) => ("from", from)
-      case JField("out_to", JArray(s)) => ("to", to)
-    }
-
-    println("AST2" + p)
-    p.extract[T]
+    Transformer.jsonStringToBean2(json, cls)
   }
 
   private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T]): T = {
-    Transformer.jsonStringToBean(doc.toJSON("fetchPlan:*:-1"))
+    //Transformer.jsonStringToBean(doc.toJSON("fetchPlan:*:-1"))
+    println("1" + doc.toJSON("fetchPlan:*:2"))
+    println("2" + doc.toJSON("fetchPlan:*:-1"))
+    Transformer.jsonStringToBean2(doc.toJSON("fetchPlan:*:-1"), cls)
   }
 
   private def documentToBeanWithTemplate[T: Manifest](doc: ODocument, template: T): T = {

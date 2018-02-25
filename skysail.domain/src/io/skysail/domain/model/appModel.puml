@@ -4,6 +4,8 @@ class ApplicationModel {
   +ApplicationModel (name: String, apiVersion: ApiVersion, description: String)
   -List[ResourceModel] resourceModels
   +addResourceModel(routeMapping: RouteMappingI[_, _]): Option[Type]
+  +addEntity(entityClass: Type): Unit
+  +addEntity[T](entityClass: Class[T])
   +id: String
   +appRoute: PathMatcher[Unit]
 }

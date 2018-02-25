@@ -11,6 +11,7 @@ import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMappingI
 import org.slf4j.LoggerFactory
 
+import scala.reflect.runtime.universe
 import scala.reflect.runtime.universe._
 
 /**
@@ -19,8 +20,8 @@ import scala.reflect.runtime.universe._
   * links between the resources and many more.
   *
   * A real-life ApplicationModel is setup by creating an instance and then adding resource models
-  * together with their respective paths using "addControllerModel". A controller model describes the
-  * controller responsible for the associated path together with relations amongst controllers. Furthermore,
+  * together with their respective paths using "addResourceModel". A resource model describes the
+  * resource responsible for the associated path together with relations amongst controllers. Furthermore,
   * it knows about the entity class related with the controller.
   *
   * @constructor create a new application model, identified by its name.
@@ -77,13 +78,26 @@ case class ApplicationModel(
       log.info(s"trying to add entity ${resourceModel.routeMapping.path} again, ignoring...")
       return None
     }
-    val entityClass = resourceModel.entityClass
-    if (entityModelsMap.get(entityClass.toString).isEmpty) {
-      entityModelsMap += entityClass.toString -> EntityModel(entityClass)
-    }
+    val entityClass: universe.Type = resourceModel.entityClass
+    addEntity(entityClass)
+//    if (entityModelsMap.get(entityClass.toString).isEmpty) {
+//      entityModelsMap += entityClass.toString -> EntityModel(entityClass)
+//    }
     resourceModels += resourceModel
     build()
     Some(resourceModel.entityClass)
+  }
+
+  def addEntity[T](entityClass: Class[T]): Unit = {
+    val rut: universe.Type = getType(entityClass)
+    addEntity(rut)
+  }
+
+  def addEntity(entityClass: Type): Unit = {
+    if (entityModelsMap.get(entityClass.toString).isEmpty) {
+      entityModelsMap += entityClass.toString -> EntityModel(entityClass)
+    }
+    build()
   }
 
   private def controllerModelFor(cls: Class[_ <: SkysailResource[_, _]]): Option[ResourceModel] = {
@@ -116,22 +130,45 @@ case class ApplicationModel(
     */
   def appPath(): String = "/" + name + (if (apiVersion != null) "/" + apiVersion.toString else "")
 
-  def entityRelationExists(entityClass: Class[_], memberKey: String): Boolean = {
-    log info s"CLS: $entityClass, KEY: $memberKey"
+//  def entityRelationExists(entityClass: Class[_], memberKey: String): Boolean = {
+//    log info s"CLS: $entityClass, KEY: $memberKey"
+//    val fieldsAsPairs = for (field <- entityClass.getDeclaredFields) yield {
+//      field.setAccessible(true)
+//    }
+//
+//    val t = entityClass.getDeclaredFields.find(_.getName == memberKey).map(_.getType)
+//
+//    val es = entities()
+//    if (t.isDefined) {
+//      val n = t.get.getName
+//      println("xxx" +  n)
+//      return !(n.startsWith("java") || n.startsWith("scala") || !n.contains("."))
+//      //return es.contains(t.get.getName)
+//    }
+//    false
+//  }
+
+  /**
+    * Returns the names of the fields of the provided entityClass which will be
+    * treated as 'relations', i.e. as an edge to a different node.
+    *
+    * @param entityClass
+    * @return
+    */
+  def entityRelationFields(entityClass: Class[_]): List[String] = {
     val fieldsAsPairs = for (field <- entityClass.getDeclaredFields) yield {
       field.setAccessible(true)
     }
 
-    val t = entityClass.getDeclaredFields.find(_.getName == memberKey).map(_.getType)
+    val es: Seq[String] = entities().toList
 
-    val es = entities()
-    if (t.isDefined) {
-      val n = t.get.getName
-      println("xxx" +  n)
-      return !(n.startsWith("java") || n.startsWith("scala") || !n.contains("."))
-      //return es.contains(t.get.getName)
-    }
-    false
+    val x: Seq[(String, String)] = entityClass.getDeclaredFields
+      .map(f => (f.getName, f.getType.getName)).toList
+
+    x.filter(t => es.contains(t._2)).map(_._1).toList
+
+    //val ts: Seq[String] = entityClass.getDeclaredFields.map(_.getType).map(_.getName).toList
+    //ts.intersect(es).toList
   }
 
   private def build(): Unit = {
@@ -141,6 +178,11 @@ case class ApplicationModel(
         var result = scala.collection.mutable.ListBuffer[LinkModel2]()
         resourceModel.linkModels = result.toList
     }
+  }
+
+  private def getType[T](clazz: Class[T]):scala.reflect.runtime.universe.Type = {
+    val runtimeMirror =  scala.reflect.runtime.universe.runtimeMirror(clazz.getClassLoader)
+    runtimeMirror.classSymbol(clazz).toType
   }
 
 }
