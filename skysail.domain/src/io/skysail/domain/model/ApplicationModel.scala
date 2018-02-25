@@ -130,7 +130,10 @@ case class ApplicationModel(
     */
   def appPath(): String = "/" + name + (if (apiVersion != null) "/" + apiVersion.toString else "")
 
-//  def entityRelationExists(entityClass: Class[_], memberKey: String): Boolean = {
+  def entityRelationExists(entityClass: Class[_], memberKey: String): Boolean = {
+
+    val f: Seq[String] = entityRelationFields(entityClass)
+    f.contains(memberKey)
 //    log info s"CLS: $entityClass, KEY: $memberKey"
 //    val fieldsAsPairs = for (field <- entityClass.getDeclaredFields) yield {
 //      field.setAccessible(true)
@@ -146,7 +149,7 @@ case class ApplicationModel(
 //      //return es.contains(t.get.getName)
 //    }
 //    false
-//  }
+  }
 
   /**
     * Returns the names of the fields of the provided entityClass which will be
