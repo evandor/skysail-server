@@ -84,13 +84,13 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
 
   }
 
-  def findGraphs[T: Manifest](cls: Class[T], sql: String /*, Map<String, Object> params*/ ): List[T] = {
+  def findGraphs[T: Manifest](cls: Class[T], sql: String /*, Map<String, Object> params*/, appModel: ApplicationModel ): List[T] = {
     val results = executeCommand[T](sql)
     val result = scala.collection.mutable.ListBuffer[T]()
     results.asScala.foreach(v => {
       try {
         val r = v.asInstanceOf[OrientVertex]
-        result += documentToBeanGraph(r.getRecord(), cls)
+        result += documentToBeanGraph(r.getRecord(), cls, appModel)
       } catch {
         case e: Throwable => log warn s"not able to create bean out of $v: ${e.getMessage}"
       }
@@ -99,7 +99,7 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     result.toList
   }
 
-  def findGraphs2[T: Manifest](template: T, sql: String): List[T] = {
+  def findGraphs2[T: Manifest](template: T, sql: String, appModel: ApplicationModel): List[T] = {
     val results = executeCommand[T](sql)
     val result = scala.collection.mutable.ListBuffer[T]()
     results.asScala.foreach(v => {
@@ -149,11 +149,11 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     Transformer.jsonStringToBean2(json, cls)
   }
 
-  private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T]): T = {
+  private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T], appModel: ApplicationModel): T = {
     //Transformer.jsonStringToBean(doc.toJSON("fetchPlan:*:-1"))
     println("1" + doc.toJSON("fetchPlan:*:2"))
     println("2" + doc.toJSON("fetchPlan:*:-1"))
-    Transformer.jsonStringToBean2(doc.toJSON("fetchPlan:*:-1"), cls)
+    Transformer.jsonStringToBean3(doc.toJSON("fetchPlan:*:-1"), cls, appModel)
   }
 
   private def documentToBeanWithTemplate[T: Manifest](doc: ODocument, template: T): T = {

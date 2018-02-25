@@ -22,13 +22,13 @@ class BookmarksRepository (dbService: DbService, appModel: ApplicationModel) {
     //                + " " + limitClause(pagination);
     //pagination.setEntityCount(count(filter));
     //println("executing sql " + sql)
-    dbService.findGraphs2(Bookmark(None, "",""), sql) //, filter.getParams());
+    dbService.findGraphs2(Bookmark(None, "",""), sql,appModel) //, filter.getParams());
   }
 
   def find(id: String): Option[Bookmark] = {
     val sql = s"SELECT * from ${DbService.tableNameFor(classOf[Bookmark])} where id='${id}'"
     //println("executing sql " + sql)
-    val res: Seq[Bookmark] = dbService.findGraphs2(Bookmark(None, "", "", created = Instant.MIN.getEpochSecond), sql) //, filter.getParams());
+    val res: Seq[Bookmark] = dbService.findGraphs2(Bookmark(None, "", "", created = Instant.MIN.getEpochSecond), sql,appModel) //, filter.getParams());
     if (res.size == 0) None else res.headOption
   }
 

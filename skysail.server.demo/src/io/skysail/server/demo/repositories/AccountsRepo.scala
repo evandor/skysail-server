@@ -13,10 +13,10 @@ class AccountsRepo(dbService: DbService, appModel: ApplicationModel) {
     dbService.persist(entity, appModel)
   }
 
-  def find() = dbService.findGraphs(classOf[Account], "SELECT * from " + DbService.tableNameFor(classOf[Account]))
+  def find() = dbService.findGraphs(classOf[Account], "SELECT * from " + DbService.tableNameFor(classOf[Account]), appModel)
 
   def find(id: String): Option[Account] = {
-    val res = dbService.findGraphs(classOf[Account], s"SELECT * from ${DbService.tableNameFor(classOf[Account])} where id='${id}'")
+    val res = dbService.findGraphs(classOf[Account], s"SELECT * from ${DbService.tableNameFor(classOf[Account])} where id='${id}'", appModel)
     if (res.size == 0) None else res.headOption
   }
 }

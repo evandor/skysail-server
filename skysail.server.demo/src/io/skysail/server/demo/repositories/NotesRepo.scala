@@ -13,10 +13,10 @@ class NotesRepo(dbService: DbService, appModel: ApplicationModel) {
     dbService.persist(entity, appModel)
   }
 
-  def find() = dbService.findGraphs(classOf[Note], "SELECT * from " + DbService.tableNameFor(classOf[Note]))
+  def find() = dbService.findGraphs(classOf[Note], "SELECT * from " + DbService.tableNameFor(classOf[Note]),appModel)
 
   def find(id: String): Option[Note] = {
-    val res = dbService.findGraphs(classOf[Note], s"SELECT * from ${DbService.tableNameFor(classOf[Note])} where id='${id}'") 
+    val res = dbService.findGraphs(classOf[Note], s"SELECT * from ${DbService.tableNameFor(classOf[Note])} where id='${id}'",appModel)
     if (res.size == 0) None else res.headOption
   }
 }

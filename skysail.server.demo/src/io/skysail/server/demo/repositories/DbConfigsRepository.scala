@@ -15,12 +15,12 @@ class DbConfigsRepository(dbService: DbService, appModel: ApplicationModel) {
 
   def find( /*Filter filter, Pagination pagination*/ ): List[DbConfig] = {
     val sql = "SELECT * from " + DbService.tableNameFor(classOf[DbConfig])
-    dbService.findGraphs(classOf[DbConfig], sql) //, filter.getParams());
+    dbService.findGraphs(classOf[DbConfig], sql,appModel) //, filter.getParams());
   }
 
   def find(id: String): Option[DbConfig] = {
     val sql = s"SELECT * from ${DbService.tableNameFor(classOf[DbConfig])} where id='${id}'"
-    val res = dbService.findGraphs(classOf[DbConfig], sql) //, filter.getParams());
+    val res = dbService.findGraphs(classOf[DbConfig], sql,appModel) //, filter.getParams());
     if (res.size == 0) None else res.headOption
   }
 }

@@ -18,7 +18,7 @@ class DummyDbService extends DbService() {
     return bm.id.get
   }
 
-  override def findGraphs[T: Manifest](cls: Class[T], sql: String): List[T] = {
+  override def findGraphs[T: Manifest](cls: Class[T], sql: String, appModel: ApplicationModel): List[T] = {
     bookmarks.values.map(b => b.asInstanceOf[T]).toList
   }
 
@@ -32,5 +32,5 @@ class DummyDbService extends DbService() {
 
   override def delete[T: Manifest](cls: Class[T], id: String): Boolean = ???
 
-  override def findGraphs2[T: Manifest](template: T, sql: String): List[T] = ???
+  override def findGraphs2[T: Manifest](template: T, sql: String, appModel: ApplicationModel): List[T] = ???
 }
