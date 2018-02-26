@@ -31,6 +31,14 @@ class DemoActivator extends DominoActivator {
       app = new DemoApplication(bundleContext, dbService, actorSystem, routesCreator)
       //app.activate()
       app.providesService[ApplicationProvider]
+
+      whenConfigurationActive("monitor") { conf: Map[String, Any] =>
+        log info s"received configuration for 'monitor': $conf"
+        if (conf != null) {
+          app.setMonitorUrls(conf.values.map(_.toString))
+        }
+      }
+
     }
 
     watchServices[EventAdmin] {
@@ -44,21 +52,6 @@ class DemoActivator extends DominoActivator {
           app.setEventAdmin(null)
         }
     }
-
-    whenConfigurationActive("monitor") { conf: Map[String, Any] =>
-      log info s"received configuration for 'monitor': $conf"
-
-      app.setMonitorUrls(conf.values.map(_.toString))
-
-//      val port = Integer.parseInt(conf.getOrElse("port", defaultPort.toString).asInstanceOf[String])
-//      var binding = conf.getOrElse("binding", defaultBinding).asInstanceOf[String]
-//      //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
-//      serverConfig = ServerConfig(port, binding, conf)
-//
-//      rootApplication = Some(new RootApplication(bundleContext, routesCreator, actorSystem, conf))
-//      rootApplication.get.providesService[ApplicationProvider]
-    }
-
 
   }
 }

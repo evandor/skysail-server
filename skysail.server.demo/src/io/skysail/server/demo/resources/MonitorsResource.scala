@@ -11,23 +11,14 @@ import scala.util.{Failure, Success}
 class MonitorsResource extends EntityResource[DemoApplication, MonitorList]{
 
   override def getEntity(re: RequestEvent): Option[MonitorList] = {
-
-    var monitorUrls = getApplication().monitorUrls
-
-    val url = "http://website.test.skysail.io"
-
-    val metadata = new JSoupAdapter().readFrom(url)
-    metadata match {
-      case Success(v) => Some(MonitorList(List(Monitor(Some("id"), "title", "url" ))))
-      case Failure(f) => Some(MonitorList(List(Monitor(Some("id"), "broken", "url" ))))
-    }
+    Some(MonitorList(getApplication().monitorUrls.map(toMonitor(_)).toList))
   }
 
   def toMonitor(url: String): Monitor = {
-    val metadata = new JSoupAdapter().readFrom(url)
+    val   metadata = new JSoupAdapter().readFrom(url)
     metadata match {
-      case Success(v) => Monitor(Some("id"), "title", "url" )
-      case Failure(f) => Monitor(Some("id"), "broken", "url" )
+      case Success(v) => Monitor(Some("id"), "title", url )
+      case Failure(f) => Monitor(Some("id"), "broken", url )
     }
   }
 
