@@ -151,8 +151,8 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
 
   private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T], appModel: ApplicationModel): T = {
     //Transformer.jsonStringToBean(doc.toJSON("fetchPlan:*:-1"))
-    println("1" + doc.toJSON("fetchPlan:*:2"))
-    println("2" + doc.toJSON("fetchPlan:*:-1"))
+    //println("1" + doc.toJSON("fetchPlan:*:2"))
+    //println("2" + doc.toJSON("fetchPlan:*:-1"))
     Transformer.jsonStringToBean3(doc.toJSON("fetchPlan:*:-1"), cls, appModel)
   }
 

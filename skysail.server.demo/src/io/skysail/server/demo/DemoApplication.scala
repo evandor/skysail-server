@@ -24,6 +24,12 @@ class DemoApplication(
   system: ActorSystem,
   routesCreator: RoutesCreatorTrait) extends BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
 
+  var monitorUrls: Iterable[String] = null
+
+  def setMonitorUrls(strings: Iterable[String]): Unit = {
+    monitorUrls = strings
+  }
+
   var eventService: EventService = new EventService(null)
 
   def setEventAdmin(eventAdmin: EventAdmin) = {
@@ -69,6 +75,8 @@ class DemoApplication(
       RouteMapping("/patterns/:id/", root / PathMatcher("patterns") / Segment / PathEnd, classOf[PutPatternResource]),
 
       RouteMapping("/beans", root / PathMatcher("beans") ~ PathEnd, classOf[BeansResource]),
+
+      RouteMapping("/monitor", root / PathMatcher("monitor") ~ PathEnd, classOf[MonitorsResource]),
 
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource]))
   }

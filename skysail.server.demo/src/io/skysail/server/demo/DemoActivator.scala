@@ -2,12 +2,12 @@ package io.skysail.server.demo
 
 import akka.actor.ActorSystem
 import domino.DominoActivator
+import domino.service_watching.ServiceWatcherEvent._
 import io.skysail.api.persistence.DbService
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.ApplicationProvider
 import org.osgi.service.event.EventAdmin
 import org.slf4j.LoggerFactory
-import domino.service_watching.ServiceWatcherEvent._
 
 class DemoActivator extends DominoActivator {
 
@@ -45,6 +45,19 @@ class DemoActivator extends DominoActivator {
         }
     }
 
+    whenConfigurationActive("monitor") { conf: Map[String, Any] =>
+      log info s"received configuration for 'monitor': $conf"
+
+      app.setMonitorUrls(conf.values.map(_.toString))
+
+//      val port = Integer.parseInt(conf.getOrElse("port", defaultPort.toString).asInstanceOf[String])
+//      var binding = conf.getOrElse("binding", defaultBinding).asInstanceOf[String]
+//      //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
+//      serverConfig = ServerConfig(port, binding, conf)
+//
+//      rootApplication = Some(new RootApplication(bundleContext, routesCreator, actorSystem, conf))
+//      rootApplication.get.providesService[ApplicationProvider]
+    }
 
 
   }
