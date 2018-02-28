@@ -2,9 +2,8 @@ package io.skysail.domain.testdomains
 
 import java.time.Instant
 
-
+object State
 sealed abstract class State
-
 case object NEW extends State
 case object NOT_FOUND extends State
 case object UNCHANGED extends State
