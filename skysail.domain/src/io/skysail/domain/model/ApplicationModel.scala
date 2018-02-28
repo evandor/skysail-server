@@ -9,7 +9,7 @@ import scala.collection.mutable.ListBuffer
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMappingI
-import org.json4s.DefaultFormats
+import org.json4s.{DefaultFormats, Formats}
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe
@@ -93,7 +93,7 @@ case class ApplicationModel(
     addEntity(entityClass, DefaultFormats)
   }
 
-  def addEntity[T](entityClass: Class[T], dfs: DefaultFormats): Unit = {
+  def addEntity[T](entityClass: Class[T], dfs: Formats): Unit = {
     val rut: universe.Type = getType(entityClass)
     addEntity(rut, dfs)
   }
@@ -102,7 +102,7 @@ case class ApplicationModel(
     addEntity(entityClass, DefaultFormats)
   }
 
-  def addEntity(entityClass: Type, dfs: DefaultFormats): Unit = {
+  def addEntity(entityClass: Type, dfs: Formats): Unit = {
     if (entityModelsMap.get(entityClass.toString).isEmpty) {
       entityModelsMap += entityClass.toString -> EntityModel(entityClass, dfs)
     }

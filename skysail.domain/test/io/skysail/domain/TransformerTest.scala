@@ -7,6 +7,7 @@ import org.json4s
 import org.json4s.{DefaultFormats, jackson}
 import org.junit.Test
 import org.json4s.jackson.JsonMethods._
+import org.json4s.ext.EnumNameSerializer
 
 class TransformerTest {
   implicit val serialization = jackson.Serialization
@@ -29,7 +30,7 @@ class TransformerTest {
 //  }
 
   @Test
-  def accountToJson2(): Unit = {
+  def accountToJson(): Unit = {
     val edge = OutEdge("#100:1", rootOrientDb)
     val bm = BookmarkOrientDb(Some("bmId"), "title", "url", out_root = List(edge))
     val json: json4s.JValue = Transformer.beanToJson(bm)
@@ -40,6 +41,18 @@ class TransformerTest {
     println(r)
     assert(r.title == "title")
     assert(r.root.id == "rootid")
+  }
+
+  @Test
+  def accountToJson2(): Unit = {
+    import org.json4s.{DefaultFormats, FieldSerializer}
+
+    val bm = Bookmark(Some("bmId"), "title", "url")
+    val f = DefaultFormats + FieldSerializer[Bookmark]() + new EnumNameSerializer(io.skysail.domain.testdomains.State)
+    val json: json4s.JValue = Transformer.beanToJson2(bm,f)
+    println(json)
+    val jsonString: String = compact(render(json))
+    println(jsonString)
   }
 
 

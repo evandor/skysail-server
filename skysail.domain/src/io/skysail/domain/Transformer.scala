@@ -77,14 +77,19 @@ object Transformer {
 
   def beanToJson[T: Manifest](bean: T): JValue = {
     implicit val serialization: Serialization.type = jackson.Serialization
-    implicit val formats = DefaultFormats + FieldSerializer[T]()
+    implicit val formats: Formats = DefaultFormats + FieldSerializer[T]()
     Extraction.decompose(bean)
+  }
+
+  def beanToJson2[T: Manifest](bean: T, formats: Formats): JValue = {
+    implicit val serialization: Serialization.type = jackson.Serialization
+    Extraction.decompose(bean)(formats)
   }
 
   def listToJson[T: Manifest](bean: List[T]): JValue = {
 
     implicit val serialization: Serialization.type = jackson.Serialization
-    implicit val formats = DefaultFormats + FieldSerializer[T]()
+    implicit val formats: Formats = DefaultFormats + FieldSerializer[T]()
     Extraction.decompose(bean)
   }
 

@@ -47,7 +47,8 @@ class Persister(db: OrientGraph, appModel: ApplicationModel, optionalVertex: Opt
     try {
       implicit val formats = DefaultFormats
 
-      val x: json4s.JValue = Transformer.beanToJson(entity)
+      val em = appModel.entityModelFor(entity.getClass)
+      val x: json4s.JValue = Transformer.beanToJson2(entity,em.get.dfs)
       println(x)
 
       val e = Extraction.decompose(entity).asInstanceOf[JObject]
