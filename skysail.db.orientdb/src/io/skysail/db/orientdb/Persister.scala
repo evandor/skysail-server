@@ -2,11 +2,11 @@ package io.skysail.db.orientdb
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.tinkerpop.blueprints.impls.orient.{OrientGraph, OrientVertex}
-import io.skysail.api.ddd.Entity
+import io.skysail.domain.Transformer
 import io.skysail.domain.model.ApplicationModel
+import org.json4s
 import org.json4s._
 import org.slf4j.LoggerFactory
-import com.orientechnologies.orient.core.id.ORID
 
 object Persister {
   def getMethodName(prefix: String, key: String): String = {
@@ -45,17 +45,14 @@ class Persister(db: OrientGraph, appModel: ApplicationModel, optionalVertex: Opt
   def execute(entity: Any): OrientVertex = {
     val vertex = determineVertex(entity);
     try {
-      //val removeRelationData = AnnotationUtils.removeRelationData(entity);
       implicit val formats = DefaultFormats
+
+      val x: json4s.JValue = Transformer.beanToJson(entity)
+      println(x)
+
       val e = Extraction.decompose(entity).asInstanceOf[JObject]
       log info s"AST: $e"
-
-      //val props = mapper.convertValue(entity, classOf[java.util.Map[String, Any]]).asScala.toMap
-      //println("PROPS: " + props)
-      //props.keys.foreach(setPropertyOrCreateEdge(entity, vertex, props));
-
       e.obj.foreach(jField => helper.setPropertyOrCreateEdge(entity.getClass, vertex, jField, edgeHandler))
-
       vertex;
     } catch {
       case e: Exception =>
@@ -74,76 +71,7 @@ class Persister(db: OrientGraph, appModel: ApplicationModel, optionalVertex: Opt
     vertex;
   }
 
-//  def setPropertyOrCreateEdge(entity: Any, vertex: OrientVertex, props: Map[String, Any]): String => Unit = {
-//    key: String => {
-//      if (isProperty(entity, key)) {
-//        //System.out.println(entity.getClass() + ": " + key + ":= \""+properties.get(key)+"\"");
-//        if (props.get(key) != null && !("class".equals(key))) {
-//          setProperty(entity, vertex, key);
-//        }
-//      } else {
-//        //System.out.println(entity.getClass() + ": " + key + ":= [EDGE]");
-//        try {
-//          //            edgeHandler.handleEdges(entity, vertex, properties, key);
-//        } catch {
-//          case e: Exception => log.error(e.getMessage(), e);
-//        }
-//      }
-//    }
-//  }
-
-//  def setPropertyOrCreateEdge2(entity: Any, vertex: OrientVertex, jValue: JField) = {
-//    val key = jValue._1
-//    if (isProperty(entity, key)) {
-//      //if (props.get(key) != null && !("class".equals(key))) {
-//      helper.setProperty2(vertex, jValue);
-//      //}
-//    } else {
-//      try {
-//        edgeHandler.handleEdges(entity, vertex, jValue, key);
-//      } catch {
-//        case e: Exception => log.error(e.getMessage(), e);
-//      }
-//    }
-//  }
-
   private def isProperty(entity: Any, key: String) = !appModel.entityRelationExists(entity.getClass, key)
   
-
-//  private def setProperty(entity: Any, vertex: OrientVertex, key: String): Unit = {
-//    try {
-//      //      if (isOfBooleanType(entity, key)) {
-//      //        setVertexProperty("is", entity, vertex, key);
-//      //      } else {
-//      setVertexProperty("get", entity, vertex, key);
-//      //      }
-//    } catch {
-//      case e: Exception => log.error(e.getMessage(), e);
-//    }
-//  }
-
-//  def setProperty2(vertex: OrientVertex, jValue: JField) = {
-//    jValue._2 match {
-//      case string: JString =>
-//        log info s"setting Property('${jValue._1}','${string.s}')"
-//        vertex.setProperty(jValue._1, string.s)
-//      case jInt: JInt =>
-//        log info s"setting Property('${jValue._1}','${jInt.num}')"
-//        val v = jInt.num.toInt
-//        vertex.setProperty(jValue._1, v)
-//      case _: Any => log warn s"no idea what to do, trying to match '${jValue._2}'"
-//    }
-//  }
-
-//  private def setVertexProperty(prefix: String, entity: Any, vertex: OrientVertex, key: String) = {
-//    val method = entity.getClass().getMethod(Persister.getMethodName(prefix, key));
-//    val result = method.invoke(entity);
-//
-//    //    if (result instanceof ValueObject) {
-//    //      vertex.setProperty(key, ((ValueObject)result).getValue().toString());
-//    //    } else {
-//    vertex.setProperty(key, result);
-//    //    }
-//  }
 
 }

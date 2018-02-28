@@ -1,10 +1,10 @@
 package io.skysail.domain.model
 
-import scala.collection.JavaConverters._
-import java.lang.reflect.Field
+import org.json4s.DefaultFormats
+
 import scala.reflect.runtime.universe._
 
-case class EntityModel(entityClass: Type) {
+case class EntityModel(entityClass: Type, dfs: DefaultFormats) {
   
   require(entityClass != null, "The provided entity class must not be null")
   

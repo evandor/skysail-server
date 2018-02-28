@@ -16,6 +16,8 @@ object Transformer {
   //implicit val formats = DefaultFormats + ZDTSerializer + FieldSerializer[Person]()
   implicit val serialization: Serialization.type = jackson.Serialization
 
+  // --- Deserialize ------------------------------------------------
+
   // TODO check https://stackoverflow.com/questions/15943957/is-it-possible-to-make-json4s-not-to-throw-exception-when-required-field-is-miss
   def jsonStringToBean[T: Manifest](jsonStr: String): T = {
     println("JSON: " + jsonStr)
@@ -71,6 +73,8 @@ object Transformer {
     (defaultsJson merge valueJson).extract[T]
   }
 
+  // --- Serialize --------------------------------------------------
+
   def beanToJson[T: Manifest](bean: T): JValue = {
     implicit val serialization: Serialization.type = jackson.Serialization
     implicit val formats = DefaultFormats + FieldSerializer[T]()
@@ -83,6 +87,8 @@ object Transformer {
     implicit val formats = DefaultFormats + FieldSerializer[T]()
     Extraction.decompose(bean)
   }
+
+  // --- Helper -----------------------------------------------------
 
   def toManifest[T:TypeTag]: Manifest[T] = {
     val t = typeTag[T]

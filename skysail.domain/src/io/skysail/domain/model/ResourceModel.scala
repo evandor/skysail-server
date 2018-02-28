@@ -2,6 +2,7 @@ package io.skysail.domain.model
 
 import akka.http.scaladsl.model.Uri
 import io.skysail.domain.routes.RouteMappingI
+import org.json4s.DefaultFormats
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe._
@@ -21,7 +22,7 @@ case class ResourceModel(routeMapping: RouteMappingI[_,_]) {
   val entityClass: Type = routeMapping.getEntityType()
   var linkModel: LinkModel2 = _
   var linkModels: List[LinkModel2] = List()
-  var entityModel = new EntityModel(entityClass)
+  var entityModel = new EntityModel(entityClass, DefaultFormats)
 
   def linkFor(clsName: String): Option[String] = {
     if (routeMapping.resourceClass.getName == clsName && routeMapping.path != null) Some(routeMapping.path) else None

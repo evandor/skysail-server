@@ -33,7 +33,7 @@ class OrientDbHelper(appModel: ApplicationModel) {
         log info s"setting Property('${jValue._1}','${jInt.num}')"
         val v = jInt.num.toInt
         vertex.setProperty(jValue._1, v)
-      case _: Any => log warn s"no idea what to do, trying to match '${jValue._2}'"
+      case _: Any => log warn s"no idea what to do, trying to match '${jValue._1}: ${jValue._2}'"
     }
   }
 

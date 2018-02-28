@@ -9,6 +9,7 @@ import scala.collection.mutable.ListBuffer
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.routes.RouteMappingI
+import org.json4s.DefaultFormats
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe
@@ -89,13 +90,21 @@ case class ApplicationModel(
   }
 
   def addEntity[T](entityClass: Class[T]): Unit = {
+    addEntity(entityClass, DefaultFormats)
+  }
+
+  def addEntity[T](entityClass: Class[T], dfs: DefaultFormats): Unit = {
     val rut: universe.Type = getType(entityClass)
-    addEntity(rut)
+    addEntity(rut, dfs)
   }
 
   def addEntity(entityClass: Type): Unit = {
+    addEntity(entityClass, DefaultFormats)
+  }
+
+  def addEntity(entityClass: Type, dfs: DefaultFormats): Unit = {
     if (entityModelsMap.get(entityClass.toString).isEmpty) {
-      entityModelsMap += entityClass.toString -> EntityModel(entityClass)
+      entityModelsMap += entityClass.toString -> EntityModel(entityClass, dfs)
     }
     build()
   }
@@ -131,24 +140,7 @@ case class ApplicationModel(
   def appPath(): String = "/" + name + (if (apiVersion != null) "/" + apiVersion.toString else "")
 
   def entityRelationExists(entityClass: Class[_], memberKey: String): Boolean = {
-
-    val f: Seq[String] = entityRelationFields(entityClass)
-    f.contains(memberKey)
-//    log info s"CLS: $entityClass, KEY: $memberKey"
-//    val fieldsAsPairs = for (field <- entityClass.getDeclaredFields) yield {
-//      field.setAccessible(true)
-//    }
-//
-//    val t = entityClass.getDeclaredFields.find(_.getName == memberKey).map(_.getType)
-//
-//    val es = entities()
-//    if (t.isDefined) {
-//      val n = t.get.getName
-//      println("xxx" +  n)
-//      return !(n.startsWith("java") || n.startsWith("scala") || !n.contains("."))
-//      //return es.contains(t.get.getName)
-//    }
-//    false
+    entityRelationFields(entityClass).contains(memberKey)
   }
 
   /**
@@ -159,19 +151,23 @@ case class ApplicationModel(
     * @return
     */
   def entityRelationFields(entityClass: Class[_]): List[String] = {
+
     val fieldsAsPairs = for (field <- entityClass.getDeclaredFields) yield {
       field.setAccessible(true)
     }
 
     val es: Seq[String] = entities().toList
 
-    val x: Seq[(String, String)] = entityClass.getDeclaredFields
-      .map(f => (f.getName, f.getType.getName)).toList
+    println (entityClass.getDeclaredFields
+      .map(f => (f.getName, f.getType.getName.replace("$",".")))
+      .toList)
 
-    x.filter(t => es.contains(t._2)).map(_._1).toList
-
-    //val ts: Seq[String] = entityClass.getDeclaredFields.map(_.getType).map(_.getName).toList
-    //ts.intersect(es).toList
+    entityClass.getDeclaredFields
+      .map(f => (f.getName, f.getType.getName.replace("$",".")))
+      .toList
+      .filter(t => es.contains(t._2))
+      .map(_._1)
+      .toList
   }
 
   private def build(): Unit = {
