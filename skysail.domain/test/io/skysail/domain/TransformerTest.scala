@@ -48,7 +48,7 @@ class TransformerTest {
     import org.json4s.{DefaultFormats, FieldSerializer}
 
     val bm = Bookmark(Some("bmId"), "title", "url")
-    val f = DefaultFormats + FieldSerializer[Bookmark]() + new EnumNameSerializer(io.skysail.domain.testdomains.State)
+    val f = DefaultFormats + FieldSerializer[Bookmark]() + new EnumNameSerializer(State)
     val json: json4s.JValue = Transformer.beanToJson2(bm,f)
     println(json)
     val jsonString: String = compact(render(json))

@@ -2,12 +2,12 @@ package io.skysail.domain.testdomains
 
 import java.time.Instant
 
-object State
-sealed abstract class State
-case object NEW extends State
-case object NOT_FOUND extends State
-case object UNCHANGED extends State
-case object CHANGED extends State
+//object State
+//sealed abstract class State
+//case object NEW extends State
+//case object NOT_FOUND extends State
+//case object UNCHANGED extends State
+//case object CHANGED extends State
 
 
 case class BookmarkOrientDb(
@@ -19,7 +19,7 @@ case class BookmarkOrientDb(
                              created: Long = Instant.MIN.getEpochSecond,
                              clicked: Integer = 0,
                              out_root: List[OutEdge],
-                             state: State = NEW
+                             state: State.Value = State.NEW
                            )
 
 
@@ -32,7 +32,7 @@ case class Bookmark(
                      created: Long = Instant.MIN.getEpochSecond,
                      clicked: Integer = 0,
                      root: HttpResource = null,
-                     state: State = NEW
+                     state: State.Value = State.NEW
                    )
 
 
