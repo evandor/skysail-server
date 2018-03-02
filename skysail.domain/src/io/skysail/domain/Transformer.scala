@@ -46,13 +46,13 @@ object Transformer {
   }
 
   def jsonStringToBean3[T: Manifest](json: String, cls: Class[T], appModel: ApplicationModel): T = {
-    //println(json)
+    println(json)
     val ast = parse(json)
-    //println(ast)
+    println(ast)
     implicit val formats = DefaultFormats
 
     val edgeFields: Seq[String] = appModel.entityRelationFields(cls)
-    //println(edgeFields)
+    println(edgeFields)
     val edgeFieldNameJValuesPairs: Seq[(String, String, JValue)] = edgeFields.map(f =>(f, s"out_$f", (ast \\ s"out_$f" \ "in")(0)))
 
     var l = ast
@@ -62,7 +62,7 @@ object Transformer {
       }
     }
 
-    //println("AST2" + l)
+    println("AST2" + l)
     l.extract[T]
 
   }

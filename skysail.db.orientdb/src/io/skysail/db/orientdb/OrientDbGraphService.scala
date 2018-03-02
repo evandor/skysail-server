@@ -92,7 +92,7 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
         val r = v.asInstanceOf[OrientVertex]
         result += documentToBeanGraph(r.getRecord(), cls, appModel)
       } catch {
-        case e: Throwable => log warn s"not able to create bean out of $v: ${e.getMessage}"
+        case e: Throwable => log warn s"findGraphs: not able to create bean out of $v: ${e.getMessage}"
       }
     })
 
@@ -107,7 +107,7 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
         val r = v.asInstanceOf[OrientVertex]
         result += documentToBeanWithTemplate(r.getRecord(), template)
       } catch {
-        case e: Throwable => log warn s"not able to create bean out of $v: ${e.getMessage}"
+        case e: Throwable => log warn s"findGraphs2: not able to create bean out of $v: ${e.getMessage}"
       }
     })
 
@@ -126,7 +126,7 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
 
   def findByClass[T: Manifest](cls: Class[T]): List[T] = {
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)}"
-    //println("executing sql " + sql)
+    println("executing sql " + sql)
     val res = executeCommand(sql) //, filter.getParams());
     val result = scala.collection.mutable.ListBuffer[T]()
     for (i <- res.iterator().asScala) {
@@ -143,8 +143,8 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
   }
 
   private def documentToBean[T: Manifest](doc: ODocument, cls: Class[T]): T = {
-    //println()
-    //println("Doc: " + doc)
+    println()
+    println("Doc: " + doc)
     val json = doc.toJSON("fetchPlan:*:2") /*rid,version,*/
     Transformer.jsonStringToBean2(json, cls)
   }
@@ -175,7 +175,7 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     val r = findByBusinessId(cls, id).get
     val graphDb = getGraphDb()
     val sql2 = s"DELETE VERTEX ${DbService.tableNameFor(cls)} WHERE @rid=${r.getId}"
-    //println("executing sql2 " + sql2)
+    println("executing sql2 " + sql2)
     graphDb.command(new OCommandSQL(sql2)).execute()
     graphDb.commit()
     true

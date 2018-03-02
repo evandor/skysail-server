@@ -52,3 +52,7 @@ case class OutEdge(
                     out: String,
                     in: HttpResourceOrientDb
                   )
+
+case class StateOnly(
+                      state: State.Value = State.NEW
+                    )
