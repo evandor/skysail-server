@@ -44,7 +44,7 @@ class TransformerTest {
   @Test
   def stateOnly2Bean(): Unit = {
     val jsonString: String = "{\"state\":\"Unknown\"}"
-    implicit val formats = DefaultFormats + FieldSerializer[Bookmark]() + new EnumNameSerializer(State)
+    implicit val formats = DefaultFormats + FieldSerializer[Bookmark]() + new EnumNameDeserializer(State)
     //val implicit formats = DefaultFormats + new EnumNameSerializer(StateOnly)
     val r = Transformer.jsonStringToBean3(jsonString, classOf[StateOnly], appModel)
     assertThat(r.state).isEqualTo(State.Unknown)
