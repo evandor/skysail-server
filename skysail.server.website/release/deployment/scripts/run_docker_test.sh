@@ -19,11 +19,14 @@ del_stopped skysail-server-website-test
 
 sleep 5 
 
-echo "Starting docker container..."
+echo "Starting docker container!..."
 
 docker run \
+    -d
+    -t
     --name skysail-server-website-test \
-    -t -p 9202:9202 \
+    --rm
+    -p 9202:9202 \
     -v /home/carsten/skysail/skysailconfigs/website/test:/home/skysail/products/demo/config \
     -e CONFPATH=config \
     evandor/skysail-server-website-local:latest
