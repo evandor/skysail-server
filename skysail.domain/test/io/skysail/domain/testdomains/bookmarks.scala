@@ -19,7 +19,7 @@ case class BookmarkOrientDb(
                              created: Long = Instant.MIN.getEpochSecond,
                              clicked: Integer = 0,
                              out_root: List[OutEdge],
-                             state: State.Value = State.NEW
+                             state: ScalaState.Value = ScalaState.NEW
                            )
 
 
@@ -32,7 +32,7 @@ case class Bookmark(
                      created: Long = Instant.MIN.getEpochSecond,
                      clicked: Integer = 0,
                      root: HttpResource = null,
-                     state: State.Value = State.NEW
+                     state: ScalaState.Value = ScalaState.NEW
                    )
 
 
@@ -54,5 +54,9 @@ case class OutEdge(
                   )
 
 case class StateOnly(
-                      state: State.Value = State.NEW
+                      state: ScalaState.Value = ScalaState.NEW
+                    )
+
+case class JavaStateOnly(
+                      state: JavaState = JavaState.JavaDefault
                     )

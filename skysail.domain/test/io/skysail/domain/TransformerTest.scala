@@ -1,5 +1,6 @@
 package io.skysail.domain
 
+import com.fasterxml.jackson.databind.deser.std.EnumDeserializer
 import io.skysail.domain.app.ApiVersion
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.testdomains._
@@ -7,8 +8,8 @@ import org.json4s
 import org.json4s.ext.EnumNameSerializer
 import org.json4s.jackson.JsonMethods._
 import org.json4s.{DefaultFormats, FieldSerializer, JValue, jackson}
-import org.junit.Test
-import org.assertj.core.api.Assertions._
+import org.junit.{Ignore, Test}
+import org.assertj.core.api.Assertions.assertThat
 
 
 class TransformerTest {
@@ -37,17 +38,26 @@ class TransformerTest {
     val r = Transformer.jsonStringToBean3(jsonString, classOf[Bookmark], appModel)
     assert(r.title == "title")
     assert(r.url == "url")
-    assert(r.state == State.NEW)
+    assert(r.state == ScalaState.NEW)
     assert(r.root.id == "rootid")
   }
 
   @Test
-  def stateOnly2Bean(): Unit = {
+  @Ignore
+  def scalaEnumerationOnlyToBean():Unit = {
     val jsonString: String = "{\"state\":\"Unknown\"}"
-    implicit val formats = DefaultFormats + FieldSerializer[Bookmark]() + new EnumNameDeserializer(State)
+    val q = new EnumNameSerializer(ScalaState)
+    implicit val formats = DefaultFormats + q
     //val implicit formats = DefaultFormats + new EnumNameSerializer(StateOnly)
     val r = Transformer.jsonStringToBean3(jsonString, classOf[StateOnly], appModel)
-    assertThat(r.state).isEqualTo(State.Unknown)
+    assertThat(r.state).isEqualTo(ScalaState.Unknown)
+  }
+
+  @Test
+  def javaEnumOnlyToBean(): Unit = {
+    val jsonString: String = "{\"state\":\"JavaDefault\"}"
+    val r = Transformer.jsonStringToBean3(jsonString, classOf[JavaStateOnly], appModel)
+    assertThat(r.state).isEqualTo(JavaState.JavaDefault)
   }
 
   @Test
@@ -55,7 +65,7 @@ class TransformerTest {
     import org.json4s.{DefaultFormats, FieldSerializer}
 
     val bm = Bookmark(Some("bmId"), "title", "url")
-    val f = DefaultFormats + FieldSerializer[Bookmark]() + new EnumNameSerializer(State)
+    val f = DefaultFormats + FieldSerializer[Bookmark]() + new EnumNameSerializer(ScalaState)
     val json: json4s.JValue = Transformer.beanToJson2(bm,f)
     println(json)
     val jsonString: String = compact(render(json))

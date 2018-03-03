@@ -1,6 +1,6 @@
 package io.skysail.domain.testdomains
 
-object State extends Enumeration {
+object ScalaState extends Enumeration {
   //type State = Value
   val NEW, Failed, Pending, Unknown = Value
 }
