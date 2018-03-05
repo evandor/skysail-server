@@ -81,14 +81,19 @@ class AkkaServer extends DominoActivator {
 
       log info s"ActorSystem [${system.name}] initialized."
       actorSystem = system
+
+      log info s"creating ApplicationsActor... "
       applicationsActor = system.actorOf(Props[ApplicationsActor], Constants.APPLICATIONS_ACTOR_NAME)
-      log debug s"created ApplicationsActor with path ${applicationsActor.path}"
+      log info s"created ApplicationsActor with path ${applicationsActor.path}"
 
+      log info s"creating BundlesActor"
       bundlesActor = system.actorOf(Props(new BundlesActor(bundleContext)), Constants.BUNDLES_ACTOR_NAME)
-      log debug s"created BundlesActor with path ${bundlesActor.path}"
+      log info s"created BundlesActor with path ${bundlesActor.path}"
 
+      log info "new RoutesTracker"
       routesTracker = new RoutesTracker(actorSystem)
 
+      log info "new RoutesCreator"
       routesCreator = new RoutesCreator(actorSystem)
     }
 
@@ -155,6 +160,7 @@ class AkkaServer extends DominoActivator {
       //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
       serverConfig = ServerConfig(port, binding, conf)
 
+      log info "creating RootApplication"
       rootApplication = Some(new RootApplication(bundleContext, routesCreator, actorSystem, conf))
       rootApplication.get.providesService[ApplicationProvider]
     }
