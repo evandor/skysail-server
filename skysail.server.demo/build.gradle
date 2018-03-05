@@ -75,14 +75,11 @@ task copyRunnables(type : Copy) {
     into "release"
 }
 
-import com.bmuschko.gradle.docker.tasks.image.Dockerfile
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
 task buildImage(type: DockerBuildImage) {
-    //dependsOn createDockerfile
-    inputDir = project.file('release')//createDockerfile.destFile.parentFile
+    inputDir = project.file('release')
     tag = 'evandor/skysail-server-demo'
-    //noCache = true
 }
 
 task runnable(dependsOn: ['copyConf', 'copyRunnables']) {

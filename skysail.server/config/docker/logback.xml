@@ -1,4 +1,4 @@
-<configuration scan="true" debug="true">
+<configuration scan="true" debug="false">
 
 	<logger name="org.eclipse.jetty" level="WARN" />
 	<logger name="io.skysail.server.converter.impl" level="DEBUG" />
@@ -10,7 +10,7 @@
 		</filter>
 		<encoder>
 			<!--%d{mm:ss.SSS} [%thread] -->
-			<pattern>%date{"HH:mm:ss,SSS"} %-5level [%-30logger{30}] - %msg [%X{sourceThread}]/[%X{akkaSource}] %n</pattern>
+			<pattern>%date{"HH:mm:ss,SSS"} %-5level [%-30logger{30}] - %msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -18,7 +18,7 @@
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>WARN</level>
 		</filter>
-		<file>etc/logs/warn.log</file>
+		<file>generated/logs/warn.log</file>
 		<append>false</append>
 		<encoder>
 			<pattern>%date{"yyyy-MM-dd HH:mm:ss,SSS"} %-5level [%-45logger{40}] - %msg%n</pattern>
@@ -29,7 +29,7 @@
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>INFO</level>
 		</filter>
-		<file>etc/logs/info.log</file>
+		<file>generated/logs/info.log</file>
 		<append>false</append>
 		<encoder>
 			<pattern>%date{"yyyy-MM-dd HH:mm:ss,SSS"} %-5level [%-45logger{40}] - %msg%n</pattern>
@@ -40,42 +40,18 @@
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>DEBUG</level>
 		</filter>
-		<file>etc/logs/debug.log</file>
+		<file>generated/logs/debug.log</file>
 		<append>false</append>
 		<encoder>
-			<pattern>%date{"yyyy-MM-dd HH:mm:ss,SSS"} %-5level [%-45logger{40}] - %msg%n</pattern>
+			<pattern>%date{"yyyy-MM-dd HH:mm:ss,SSS"} %-5level [%-45logger{40}] - %msg [%X{sourceThread}]/[%X{akkaSource}]%n</pattern>
 		</encoder>
 	</appender>
-
-	<appender name="graylogAppender" class="de.siegmar.logbackgelf.GelfUdpAppender">
-        <graylogHost>172.17.0.1</graylogHost>
-        <graylogPort>12201</graylogPort>
-		<useCompression>true</useCompression>
-		<layout class="de.siegmar.logbackgelf.GelfLayout">
-			<originHost>localhost</originHost>
-			<includeRawMessage>true</includeRawMessage>
-			<includeMarker>true</includeMarker>
-			<includeMdcData>true</includeMdcData>
-			<includeCallerData>true</includeCallerData>
-			<includeRootCauseData>true</includeRootCauseData>
-			<includeLevelName>true</includeLevelName>
-			<shortPatternLayout class="ch.qos.logback.classic.PatternLayout">
-				<pattern>%m%nopex</pattern>
-			</shortPatternLayout>
-			<fullPatternLayout class="ch.qos.logback.classic.PatternLayout">
-				<pattern>%m</pattern>
-			</fullPatternLayout>
-			<staticField>app_name:server</staticField>
-			<staticField>stage:TEST</staticField>
-		</layout>
-    </appender>
 
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="INFO_FILE" />
 		<appender-ref ref="DEBUG_FILE" />
 		<appender-ref ref="WARN_FILE" />
-		<appender-ref ref="graylogAppender"/>
 	</root>
 
 </configuration>

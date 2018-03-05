@@ -8,5 +8,5 @@
 ### --- run-file-specific settings ------------------------------------------------- ###
 ########################################################################################
 
-skysail.config.path            = config,config/test
-logback.configurationFile.path = config/test
+skysail.config.path            = config/docker
+logback.configurationFile.path = config/docker
