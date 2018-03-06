@@ -57,9 +57,9 @@ public class SkysailServerIntegrationTest {
 
     @BeforeClass
     public static void setup() throws InterruptedException {
-        System.out.println("wating for service  for 3000 ms...");
-        Thread.currentThread().sleep(3000);
-        System.out.println("waited for service  for 3000 ms");
+        System.out.println("wating for service  for 5000 ms...");
+        Thread.currentThread().sleep(5000);
+        System.out.println("waited for service - done");
     }
 
     @Before

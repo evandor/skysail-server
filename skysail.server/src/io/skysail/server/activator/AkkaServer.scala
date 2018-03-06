@@ -208,7 +208,7 @@ class AkkaServer extends DominoActivator {
 
     startServerTask =
       actorSystem.scheduler.scheduleOnce(3.second) {
-        println("Executing asynchronously ...")
+        println("Actually starting server ...")
         AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
         routes.size match {
           case 0 => futureBinding = null; log warn "Akka HTTP Server not started as no routes are defined"
