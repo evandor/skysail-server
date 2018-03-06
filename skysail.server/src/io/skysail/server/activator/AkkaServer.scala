@@ -184,17 +184,6 @@ class AkkaServer extends DominoActivator {
     // TODO routesCreator?
   }
 
-  private def startServer(routes: List[Route]) = {
-    implicit val materializer: ActorMaterializer = ActorMaterializer()
-    log info s"(re)starting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
-    AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
-    routes.size match {
-      case 0 => log warn "Akka HTTP Server not started as no routes are defined"; null
-      case 1 => Http(actorSystem).bindAndHandle(routes.head, serverConfig.binding, serverConfig.port)
-      case _ => Http(actorSystem).bindAndHandle(routes.reduce((a, b) => a ~ b), serverConfig.binding, serverConfig.port)
-    }
-  }
-
   private def restartServer(routes: List[Route]): Unit = {
     implicit val materializer: ActorMaterializer = ActorMaterializer()
     if (futureBinding != null) {
@@ -202,6 +191,21 @@ class AkkaServer extends DominoActivator {
       futureBinding.flatMap(_.unbind()).onComplete { _ => futureBinding = startServer(routes) }
     } else {
       futureBinding = startServer(routes)
+    }
+  }
+
+  private def startServer(routes: List[Route]) = {
+    implicit val materializer: ActorMaterializer = ActorMaterializer()
+    log info s"(re)starting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
+
+    log info "waiting for network unbindings..."
+    Thread.sleep(1000)
+
+    AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
+    routes.size match {
+      case 0 => log warn "Akka HTTP Server not started as no routes are defined"; null
+      case 1 => Http(actorSystem).bindAndHandle(routes.head, serverConfig.binding, serverConfig.port)
+      case _ => Http(actorSystem).bindAndHandle(routes.reduce((a, b) => a ~ b), serverConfig.binding, serverConfig.port)
     }
   }
 
