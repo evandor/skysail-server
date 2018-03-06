@@ -43,7 +43,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
-  log info s"instanciating new $this.getClass.getName"
+  log info s"instanciating new ${this.getClass.getName}"
 
   var authentication: AuthenticationService = _
 
