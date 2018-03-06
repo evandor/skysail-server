@@ -13,7 +13,7 @@ install: ./gradlew --version
 script:
   - ./gradlew -DbuildVersion=travis-${TRAVIS_BUILD_NUMBER} clean build
   - ./gradlew asciidoctor scaladoc
-  - ./gradlew skysail.server:export.server.int
+  - ./gradlew skysail.server:export.server.docker
   - ./gradlew skysail.server.demo:export.server.demo.docker
   - ./gradlew skysail.server.seed:export.server.seed.docker
   - ./gradlew copyConf copyRunnables
