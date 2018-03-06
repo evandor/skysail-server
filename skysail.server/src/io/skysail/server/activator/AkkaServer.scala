@@ -17,8 +17,8 @@ import io.skysail.api.metrics.{CounterMetric, Metrics}
 import io.skysail.api.security.AuthenticationService
 import io.skysail.api.ui.Client
 import io.skysail.server.actors.{ApplicationsActor, BundlesActor}
-import io.skysail.server.app.{ApplicationProvider, BackendApplication, RootApplication}
 import io.skysail.server.app.BackendApplication._
+import io.skysail.server.app.{ApplicationProvider, BackendApplication, RootApplication}
 import io.skysail.server.metrics.SimpleMetrics
 import io.skysail.server.routes.{RoutesCreator, RoutesTracker}
 import io.skysail.server.{Constants, RoutesCreatorTrait, SystemPropertiesCommand}
@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory
 import org.slf4j.bridge.SLF4JBridgeHandler
 
 import scala.collection.mutable.ListBuffer
-import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.concurrent.duration.DurationInt
+import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
 
 
 case class ServerConfig(port: Integer, binding: String, conf: Map[String, Any])
@@ -66,6 +66,7 @@ class AkkaServer extends DominoActivator {
   private var routesCreator: RoutesCreator = _
   private var serverRestartsCounter = CounterMetric(this.getClass, "server.restarts")
   private var rootApplication: Option[RootApplication] = None
+  private var startServerTask: akka.actor.Cancellable = _
 
   private class AkkaCapsule(bundleContext: BundleContext) extends ActorSystemActivator with Capsule {
 
@@ -186,27 +187,38 @@ class AkkaServer extends DominoActivator {
 
   private def restartServer(routes: List[Route]): Unit = {
     implicit val materializer: ActorMaterializer = ActorMaterializer()
+    implicit val executionContext: ExecutionContextExecutor = actorSystem.dispatcher
     if (futureBinding != null) {
-      implicit val executionContext: ExecutionContextExecutor = actorSystem.dispatcher
-      futureBinding.flatMap(_.unbind()).onComplete { _ => futureBinding = startServer(routes) }
+      log info s"restarting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
+      shutdownGracefullyAndRestart(futureBinding, routes)
     } else {
-      futureBinding = startServer(routes)
+      log info s"starting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
+       startServer(routes)
     }
   }
 
-  private def startServer(routes: List[Route]) = {
+  private def startServer(routes: List[Route])(implicit ec: ExecutionContext): Unit = {
     implicit val materializer: ActorMaterializer = ActorMaterializer()
-    log info s"(re)starting server with binding ${serverConfig.binding}:${serverConfig.port} with #${routesTracker.routes.size} routes."
 
-    log info "waiting for network unbindings..."
-    Thread.sleep(1000)
-
-    AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
-    routes.size match {
-      case 0 => log warn "Akka HTTP Server not started as no routes are defined"; null
-      case 1 => Http(actorSystem).bindAndHandle(routes.head, serverConfig.binding, serverConfig.port)
-      case _ => Http(actorSystem).bindAndHandle(routes.reduce((a, b) => a ~ b), serverConfig.binding, serverConfig.port)
+    log info "new routes available for server, scheduling restart..."
+    if (startServerTask != null) {
+      log info "canceling existing startServerTask, recreating new one..."
+      startServerTask.cancel()
     }
+
+    startServerTask =
+      actorSystem.scheduler.scheduleOnce(3.second) {
+        println("Executing asynchronously ...")
+        AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
+        routes.size match {
+          case 0 => futureBinding = null; log warn "Akka HTTP Server not started as no routes are defined"
+          case 1 => futureBinding = Http(actorSystem).bindAndHandle(routes.head, serverConfig.binding, serverConfig.port)
+          case _ => futureBinding = Http(actorSystem).bindAndHandle(routes.reduce((a, b) => a ~ b), serverConfig.binding, serverConfig.port)
+        }
+      }
+
+
+
   }
 
   private def createApplicationActor(appInfoProvider: ApplicationProvider): Unit = {
@@ -227,6 +239,23 @@ class AkkaServer extends DominoActivator {
       rootApplication.get.setClients(AkkaServer.clients.toList)
     }
   }
+
+  private def shutdownGracefullyAndRestart(serverSource: Future[Http.ServerBinding], routes: List[Route])(implicit ec: ExecutionContext) = {
+    implicit val materializer: ActorMaterializer = ActorMaterializer()
+
+    futureBinding
+      .flatMap(_.unbind())
+      .onComplete { _ =>
+        log info "waiting for network unbindings..."
+        Thread.sleep(1000)
+        log info "shutting down materializer..."
+        materializer.shutdown()
+        log info "ready for restart"
+        startServer(routes)
+      }
+  }
+
+
 
 
 }
