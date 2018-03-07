@@ -1,4 +1,4 @@
-tasks.compileJava.dependsOn(':skysail.domain:build')
+//tasks.compileJava.dependsOn(':skysail.domain:build')
 
 buildscript {
     repositories {
