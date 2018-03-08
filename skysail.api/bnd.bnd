@@ -1,6 +1,7 @@
 Bundle-Name: SKYSAIL :: api
 
-Bundle-Version: 2.0.0.${tstamp}
+# released: 2.0.0
+Bundle-Version: 2.0.1.${tstamp}
 
 Bundle-Description: API Bundle for Skysail
 
