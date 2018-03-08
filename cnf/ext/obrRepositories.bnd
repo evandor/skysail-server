@@ -1,2 +1,2 @@
 obrRepositories:\
-    https://raw.githubusercontent.com/evandor/skysail-repository/master/index.xml https://raw.githubusercontent.com/evandor/skysail/master/cnf/releaserepo/index.xml http://felix.apache.org/obr/releases.xml
+    https://raw.githubusercontent.com/evandor/skysail-repository/master/index.xml https://raw.githubusercontent.com/evandor/skysail-server/master/cnf/release/index.xml https://raw.githubusercontent.com/evandor/skysail-apps/master/cnf/release/index.xml http://felix.apache.org/obr/releases.xml

@@ -207,7 +207,7 @@ class AkkaServer extends DominoActivator {
     }
 
     startServerTask =
-      actorSystem.scheduler.scheduleOnce(3.second) {
+      actorSystem.scheduler.scheduleOnce(5.second) {
         println("Actually starting server ...")
         AkkaServer.metricsImpls.foreach(_.inc(serverRestartsCounter))
         routes.size match {
