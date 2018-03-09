@@ -49,11 +49,12 @@ task createAndCopyDocumentationToDocBundle(dependsOn: asciidoctor, type: Copy) {
     into 'skysail.server.doc/resources/assets/html5'
 }
 
+// https://stackoverflow.com/questions/13879667/how-to-fix-test-reports-were-found-but-none-of-them-are-new-did-tests-run-in
 task jenkinsTest{
     inputs.files test.outputs.files
     doLast{
         def timestamp = System.currentTimeMillis()
-        getReports().getJunitXml().getDestination().eachFile { it.lastModified = timestamp }
+        test.getReports().getJunitXml().getDestination().eachFile { it.lastModified = timestamp }
     }
 }
 
