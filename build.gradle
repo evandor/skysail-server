@@ -50,7 +50,7 @@ task createAndCopyDocumentationToDocBundle(dependsOn: asciidoctor, type: Copy) {
 }
 
 // https://stackoverflow.com/questions/13879667/how-to-fix-test-reports-were-found-but-none-of-them-are-new-did-tests-run-in
-task jenkinsTest{
+/*task jenkinsTest{
     inputs.files test.outputs.files
     doLast{
         def timestamp = System.currentTimeMillis()
@@ -58,7 +58,7 @@ task jenkinsTest{
     }
 }
 
-build.dependsOn(jenkinsTest)
+build.dependsOn(jenkinsTest)*/
 
 configure(createAndCopyDocumentationToDocBundle) {
     group = 'documentation'
