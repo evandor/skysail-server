@@ -49,6 +49,16 @@ task createAndCopyDocumentationToDocBundle(dependsOn: asciidoctor, type: Copy) {
     into 'skysail.server.doc/resources/assets/html5'
 }
 
+task jenkinsTest{
+    inputs.files test.outputs.files
+    doLast{
+        def timestamp = System.currentTimeMillis()
+        test.testResultsDir.eachFile { it.lastModified = timestamp }
+    }
+}
+
+build.dependsOn(jenkinsTest)
+
 configure(createAndCopyDocumentationToDocBundle) {
     group = 'documentation'
     description = 'Creates Asciidoc html5 documentation and copies it to skysail.server.doc'
