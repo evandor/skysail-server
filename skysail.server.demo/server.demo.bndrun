@@ -39,6 +39,7 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(osgi.identity=skysail.server)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.demo)',\
+	osgi.identity;filter:='(osgi.identity=skysail.server.app.osgi)',\
 	osgi.identity;filter:='(osgi.identity=webconsole.all)',\
 	osgi.identity;filter:='(&(osgi.identity=org.jsoup)(version>=1.11.2))'
 
