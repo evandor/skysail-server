@@ -21,7 +21,6 @@ class EdgeHandler(db: OrientGraph, helper: OrientDbHelper) {
     val jObject = jValue._2.asInstanceOf[JObject]
     val id = jObject.obj.filter(o => o._1 == "id").head._2.asInstanceOf[JString].s
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)} where id='${id}'"
-    //println(sql)
     val oCommand = new OCommandSQL(sql)
     val execute = db.command(oCommand)
     val results: OrientDynaElementIterable = execute.execute()

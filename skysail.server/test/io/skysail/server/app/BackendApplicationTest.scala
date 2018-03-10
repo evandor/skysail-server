@@ -67,7 +67,6 @@ class TestApp extends BackendApplication(null, routesCreator = new RoutesCreator
 //  "a SkysailApplication" should "b" in {
 //    val app = new TestApp
 //    val router: Route = app.router
-//    println (router)
 //  }
 //
 //}

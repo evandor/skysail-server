@@ -47,7 +47,6 @@ case class BookmarkList(
 //
 ////  val variants:String = {
 ////    val lists = hits.map(hit => hit._2.map(sub => url.replace("${" + hit._1 + "}", sub))).flatten.toList
-////    println("Lists: " + lists)
 ////    lists.toString()
 ////  }
 //

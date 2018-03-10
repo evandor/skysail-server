@@ -45,9 +45,7 @@ object BackendApplication {
   }
 
   def getBundleActor(system: ActorSystem, bundleId: Long): ActorSelection = {
-    //println(new PrivateMethodExposer(theSystem)('printTree)())
     val actorSelection = "/user/" + Constants.BUNDLES_ACTOR_NAME + "/" + bundleId.toString
-    println("searching for actorSelection " + actorSelection)
     system.actorSelection(actorSelection)
   }
 
@@ -138,7 +136,6 @@ abstract class BackendApplication(
 
   private def defaultRoutes(appModel: ApplicationModel): List[RouteMappingI[_, _]] = {
     //defaultResources.map(cls => DefaultResource.getMappings(cls, appModel.puml)).flatten
-    println(defaultResources)
     defaultResources
       .map((cls: Class[_ <: DefaultResource[_, _, _]]) => {
         val newClass: DefaultResource[_,_, _] = cls.newInstance()

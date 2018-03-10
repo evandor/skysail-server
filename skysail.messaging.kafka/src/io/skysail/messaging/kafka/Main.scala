@@ -2,8 +2,6 @@ package io.skysail.messaging.kafka
 
 object Main {
   def main(args: Array[String]): Unit = {
-    println("Hello from main of class")
-
     import java.io.PrintWriter
     val caWriter: PrintWriter = new PrintWriter("/Users/carsten/tmp/ca.pem", "UTF-8")
     val ca: String = System.getenv("CLOUDKARAFKA_CA")

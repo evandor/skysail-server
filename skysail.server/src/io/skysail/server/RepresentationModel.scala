@@ -69,7 +69,6 @@ class RepresentationModel(
     }
     val e = Extraction.decompose(payload)
     //.asInstanceOf[JArray]
-    println("E: " + e)
     val res = e match {
       case _: JArray => {
         e.children.map(c => {
@@ -85,7 +84,6 @@ class RepresentationModel(
         log info s"$a"
         Nil
     }
-    println("RES: " + res)
     res
   }
 

@@ -117,7 +117,6 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
   // TODO return Option
   def findById[T: Manifest](cls: Class[T], id: String): T = {
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)} where id='${id}'"
-    //println("executing sql " + sql)
     val res = executeCommand(sql) //, filter.getParams());
     val r = res.iterator().next().asInstanceOf[OrientVertex]
     val result = documentToBean(r.getRecord, cls)
@@ -126,7 +125,6 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
 
   def findByClass[T: Manifest](cls: Class[T]): List[T] = {
     val sql = s"SELECT * from ${DbService.tableNameFor(cls)}"
-    println("executing sql " + sql)
     val res = executeCommand(sql) //, filter.getParams());
     val result = scala.collection.mutable.ListBuffer[T]()
     for (i <- res.iterator().asScala) {
@@ -143,16 +141,12 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
   }
 
   private def documentToBean[T: Manifest](doc: ODocument, cls: Class[T]): T = {
-    println()
-    println("Doc: " + doc)
     val json = doc.toJSON("fetchPlan:*:2") /*rid,version,*/
     Transformer.jsonStringToBean2(json, cls)
   }
 
   private def documentToBeanGraph[T: Manifest](doc: ODocument, cls: Class[T], appModel: ApplicationModel): T = {
     //Transformer.jsonStringToBean(doc.toJSON("fetchPlan:*:-1"))
-    //println("1" + doc.toJSON("fetchPlan:*:2"))
-    //println("2" + doc.toJSON("fetchPlan:*:-1"))
     Transformer.jsonStringToBean3(doc.toJSON("fetchPlan:*:-1"), cls, appModel)
   }
 
@@ -175,7 +169,6 @@ class OrientDbGraphService(url: String, user: String, pass: String) extends DbSe
     val r = findByBusinessId(cls, id).get
     val graphDb = getGraphDb()
     val sql2 = s"DELETE VERTEX ${DbService.tableNameFor(cls)} WHERE @rid=${r.getId}"
-    println("executing sql2 " + sql2)
     graphDb.command(new OCommandSQL(sql2)).execute()
     graphDb.commit()
     true

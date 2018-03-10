@@ -26,16 +26,12 @@ class DefaultRepositoryService(var repoAdmin: RepositoryAdmin) extends Repositor
       resolver.add(resource.get)
       if (resolver.resolve()) {
         val resources = resolver.getAddedResources();
-        //println("Resources: " + resources.map(r => r.getSymbolicName).mkString(",\n"))
         resolver.deploy(17)
         val added = resolver.getAddedResources()
-        //println("added Resources: " + added.map(a => a.getURI).mkString(",\n"))
       } else {
         val reqs = resolver.getUnsatisfiedRequirements()
         if (!reqs.isEmpty) {
-          //println("unsatisfied requirements: " + reqs)
         } else {
-          //println("could not resolve targets.")
         }
       }
     }

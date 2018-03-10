@@ -1,16 +1,13 @@
 package io.skysail.server.demo.resources
 
-import akka.http.scaladsl.model.{ContentTypes, ResponseEntity}
-import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
-import akka.util.ByteString
-import io.skysail.domain.{RequestEvent, ResponseEventBase, Transformer}
 import io.skysail.domain.resources.EntityResource
+import io.skysail.domain.{RequestEvent, Transformer}
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.SpringBeanList
 import org.apache.http.HttpResponse
-import org.apache.http.client.{ClientProtocolException, ResponseHandler}
 import org.apache.http.client.methods.HttpGet
+import org.apache.http.client.{ClientProtocolException, ResponseHandler}
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.util.EntityUtils
 import org.json4s.{DefaultFormats, jackson}
@@ -31,11 +28,8 @@ class BeansResource extends EntityResource[DemoApplication, SpringBeanList]{
 //    val v = akka.http.scaladsl.model.HttpEntity.Strict(ContentTypes.`application/json`, ByteString(res)).asInstanceOf[ResponseEntity]
 //    val x = Unmarshal(v)
 //   // val u = x.to[SpringBeanList]
-//    println(x)
 //
-    println(res2)
     val r:SpringBeanList = Transformer.jsonStringToBean[SpringBeanList](res2)
-    println(r)
     None
   }
 

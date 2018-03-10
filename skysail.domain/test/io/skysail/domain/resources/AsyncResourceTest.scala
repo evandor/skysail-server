@@ -23,7 +23,6 @@
 //
 //  val art = new AsyncResource() {
 //    override def get(requestEvent: RequestEvent) = {
-//      println("hier")
 //      ListResponseEvent(null, null)
 //    }
 //  }
@@ -34,7 +33,6 @@
 //    val ca = system.actorOf(p)
 //    val re = RequestEvent(null, ca)
 //    val r = art.doGet(re)
-//    println(r)
 //  }
 //
 //}

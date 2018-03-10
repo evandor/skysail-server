@@ -58,7 +58,6 @@ class BundlesActor(bundleContext: BundleContext) extends Actor with ActorLogging
 
   private def getBundles(gb: GetBundles) = {
     val bundles = bundleContext.getBundles.toList
-    //println("getting bundles: " + bundles)
     sender ! bundles
   }
 
@@ -97,7 +96,6 @@ class BundlesActor(bundleContext: BundleContext) extends Actor with ActorLogging
   }
 
   private def getBundle(symbolicName: String) = {
-    println(bundleContext.getBundles.map(b => b.getSymbolicName).mkString(",\n"))
 //    try {
 //      val bundle = bundleContext.getBundle(symbolicName)
 //      sender ! bundle

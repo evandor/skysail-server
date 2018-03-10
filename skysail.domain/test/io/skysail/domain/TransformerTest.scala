@@ -27,8 +27,6 @@ class TransformerTest {
 //  def accountToJson(): Unit = {
 //    val bm = Bookmark(Some("from_account"), "title", "url", root = root)
 //    val json: json4s.JValue = Transformer.beanToJson(bm)
-//    println(json)
-//    println(compact(render(json)))
 //
 //  }
 
@@ -67,18 +65,14 @@ class TransformerTest {
     val bm = Bookmark(Some("bmId"), "title", "url")
     val f = DefaultFormats + FieldSerializer[Bookmark]() + new EnumNameSerializer(ScalaState)
     val json: json4s.JValue = Transformer.beanToJson2(bm,f)
-    println(json)
     val jsonString: String = compact(render(json))
-    println(jsonString)
   }
 
   private def createOrientDbJsonForTestBookmark(title: String, url: String): String = {
     val edge = OutEdge("#100:1", rootOrientDb)
     val bm = BookmarkOrientDb(Some("bmId"), title, url, out_root = List(edge))
     val json: JValue = Transformer.beanToJson(bm)
-    println(json)
     val jsonString: String = compact(render(json))
-    println(jsonString)
     jsonString
   }
 

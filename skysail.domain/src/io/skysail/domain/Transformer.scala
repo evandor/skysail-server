@@ -20,18 +20,13 @@ object Transformer {
 
   // TODO check https://stackoverflow.com/questions/15943957/is-it-possible-to-make-json4s-not-to-throw-exception-when-required-field-is-miss
   def jsonStringToBean[T: Manifest](jsonStr: String): T = {
-    //println("JSON: " + jsonStr)
     val r = org.json4s.native.JsonMethods.parse(jsonStr).extractOpt[T]
-    //println("RRR:" + r)
     val r2 = read[T](jsonStr)
-    //println("RRR2:" + r2)
     r2
   }
 
   def jsonStringToBean2[T: Manifest](json: String, cls: Class[T]): T = {
-    //println(json)
     val ast = parse(json)
-    //println(ast)
     implicit val formats = DefaultFormats
 
     val from = (ast \\ "out_from" \ "in")(0)
@@ -40,19 +35,14 @@ object Transformer {
       case JField("out_from", JArray(s)) => ("from", from)
       case JField("out_to", JArray(s)) => ("to", to)
     }
-
-    //println("AST2" + p)
     p.extract[T]
   }
 
   def jsonStringToBean3[T: Manifest](json: String, cls: Class[T], appModel: ApplicationModel): T = {
-    println(json)
     val ast = parse(json)
-    println(ast)
     implicit val formats = DefaultFormats
 
     val edgeFields: Seq[String] = appModel.entityRelationFields(cls)
-    println(edgeFields)
     val edgeFieldNameJValuesPairs: Seq[(String, String, JValue)] = edgeFields.map(f =>(f, s"out_$f", (ast \\ s"out_$f" \ "in")(0)))
 
     var l = ast
@@ -61,8 +51,6 @@ object Transformer {
         case JField(p._2, JArray(s)) => (p._1, p._3)
       }
     }
-
-    println("AST2" + l)
     l.extract[T]
 
   }

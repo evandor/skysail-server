@@ -16,7 +16,6 @@ class AccountsSimulationTest {
   def accountToJson(): Unit = {
     val account = Account(Some("from_account"), "from_a", 10)
     val json: json4s.JValue = Transformer.beanToJson(account)
-    println(json)
     //assertTrue(json.toString == "JObject(List((id,JString(from_account)), (title,JString(from_a)), (balance,JInt(10)), (_links,JArray(List(JObject(List((rel,JString(self)), (href,JString(here)))))))))")
                              //    JObject(List((id,JString(from_account)), (title,JString(from_a)), (balance,JInt(10)), (_links,JArray(List(JObject(List((text,JString(here)), (rel,JString(self)), (href,JString(xx)), (target,JString(_self)), (title,JString()), (style,JString()))))))))
 
@@ -27,14 +26,12 @@ class AccountsSimulationTest {
     val account = Account(Some("from_account"), "from_a", 10)
     val accountList = AccountList(List(account))
     val json: json4s.JValue = Transformer.beanToJson(accountList)
-    println(json)
   }
 
     @Test
   def bookmarkToJson(): Unit = {
     val bm = Bookmark(Some("id"), "title", "url")
     val json: json4s.JValue = Transformer.beanToJson(bm)
-    println(json)
     //assertTrue(json.toString == "JObject(List((id,JString(from_account)), (title,JString(from_a)), (balance,JInt(10)), (_links,JArray(List(JObject(List((rel,JString(self)), (href,JString(here)))))))))")
   }
 
@@ -43,7 +40,6 @@ class AccountsSimulationTest {
     val bm = Bookmark(Some("id"), "title", "url")
     val bookmarkList = BookmarkList(List(bm))
     val json: json4s.JValue = Transformer.beanToJson(bookmarkList)
-    println(json)
   }
 
   @Test
@@ -53,8 +49,6 @@ class AccountsSimulationTest {
     val to = Account(Some("to_account"), "to_a", 100)
     val p = Pattern(Some("pid"), from, to, 100)
     val e: JValue = Extraction.decompose(p)
-    println(e)
-    println(compact(render(e)))
   }
 
   @Test
@@ -85,7 +79,6 @@ class AccountsSimulationTest {
     implicit val formats = DefaultFormats
 
     val r = ast.extract[Pattern]
-    println(r)
   }
 
   @Test
@@ -125,10 +118,7 @@ class AccountsSimulationTest {
     val ast = parse(input)
     implicit val formats = DefaultFormats
 
-    println(ast)
-
     val r = ast.extract[Pattern]
-    println(r)
   }
 
   @Test
@@ -154,7 +144,6 @@ class AccountsSimulationTest {
     implicit val formats = DefaultFormats
 
     val r = ast.extract[Pattern]
-    println(r)
   }
 
   @Test
@@ -232,7 +221,6 @@ class AccountsSimulationTest {
     implicit val formats = DefaultFormats
 
     val r = ast.extract[Pattern]
-    println(r)
 
   }
 
@@ -286,30 +274,10 @@ class AccountsSimulationTest {
     val ast = parse(input)
     implicit val formats = DefaultFormats
 
-    println("AST:" + ast)
-
-    println("out_from: " + ast \\ "out_from")
-    println("in:       " + ast \\ "out_from" \ "in")
-
-    println("r1: " + compact(render(ast)))
-
     val in = (ast \\ "out_from" \ "in").asInstanceOf[JValue]
     val p = ast transformField {
       case JField("out_from", JArray(s)) => ("from", in)
     }
-
-    println("r2: " + compact(render(p)))
-
-    //val s = ast removeField { _ == JField("out_from", JString("Marilyn")) }
-    //val s = ast removeField { case JField("out_from", _) => false }
-    //val s = ast removeField { case _ => true }
-
-    //println("SSS: " + compact(render(s)))
-
-    println(p.extract[Pattern])
-
-    // val r = p.extract[Pattern]
-    // println(r)
 
   }
 
@@ -358,7 +326,6 @@ class AccountsSimulationTest {
       case JField("out_from", JArray(s)) => ("from", from)
       case JField("out_to", JArray(s)) => ("to", to)
     }
-    println(p.extract[Pattern])
   }
 
   @Test
@@ -398,7 +365,6 @@ class AccountsSimulationTest {
 """
 
     val ast = parse(input)
-    println("AST: " + ast)
     implicit val formats = DefaultFormats
     val from = (ast \\ "out_from" \ "in") (0)
     val to = (ast \\ "out_to" \ "in") (0)
@@ -406,8 +372,6 @@ class AccountsSimulationTest {
       case JField("out_from", JArray(s)) => ("from", from)
       case JField("out_to", JArray(s)) => ("to", to)
     }
-    println(p)
-    println(p.extract[Pattern])
   }
 
 }

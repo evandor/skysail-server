@@ -96,7 +96,6 @@ class ControllerActor() extends Actor {
       } else {
         Transformer.beanToJson(response.entity)
       }
-      //println(ast)
       ast match {
         case a: JObject =>
           val b: String = compact(render(a))
@@ -188,11 +187,9 @@ class ControllerActor() extends Actor {
   }
 
   private def tryLoading[T](templateName: String, response: ResponseEvent[T], loader: ClassLoader, ct: Class[T]): Option[ResponseEntity] = {
-    //(implicit ct: ClassTag[T]): Option[ResponseEntity] = {
     try {
       val resourceHtmlClass: Class[_] = loader.loadClass(templateName)
       val applyMethod = findMethod(resourceHtmlClass)
-      //val applyMethod = resourceHtmlClass.getMethod("apply", classOf[RepresentationModel], classOf[ResponseEventBase], ct)
       val rep = new RepresentationModel(response, applicationModel)
       val r2 = applyMethod.invoke(resourceHtmlClass, rep, response, response.entity.asInstanceOf[Object]).asInstanceOf[HtmlFormat.Appendable]
       Some(HttpEntity(ContentTypes.`text/html(UTF-8)`, r2.body))

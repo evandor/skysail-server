@@ -121,7 +121,6 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
       } ~
       path("c4") {
         parameterMap { map =>
-          // println("MAP: " + map)
           complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "hier we are"))
         }
       }

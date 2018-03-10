@@ -2,20 +2,17 @@ package io.skysail.server.demo.resources
 
 import java.util.UUID
 
-import akka.actor.{ ActorSelection, ActorSystem }
+import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
-import io.skysail.domain.resources.{ EntityResource, PostResource, PutResource }
-import io.skysail.domain.{ RedirectResponseEvent, RequestEvent, ResponseEvent, ResponseEventBase }
-import io.skysail.server.adapter.JSoupAdapter
+import io.skysail.domain.resources.{EntityResource, PostResource, PutResource}
+import io.skysail.domain.{RedirectResponseEvent, RequestEvent, ResponseEvent, ResponseEventBase}
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.{ Bookmark, BookmarkList }
+import io.skysail.server.demo.domain.{Bookmark, BookmarkList}
 import io.skysail.server.demo.services.BookmarksService
-import org.jsoup.nodes.Document
 
-import scala.util.{ Failure, Success, Try }
 import scala.util.matching.Regex
 
 class BookmarksResource extends EntityResource[DemoApplication, BookmarkList] {
@@ -96,9 +93,7 @@ class BookmarkResource extends EntityResource[DemoApplication, Bookmark] {
     if (bm.url.contains("$")) {
       val pattern = new Regex("\\$\\{(.*?)}")
       val matchList = (pattern findAllIn bm.url).toList
-      println((pattern findAllIn bm.url).mkString(","))
       val hits = matchList.map(hit => hit.substring(2, hit.length - 1)).map(hit => hit -> app.getList(hit))
-      println(hits)
       val variant1 = new Bookmark(None, "var", "1")
 
       val lists = hits

@@ -35,7 +35,6 @@ class RootResource extends AsyncEntityResource[RootApplication,RootInfo] {
           RootInfo("skysail server", desc, productDef)
         else
           RootInfo("skysail server", desc, productDef, s"${s.size} app(s) deployed: " + s.map(_.name).mkString(", "))
-        log info s"sending response event with msg $msg"
         requestEvent.controllerActor ! ResponseEvent(requestEvent, msg)
       }
       case Failure(f) => log warn s"failure: $f"
