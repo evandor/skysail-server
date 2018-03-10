@@ -84,7 +84,7 @@ import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 task buildImage(type: DockerBuildImage) {
     //dependsOn createDockerfile
     inputDir = project.file('release')//createDockerfile.destFile.parentFile
-    tag = 'evandor/skysail-server-website-local'
+    tag = "evandor/skysail-server-website-local:${version}"
     //noCache = true
 }
 
