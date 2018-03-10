@@ -39,7 +39,8 @@ logback.configurationFile.path = config/local
 	osgi.identity;filter:='(osgi.identity=skysail.server)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.demo)',\
-	osgi.identity;filter:='(osgi.identity=skysail.server.app.osgi)',\
+    osgi.identity;filter:='(osgi.identity=skysail.server.app.appboard)',\
+    osgi.identity;filter:='(osgi.identity=skysail.server.app.osgi)',\
 	osgi.identity;filter:='(osgi.identity=webconsole.all)',\
 	osgi.identity;filter:='(&(osgi.identity=org.jsoup)(version>=1.11.2))'
 
@@ -106,4 +107,5 @@ logback.configurationFile.path = config/local
 	skysail.server.auth.none;version=snapshot,\
 	skysail.server.demo;version=snapshot,\
 	skysail.server.doc;version=snapshot,\
-	webconsole.all;version='[0.2.0,0.2.1)'
+	webconsole.all;version='[0.2.0,0.2.1)',\
+	skysail.server.app.appboard;version='[0.1.0,0.1.1)'
