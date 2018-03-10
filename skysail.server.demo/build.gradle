@@ -79,7 +79,7 @@ import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
 task buildImage(type: DockerBuildImage) {
     inputDir = project.file('release')
-    tag = 'evandor/skysail-server-demo'
+    tag = "evandor/skysail-server-demo:${version}"
 }
 
 task runnable(dependsOn: ['copyConf', 'copyRunnables']) {
