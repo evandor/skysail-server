@@ -2,7 +2,7 @@
 ### --- general settings, do not change unless you know what you are doing --------- ###
 ########################################################################################
 
--include: ~server.demo.bndrun
+-include: ~server.website.bndrun
 
 ########################################################################################
 ### --- run-file-specific settings ------------------------------------------------- ###
