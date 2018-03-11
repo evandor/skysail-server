@@ -1,0 +1,49 @@
+= all deployment / run modes
+
+== local IDE
+
+use server.demo.ide.bndrun, using local configuration from /config/local
+
+open http://localhost:8082
+
+== from jar file
+
+=== direct mode
+
+./gradlew skysail.server.demo:export.server.demo
+cd skysail.server.demo/generated/distributions/executable/
+java -jar server.demo.jar
+(broken, config missing)
+
+=== ide mode
+
+./gradlew skysail.server.demo:export.server.demo.ide
+cd skysail.server.demo/generated/distributions/executable/
+java -jar server.demo.ide.jar
+(broken, config missing)
+
+=== docker mode
+
+./gradlew skysail.server.demo:export.server.demo.docker
+cd skysail.server.demo/generated/distributions/executable/
+java -jar server.demo.docker.jar
+(broken, config missing)
+
+== Kitematic
+
+search for skysail, then skysail-server-demo, pick newest version (e.g. 0.0.104),
+start and go to localhost:32768 (port depending on kitematic setup)
+
+configuration is copied from /config dir during image building
+
+== Docker.io
+
+buildPipeine2.groovy does the following:
+
+* ./gradlew skysail.server.demo:export.server.demo.docker
+* ./gradlew skysail.server.demo:runnable skysail.server.demo:buildImage -Pversion=${env.BUILD_VERSION}
+* /home/carsten/install/docker/skysail/run_docker.sh demo test ${env.BUILD_VERSION} &
+
+=== evandor.de
+
+

@@ -1,0 +1,65 @@
+= all deployment / run modes
+
+== local IDE
+
+=== Intellij
+
+==== OSGi BND run configuration
+
+use server.website.ide.bndrun, using local configuration from /config/local
+
+open http://localhost:8085
+
+==== docker run configuration
+
+Create a docker run configuration with a command like
+
+'''
+docker build -t <image_tag> .
+&& docker run
+-p 9102:9102
+--name skysail-server-website-local
+<image_tag>
+'''
+
+start, and open http://localhost:9102
+
+Used configuration: from config/docker
+
+== from jar file
+
+=== direct mode
+
+./gradlew skysail.server.website:export.server.website
+cd skysail.server.website/generated/distributions/executable/
+java -jar server.website.jar
+(broken, config missing)
+
+=== ide mode
+
+./gradlew skysail.server.website:export.server.website.ide
+cd skysail.server.website/generated/distributions/executable/
+java -jar server.website.ide.jar
+(broken, config missing)
+
+=== docker mode
+
+./gradlew skysail.server.website:export.server.website.docker
+cd skysail.server.website/generated/distributions/executable/
+java -jar server.website.docker.jar
+(broken, config missing)
+
+== Kitematic
+
+server.website is not deployed to docker.io
+
+== Docker.io
+
+buildPipeine2.groovy does the following:
+
+* ./gradlew skysail.server.website:export.server.website.docker
+* ./gradlew skysail.server.website:runnable skysail.server.website:buildImage -Pversion=${env.BUILD_VERSION}
+* /home/carsten/install/docker/skysail/run_docker.sh website test ${env.BUILD_VERSION} &
+
+=== evandor.de
+

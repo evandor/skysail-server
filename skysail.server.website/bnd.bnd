@@ -11,7 +11,7 @@ Bundle-Activator: io.skysail.server.website.Activator
 Build-Version: ${buildVersion}
 
 #OSGI-OPT/src=src/,
--includeresource: resources
+-includeresource: resources, config=config
 
 -buildpath: \
 	${osgi},\

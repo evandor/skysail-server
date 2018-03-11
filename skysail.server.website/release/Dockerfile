@@ -28,10 +28,11 @@ USER skysail
 ENV HOME /home/skysail
 WORKDIR /home/skysail
 
-RUN mkdir -p /home/skysail/products/demo/plugins
+RUN mkdir -m 775 -p /home/skysail/products/demo/plugins
+RUN mkdir -m 775 -p /home/skysail/products/demo/config
 
-COPY config/ /home/skysail/products/demo/config/
-COPY server.website.jar /home/skysail/products/demo/server.website.jar
+COPY --chown=skysail config/ /home/skysail/products/demo/config/
+COPY --chown=skysail server.website.docker.jar /home/skysail/products/demo/server.website.jar
 
 WORKDIR /home/skysail/products/demo
 
