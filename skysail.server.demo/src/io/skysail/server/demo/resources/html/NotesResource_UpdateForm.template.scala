@@ -40,7 +40,7 @@ Seq[Any](format.raw/*6.68*/("""
                 <tbody>
                 <tr>
                     <th scope="row"><input type="text" name="title" value='"""),_display_(/*27.77*/rep/*27.80*/.rawData.head.get("title")),format.raw/*27.106*/("""'/></th>
-                    <td><textarea name="content" size="100" rows="5">"""),_display_(/*28.71*/rep/*28.74*/.rawData.head.get("content")),format.raw/*28.102*/("""</textarea></td>
+                    <td><textarea name="content" size="100" rows="25" cols="120">"""),_display_(/*28.83*/rep/*28.86*/.rawData.head.get("content")),format.raw/*28.114*/("""</textarea></td>
                 </tr>
                 <tr>
                     <th colspan="2">
@@ -71,10 +71,10 @@ Seq[Any](format.raw/*6.68*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Sat Feb 03 09:40:24 CET 2018
-                  SOURCE: /Users/carsten/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/NotesResource_UpdateForm.scala.html
-                  HASH: 6c9599e5cdb8821b2776812c72fdfefc4836eca4
-                  MATRIX: 728->193|889->259|917->262|939->276|978->278|1007->280|1546->792|1558->795|1606->821|1712->900|1724->903|1774->931
+                  DATE: Mon Mar 12 18:30:56 CET 2018
+                  SOURCE: C:/git/skysail-server/skysail.server.demo/./src/io/skysail/server/demo/resources/NotesResource_UpdateForm.scala.html
+                  HASH: e33e4b5fe307cdea0eedb0b870d9010bc23199e2
+                  MATRIX: 728->193|889->259|917->262|939->276|978->278|1007->280|1546->792|1558->795|1606->821|1724->912|1736->915|1786->943
                   LINES: 16->6|21->6|23->8|23->8|23->8|25->10|42->27|42->27|42->27|43->28|43->28|43->28
                   -- GENERATED --
               */

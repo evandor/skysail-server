@@ -36,44 +36,50 @@ Seq[Any](format.raw/*1.73*/("""
               """),_display_(/*20.16*/for(f <- rep.entityModel.get.fields.reverse) yield /*20.60*/ {_display_(Seq[Any](format.raw/*20.62*/("""
                 """),format.raw/*21.17*/("""<td>"""),_display_(/*21.22*/p/*21.23*/.get(f.name.split("\\.").reverse.head)),format.raw/*21.61*/("""</td>
               """)))}),format.raw/*22.16*/("""
-            """),format.raw/*23.13*/("""</tr>
-            """)))}),format.raw/*24.14*/("""
+                """),format.raw/*23.17*/("""<td>
+                    <a href='"""),_display_(/*24.31*/{response.req.cmd.ctx.request.uri}),format.raw/*24.65*/("""/"""),_display_(/*24.67*/{p.get("id")}),format.raw/*24.80*/("""/'>Edit</a>
+                </td>
+            </tr>
+            """)))}),format.raw/*27.14*/("""
 
-            """),format.raw/*26.13*/("""</tbody>
+            """),format.raw/*29.13*/("""</tbody>
 
         </table>
 
-        <a href='./'>Create New Entity</a>
-
         <div>
             <h3>links</h3>
-            """),_display_(/*34.14*/Html(rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]._links.filter(_.rel == "create-form").headOption.map(_.toHtml()).getOrElse(""))),format.raw/*34.159*/("""
-        """),format.raw/*35.9*/("""</div>
+            """),_display_(/*35.14*/Html(rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]._links.filter(_.rel == "create-form").headOption.map(_.toHtml()).getOrElse(""))),format.raw/*35.159*/("""
+        """),format.raw/*36.9*/("""</div>
 
         <div>
             <h3>rawData</h3>
-            """),_display_(/*39.14*/rep/*39.17*/.rawData),format.raw/*39.25*/("""
-        """),format.raw/*40.9*/("""</div>
+            """),_display_(/*40.14*/rep/*40.17*/.rawData),format.raw/*40.25*/("""
+        """),format.raw/*41.9*/("""</div>
 
         <div>
             <h3>jsonData</h3>
-            """),_display_(/*44.14*/rep/*44.17*/.jsonData),format.raw/*44.26*/("""
-        """),format.raw/*45.9*/("""</div>
+            """),_display_(/*45.14*/rep/*45.17*/.jsonData),format.raw/*45.26*/("""
+        """),format.raw/*46.9*/("""</div>
+
+        <div>
+            <h3>rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]</h3>
+            """),_display_(/*50.14*/rep/*50.17*/.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]._links),format.raw/*50.81*/("""
+        """),format.raw/*51.9*/("""</div>
 
         <div>
             <h3>current Entity</h3>
-            <div>"""),_display_(/*49.19*/rep/*49.22*/.entityModel),format.raw/*49.34*/("""</div>
+            <div>"""),_display_(/*55.19*/rep/*55.22*/.entityModel),format.raw/*55.34*/("""</div>
             <h3>current Entity's fields</h3>
-            <div>"""),_display_(/*51.19*/Html(rep.entityModel.get.fields.mkString("<br>"))),format.raw/*51.68*/("""</div>
+            <div>"""),_display_(/*57.19*/Html(rep.entityModel.get.fields.mkString("<br>"))),format.raw/*57.68*/("""</div>
         </div>
 
         <div>
-            """),_display_(/*55.14*/printAppModel(rep.model)/*55.38*/ { whatever =>_display_(Seq[Any](format.raw/*55.52*/(""" """),format.raw/*55.53*/("""... """)))}),format.raw/*55.58*/("""
-        """),format.raw/*56.9*/("""</div>
+            """),_display_(/*61.14*/printAppModel(rep.model)/*61.38*/ { whatever =>_display_(Seq[Any](format.raw/*61.52*/(""" """),format.raw/*61.53*/("""... """)))}),format.raw/*61.58*/("""
+        """),format.raw/*62.9*/("""</div>
 
         <div>
-            """),_display_(/*59.14*/printRequest(response.req)),format.raw/*59.40*/("""
-        """),format.raw/*60.9*/("""</div>
+            """),_display_(/*65.14*/printRequest(response.req)),format.raw/*65.40*/("""
+        """),format.raw/*66.9*/("""</div>
 
         <hr>
         <a href="/doc/v1/index.html" target="_docs">Doc</a>
@@ -81,9 +87,9 @@ Seq[Any](format.raw/*1.73*/("""
 </div>
 
 
-"""),_display_(/*68.2*/debug("error")/*68.16*/ { color =>_display_(Seq[Any](format.raw/*68.27*/("""
-  """),format.raw/*69.3*/("""Oops, something is <span style="color:"""),_display_(/*69.42*/color),format.raw/*69.47*/("""">wrong</span>
-""")))}),format.raw/*70.2*/("""
+"""),_display_(/*74.2*/debug("error")/*74.16*/ { color =>_display_(Seq[Any](format.raw/*74.27*/("""
+  """),format.raw/*75.3*/("""<!-- output from debug -->
+""")))}),format.raw/*76.2*/("""
 
 """)))}))
       }
@@ -101,11 +107,11 @@ Seq[Any](format.raw/*1.73*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Thu Feb 22 08:12:31 CET 2018
-                  SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/ListResource_Get.scala.html
-                  HASH: 8689ae0098eaa2e1ff0f5e99f0c95cece66aa487
-                  MATRIX: 500->1|666->72|694->75|716->89|755->91|783->93|881->165|892->168|923->179|1091->320|1151->364|1191->366|1240->387|1272->392|1282->393|1334->424|1388->447|1429->460|1516->520|1553->541|1593->543|1634->556|1681->576|1741->620|1781->622|1826->639|1858->644|1868->645|1927->683|1979->704|2020->717|2070->736|2112->750|2265->876|2432->1021|2468->1030|2559->1094|2571->1097|2600->1105|2636->1114|2728->1179|2740->1182|2770->1191|2806->1200|2909->1276|2921->1279|2954->1291|3051->1361|3121->1410|3198->1460|3231->1484|3283->1498|3312->1499|3348->1504|3384->1513|3446->1548|3493->1574|3529->1583|3657->1685|3680->1699|3729->1710|3759->1713|3825->1752|3851->1757|3897->1773
-                  LINES: 12->1|17->1|19->3|19->3|19->3|21->5|23->7|23->7|23->7|28->12|28->12|28->12|29->13|29->13|29->13|29->13|30->14|31->15|34->18|34->18|34->18|35->19|36->20|36->20|36->20|37->21|37->21|37->21|37->21|38->22|39->23|40->24|42->26|50->34|50->34|51->35|55->39|55->39|55->39|56->40|60->44|60->44|60->44|61->45|65->49|65->49|65->49|67->51|67->51|71->55|71->55|71->55|71->55|71->55|72->56|75->59|75->59|76->60|84->68|84->68|84->68|85->69|85->69|85->69|86->70
+                  DATE: Mon Mar 12 18:07:05 CET 2018
+                  SOURCE: C:/git/skysail-server/skysail.server/./src/ListResource_Get.scala.html
+                  HASH: a86921e28878d53116003b28984231d007e0cccb
+                  MATRIX: 500->1|666->72|694->75|716->89|755->91|783->93|881->165|892->168|923->179|1091->320|1151->364|1191->366|1240->387|1272->392|1282->393|1334->424|1388->447|1429->460|1516->520|1553->541|1593->543|1634->556|1681->576|1741->620|1781->622|1826->639|1858->644|1868->645|1927->683|1979->704|2024->721|2086->756|2141->790|2170->792|2204->805|2300->870|2342->884|2451->966|2618->1111|2654->1120|2745->1184|2757->1187|2786->1195|2822->1204|2914->1269|2926->1272|2956->1281|2992->1290|3136->1407|3148->1410|3233->1474|3269->1483|3372->1559|3384->1562|3417->1574|3514->1644|3584->1693|3661->1743|3694->1767|3746->1781|3775->1782|3811->1787|3847->1796|3909->1831|3956->1857|3992->1866|4120->1968|4143->1982|4192->1993|4222->1996|4280->2024
+                  LINES: 12->1|17->1|19->3|19->3|19->3|21->5|23->7|23->7|23->7|28->12|28->12|28->12|29->13|29->13|29->13|29->13|30->14|31->15|34->18|34->18|34->18|35->19|36->20|36->20|36->20|37->21|37->21|37->21|37->21|38->22|39->23|40->24|40->24|40->24|40->24|43->27|45->29|51->35|51->35|52->36|56->40|56->40|56->40|57->41|61->45|61->45|61->45|62->46|66->50|66->50|66->50|67->51|71->55|71->55|71->55|73->57|73->57|77->61|77->61|77->61|77->61|77->61|78->62|81->65|81->65|82->66|90->74|90->74|90->74|91->75|92->76
                   -- GENERATED --
               */
           

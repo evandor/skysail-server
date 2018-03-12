@@ -20,14 +20,15 @@
               @for(f <- rep.entityModel.get.fields.reverse) {
                 <td>@p.get(f.name.split("\\.").reverse.head)</td>
               }
+                <td>
+                    <a href='@{response.req.cmd.ctx.request.uri}/@{p.get("id")}/'>Edit</a>
+                </td>
             </tr>
             }
 
             </tbody>
 
         </table>
-
-        <a href='./'>Create New Entity</a>
 
         <div>
             <h3>links</h3>
@@ -42,6 +43,11 @@
         <div>
             <h3>jsonData</h3>
             @rep.jsonData
+        </div>
+
+        <div>
+            <h3>rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]</h3>
+            @rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]._links
         </div>
 
         <div>
@@ -66,7 +72,7 @@
 
 
 @debug("error") { color =>
-  Oops, something is <span style="color:@color">wrong</span>
+  <!-- output from debug -->
 }
 
 }
