@@ -1,8 +1,12 @@
 = all deployment / run modes
 
+skysail projects can be started in a variety of ways:
+
 == local IDE
 
 === Intellij
+
+Below you'll find instructions for both Intellij and Eclipse.
 
 ==== OSGi BND run configuration
 
@@ -26,28 +30,19 @@ start, and open http://localhost:9102
 
 Used configuration: from config/docker
 
+=== Eclipse
+
+to be done
+
 == from jar file
 
-=== direct mode
-
-./gradlew skysail.server.website:export.server.website
+./gradlew skysail.server.website:export.website
 cd skysail.server.website/generated/distributions/executable/
-java -jar server.website.jar
-(broken, config missing)
+java -jar website.jar
 
-=== ide mode
-
-./gradlew skysail.server.website:export.server.website.ide
-cd skysail.server.website/generated/distributions/executable/
-java -jar server.website.ide.jar
-(broken, config missing)
-
-=== docker mode
-
-./gradlew skysail.server.website:export.server.website.docker
-cd skysail.server.website/generated/distributions/executable/
-java -jar server.website.docker.jar
-(broken, config missing)
+Configuration will be extracted from the contained server.website.jar file
+and put next to the website.jar. Need to restart the application when running
+the first time.
 
 == Kitematic
 
@@ -57,7 +52,7 @@ server.website is not deployed to docker.io
 
 buildPipeine2.groovy does the following:
 
-* ./gradlew skysail.server.website:export.server.website.docker
+* ./gradlew skysail.server.website:export.website.docker
 * ./gradlew skysail.server.website:runnable skysail.server.website:buildImage -Pversion=${env.BUILD_VERSION}
 * /home/carsten/install/docker/skysail/run_docker.sh website test ${env.BUILD_VERSION} &
 
