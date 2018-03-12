@@ -6,7 +6,7 @@ case class AppModelDescription(appModel: ApplicationModel) {
 
   val name = appModel.name
 
-  val version = appModel.apiVersion.toString()
+  val version = if (appModel.apiVersion != null) appModel.apiVersion.toString() else "-"
 
   val description = appModel.description
 
