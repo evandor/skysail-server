@@ -34,17 +34,26 @@ start, and open http://localhost:9102
 
 Used configuration: from config/docker
 
+Open issue:
+
+WARNING: Not enough physical memory available for DISKCACHE: 1,999MB (heap=444MB). Set lower Maximum Heap (-Xmx setting on JVM) and restart OrientDB. Now running with DISKCACHE=256MB
+Mar 13, 2018 6:51:08 AM com.orientechnologies.common.log.OLogManager log
+INFO: OrientDB config DISKCACHE=-494MB (heap=444MB os=1,999MB disk=61,151MB)
+! Failed to start bundle skysail.db.orientdb-0.1.4.201803130611, exception activator error Could not initialize class com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal from: com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx:activateOnCurrentThread#2804
+org.osgi.framework.BundleException: Activator start error in bundle skysail.db.orientdb [55].
+
+
 === Eclipse
 
 to be done
 
 == from jar file
 
-./gradlew skysail.server.website:export.website
-cd skysail.server.website/generated/distributions/executable/
+./gradlew skysail.server.demo:export.demo
+cd skysail.server.demo/generated/distributions/executable/
 java -jar website.jar
 
-Configuration will be extracted from the contained server.website.jar file
+Configuration will be extracted from the contained server.demo.jar file
 and put next to the website.jar. Need to restart the application when running
 the first time.
 
