@@ -1,49 +1,64 @@
 = all deployment / run modes
 
+skysail projects can be started in a variety of ways:
+
 == local IDE
 
-use server.demo.ide.bndrun, using local configuration from /config/local
+=== Intellij
+
+Below you'll find instructions for both Intellij and Eclipse.
+
+==== OSGi BND run configuration
+
+use website.ide.bndrun, which uses the local configuration from /config/local
 
 open http://localhost:8082
 
+open issue: https://github.com/evandor/skysail-server/issues/4
+
+==== docker run configuration
+
+Create a docker run configuration with a command like
+
+'''
+docker build -t <image_tag> .
+&& docker run
+-p 9102:9102
+--name skysail-server-website-local
+<image_tag>
+'''
+
+and build steps (gradle): export.website.docker runnable
+
+start, and open http://localhost:9102
+
+Used configuration: from config/docker
+
+=== Eclipse
+
+to be done
+
 == from jar file
 
-=== direct mode
+./gradlew skysail.server.website:export.website
+cd skysail.server.website/generated/distributions/executable/
+java -jar website.jar
 
-./gradlew skysail.server.demo:export.server.demo
-cd skysail.server.demo/generated/distributions/executable/
-java -jar server.demo.jar
-(broken, config missing)
-
-=== ide mode
-
-./gradlew skysail.server.demo:export.server.demo.ide
-cd skysail.server.demo/generated/distributions/executable/
-java -jar server.demo.ide.jar
-(broken, config missing)
-
-=== docker mode
-
-./gradlew skysail.server.demo:export.server.demo.docker
-cd skysail.server.demo/generated/distributions/executable/
-java -jar server.demo.docker.jar
-(broken, config missing)
+Configuration will be extracted from the contained server.website.jar file
+and put next to the website.jar. Need to restart the application when running
+the first time.
 
 == Kitematic
 
-search for skysail, then skysail-server-demo, pick newest version (e.g. 0.0.104),
-start and go to localhost:32768 (port depending on kitematic setup)
-
-configuration is copied from /config dir during image building
+server.website is not deployed to docker.io
 
 == Docker.io
 
 buildPipeine2.groovy does the following:
 
-* ./gradlew skysail.server.demo:export.server.demo.docker
-* ./gradlew skysail.server.demo:runnable skysail.server.demo:buildImage -Pversion=${env.BUILD_VERSION}
-* /home/carsten/install/docker/skysail/run_docker.sh demo test ${env.BUILD_VERSION} &
+* ./gradlew skysail.server.website:export.website.docker
+* ./gradlew skysail.server.website:runnable skysail.server.website:buildImage -Pversion=${env.BUILD_VERSION}
+* /home/carsten/install/docker/skysail/run_docker.sh website test ${env.BUILD_VERSION} &
 
 === evandor.de
-
 

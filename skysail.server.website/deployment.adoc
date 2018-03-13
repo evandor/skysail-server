@@ -10,9 +10,11 @@ Below you'll find instructions for both Intellij and Eclipse.
 
 ==== OSGi BND run configuration
 
-use server.website.ide.bndrun, using local configuration from /config/local
+use website.ide.bndrun, which uses the local configuration from /config/local
 
 open http://localhost:8085
+
+open issue: https://github.com/evandor/skysail-server/issues/4
 
 ==== docker run configuration
 
@@ -25,6 +27,8 @@ docker build -t <image_tag> .
 --name skysail-server-website-local
 <image_tag>
 '''
+
+and build steps (gradle): export.website.docker runnable
 
 start, and open http://localhost:9102
 
