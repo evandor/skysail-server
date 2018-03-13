@@ -2,11 +2,11 @@
 ### --- general settings, do not change unless you know what you are doing --------- ###
 ########################################################################################
 
--include: ~server.demo.bndrun
+-include: ~website.bndrun
 
 ########################################################################################
 ### --- run-file-specific settings ------------------------------------------------- ###
 ########################################################################################
 
-skysail.config.path            = config/docker
-logback.configurationFile.path = config/docker
+skysail.config.path            = config
+logback.configurationFile.path = config
