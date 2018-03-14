@@ -35,6 +35,8 @@ to be done
 cd skysail.server.website/generated/distributions/executable/
 java -jar website.jar
 
+open: two jars created ?
+
 Configuration will be extracted from the contained server.website.jar file
 and put next to the website.jar. You'll need to restart the application when running
 the first time.
