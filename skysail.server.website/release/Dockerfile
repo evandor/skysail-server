@@ -41,7 +41,7 @@ COPY website.docker.jar /home/skysail/products/demo/server.website.jar
 
 WORKDIR /home/skysail/products/demo
 
-#ENTRYPOINT exec java -Dskysail.config.path=$CONFPATH -jar /home/skysail/products/demo/server.website.jar
-CMD ["java","-jar","/home/skysail/products/demo/server.website.jar"]
+ENTRYPOINT exec java -Dfelix.fileinstall.dir=$confdir -jar /home/skysail/products/demo/server.website.jar
+#CMD ["java","-jar","/home/skysail/products/demo/server.website.jar"]
 
 EXPOSE 9102

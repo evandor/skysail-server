@@ -7,6 +7,14 @@
         <option name="commandLineOptions" value="" />
         <option name="containerName" value="skysail-website-local" />
         <option name="entrypoint" value="" />
+        <option name="envVars">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="confdir" />
+              <option name="value" value="config" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
         <option name="imageTag" value="" />
         <option name="portBindings">
           <list>
