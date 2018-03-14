@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="website" type="osgi.bnd.run" factoryName="Run Launcher" singleton="true">
+    <option name="bndRunFile" value="$PROJECT_DIR$/skysail.server.website/website.ide.bndrun" />
+    <option name="alternativeJrePath" />
+    <method>
+      <option name="Make" enabled="false" />
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="build" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="-x test -x check" />
+      <option name="LaunchBrowser.Before.Run" url="http://localhost:8085" />
+    </method>
+  </configuration>
+</component>

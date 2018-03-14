@@ -1,0 +1,30 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="demo" type="docker-deploy" factoryName="dockerfile" singleton="true" server-name="Docker">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="JSONFilePath" value="" />
+        <option name="command" value="" />
+        <option name="commandLineOptions" value="" />
+        <option name="containerName" value="skysail-demo-local" />
+        <option name="entrypoint" value="" />
+        <option name="imageTag" value="" />
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="9102" />
+              <option name="hostPort" value="9102" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
+        <option name="sourceFilePath" value="skysail.server.demo/release/Dockerfile" />
+        <option name="startBrowserSettings">
+          <browser url="http://127.0.0.1" />
+        </option>
+      </settings>
+    </deployment>
+    <method>
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="export.demo.docker runnable" externalProjectPath="$PROJECT_DIR$/skysail.server.demo" vmOptions="" scriptParameters="" />
+      <option name="LaunchBrowser.Before.Run" url="http://localhost:9102" />
+    </method>
+  </configuration>
+</component>

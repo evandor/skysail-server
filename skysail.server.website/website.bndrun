@@ -9,8 +9,8 @@
 -runsystemcapabilities: ${native_capability}
 -runsystempackages: ${runsystempackages}
 -runproperties: ${runproperties},\
-    config.file=config/application.conf
-###    product.bundle=${p}
+    config.file=config/application.conf,\
+    product.bundle=${p}
 
 -resolve.effective: active;skip:="osgi.service"
 

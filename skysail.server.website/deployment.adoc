@@ -2,7 +2,7 @@
 
 skysail projects can be started in a variety of ways:
 
-== local IDE
+== local IDE(s)
 
 === Intellij
 
@@ -10,29 +10,20 @@ Below you'll find instructions for both Intellij and Eclipse.
 
 ==== OSGi BND run configuration
 
-use website.ide.bndrun, which uses the local configuration from /config/local
+Use the 'website' bnd run configuration and start or debug it. Your
+default browser should open at http://localhost:8085.
 
-open http://localhost:8085
+Configuration taken from /config/local
 
 open issue: https://github.com/evandor/skysail-server/issues/4
 
 ==== docker run configuration
 
-Create a docker run configuration with a command like
+use the 'website' docker run configuration
+start, and open http://192.168.99.100:9102 (windows 7).
+The actual host ip might be different on your system.
 
-'''
-docker build -t <image_tag> .
-&& docker run
--p 9102:9102
---name skysail-server-website-local
-<image_tag>
-'''
-
-and build steps (gradle): export.website.docker runnable
-
-start, and open http://localhost:9102
-
-Used configuration: from config/docker
+Configuration taken from /config/docker2
 
 === Eclipse
 
@@ -45,7 +36,7 @@ cd skysail.server.website/generated/distributions/executable/
 java -jar website.jar
 
 Configuration will be extracted from the contained server.website.jar file
-and put next to the website.jar. Need to restart the application when running
+and put next to the website.jar. You'll need to restart the application when running
 the first time.
 
 == Kitematic
@@ -53,6 +44,8 @@ the first time.
 server.website is not deployed to docker.io
 
 == Docker.io
+
+TODO
 
 buildPipeine2.groovy does the following:
 
@@ -62,3 +55,4 @@ buildPipeine2.groovy does the following:
 
 === evandor.de
 
+TODO

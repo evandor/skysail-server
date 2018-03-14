@@ -1,0 +1,30 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="websiteWindows" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="JSONFilePath" value="" />
+        <option name="command" value="" />
+        <option name="commandLineOptions" value="" />
+        <option name="containerName" value="skysail-website-local" />
+        <option name="entrypoint" value="" />
+        <option name="imageTag" value="" />
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="9102" />
+              <option name="hostPort" value="9102" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
+        <option name="sourceFilePath" value="skysail.server.website/release/Dockerfile" />
+        <option name="startBrowserSettings">
+          <browser url="http://127.0.0.1" />
+        </option>
+      </settings>
+    </deployment>
+    <method>
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="export.website.docker runnable" externalProjectPath="$PROJECT_DIR$/skysail.server.website" vmOptions="" scriptParameters="" />
+      <option name="LaunchBrowser.Before.Run" url="http://localhost:9102" />
+    </method>
+  </configuration>
+</component>

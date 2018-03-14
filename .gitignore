@@ -14,7 +14,8 @@ generated/
 .DS_Store
 .gradle/
 .metadata
-/.idea/
+.idea/*
+!/.idea/runConfigurations
 build/
 out/
 bin/

@@ -21,6 +21,8 @@
 # access running container on sofia
 # sudo docker exec -i -t skysail-server /bin/bash
 FROM java
+#http://dev.im-bot.com/docker-select-caching/
+ARG CACHEBUST=1
 RUN echo "building docker image from directory '$pwd'"
 RUN echo "executing 'useradd -d /home/skysail -m -s /bin/bash skysail'"
 RUN useradd -d /home/skysail -m -s /bin/bash skysail
@@ -34,12 +36,13 @@ RUN mkdir -m 775 -p /home/skysail/products/demo/config
 #COPY --chown=skysail config/ /home/skysail/products/demo/config/
 #COPY --chown=skysail website.docker.jar /home/skysail/products/demo/server.website.jar
 
-COPY config/ /home/skysail/products/demo/config/
-COPY server.demo.docker.jar /home/skysail/products/demo/server.demo.jar
+COPY config/docker /home/skysail/products/demo/config/
+COPY demo.docker.jar /home/skysail/products/demo/server.demo.jar
 
 
 WORKDIR /home/skysail/products/demo
 
-CMD ["java","-jar","/home/skysail/products/demo/server.demo.jar"]
+ENTRYPOINT exec java -Dskysail.config.path=$CONFPATH -jar /home/skysail/products/demo/server.demo.jar
+#CMD ["java","-jar","/home/skysail/products/demo/server.website.jar"]
 
 EXPOSE 9102
