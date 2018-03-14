@@ -36,7 +36,7 @@ RUN mkdir -m 775 -p /home/skysail/products/demo/config
 #COPY --chown=skysail config/ /home/skysail/products/demo/config/
 #COPY --chown=skysail website.docker.jar /home/skysail/products/demo/server.website.jar
 
-COPY config/ /home/skysail/products/demo/config/
+COPY config/docker2/ /home/skysail/products/demo/config/
 COPY website.docker.jar /home/skysail/products/demo/server.website.jar
 
 WORKDIR /home/skysail/products/demo
