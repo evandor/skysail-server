@@ -21,6 +21,7 @@
 # access running container on sofia
 # sudo docker exec -i -t skysail-server-website /bin/bash
 FROM java
+#http://dev.im-bot.com/docker-select-caching/
 ARG CACHEBUST=1
 RUN echo "building docker image from directory '$pwd'"
 RUN echo "executing 'useradd -d /home/skysail -m -s /bin/bash skysail'"
@@ -30,12 +31,12 @@ ENV HOME /home/skysail
 WORKDIR /home/skysail
 
 RUN mkdir -m 775 -p /home/skysail/products/demo/plugins
-RUN mkdir -m 775 -p /home/skysail/products/demo/config2
+RUN mkdir -m 775 -p /home/skysail/products/demo/config
 
 #COPY --chown=skysail config/ /home/skysail/products/demo/config/
 #COPY --chown=skysail website.docker.jar /home/skysail/products/demo/server.website.jar
 
-COPY config/ /home/skysail/products/demo/config2/
+COPY config/ /home/skysail/products/demo/config/
 COPY website.docker.jar /home/skysail/products/demo/server.website.jar
 
 WORKDIR /home/skysail/products/demo
