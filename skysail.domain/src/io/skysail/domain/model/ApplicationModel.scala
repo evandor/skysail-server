@@ -41,7 +41,7 @@ case class ApplicationModel(
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
-  /** the id of this application model */
+  /** the id of this application model, e.g. "demo/v1" */
   val id: String = if (apiVersion == null) name else s"$name/${apiVersion.toString()}"
 
   /** the akka root route for this application */

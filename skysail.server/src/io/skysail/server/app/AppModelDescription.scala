@@ -4,7 +4,7 @@ import io.skysail.domain.model.ApplicationModel
 
 case class AppModelDescription(appModel: ApplicationModel) {
 
-  val name = appModel.name
+  val name: String = appModel.name
 
   val version = if (appModel.apiVersion != null) appModel.apiVersion.toString() else "-"
 
@@ -13,6 +13,7 @@ case class AppModelDescription(appModel: ApplicationModel) {
   val resources: List[ResModelDescription] = appModel.resourceModels.map(r => {
       val path = r.routeMapping.path
       val resClass = r.routeMapping.resourceClass
+    resClass.getTypeName
       ResModelDescription(
         path,
         if (resClass != null) resClass.getSimpleName else "-",
@@ -20,5 +21,7 @@ case class AppModelDescription(appModel: ApplicationModel) {
 
       )
     }).toList
+
+  val entities = appModel.entities()
 
 }
