@@ -13,7 +13,7 @@ Below you'll find instructions for both Intellij and Eclipse.
 Use the 'website' bnd run configuration and start or debug it. Your
 default browser should open at http://localhost:8085.
 
-Configuration taken from /config/local
+Configuration taken from /config
 
 open issue: https://github.com/evandor/skysail-server/issues/4
 
@@ -23,7 +23,7 @@ use the 'website' docker run configuration
 start, and open http://192.168.99.100:9102 (windows 7).
 The actual host ip might be different on your system.
 
-Configuration taken from /config/docker2
+Configuration taken from /config/docker
 
 === Eclipse
 
@@ -37,8 +37,6 @@ cd skysail.server.website/generated/distributions/executable/
 java -jar website.jar
 ----
 
-open: two jars created ?
-
 Configuration will be extracted from the contained server.website.jar file
 (from the config/standalone directory) and put next to the website.jar.
 You'll need to restart the application when running the first time.
@@ -51,13 +49,18 @@ server.website is not deployed to docker.io
 
 == Docker.io
 
-TODO
+The "skysail server multibranch pipeline" build on jenkins.skysail.io
+executes the following ('Build docker images' in  buildPipeine2.groovy):
 
-buildPipeine2.groovy does the following:
+----
+./gradlew skysail.server.website:export.website
+./gradlew skysail.server.website:runnable skysail.server.website:buildImage -Pversion=${env.BUILD_VERSION}
+/home/carsten/install/docker/skysail/run_docker.sh website test ${env.BUILD_VERSION} &
+----
 
-* ./gradlew skysail.server.website:export.website
-* ./gradlew skysail.server.website:runnable skysail.server.website:buildImage -Pversion=${env.BUILD_VERSION}
-* /home/carsten/install/docker/skysail/run_docker.sh website test ${env.BUILD_VERSION} &
+First, a website.jar file is generated
+A docker container is created and started.
+
 
 === evandor.de
 

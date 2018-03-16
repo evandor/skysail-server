@@ -31,7 +31,7 @@
       </settings>
     </deployment>
     <method>
-      <option name="Gradle.BeforeRunTask" enabled="true" tasks="export.website.docker runnable" externalProjectPath="$PROJECT_DIR$/skysail.server.website" vmOptions="" scriptParameters="" />
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="export.website runnable" externalProjectPath="$PROJECT_DIR$/skysail.server.website" vmOptions="" scriptParameters="" />
       <option name="LaunchBrowser.Before.Run" url="http://localhost:9102" />
     </method>
   </configuration>
