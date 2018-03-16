@@ -29,17 +29,21 @@ Configuration taken from /config/docker2
 
 to be done
 
-== from jar file
+== From  the jar file
 
+----
 ./gradlew skysail.server.website:export.website
 cd skysail.server.website/generated/distributions/executable/
 java -jar website.jar
+----
 
 open: two jars created ?
 
 Configuration will be extracted from the contained server.website.jar file
-and put next to the website.jar. You'll need to restart the application when running
-the first time.
+(from the config/standalone directory) and put next to the website.jar.
+You'll need to restart the application when running the first time.
+
+Open your browser @ http://localhost:8085
 
 == Kitematic
 
@@ -51,7 +55,7 @@ TODO
 
 buildPipeine2.groovy does the following:
 
-* ./gradlew skysail.server.website:export.website.docker
+* ./gradlew skysail.server.website:export.website
 * ./gradlew skysail.server.website:runnable skysail.server.website:buildImage -Pversion=${env.BUILD_VERSION}
 * /home/carsten/install/docker/skysail/run_docker.sh website test ${env.BUILD_VERSION} &
 
