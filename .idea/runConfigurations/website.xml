@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="website" type="osgi.bnd.run" factoryName="Run Launcher" singleton="true">
-    <option name="bndRunFile" value="$PROJECT_DIR$/skysail.server.website/website.ide.bndrun" />
+    <option name="bndRunFile" value="$PROJECT_DIR$/skysail.server.website/website.bndrun" />
     <option name="alternativeJrePath" />
     <method>
       <option name="Make" enabled="false" />
