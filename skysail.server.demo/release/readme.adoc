@@ -2,7 +2,7 @@ deployment:
 
  * build on travis ci (.travis.yml)
 
-   - ./gradlew skysail.server.demo:export.server.demo.docker
+   - ./gradlew skysail.server.demo:export.server.demo
    - ./gradlew copyConf copyRunnables
 
    config used: skysail.server.demo/config/docker/ (copied by copyConf)

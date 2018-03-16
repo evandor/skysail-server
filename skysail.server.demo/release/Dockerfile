@@ -37,12 +37,12 @@ RUN mkdir -m 775 -p /home/skysail/products/demo/config
 #COPY --chown=skysail website.jar /home/skysail/products/demo/server.website.jar
 
 COPY config/docker /home/skysail/products/demo/config/
-COPY demo.docker.jar /home/skysail/products/demo/server.demo.jar
+COPY demo.jar /home/skysail/products/demo/server.demo.jar
 
 
 WORKDIR /home/skysail/products/demo
 
-ENTRYPOINT exec java -Dskysail.config.path=$CONFPATH -jar /home/skysail/products/demo/server.demo.jar
-#CMD ["java","-jar","/home/skysail/products/demo/server.website.jar"]
+#ENTRYPOINT exec java -Dskysail.config.path=$CONFPATH -jar /home/skysail/products/demo/server.demo.jar
+CMD ["java","-jar","/home/skysail/products/demo/server.demo.jar"]
 
 EXPOSE 9102

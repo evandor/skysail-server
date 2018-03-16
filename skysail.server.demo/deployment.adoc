@@ -49,7 +49,7 @@ TODO
 
 buildPipeine2.groovy does the following:
 
-* ./gradlew skysail.server.demo:export.demo.docker
+* ./gradlew skysail.server.demo:export.demo
 * ./gradlew skysail.server.demo:runnable skysail.server.demo:buildImage -Pversion=${env.BUILD_VERSION}
 * /home/carsten/install/docker/skysail/run_docker.sh demo test ${env.BUILD_VERSION} &
 
