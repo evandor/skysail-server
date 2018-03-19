@@ -13,12 +13,12 @@ class ResourceModelTest extends FlatSpec with BeforeAndAfterEach {
 
   "A ResourceModel" should "provide its name" in {
     val resModel = ResourceModel(RouteMapping("/str", null, classOf[OrdersResource]))
-    assert(resModel.entityClass.toString == "io.skysail.domain.model.Order")
+    assert(resModel.entityType.toString == "io.skysail.domain.model.Order")
   }
 
   "A ResourceModel" should "provide its entity class" in {
     val resModel = ResourceModel(RouteMapping("str", null, classOf[OrderResource]))
-    assert(resModel.entityClass.toString == "io.skysail.domain.model.Order")
+    assert(resModel.entityType.toString == "io.skysail.domain.model.Order")
   }
 
   "A ResourceModel" should "match the uri" in {

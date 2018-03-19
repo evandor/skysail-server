@@ -19,10 +19,10 @@ case class ResourceModel(routeMapping: RouteMappingI[_,_]) {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
-  val entityClass: Type = routeMapping.getEntityType()
+  val entityType: Type = routeMapping.getEntityType()
   var linkModel: LinkModel2 = _
   var linkModels: List[LinkModel2] = List()
-  var entityModel = new EntityModel(entityClass, DefaultFormats)
+  var entityModel = new EntityModel(entityType, DefaultFormats)
 
   def linkFor(clsName: String): Option[String] = {
     if (routeMapping.resourceClass.getName == clsName && routeMapping.path != null) Some(routeMapping.path) else None

@@ -1,17 +1,22 @@
 package io.skysail.server.demo.domain
 
-import io.skysail.api.ddd.Entity
-import io.skysail.api.ui._
 import javax.validation.constraints.Size
 
+import io.skysail.api.ddd.Entity
+import io.skysail.api.ui._
+
+import scala.annotation.StaticAnnotation
+
 // ---------------------------------
+
+final class min(i: Long) extends StaticAnnotation
 
 case class Comment1(
 
   id: Option[String],
 
-  @Size(min = 3) 
-  comment: String
+  //@Size(min = 3)
+  @min(1) comment: String
   
 ) extends Entity[String] with Linkable {
   override val _links: List[Link] = List()

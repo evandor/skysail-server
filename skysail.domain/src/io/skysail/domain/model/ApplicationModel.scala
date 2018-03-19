@@ -79,14 +79,14 @@ case class ApplicationModel(
       log.info(s"trying to add entity ${resourceModel.routeMapping.path} again, ignoring...")
       return None
     }
-    val entityClass: universe.Type = resourceModel.entityClass
+    val entityClass: universe.Type = resourceModel.entityType
     addEntity(entityClass)
 //    if (entityModelsMap.get(entityClass.toString).isEmpty) {
 //      entityModelsMap += entityClass.toString -> EntityModel(entityClass)
 //    }
     resourceModels += resourceModel
     build()
-    Some(resourceModel.entityClass)
+    Some(resourceModel.entityType)
   }
 
   def addEntity[T](entityClass: Class[T]): Unit = {
@@ -125,7 +125,7 @@ case class ApplicationModel(
       None
     }
 
-    entityModelsMap.values.find(v => v.entityClass == resModel.get.entityClass)
+    entityModelsMap.values.find(v => v.entityType == resModel.get.entityType)
   }
 
   def entityModelFor(url: Uri): Option[EntityModel] = {

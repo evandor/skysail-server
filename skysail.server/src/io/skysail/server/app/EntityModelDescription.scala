@@ -6,7 +6,7 @@ case class EntityModelDescription(appModel: ApplicationModel, entityId: String) 
 
   val entityModel = appModel.entityModelFor(entityId).toString
   
-  val typeArgs = appModel.entityModelFor(entityId).get.deriveTypeArgs
+  //val typeArgs = appModel.entityModelFor(entityId).get.deriveTypeArgs
 
   val fieldsModel = appModel.entityModelFor(entityId).get.fields.map(f => FieldModelDescription(
     f.name,
