@@ -105,7 +105,7 @@ class AkkaServer extends DominoActivator {
 
     log info ""
     log info s"bundle skysail.server became active"
-    new SystemPropertiesCommand().systemProperties()
+    //new SystemPropertiesCommand().systemProperties()
     addCapsule(new AkkaCapsule(bundleContext))
 
     //Kamon.start()

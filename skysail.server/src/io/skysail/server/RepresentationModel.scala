@@ -3,7 +3,7 @@ package io.skysail.server
 import akka.http.scaladsl.model.Uri
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.gatling.jsonpath.JsonPath
-import io.skysail.api.ui.ListPayload
+import io.skysail.api.ui.{ButtonLink, Link, Linkable, ListPayload}
 import io.skysail.domain.ResponseEventBase
 import io.skysail.domain.model.{ApplicationModel, EntityModel}
 import org.json4s.JsonAST.JArray
@@ -31,6 +31,24 @@ class RepresentationModel(
     implicit val formats = DefaultFormats
     implicit val serialization = jackson.Serialization
     Extraction.decompose(response.entity)
+  }
+
+  val links = {
+    val e = response.entity
+    if (e.isInstanceOf[Linkable]) {
+      e.asInstanceOf[Linkable]._links
+    } else {
+      implicit object WrapperCanFoo extends Linkable {
+        override def _links: Seq[Link] = {
+          List(
+            ButtonLink("create-form", "create new Entity", "/demo/v1/bms/", style = "btn btn-outline-primary")
+          )
+        }
+      }
+      def foo[_](thing: Any)(implicit evidence: Linkable) = evidence._links
+      // def foo[A:CanFoo](thing: A) = implicitly[CanFoo[A]].foos(thing)
+      foo(e)
+    }
   }
 
   def entityModel(): Option[EntityModel] = {

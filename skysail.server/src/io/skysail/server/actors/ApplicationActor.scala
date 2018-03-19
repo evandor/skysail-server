@@ -27,11 +27,9 @@ object ApplicationActor {
 
   case class GetApplication()
 
-  case class SkysailContext(cmd: ProcessCommand, appModel: ApplicationModel, resource: SkysailResource[_ <: ApplicationApi,_], bundleContext: BundleContext)
+  case class SkysailContext(cmd: ProcessCommand, appModel: ApplicationModel, resource: SkysailResource[_ <: ApplicationApi, _], bundleContext: BundleContext)
 
   case class GetMenu()
-
-  //case class ProcessCommand(ctx: RequestContext, cls: Class[_ <: Resource[_]], urlParameter: List[String], unmatchedPath: Uri.Path, entity: Any = null)
 
 }
 
@@ -65,7 +63,7 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
 
 
       val resourceInstance = cmd.mapping match {
-        case crm: ConcreteRouteMapping[_,_,_] => crm.resource
+        case crm: ConcreteRouteMapping[_, _, _] => crm.resource
         case mapping: Any => cmd.mapping.resourceInstance.asInstanceOf[SkysailResource[_ <: ApplicationApi, _]]
       }
 
@@ -92,17 +90,17 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
 
   override val supervisorStrategy =
     OneForOneStrategy() {
-      case _: ClassNotFoundException       => Stop
+      case _: ClassNotFoundException => Stop
       case _: ActorInitializationException => Stop
-      case _: ActorKilledException         => Stop
-      case _: DeathPactException           => Stop
-      case _: Exception                    => Restart
+      case _: ActorKilledException => Stop
+      case _: DeathPactException => Stop
+      case _: Exception => Restart
     }
 
   def getMenuIfExistent() = {
     if (application.isInstanceOf[ApplicationProvider]) {
       val appProvider = application.asInstanceOf[ApplicationProvider]
-      val optionalMenu = None//appProvider.menu()
+      val optionalMenu = None //appProvider.menu()
       sender ! optionalMenu
     } else {
       sender ! None
@@ -114,7 +112,7 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
     context.actorOf(Props.apply(classOf[ControllerActor]), "controllerActor$" + cnt.getAndIncrement)
   }
 
-  private def createInstance(tpe:Type): Any = {
+  private def createInstance(tpe: Type): Any = {
     val mirror = ru.runtimeMirror(getClass.getClassLoader)
     val clsSym = tpe.typeSymbol.asClass
     val clsMirror = mirror.reflectClass(clsSym)
@@ -122,6 +120,6 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
     val ctorMirror = clsMirror.reflectConstructor(ctorSym)
     val instance = ctorMirror()
     return instance
-}
+  }
 
 }

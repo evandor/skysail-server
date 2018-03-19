@@ -1,6 +1,6 @@
 package io.skysail.domain.resources
 
-import akka.actor.{ ActorRef, ActorSystem }
+import akka.actor.{ActorRef, ActorSystem}
 import akka.http.scaladsl.model.HttpMethods
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
@@ -15,14 +15,14 @@ import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._
 
 /**
- * A DefaultResource[S,T] provides a list of route mappings to list, show, create, update and delete
- * entities of type T.
- *
- * It handles associated requests to the endpoints of the mappings.
- *
- * S the backend application serving the resource
- * T the entity associated with the resource, typically an aggregate root
- */
+  * A DefaultResource[S,T] provides a list of route mappings to list, show, create, update and delete
+  * entities of type T.
+  *
+  * It handles associated requests to the endpoints of the mappings.
+  *
+  * S the backend application serving the resource
+  * T the entity associated with the resource, typically an aggregate root
+  */
 abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] extends AsyncResource[S, T] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
@@ -118,8 +118,13 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
   }
 
   override def delete(requestEvent: RequestEvent): ResponseEventBase = null
-  
-    def put(requestEvent: RequestEvent)(implicit system: ActorSystem) = {null}
 
+  def put(requestEvent: RequestEvent)(implicit system: ActorSystem) = {
+    null
+  }
+
+  override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+
+  override def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = ???
 
 }

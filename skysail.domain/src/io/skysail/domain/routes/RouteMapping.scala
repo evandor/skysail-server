@@ -18,6 +18,7 @@ import scala.reflect.runtime.universe
   * @param path          a string like "/bookmarks/:id", identifying an application's endpoint
   * @param pathMatcher   the same path as an akka route path Matcher
   * @param resourceClass the resource class which is supposed to handle calls to the path.
+  * @tparam S
   * @tparam T
   */
 abstract sealed class RouteMappingI[S: TypeTag, T /*<: DddElement*/ : TypeTag](

@@ -9,13 +9,25 @@
         <p>@m.description</p>
 
         <h4>Resources</h4>
-        <ul>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Url (Pattern)</th>
+                <th scope="col">Resource</th>
+                <th scope="col">Associated Entity</th>
+            </tr>
+            </thead>
+            <tbody>
             @for(r <- m.resources) {
-                <li><a href="/@m.name/@{m.version}@r.path">@r.path</a> -
-                    <a target="_blank"
-                        href="@r.githubPath">@r.resClass</a></li>
+            <tr>
+                <th scope="row"><a href="/@m.name/@{m.version}@r.path">@r.path</a></th>
+                <td>@r.resClass</td>
+                <td><a href="_model/@r.entityType">@r.entityType</a></td>
+            </tr>
             }
-        </ul>
+            </tbody>
+        </table>
 
         <h>Entities</h>
         <ul>

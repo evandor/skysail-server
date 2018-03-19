@@ -33,16 +33,6 @@ case class ResourceModel(routeMapping: RouteMappingI[_,_]) {
     //log info s"matching '${url.path}'-'$fullPath': "+ (url.path == fullPath)
     url.path.toString() == fullPath
   }
-//  def resourceType() = {
-//    //    resource match {
-//    //      case _: ListServerResource[_] => LIST_RESOURCE
-//    //      case _: EntityServerResource[_] => ENTITY_RESOURCE
-//    //      case _: PutEntityServerResource[_] => UPDATE_ENTITY_RESOURCE
-//    //      case _: PostEntityServerResource[_] => CREATE_ENTITY_RESOURCE
-//    //      case _ => UNSPECIFIED_RESOURCE
-//    //    }
-//    LIST_RESOURCE
-//  }
 
   private def printList(list: List[_]) = list.map(v => v).mkString("")
 

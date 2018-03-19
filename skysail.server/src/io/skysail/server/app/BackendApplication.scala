@@ -11,7 +11,7 @@ import io.skysail.domain.app.{ApiVersion, ApplicationApi}
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.resources.DefaultResource
 import io.skysail.domain.routes._
-import io.skysail.server.app.resources.AppModelResource
+import io.skysail.server.app.resources.{AppModelResource, EntityModelResource}
 import io.skysail.server.{Constants, RoutesCreatorTrait}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
@@ -109,10 +109,15 @@ abstract class BackendApplication(
     val res = new AppModelResource(appModel)
     val pm: PathMatcher[Unit] = appModel.appRoute / PathMatcher("_model") ~ PathEnd
     val appModelMapping = ConcreteRouteMapping("/_model", pm, res)
-    //val appModelMapping: RouteMappingI[Unit, AppModelDescription] = RouteMapping("/_model", pm, classOf[AppModelResource])
-    
+
+    val res2 = new EntityModelResource(appModel)
+    val pm2 = appModel.appRoute / PathMatcher("_model") / Segment ~ PathEnd
+    val entityModelMapping = ConcreteRouteMapping("/_model/:id", pm2, res2)
+
+
     if (routesCreator != null) {
       routes += routesCreator.createRoute(appModelMapping, this)
+      routes += routesCreator.createRoute(entityModelMapping, this)
     } else {
       log warn "routesCreator was null"
     }

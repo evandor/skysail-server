@@ -50,9 +50,5 @@ class AccountsResource extends DefaultResource[DemoApplication, Account, Account
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
-  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
-    ???
-  }
-
 }
 

@@ -51,8 +51,5 @@ class TodosResource extends DefaultResource[DemoApplication, Todo, TodoList] {
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
-  def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {
-    ???
-  }
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1519204706620" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1521442083000" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="ch.qos.logback.classic"/>
@@ -6215,41 +6215,31 @@
     </requirement>
   </resource>
   <resource>
-    <!-- Error calling analyzer "org.osgi.service.indexer.impl.BundleAnalyzer" on resource C:/git/skysail-server/cnf/local/com.typesafe.akka.http.testkit/com.typesafe.akka.http.testkit-10.0.10.jar with message java.lang.IllegalArgumentException: invalid version "${range;[==,=+)}": non-numeric "${range;[==,=+)}" and stack: java.lang.IllegalArgumentException: invalid version "${range;[==,=+)}": non-numeric "${range;[==,=+)}"
+    <!-- Error calling analyzer "org.osgi.service.indexer.impl.BundleAnalyzer" on resource /Users/carsten/git/skysail-server/cnf/local/com.typesafe.akka.http.testkit/com.typesafe.akka.http.testkit-10.0.10.jar with message java.lang.IllegalArgumentException: invalid version "${range;[==,=+)}": non-numeric "${range;[==,=+)}" and stack: java.lang.IllegalArgumentException: invalid version "${range;[==,=+)}": non-numeric "${range;[==,=+)}"
 	at org.osgi.framework.Version.parseInt(Version.java:170)
 	at org.osgi.framework.Version.&lt;init&gt;(Version.java:126)
 	at org.osgi.service.indexer.impl.types.VersionRange.&lt;init&gt;(VersionRange.java:58)
-	at org.osgi.service.indexer.impl.BundleAnalyzer.doImports(BundleAnalyzer.java:348)
+	at org.osgi.service.indexer.impl.BundleAnalyzer.doImports(BundleAnalyzer.java:343)
 	at org.osgi.service.indexer.impl.BundleAnalyzer.analyzeResource(BundleAnalyzer.java:72)
-	at org.osgi.service.indexer.impl.RepoIndex.generateResource(RepoIndex.java:271)
-	at org.osgi.service.indexer.impl.RepoIndex.index(RepoIndex.java:187)
+	at org.osgi.service.indexer.impl.RepoIndex.generateResource(RepoIndex.java:259)
+	at org.osgi.service.indexer.impl.RepoIndex.index(RepoIndex.java:180)
 	at aQute.bnd.deployer.repository.providers.R5RepoContentProvider.generateIndex(R5RepoContentProvider.java:290)
-	at aQute.bnd.deployer.repository.LocalIndexedRepo.generateIndex(LocalIndexedRepo.java:169)
+	at aQute.bnd.deployer.repository.LocalIndexedRepo.generateIndex(LocalIndexedRepo.java:164)
 	at aQute.bnd.deployer.repository.LocalIndexedRepo.regenerateAllIndexes(LocalIndexedRepo.java:142)
-	at aQute.bnd.deployer.repository.LocalIndexedRepo.refresh(LocalIndexedRepo.java:397)
-	at org.jetbrains.osgi.bnd.imp.BndProjectImporter.refreshRepositories(BndProjectImporter.java:666)
-	at org.jetbrains.osgi.bnd.imp.BndProjectImporter.doReimportWorkspace(BndProjectImporter.java:584)
-	at org.jetbrains.osgi.bnd.imp.BndProjectImporter.access$300(BndProjectImporter.java:77)
-	at org.jetbrains.osgi.bnd.imp.BndProjectImporter$3.run(BndProjectImporter.java:566)
-	at com.intellij.openapi.progress.impl.CoreProgressManager$TaskRunnable.run(CoreProgressManager.java:713)
-	at com.intellij.openapi.progress.impl.CoreProgressManager.a(CoreProgressManager.java:157)
-	at com.intellij.openapi.progress.impl.CoreProgressManager.a(CoreProgressManager.java:543)
-	at com.intellij.openapi.progress.impl.CoreProgressManager.executeProcessUnderProgress(CoreProgressManager.java:488)
-	at com.intellij.openapi.progress.impl.ProgressManagerImpl.executeProcessUnderProgress(ProgressManagerImpl.java:94)
-	at com.intellij.openapi.progress.impl.CoreProgressManager.runProcess(CoreProgressManager.java:144)
-	at com.intellij.openapi.progress.impl.ProgressManagerImpl$2.run(ProgressManagerImpl.java:165)
-	at com.intellij.openapi.application.impl.ApplicationImpl$1.run(ApplicationImpl.java:315)
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
+	at aQute.bnd.deployer.repository.LocalIndexedRepo.finishPut(LocalIndexedRepo.java:238)
+	at aQute.bnd.deployer.repository.LocalIndexedRepo.putArtifact(LocalIndexedRepo.java:311)
+	at aQute.bnd.deployer.repository.LocalIndexedRepo.put(LocalIndexedRepo.java:359)
+	at bndtools.wizards.workspace.AddFilesToRepositoryWizard.performFinishAddFiles(AddFilesToRepositoryWizard.java:99)
+	at bndtools.wizards.workspace.AddFilesToRepositoryWizard.access$100(AddFilesToRepositoryWizard.java:30)
+	at bndtools.wizards.workspace.AddFilesToRepositoryWizard$2.runInWorkspace(AddFilesToRepositoryWizard.java:68)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:39)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
 Caused by: java.lang.NumberFormatException: For input string: "${range;[==,=+)}"
 	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
 	at java.lang.Integer.parseInt(Integer.java:569)
 	at java.lang.Integer.parseInt(Integer.java:615)
 	at org.osgi.framework.Version.parseInt(Version.java:168)
-	... 27 more
+	... 17 more
  -->
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="com.typesafe.akka.http.testkit"/>
@@ -11224,6 +11214,109 @@ Caused by: java.lang.NumberFormatException: For input string: "${range;[==,=+)}"
   </resource>
   <resource>
     <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="javax.validation.api"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="9873b46df1833c9ee8f5bc1ff6853375115dadd8897bcb5a0dffb5848835ee6c"/>
+      <attribute name="url" value="javax.validation.api/javax.validation.api-2.0.1.jar"/>
+      <attribute name="size" type="Long" value="93107"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="javax.validation"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+      <attribute name="bundle-symbolic-name" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+      <directive name="uses" value="javax.validation.bootstrap,javax.validation.executable,javax.validation.metadata,javax.validation.spi,javax.validation.valueextraction"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="javax.validation.bootstrap"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+      <attribute name="bundle-symbolic-name" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+      <directive name="uses" value="javax.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="javax.validation.constraints"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+      <attribute name="bundle-symbolic-name" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+      <directive name="uses" value="javax.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="javax.validation.constraintvalidation"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+      <attribute name="bundle-symbolic-name" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="javax.validation.executable"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+      <attribute name="bundle-symbolic-name" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+      <directive name="uses" value="javax.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="javax.validation.groups"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+      <attribute name="bundle-symbolic-name" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="javax.validation.metadata"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+      <attribute name="bundle-symbolic-name" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+      <directive name="uses" value="javax.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="javax.validation.spi"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+      <attribute name="bundle-symbolic-name" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+      <directive name="uses" value="javax.validation,javax.validation.valueextraction"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="javax.validation.valueextraction"/>
+      <attribute name="version" type="Version" value="2.0.1.Final"/>
+      <attribute name="bundle-symbolic-name" value="javax.validation.api"/>
+      <attribute name="bundle-version" type="Version" value="2.0.1.Final"/>
+      <directive name="uses" value="javax.validation"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.bootstrap)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.executable)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.metadata)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.spi)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.valueextraction)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="joda-time"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" type="Version" value="2.9.3"/>
@@ -13412,6 +13505,291 @@ Caused by: java.lang.NumberFormatException: For input string: "${range;[==,=+)}"
     </capability>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="fe0f144c7efa6032618e215b2a211df3840168ae39eb1c96f89aba638ed120a9"/>
+      <attribute name="url" value="org.hibernate.validator.hibernate-validator/org.hibernate.validator.hibernate-validator-6.0.8.jar"/>
+      <attribute name="size" type="Long" value="1128504"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation,javax.validation.spi,javax.validation.valueextraction,org.hibernate.validator.cfg,org.hibernate.validator.spi.resourceloading,org.hibernate.validator.spi.scripting"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.cfg"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation,org.hibernate.validator.cfg.context"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.cfg.context"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation,org.hibernate.validator.cfg,org.hibernate.validator.spi.group"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.cfg.defs"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation.constraints,org.hibernate.validator.cfg,org.hibernate.validator.constraints,org.hibernate.validator.constraints.time"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.cfg.defs.br"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="org.hibernate.validator.cfg,org.hibernate.validator.constraints.br"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.cfg.defs.pl"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="org.hibernate.validator.cfg,org.hibernate.validator.constraints.pl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.constraints"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation,javax.validation.constraints,javax.validation.constraintvalidation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.constraints.br"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation,javax.validation.constraints,javax.validation.constraintvalidation,org.hibernate.validator.constraints"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.constraints.pl"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.constraints.time"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.constraintvalidation"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation,javax.validation.metadata,org.hibernate.validator.spi.scripting"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.constraintvalidators"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation,org.hibernate.validator.constraints"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.engine"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.group"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="org.hibernate.validator.spi.group"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.messageinterpolation"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.el,javax.validation,org.hibernate.validator.spi.resourceloading"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.parameternameprovider"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="com.thoughtworks.paranamer,javax.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.path"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.validation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.resourceloading"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="org.hibernate.validator.spi.resourceloading"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.spi.cfg"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="org.hibernate.validator.cfg"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.spi.group"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.spi.resourceloading"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.hibernate.validator.spi.scripting"/>
+      <attribute name="version" type="Version" value="6.0.8.Final"/>
+      <attribute name="bundle-symbolic-name" value="org.hibernate.validator.hibernate-validator"/>
+      <attribute name="bundle-version" type="Version" value="6.0.8.Final"/>
+      <directive name="uses" value="javax.script,javax.validation"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.persistence)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.constraints)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.constraintvalidation)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.executable)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.groups)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.metadata)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.spi)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.validation.valueextraction)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.script)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.annotation)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.annotation.adapters)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.namespace)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream.events)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream.util)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.stream)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.validation)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.el)(version&gt;=2.0.0)(!(version&gt;=4.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax)(version&gt;=0.0.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jboss.logging)(version&gt;=3.1.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.fasterxml.classmate)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.fasterxml.classmate.members)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.joda.time)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jsoup)(version&gt;=1.5.2)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jsoup.nodes)(version&gt;=1.5.2)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jsoup.parser)(version&gt;=1.5.2)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jsoup.safety)(version&gt;=1.5.2)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.jsoup.select)(version&gt;=1.5.2)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.money)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.thoughtworks.paranamer)(version&gt;=2.5.5)(!(version&gt;=3.0.0)))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
     </requirement>
   </resource>
   <resource>

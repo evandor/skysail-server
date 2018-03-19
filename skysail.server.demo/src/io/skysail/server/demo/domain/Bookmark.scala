@@ -41,15 +41,3 @@ case class BookmarkList(
     ButtonLink("create-form", "create new Bookmark", "/demo/v1/bms/", style = "btn btn-outline-primary")
   )
 }
-
-//class BookmarkWithVariants(id: String, title: String, url: String, val hits: Seq[(String, List[String])])
-//  extends Bookmark(Some(id), title, url) {
-//
-////  val variants:String = {
-////    val lists = hits.map(hit => hit._2.map(sub => url.replace("${" + hit._1 + "}", sub))).flatten.toList
-////    lists.toString()
-////  }
-//
-//  @JsonProperty
-//  val variants = "hi"
-//}

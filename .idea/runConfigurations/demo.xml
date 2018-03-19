@@ -1,30 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="demo" type="docker-deploy" factoryName="dockerfile" singleton="true" server-name="Docker">
-    <deployment type="dockerfile">
-      <settings>
-        <option name="JSONFilePath" value="" />
-        <option name="command" value="" />
-        <option name="commandLineOptions" value="" />
-        <option name="containerName" value="skysail-demo-local" />
-        <option name="entrypoint" value="" />
-        <option name="imageTag" value="" />
-        <option name="portBindings">
-          <list>
-            <DockerPortBindingImpl>
-              <option name="containerPort" value="9102" />
-              <option name="hostPort" value="9102" />
-            </DockerPortBindingImpl>
-          </list>
-        </option>
-        <option name="sourceFilePath" value="skysail.server.demo/release/Dockerfile" />
-        <option name="startBrowserSettings">
-          <browser url="http://127.0.0.1" />
-        </option>
-      </settings>
-    </deployment>
+  <configuration default="false" name="demo" type="osgi.bnd.run" factoryName="Run Launcher" singleton="true">
+    <option name="bndRunFile" value="$PROJECT_DIR$/skysail.server.demo/demo.bndrun" />
+    <option name="alternativeJrePath" />
     <method>
-      <option name="Gradle.BeforeRunTask" enabled="true" tasks="export.demo runnable" externalProjectPath="$PROJECT_DIR$/skysail.server.demo" vmOptions="" scriptParameters="" />
-      <option name="LaunchBrowser.Before.Run" url="http://localhost:9102" />
+      <option name="Make" enabled="false" />
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="build" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="-x test -x check" />
     </method>
   </configuration>
 </component>

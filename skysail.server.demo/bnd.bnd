@@ -14,7 +14,7 @@ Build-Version: ${buildVersion}
 -includeresource: resources
 
 -buildpath: \
-    ${osgi},\
+	${osgi},\
 	${akka-build},\
 	slf4j.api;version=1.7,\
 	com.fasterxml.jackson.core.jackson-databind;version=2.9,\
@@ -26,6 +26,7 @@ Build-Version: ${buildVersion}
 	io.skysail.bundled.json4s_2.11-3.5.1;version=3.5,\
 	skysail.api;version=${skysail.api.version},\
 	skysail.domain;version=${skysail.domain.version},\
+	skysail.db.orientdb;version=${skysail.db.orientdb.version},\
 	skysail.server;version=${skysail.server.version},\
 	org.scala-lang.scala-reflect;version=2.11,\
 	com.fasterxml.jackson.core.jackson-annotations;version=2.9,\
@@ -39,9 +40,10 @@ Build-Version: ${buildVersion}
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
 	ch.qos.logback.core;version='[1.2.3,1.2.4)',\
 	${testlibs},\
-    com.typesafe.akka.testkit;version=${akka.version},\
-    com.typesafe.akka.http.testkit;version=10.0,\
-    org.jsoup;version=1.11
+	com.typesafe.akka.testkit;version=${akka.version},\
+	com.typesafe.akka.http.testkit;version=10.0,\
+	org.jsoup;version=1.11,\
+	javax.validation.api;version=2.0
 
 #    com.github.docker-java;version=3.0
 

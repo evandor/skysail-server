@@ -5,10 +5,11 @@ import akka.http.scaladsl.server.Directives.{getFromResourceDirectory, pathPrefi
 import akka.http.scaladsl.server.PathMatchers._
 import akka.http.scaladsl.server.{PathMatcher, Route}
 import io.skysail.api.persistence.DbService
+import io.skysail.db.orientdb.repositories.ResourceRepository
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
-import io.skysail.server.demo.domain.DbConfig
+import io.skysail.server.demo.domain.{Comment1, DbConfig}
 import io.skysail.server.demo.repositories._
 import io.skysail.server.demo.resources.{DbConfigsResource, _}
 import io.skysail.server.demo.services.{BookmarkSchedulerService, EventService}
@@ -42,6 +43,11 @@ class DemoApplication(
   val todosRepo = new TodosRepo(dbService, appModel)
   val accountsRepo = new AccountsRepo(dbService, appModel)
   val patternRepo = new PatternRepository(dbService, appModel)
+  //val comments1Repo = new Comments1Repository(dbService, appModel)
+
+  val comments1Repo = new ResourceRepository(classOf[Comment1], dbService, appModel) {
+    override def getEntityTemplate() = Comment1(None, "")
+  }
 
   BookmarkSchedulerService.checkBookmarks(system)
 
@@ -54,7 +60,8 @@ class DemoApplication(
     classOf[DbConfigsResource],
     classOf[NotesResource],
     classOf[TodosResource],
-    classOf[AccountsResource]
+    classOf[AccountsResource],
+    classOf[Comments1Resource]
   )
 
   override def routesMappings = {

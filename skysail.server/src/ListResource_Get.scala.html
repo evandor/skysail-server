@@ -30,12 +30,14 @@
 
         </table>
 
-        <div>
-            <h3>links</h3>
-            @Html(rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]._links.filter(_.rel == "create-form").headOption.map(_.toHtml()).getOrElse(""))
-        </div>
+        <a href="@{response.req.cmd.ctx.request.uri}/">new entity!</a>
 
         <div>
+            <h3>links</h3>
+            @Html(rep.links.filter(_.rel == "create-form").headOption.map(_.toHtml()).getOrElse(""))
+        </div>
+
+        <!--<div>
             <h3>rawData</h3>
             @rep.rawData
         </div>
@@ -43,11 +45,6 @@
         <div>
             <h3>jsonData</h3>
             @rep.jsonData
-        </div>
-
-        <div>
-            <h3>rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]</h3>
-            @rep.response.entity.asInstanceOf[io.skysail.api.ui.Linkable]._links
         </div>
 
         <div>
@@ -63,7 +60,7 @@
 
         <div>
             @printRequest(response.req)
-        </div>
+        </div>-->
 
         <hr>
         <a href="/doc/v1/index.html" target="_docs">Doc</a>

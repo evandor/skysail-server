@@ -1,7 +1,7 @@
 Bundle-Name: SKYSAIL :: db :: orientdb
 
 # released 0.1.3
-Bundle-Version: 0.1.4.${tstamp}
+Bundle-Version: 0.1.5.${tstamp}
 
 Bundle-Description: Orient DB Service Layer Bundle for skysail server
 
@@ -43,6 +43,6 @@ Private-Package: \
     io.skysail.db.orientdb
 
 Export-Package: \
-    javax.servlet;version=2.5,\
-    javax.servlet.annotation;version=2.5,\
-    
+	javax.servlet;version=2.5,\
+	javax.servlet.annotation;version=2.5,\
+	io.skysail.db.orientdb.repositories
