@@ -71,7 +71,7 @@ case class ApplicationModel(
   def addResourceModel(routeMapping: RouteMappingI[_, _]): Option[Type] = {
     require(routeMapping.resourceClass != null, "The routeMapping's resource class must not be null")
 
-    log debug s"mapping '${appPath()}${routeMapping.path}' to '${routeMapping.resourceClass}[${routeMapping.getEntityType()}]'"
+   //  log debug s"mapping '${appPath()}${routeMapping.path}' to '${routeMapping.resourceClass}[${routeMapping.getEntityType()}]'"
 
     val resourceModel = ResourceModel(routeMapping)
 
@@ -107,6 +107,10 @@ case class ApplicationModel(
       entityModelsMap += entityClass.toString -> EntityModel(entityClass, dfs)
     }
     build()
+  }
+
+  def resourceModelFor(resourceId: String): Option[ResourceModel] = {
+    resourceModels.find { _.routeMapping.resourceClass.toString == "class " + resourceId }
   }
 
   private def controllerModelFor(cls: Class[_ <: SkysailResource[_, _]]): Option[ResourceModel] = {

@@ -1,8 +1,14 @@
 package io.skysail.server.app
 
+import io.skysail.api.ui.{IconLink, Link, Linkable}
 import io.skysail.domain.model.ApplicationModel
 
-case class AppModelDescription(appModel: ApplicationModel) {
+case class AppModelDescription(appModel: ApplicationModel) extends Linkable {
+
+  override val _links: List[Link] = List(
+    IconLink("show",   "fas fa-eye",   "/bookmarks/v1/bms/${id}",  "color:#000066", "show entity")
+  )
+
 
   val name: String = appModel.name
 
@@ -18,8 +24,7 @@ case class AppModelDescription(appModel: ApplicationModel) {
 
     ResModelDescription(
       path,
-      if (resClass != null) resClass.getSimpleName else "-",
-      if (resClass != null) "https://github.com/evandor/skysail-server/blob/release/0.0/skysail.server.demo/src/" + resClass.toString.replace(".", "/") + ".scala" else "-",
+      if (resClass != null) resClass.getName else "-",
       entityType.toString
 
     )

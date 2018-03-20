@@ -8,8 +8,6 @@
         <p class="lead">@m.name [@m.version]</p>
         <p>@m.description</p>
 
-        <h4>Resources</h4>
-
         <table class="table">
             <thead>
             <tr>
@@ -21,20 +19,21 @@
             <tbody>
             @for(r <- m.resources) {
             <tr>
-                <th scope="row"><a href="/@m.name/@{m.version}@r.path">@r.path</a></th>
-                <td>@r.resClass</td>
-                <td><a href="_model/@r.entityType">@r.entityType</a></td>
+                <td>
+                    @if(r.path.contains(":")) {
+                      @r.path
+                    } else {
+                      <a href="/@m.name/@{m.version}@r.path"> @r.path </a>
+                    }
+                </td>
+                <td><a href="_model/resources/@r.resClass">@r.resClass</a></td>
+                <td><a href="_model/entities/@r.entityType">@r.entityType</a></td>
             </tr>
             }
             </tbody>
         </table>
 
-        <h>Entities</h>
-        <ul>
-            @for(r <- m.entities) {
-            <li>@r</li>
-            }
-        </ul>
+
     </div>
 </div>
 
