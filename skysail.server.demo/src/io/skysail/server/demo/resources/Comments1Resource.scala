@@ -15,7 +15,7 @@ class Comments1Resource extends DefaultResource[DemoApplication, Comment1, Comme
   
   override def getList(re: RequestEvent) = Comment1List(getApplication().comments1Repo.find())
 
-  override def getEntity(re: RequestEvent): Option[Comment1] = getApplication().comments1Repo.find(re.cmd.urlParameter.head)
+  override def getEntity(re: RequestEvent): Option[Comment1] = getApplication().comments1Repo.find(re.firstParam)
 
   override def getTemplate(re: RequestEvent) = Comment1(None, "")
 

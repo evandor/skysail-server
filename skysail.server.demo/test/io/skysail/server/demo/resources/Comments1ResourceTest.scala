@@ -1,20 +1,17 @@
 package io.skysail.server.demo.resources
 
 
-import java.util
-
 import akka.actor.ActorSystem
 import akka.testkit.TestKit
-import io.skysail.api.persistence.DbService
+import io.skysail.db.orientdb.repositories.ResourceRepository
 import io.skysail.domain.RequestEvent
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.Comment1
 import org.junit.runner.RunWith
 import org.mockito.Mockito
+import org.mockito.Mockito._
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
-
-import scala.collection.JavaConverters._
 
 
 @RunWith(classOf[JUnitRunner])
@@ -25,19 +22,15 @@ class Comments1ResourceTest(_system: ActorSystem)
     with BeforeAndAfterAll
     with BeforeAndAfterEach {
 
-  val re: RequestEvent = new RequestEvent(null, null)
-  val dbService: DbService = Mockito.mock(classOf[DbService])
-  val app: DemoApplication = new DemoApplication(null, dbService, null, null)
+  val re: RequestEvent = Mockito.mock(classOf[RequestEvent])
+  val app: DemoApplication = Mockito.mock(classOf[DemoApplication])
+  var repo = Mockito.mock(classOf[ResourceRepository[Comment1]])
 
-  Mockito.when(dbService.findGraphs2(
-    Comment1(None, ""),
-    "SELECT * from io_skysail_server_demo_domain_Comment1",
-    app.appModel))
-    .thenReturn(List(Comment1(Some("id"), "c1")))
-  //  when(dbService.findGraphs(
-  //    classOf[Comment1],
-  //    "SELECT * from io_skysail_server_demo_domain_Comment1 where id='abc'"))
-  //    .thenReturn(List(Comment1(Some("abc"), "title", "url")))
+  val c1 = Comment1(Some("id"), "c1")
+
+  when(app.comments1Repo).thenReturn(repo)
+  when(repo.find()).thenReturn(List(c1))
+  when(repo.find("id")).thenReturn(Some(c1))
 
   var resource: Comments1Resource = null
 
@@ -52,14 +45,16 @@ class Comments1ResourceTest(_system: ActorSystem)
     resource.setApplication(app)
   }
 
-  //  "the listResource" should "return data from the repository" in {
-  //    val res = bsmr.getList(re).iterator.asJava
-  //    assertThat(res).containsOnlyOnce(Comment1(Some("id"), "title", "url"))
-  //  }
+  "a getList request" should "return the expected payload" in {
+    val r: Seq[Comment1] = resource.getList(re).payload
+    r should have length 1
+    r should contain (Comment1(Some("id"), "c1"))
+  }
 
-  "a getList request" should "return nonNull response event" in {
-    val r: util.List[Comment1] = resource.getList(re).payload.asJava
-    org.assertj.core.api.Assertions.assertThat(r).hasSize(1)
+  "a getEntity request" should "return the expected payload" in {
+    when(re.firstParam).thenReturn("id")
+    val r: Option[Comment1] = resource.getEntity(re)
+    r shouldBe Some(c1)
   }
 
 
