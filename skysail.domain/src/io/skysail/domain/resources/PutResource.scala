@@ -2,7 +2,7 @@ package io.skysail.domain.resources
 
 
 import akka.actor.{ActorRef, ActorSystem}
-import akka.http.scaladsl.model.HttpMethods
+import akka.http.scaladsl.model.HttpMethods._
 import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.{RequestEvent, ResponseEventBase, Transformer}
@@ -20,9 +20,9 @@ abstract class PutResource[S <: ApplicationApi, T: TypeTag] extends AsyncResourc
 
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     cmd.ctx.request.method match {
-      case HttpMethods.GET => doGet(RequestEvent(cmd, controller))
-      case HttpMethods.PUT => doPut(RequestEvent(cmd, controller))
-      case HttpMethods.DELETE => doDelete(RequestEvent(cmd, controller))
+      case GET => doGet(RequestEvent(cmd, controller))
+      case PUT => doPut(RequestEvent(cmd, controller))
+      case DELETE => doDelete(RequestEvent(cmd, controller))
       case e: Any => log error "not supported"
     }
   }

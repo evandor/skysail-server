@@ -27,7 +27,7 @@ class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig,DbConf
 
   def getRedirectAfterPost(re: RequestEvent) = Some("/demo/v1/dbconfigs")
 
-  def getRedirectAfterPut(re: RequestEvent) = Some("/demo/v1/dbconfigs")
+  override def getRedirectAfterPut(re: RequestEvent) = Some("/demo/v1/dbconfigs")
 
   override def get(requestEvent: RequestEvent) = {
     val optionalDbConfig = getApplication().repo.find(requestEvent.cmd.urlParameter.head)

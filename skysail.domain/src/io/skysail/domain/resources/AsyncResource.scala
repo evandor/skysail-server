@@ -35,7 +35,7 @@ abstract class AsyncResource[S <: ApplicationApi, T: TypeTag]
       case c: EntityMapping[_, _] => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Entity")
       case c: UpdateMapping[_, _] => {
         req.cmd.ctx.request.method match {
-          case HttpMethods.GET => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_UpdateForm")
+          case HttpMethods.GET => List("html.PutResource_Get", s"${resName.getPackage.getName}.html.${resName.getSimpleName}_UpdateForm")
           case HttpMethods.PUT => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Post")
           case _ => List(s"${resName.getPackage.getName}.html.${resName.getSimpleName}_Get")
         }

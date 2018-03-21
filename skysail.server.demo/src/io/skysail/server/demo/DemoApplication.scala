@@ -20,10 +20,10 @@ import scala.concurrent.ExecutionContextExecutor
 import io.skysail.server.demo.resources.PatternsResource
 
 class DemoApplication(
-  bundleContext: BundleContext,
-  dbService: DbService,
-  system: ActorSystem,
-  routesCreator: RoutesCreatorTrait) extends BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
+                       bundleContext: BundleContext,
+                       dbService: DbService,
+                       system: ActorSystem,
+                       routesCreator: RoutesCreatorTrait) extends BackendApplication(bundleContext, routesCreator, system) with ApplicationProvider {
 
   var monitorUrls: Iterable[String] = null
 
@@ -53,11 +53,13 @@ class DemoApplication(
     override def getEntityTemplate() = Comment2(None, "")
   }
 
-  BookmarkSchedulerService.checkBookmarks(system)
-
+  if (system != null) {
+    BookmarkSchedulerService.checkBookmarks(system)
+  }
   //val dockerClient = DockerClientBuilder.getInstance().build()
 
   override def name = "demo"
+
   override def desc = "Skysail Demo Application"
 
   override def defaultResources = List(
@@ -81,9 +83,9 @@ class DemoApplication(
 
       //RouteMapping("/docker/container", root / PathMatcher("docker") / PathMatcher("container") ~ PathEnd, classOf[ContainersResource]),
 
-      RouteMapping("/patterns",      root / PathMatcher("patterns")  ~ PathEnd, classOf[PatternsResource]),
-      RouteMapping("/patterns/",     root / PathMatcher("patterns") / PathEnd, classOf[PostPatternResource]),
-      RouteMapping("/patterns/:id",  root / PathMatcher("patterns") / Segment ~ PathEnd, classOf[PatternResource]),
+      RouteMapping("/patterns", root / PathMatcher("patterns") ~ PathEnd, classOf[PatternsResource]),
+      RouteMapping("/patterns/", root / PathMatcher("patterns") / PathEnd, classOf[PostPatternResource]),
+      RouteMapping("/patterns/:id", root / PathMatcher("patterns") / Segment ~ PathEnd, classOf[PatternResource]),
       RouteMapping("/patterns/:id/", root / PathMatcher("patterns") / Segment / PathEnd, classOf[PutPatternResource]),
 
       RouteMapping("/beans", root / PathMatcher("beans") ~ PathEnd, classOf[BeansResource]),

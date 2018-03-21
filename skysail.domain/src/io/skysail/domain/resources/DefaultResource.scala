@@ -1,7 +1,7 @@
 package io.skysail.domain.resources
 
 import akka.actor.{ActorRef, ActorSystem}
-import akka.http.scaladsl.model.HttpMethods
+import akka.http.scaladsl.model.HttpMethods._
 import akka.http.scaladsl.server.PathMatcher
 import akka.http.scaladsl.server.PathMatchers._
 import io.skysail.domain._
@@ -40,15 +40,16 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
       case c: EntityMapping[_, _] => handleEntityMapping(RequestEvent(cmd, controller))
       case c: CreationMapping[_, _] => {
         cmd.ctx.request.method match {
-          case HttpMethods.GET => handleCreationMappingGet(RequestEvent(cmd, controller))
-          case HttpMethods.POST => handleCreationMappingPost(RequestEvent(cmd, controller))
+          case GET => handleCreationMappingGet(RequestEvent(cmd, controller))
+          case POST => handleCreationMappingPost(RequestEvent(cmd, controller))
           case _ => log warn s"unknown CreationMapping"
         }
       }
       case c: UpdateMapping[_, _] => {
         cmd.ctx.request.method match {
-          case HttpMethods.GET => handleUpdateMappingGet(RequestEvent(cmd, controller))
-          case HttpMethods.PUT => handleUpdateMappingPut(RequestEvent(cmd, controller))
+          case GET => handleUpdateMappingGet(RequestEvent(cmd, controller))
+          case PUT => handleUpdateMappingPut(RequestEvent(cmd, controller))
+          case DELETE => handleUpdateMappingDelete(RequestEvent(cmd, controller))
           case _ => log warn s"unknown UpdateMapping"
         }
       }
@@ -74,7 +75,7 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
 
   final def handleCreationMappingPost(re: RequestEvent)(implicit system: ActorSystem) = {
     createEntity(re)
-    val newRequest = re.cmd.ctx.request.copy(method = HttpMethods.GET) // ???
+    val newRequest = re.cmd.ctx.request.copy(method = GET) // ???
     re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterPost(re))
   }
 
@@ -85,9 +86,12 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
 
   def handleUpdateMappingPut(re: RequestEvent)(implicit system: ActorSystem) = {
     updateEntity(re)
-    val newRequest = re.cmd.ctx.request.copy(method = HttpMethods.GET) // ???
     re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterPut(re))
+  }
 
+  def handleUpdateMappingDelete(re: RequestEvent)(implicit system: ActorSystem) = {
+    deleteEntity(re)
+    re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterDelete(re))
   }
 
   def getList(requestEvent: RequestEvent): L
@@ -98,11 +102,15 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
 
   def getRedirectAfterPost(re: RequestEvent): Option[String]
 
-  def getRedirectAfterPut(re: RequestEvent): Option[String]
+  def getRedirectAfterPut(re: RequestEvent): Option[String] = getRedirectAfterPost(re)
+
+  def getRedirectAfterDelete(re: RequestEvent): Option[String] = getRedirectAfterPost(re)
 
   def createEntity(re: RequestEvent)(implicit system: ActorSystem): String
 
   def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
+
+  def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = ???
 
   // def get(re: RequestEvent): ResponseEventBase = ResponseEvent[T](re, getList(re))
 
@@ -123,8 +131,8 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
     null
   }
 
-  override def get(requestEvent: RequestEvent): ResponseEventBase = ???
+  override def get(requestEvent: RequestEvent): ResponseEventBase = {null}
 
-  override def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = ???
+  override def post(requestEvent: RequestEvent)(implicit system: ActorSystem): ResponseEventBase = {null}
 
 }

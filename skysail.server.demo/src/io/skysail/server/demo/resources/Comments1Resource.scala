@@ -15,23 +15,21 @@ class Comments1Resource extends DefaultResource[DemoApplication, Comment1, Comme
   
   override def getList(re: RequestEvent) = Comment1List(getApplication().comments1Repo.find())
 
-  override def getEntity(re: RequestEvent) = getApplication().comments1Repo.find(re.cmd.urlParameter.head)
+  override def getEntity(re: RequestEvent): Option[Comment1] = getApplication().comments1Repo.find(re.cmd.urlParameter.head)
 
   override def getTemplate(re: RequestEvent) = Comment1(None, "")
 
   override def getRedirectAfterPost(re: RequestEvent): Option[String] = Some("/demo/v1/comment1s")
 
-  override def getRedirectAfterPut(re: RequestEvent): Option[String] = Some("/demo/v1/comment1s")
-
   override def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem):String = {
-    getApplication().accountsRepo.save(requestEvent.cmd.entity)
+    getApplication().comments1Repo.save(requestEvent.cmd.entity)
   }
 
   override def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
-    val optionalAccount = getApplication().accountsRepo.find(requestEvent.cmd.urlParameter.head)
-    val updatedAccount = requestEvent.cmd.entity.asInstanceOf[Comment1]
-    val AccountToSave = updatedAccount.copy(id = optionalAccount.get.id)
-    getApplication().accountsRepo.save(AccountToSave)
+    val optionalEntity = getApplication().comments1Repo.find(requestEvent.cmd.urlParameter.head)
+    val updatedEntity = requestEvent.cmd.entity.asInstanceOf[Comment1]
+    val entityToSave = updatedEntity.copy(id = optionalEntity.get.id)
+    getApplication().comments1Repo.save(entityToSave)
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
@@ -39,6 +37,10 @@ class Comments1Resource extends DefaultResource[DemoApplication, Comment1, Comme
       val entity = Comment1(Some(UUID.randomUUID().toString), map.getOrElse("comment", "Unknown"))
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
+  }
+
+  override def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
+    getApplication().comments1Repo.delete(re.cmd.urlParameter.head)
   }
 
 }

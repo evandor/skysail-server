@@ -1,0 +1,51 @@
+@*************************************
+* Home page.                        *
+*                                   *
+* @param msg The message to display *
+*************************************@
+@(rep: RepresentationModel, response: ResponseEventBase, o:Object)
+
+@main(response) {
+
+<br><br><br>
+
+<div class="container">
+    <div class="starter-template">
+        <h1>something</h1>
+        <p class="lead">add bookmark:</p>
+        <form action='.?_method=PUT' method="POST">
+
+            <table class="table table-sm">
+                <thead>
+                <tr>
+                    @for(f <- rep.entityModel.get.fields.reverse) {
+                    <th>@f.name.split("\\.").reverse.head</th>
+                    }
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    @for(f <- rep.entityModel.get.fields.reverse) {
+                    <td><input type="text" name='@f.name.split("\\.").reverse.head' value='@rep.rawData.head.get(f.name.split("\\.").reverse.head)'/></td>
+                    }
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <input type="submit">
+                    </th>
+                </tr>
+                </tbody>
+
+            </table>
+        </form>
+
+        <form action='.?_method=DELETE' method="POST">
+            <th colspan="2">
+                <input type="submit" value="delete">
+            </th>
+        </form>
+
+    </div>
+</div>
+
+}
