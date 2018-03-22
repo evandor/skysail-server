@@ -91,28 +91,16 @@ class IntegrationTest {
   }
 
   @Test
-  def postEntity() {
+  def postEntity_And_ReadList() {
     val nvps = List(new BasicNameValuePair("comment", "a comment")).asJava
     val entity = new UrlEncodedFormEntity(nvps)
     val responseBody = post("http://localhost:8001/demo/v1/comment1s/", entity);
+    assertTrue(responseBody.contains("a comment"))
     assertTrue(responseBody.contains("all entities"))
   }
 
   private def get(path: String): String = {
     val httpget = new HttpGet(path);
-    val responseHandler = new ResponseHandler[String]() {
-
-      override def handleResponse(response: HttpResponse): String = {
-        val status = response.getStatusLine().getStatusCode()
-        if (status >= 200 && status < 300) {
-          val entity = response.getEntity();
-          return if (entity != null) EntityUtils.toString(entity) else null
-        } else {
-          throw new ClientProtocolException("Unexpected response status: " + status);
-        }
-      }
-
-    };
     val responseBody = httpclient.execute(httpget, responseHandler);
     System.out.println("--------------------------------------------------------");
     System.out.println(responseBody);
