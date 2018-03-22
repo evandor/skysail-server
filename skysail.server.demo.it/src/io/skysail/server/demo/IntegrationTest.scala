@@ -29,13 +29,20 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
+import org.apache.http.client.methods.HttpPost
+import org.apache.http.message.BasicNameValuePair
+import org.apache.http.NameValuePair
+import org.apache.http.client.entity.UrlEncodedFormEntity
+import java.util.ArrayList
+
+import scala.collection.JavaConverters._
 
 object IntegrationTest {
   @BeforeClass
   def setup(): Unit = {
-    println("waiting for service  for 7500 ms!...")
+    println("waiting for service  for 7500 ms...")
     Thread.sleep(7500)
-    println("waited for service - done!")
+    println("waited for service - done")
   }
 }
 
@@ -44,24 +51,26 @@ class IntegrationTest {
   private val log = LoggerFactory.getLogger(classOf[IntegrationTest])
 
   val context = FrameworkUtil.getBundle(this.getClass()).getBundleContext()
-
   val thisBundle = FrameworkUtil.getBundle(this.getClass())
-
   val httpclient = HttpClients.createDefault()
 
-  //    @Rule
-  //    val thrown = ExpectedException.none()
-  //
-  //    @Rule
-  //    val watcher = new TestWatcher() {
-  //        override def starting(description: Description) = {
-  //            log info ""
-  //            log info "----------------------------------------------"
-  //            log info s"running test '${description.getMethodName()}'"
-  //            log info "----------------------------------------------"
-  //            log info ""
-  //        }
-  //    }
+  val _thrown = ExpectedException.none()
+
+  val _watcher = new TestWatcher() {
+    override def starting(description: Description) = {
+      log info ""
+      log info "----------------------------------------------"
+      log info s"running test '${description.getMethodName()}'"
+      log info "----------------------------------------------"
+      log info ""
+    }
+  }
+
+  @Rule
+  def thrown = _thrown
+
+  @Rule
+  def watcher = _watcher
 
   @Before
   def init() {
@@ -70,9 +79,23 @@ class IntegrationTest {
   }
 
   @Test
-  def root_resources_returns_info_message_if_no_apps_have_been_deployed_yet() {
+  def root_resources_returns_info_message() {
     val responseBody = get("http://localhost:8001/_root");
     assertTrue(responseBody.contains("powered by skysail-server"))
+  }
+
+  @Test
+  def comment1s_resources_returns_200() {
+    val responseBody = get("http://localhost:8001/demo/v1/comment1s");
+    assertTrue(responseBody.contains("all entities"))
+  }
+
+  @Test
+  def postEntity() {
+    val nvps = List(new BasicNameValuePair("comment", "a comment")).asJava
+    val entity = new UrlEncodedFormEntity(nvps)
+    val responseBody = post("http://localhost:8001/demo/v1/comment1s/", entity);
+    assertTrue(responseBody.contains("all entities"))
   }
 
   private def get(path: String): String = {
@@ -80,7 +103,7 @@ class IntegrationTest {
     val responseHandler = new ResponseHandler[String]() {
 
       override def handleResponse(response: HttpResponse): String = {
-        val status = response.getStatusLine().getStatusCode();
+        val status = response.getStatusLine().getStatusCode()
         if (status >= 200 && status < 300) {
           val entity = response.getEntity();
           return if (entity != null) EntityUtils.toString(entity) else null
@@ -95,6 +118,26 @@ class IntegrationTest {
     System.out.println(responseBody);
     System.out.println("--------------------------------------------------------");
     return responseBody;
+  }
+
+  private def post(path: String, entity: HttpEntity): String = {
+    val httpPost = new HttpPost(path);
+    httpPost.setEntity(entity)
+    httpclient.execute(httpPost, responseHandler())
+  }
+
+  private def responseHandler() = {
+    new ResponseHandler[String]() {
+      override def handleResponse(response: HttpResponse): String = {
+        val status = response.getStatusLine().getStatusCode();
+        if (status >= 200 && status < 300) {
+          val entity = response.getEntity();
+          return if (entity != null) EntityUtils.toString(entity) else null
+        } else {
+          throw new ClientProtocolException("Unexpected response status: " + status);
+        }
+      }
+    }
   }
 
 }

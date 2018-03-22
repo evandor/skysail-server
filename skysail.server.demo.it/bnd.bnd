@@ -29,10 +29,8 @@ Test-Cases: io.skysail.server.demo.IntegrationTest
     org.apache.felix.log.storeDebug=true,\
     felix.fileinstall.log.level=4,\
     logback.configurationFile=config/logback.xml,\
-    org.osgi.framework.bootdelegation=sun.misc
-    
-#    ,\
-#    gosh.args=--nointeractive
+    org.osgi.framework.bootdelegation=sun.misc,\
+    gosh.args=--nointeractive
 
 skysail.config.path            = config
 logback.configurationFile.path = config
