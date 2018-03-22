@@ -29,6 +29,8 @@ import org.slf4j.bridge.SLF4JBridgeHandler
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
+import scala.util.Success
+import scala.util.Failure
 
 
 case class ServerConfig(port: Integer, binding: String, conf: Map[String, Any])
@@ -67,7 +69,12 @@ class AkkaServer extends DominoActivator {
   private var serverRestartsCounter = CounterMetric(this.getClass, "server.restarts")
   private var rootApplication: Option[RootApplication] = None
   private var startServerTask: akka.actor.Cancellable = _
-
+  
+//  onComplete(futureBinding) {
+//      case Success(result) => log info s"Server started successfully"; complete(futureBinding)
+//      case Failure(failure) => log error s"Problem occured when trying to start server"; complete(futureBinding)
+//    }
+  
   private class AkkaCapsule(bundleContext: BundleContext) extends ActorSystemActivator with Capsule {
 
     override def start(): Unit = {
@@ -216,9 +223,10 @@ class AkkaServer extends DominoActivator {
           case 1 => futureBinding = Http(actorSystem).bindAndHandle(routes.head, serverConfig.binding, serverConfig.port)
           case _ => futureBinding = Http(actorSystem).bindAndHandle(routes.reduce((a, b) => a ~ b), serverConfig.binding, serverConfig.port)
         }
+          //implicit val executionContext: ExecutionContextExecutor = actorSystem.dispatcher
+        futureBinding.onComplete { t => log info s"Server started with result: $t" }
+
       }
-
-
 
   }
 

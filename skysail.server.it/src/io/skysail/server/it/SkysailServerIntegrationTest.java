@@ -1,5 +1,10 @@
 package io.skysail.server.it;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.util.Arrays;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -24,11 +29,6 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.util.Arrays;
-
-import static org.junit.Assert.assertTrue;
 
 public class SkysailServerIntegrationTest {
 
@@ -58,7 +58,7 @@ public class SkysailServerIntegrationTest {
     @BeforeClass
     public static void setup() throws InterruptedException {
         System.out.println("waiting for service  for 7500 ms...");
-        Thread.currentThread().sleep(7500);
+        Thread.sleep(7500);
         System.out.println("waited for service - done");
     }
 

@@ -5,6 +5,7 @@ import akka.actor.ActorSystem
 import akka.testkit.TestKit
 import io.skysail.db.orientdb.repositories.ResourceRepository
 import io.skysail.domain.RequestEvent
+import io.skysail.domain.messages.ProcessCommand
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.Comment1
 import org.junit.runner.RunWith
@@ -16,7 +17,7 @@ import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class Comments1ResourceTest(_system: ActorSystem)
-  extends TestKit(_system) //with org.scalatest.FunSuite with BeforeAndAfterEach {
+  extends TestKit(_system)
     with Matchers
     with FlatSpecLike
     with BeforeAndAfterAll
@@ -31,6 +32,7 @@ class Comments1ResourceTest(_system: ActorSystem)
   when(app.comments1Repo).thenReturn(repo)
   when(repo.find()).thenReturn(List(c1))
   when(repo.find("id")).thenReturn(Some(c1))
+  when(repo.save(c1)).thenReturn("createdId")
 
   var resource: Comments1Resource = null
 
@@ -57,6 +59,28 @@ class Comments1ResourceTest(_system: ActorSystem)
     r shouldBe Some(c1)
   }
 
+  "the template" should "return a comment1 without id" in {
+    when(re.firstParam).thenReturn("id")
+    val r: Comment1 = resource.getTemplate(re)
+    r.id shouldBe None
+  }
+
+  "a createEntity request" should "return the expected payload" in {
+    var cmd: ProcessCommand = Mockito.mock(classOf[ProcessCommand])
+    Mockito.when(cmd.entity).thenReturn(c1, Nil: _*)
+    when(re.cmd).thenReturn(cmd)
+    val r: String = resource.createEntity(re)
+    r shouldBe "createdId"
+  }
+
+  "an updateEntity request" should "return the expected payload" in {
+    var cmd: ProcessCommand = Mockito.mock(classOf[ProcessCommand])
+    Mockito.when(cmd.entity).thenReturn(c1, Nil: _*)
+    when(re.cmd).thenReturn(cmd)
+    when(re.firstParam).thenReturn("id")
+    resource.updateEntity(re)
+    //r shouldBe "createdId"
+  }
 
   //  "a post request on postResource" should "return nonNull response event" in {
   //    val p: Props = Props.apply(classOf[ControllerActor])//, testProbe.ref)

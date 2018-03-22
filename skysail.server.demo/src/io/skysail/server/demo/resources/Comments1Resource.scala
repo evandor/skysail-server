@@ -26,7 +26,7 @@ class Comments1Resource extends DefaultResource[DemoApplication, Comment1, Comme
   }
 
   override def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
-    val optionalEntity = getApplication().comments1Repo.find(requestEvent.cmd.urlParameter.head)
+    val optionalEntity = getApplication().comments1Repo.find(requestEvent.firstParam)
     val updatedEntity = requestEvent.cmd.entity.asInstanceOf[Comment1]
     val entityToSave = updatedEntity.copy(id = optionalEntity.get.id)
     getApplication().comments1Repo.save(entityToSave)
