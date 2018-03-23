@@ -28,4 +28,5 @@ class Basic2Simulation extends Simulation {
     .exec(http("request_3").get("/computers/6"))
 
   setUp(scn.inject(atOnceUsers(1)).protocols(httpConf))
+    .assertions(forAll.failedRequests.percent.lte(5))
 }
