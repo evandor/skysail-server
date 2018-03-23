@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 class Basic2Simulation extends Simulation {
 
-  val baseUrl = sys.props.getOrElse("gatling.baseUrl", "http://demo.test.skysail.io")
+  val baseUrl = sys.props.getOrElse("gatling.baseUrl", "http://127.0.0.1:9403")
 
   val httpConf = http
     .baseURL(baseUrl)
