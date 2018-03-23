@@ -7,8 +7,8 @@ import scala.concurrent.duration._
 class Basic2Simulation extends Simulation {
 
   val httpConf = http
-    .baseURL("http://computer-database.gatling.io") // Here is the root for all relative URLs
-    .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") // Here are the common headers
+    .baseURL("http://127.0.0.1:8082")
+    .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
     .doNotTrackHeader("1")
     .acceptLanguageHeader("en-US,en;q=0.5")
     .acceptEncodingHeader("gzip, deflate")
@@ -16,9 +16,13 @@ class Basic2Simulation extends Simulation {
 
   val headers_10 = Map("Content-Type" -> "application/x-www-form-urlencoded") // Note the headers specific to a given request
 
-  val scn = scenario("Scenario Name") // A scenario is a chain of requests and pauses
-    .exec(http("request_1").get("/"))
-    .pause(1) // Note that Gatling has recorded real time pauses
+  val scn = scenario("redirect from root page")
+    .exec(
+      http("request_1").get("/")
+        .check(status.is(200))
+        .check(currentLocationRegex(".*demo/v1"))
+    )
+    .pause(1)
     .exec(http("request_2").get("/computers?f=macbook"))
     .pause(1)
     .exec(http("request_3").get("/computers/6"))
