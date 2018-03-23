@@ -20,7 +20,7 @@ class Basic2Simulation extends Simulation {
 
   val scn = scenario("redirect from root page")
     .exec(
-      http("request_1").get("/")
+      http("root").get("/")
         .check(status.is(200))
         .check(currentLocationRegex(".*demo/v1"))
     )
