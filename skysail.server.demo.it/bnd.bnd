@@ -4,8 +4,10 @@ Bundle-Version: 0.1.0.${tstamp}
 
 Bundle-Description: integration tests for demo bundle
 
-#Test-Cases: io.skysail.server.demo.DemoIntegrationTests
-Test-Cases: io.skysail.server.demo.IntegrationTest
+Test-Cases: io.skysail.server.demo.it.DemoIntegrationTests
+#Test-Cases: io.skysail.server.demo.it.IntegrationTest
+#Test-Cases: ${classes;CONCRETE;EXTENDS;io.skysail.server.demo.it.IntegrationTestBase}
+
 
 -buildpath: \
     ${osgi},\
@@ -14,22 +16,14 @@ Test-Cases: io.skysail.server.demo.IntegrationTest
 	org.apache.httpcomponents.httpcore;version=4.4,\
 	org.apache.httpcomponents.httpclient;version=4.5,\
 	skysail.server;version=${skysail.server.version},\
-	slf4j.api;version=1.7	
+	slf4j.api;version=1.7
 
 -runsystemcapabilities: ${native_capability}
 -runsystempackages: ${runsystempackages}
 -runfw: org.apache.felix.framework;version=5
 -runvm: -ea
 -runee: JavaSE-1.8
--runproperties: \
-    felix.fileinstall.dir=config,\
-    felix.fileinstall.filter=.*\\.jar|.*\\.cfg,\
-    felix.fileinstall.noInitialDelay=true,\
-    felix.fileinstall.poll=1000,\
-    org.apache.felix.log.storeDebug=true,\
-    felix.fileinstall.log.level=4,\
-    logback.configurationFile=config/logback.xml,\
-    org.osgi.framework.bootdelegation=sun.misc,\
+-runproperties: ${runproperties},\
     gosh.args=--nointeractive
 
 skysail.config.path            = config
