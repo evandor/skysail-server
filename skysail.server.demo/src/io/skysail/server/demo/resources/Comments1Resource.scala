@@ -12,24 +12,26 @@ import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Comment1, Comment1List}
 
 class Comments1Resource extends DefaultResource[DemoApplication, Comment1, Comment1List] {
-  
-  override def getList(re: RequestEvent) = Comment1List(getApplication().comments1Repo.find())
 
-  override def getEntity(re: RequestEvent): Option[Comment1] = getApplication().comments1Repo.find(re.firstParam)
+  val r = getApplication().comments1Repo
+  
+  override def getList(re: RequestEvent) = Comment1List(r.find())
+
+  override def getEntity(re: RequestEvent): Option[Comment1] = r.find(re.firstParam)
 
   override def getTemplate(re: RequestEvent) = Comment1(None, "")
 
   override def getRedirectAfterPost(re: RequestEvent): Option[String] = Some("/demo/v1/comment1s")
 
   override def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem):String = {
-    getApplication().comments1Repo.save(requestEvent.cmd.entity)
+    r.save(requestEvent.cmd.entity)
   }
 
   override def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
-    val optionalEntity = getApplication().comments1Repo.find(requestEvent.firstParam)
+    val optionalEntity = r.find(requestEvent.firstParam)
     val updatedEntity = requestEvent.cmd.entity.asInstanceOf[Comment1]
     val entityToSave = updatedEntity.copy(id = optionalEntity.get.id)
-    getApplication().comments1Repo.save(entityToSave)
+    r.save(entityToSave)
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
@@ -40,7 +42,7 @@ class Comments1Resource extends DefaultResource[DemoApplication, Comment1, Comme
   }
 
   override def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
-    getApplication().comments1Repo.delete(re.cmd.urlParameter.head)
+    r.delete(re.cmd.urlParameter.head)
   }
 
 }
