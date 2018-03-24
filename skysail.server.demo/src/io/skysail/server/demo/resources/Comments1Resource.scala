@@ -13,11 +13,11 @@ import io.skysail.server.demo.domain.{Comment1, Comment1List}
 
 class Comments1Resource extends DefaultResource[DemoApplication, Comment1, Comment1List] {
 
-  val r = getApplication().comments1Repo
+  private val r = getApplication().comments1Repo
   
   override def getList(re: RequestEvent) = Comment1List(r.find())
 
-  override def getEntity(re: RequestEvent): Option[Comment1] = r.find(re.firstParam)
+  override def getEntity(re: RequestEvent): Option[Comment1] = r.find(re.firstParam())
 
   override def getTemplate(re: RequestEvent) = Comment1(None, "")
 
@@ -28,7 +28,7 @@ class Comments1Resource extends DefaultResource[DemoApplication, Comment1, Comme
   }
 
   override def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
-    val optionalEntity = r.find(requestEvent.firstParam)
+    val optionalEntity = r.find(requestEvent.firstParam())
     val updatedEntity = requestEvent.cmd.entity.asInstanceOf[Comment1]
     val entityToSave = updatedEntity.copy(id = optionalEntity.get.id)
     r.save(entityToSave)
