@@ -3,6 +3,7 @@
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
     id 'com.github.jruby-gradle.base' version '1.4.0'
+    id "org.sonarqube" version "2.6.2"
 }
 
 apply plugin: 'eclipse'
