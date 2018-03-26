@@ -7,12 +7,15 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.RequestEvent
 import io.skysail.domain.messages.ProcessCommand
+import io.skysail.domain.repositories.RepositoryApi
 import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Comment2, Comment2List}
 
 class Comments2Resource extends DefaultResource[DemoApplication, Comment2, Comment2List] {
-  
+
+  override def repo: RepositoryApi[Comment2] = getApplication().comments2Repo
+
   override def getList(re: RequestEvent) = Comment2List(getApplication().comments2Repo.find())
 
   override def getEntity(re: RequestEvent) = getApplication().comments2Repo.find(re.cmd.urlParameter.head)
@@ -23,7 +26,7 @@ class Comments2Resource extends DefaultResource[DemoApplication, Comment2, Comme
 
   override def getRedirectAfterPut(re: RequestEvent): Option[String] = Some("/demo/v1/comment1s")
 
-  override def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem):String = {
+  override def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): String = {
     getApplication().accountsRepo.save(requestEvent.cmd.entity)
   }
 

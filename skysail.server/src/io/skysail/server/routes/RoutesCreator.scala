@@ -248,7 +248,7 @@ class RoutesCreator(system: ActorSystem) extends RoutesCreatorTrait {
     extractUnmatchedPath { unmatchedPath =>
       val applicationActor = RoutesCreator.getApplicationActorSelection(system, appProvider.getClass.getName)
       //val clazz = mapping.resourceClass
-      val resourceInstance = mapping.resourceInstance
+      val resourceInstance = mapping.resourceInstance()
       //resourceClass.newInstance()
       val processCommand = ProcessCommand(ctx, mapping, appProvider.application(), urlParameter, unmatchedPath)
 

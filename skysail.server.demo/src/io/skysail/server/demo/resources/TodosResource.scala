@@ -8,6 +8,7 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.messages.ProcessCommand
+import io.skysail.domain.repositories.RepositoryApi
 import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Todo, TodoList}
@@ -18,6 +19,8 @@ trait JsonSupport5 extends SprayJsonSupport with DefaultJsonProtocol {
 }
 
 class TodosResource extends DefaultResource[DemoApplication, Todo, TodoList] {
+
+  override def repo: RepositoryApi[Todo] = getApplication().todosRepo
 
   override def getList(re: RequestEvent) = TodoList(getApplication().todosRepo.find())
 

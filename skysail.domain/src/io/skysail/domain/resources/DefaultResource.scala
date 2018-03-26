@@ -8,6 +8,7 @@ import io.skysail.domain._
 import io.skysail.domain.app.ApplicationApi
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
+import io.skysail.domain.repositories.RepositoryApi
 import io.skysail.domain.routes._
 import org.slf4j.LoggerFactory
 
@@ -32,6 +33,8 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
 
   val listManifest: Manifest[L] = Transformer.toManifest
   val listClassTag: ClassTag[L] = Transformer.toClassTag
+
+  def repo:RepositoryApi[T]
 
   override def handleRequest(cmd: ProcessCommand, controller: ActorRef)(implicit system: ActorSystem): Unit = {
     // tag::methodMatch[]

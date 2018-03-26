@@ -7,6 +7,7 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.messages.ProcessCommand
+import io.skysail.domain.repositories.RepositoryApi
 import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Account, AccountList}
@@ -50,5 +51,6 @@ class AccountsResource extends DefaultResource[DemoApplication, Account, Account
 
   override def get(requestEvent: RequestEvent): ResponseEventBase = ???
 
+  override def repo: RepositoryApi[Account] = getApplication().accountsRepo
 }
 

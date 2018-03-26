@@ -46,7 +46,7 @@ class DemoApplication(
   //val comments1Repo = new Comments1Repository(dbService, appModel)
 
   val comments1Repo = new ResourceRepository(classOf[Comment1], dbService, appModel) {
-    override def getEntityTemplate() = Comment1(None, "")
+    override def getEntityTemplate = Comment1(None, "")
   }
 
   val comments2Repo = new ResourceRepository(classOf[Comment2], dbService, appModel) {

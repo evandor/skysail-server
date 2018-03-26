@@ -8,18 +8,17 @@ import akka.event.LoggingReceive
 import akka.pattern.ask
 import akka.util.Timeout
 import io.skysail.domain.app.ApplicationApi
-import io.skysail.domain.{ResponseEventBase, SkysailResource}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.model.ApplicationModel
 import io.skysail.domain.routes.ConcreteRouteMapping
+import io.skysail.domain.{ResponseEventBase, SkysailResource}
 import io.skysail.server.actors.ApplicationActor._
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
 import org.osgi.framework.BundleContext
 
 import scala.concurrent.duration.DurationInt
-import scala.util.{Failure, Success}
 import scala.reflect.runtime.{universe => ru}
-import ru._
+import scala.util.{Failure, Success}
 
 object ApplicationActor {
 
@@ -112,14 +111,14 @@ class ApplicationActor(appModel: ApplicationModel, application: BackendApplicati
     context.actorOf(Props.apply(classOf[ControllerActor]), "controllerActor$" + cnt.getAndIncrement)
   }
 
-  private def createInstance(tpe: Type): Any = {
-    val mirror = ru.runtimeMirror(getClass.getClassLoader)
-    val clsSym = tpe.typeSymbol.asClass
-    val clsMirror = mirror.reflectClass(clsSym)
-    val ctorSym = tpe.decl(ru.termNames.CONSTRUCTOR).asMethod
-    val ctorMirror = clsMirror.reflectConstructor(ctorSym)
-    val instance = ctorMirror()
-    return instance
-  }
+//  private def createInstance(tpe: Type): Any = {
+//    val mirror = ru.runtimeMirror(getClass.getClassLoader)
+//    val clsSym = tpe.typeSymbol.asClass
+//    val clsMirror = mirror.reflectClass(clsSym)
+//    val ctorSym = tpe.decl(ru.termNames.CONSTRUCTOR).asMethod
+//    val ctorMirror = clsMirror.reflectConstructor(ctorSym)
+//    val instance = ctorMirror()
+//    return instance
+//  }
 
 }

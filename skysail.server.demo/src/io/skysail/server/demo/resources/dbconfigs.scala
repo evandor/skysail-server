@@ -7,10 +7,11 @@ import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.skysail.domain.messages.ProcessCommand
+import io.skysail.domain.repositories.RepositoryApi
 import io.skysail.domain.resources._
 import io.skysail.domain.{RequestEvent, ResponseEvent}
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.{DbConfig, DbConfigList}
+import io.skysail.server.demo.domain.{Account, DbConfig, DbConfigList}
 import spray.json.{DefaultJsonProtocol, _}
 
 trait JsonSupport2 extends SprayJsonSupport with DefaultJsonProtocol {
@@ -18,6 +19,8 @@ trait JsonSupport2 extends SprayJsonSupport with DefaultJsonProtocol {
 }
 
 class DbConfigsResource extends DefaultResource[DemoApplication, DbConfig,DbConfigList] {
+
+  override def repo: RepositoryApi[DbConfig] = getApplication().dbConfigRepo
 
   override def getList(re: RequestEvent) = DbConfigList(getApplication().dbConfigRepo.find())
 

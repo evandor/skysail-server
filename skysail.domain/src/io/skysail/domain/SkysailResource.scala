@@ -41,7 +41,7 @@ abstract class SkysailResource[S <: ApplicationApi, T: TypeTag] {
   var applicationModel: ApplicationModel = null
   var bundleContext: BundleContext = null
 
-  private var application: ApplicationApi = null
+  var application: ApplicationApi = null
 
   def setApplicationModel(model: ApplicationModel) = this.applicationModel = model
 

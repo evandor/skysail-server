@@ -1,5 +1,14 @@
 // Available to customize the build
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.scoverage:gradle-scoverage:2.1.0'
+    }
+}
+
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
     id 'com.github.jruby-gradle.base' version '1.4.0'
@@ -8,6 +17,7 @@ plugins {
 
 apply plugin: 'eclipse'
 apply plugin: 'java'
+
 
 dependencies {
     gems files('gradle/gems/asciidoctor-diagram-1.5.4.gem')
@@ -64,4 +74,24 @@ build.dependsOn(jenkinsTest)*/
 configure(createAndCopyDocumentationToDocBundle) {
     group = 'documentation'
     description = 'Creates Asciidoc html5 documentation and copies it to skysail.server.doc'
+}
+
+
+subprojects {
+
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'scala'
+    apply plugin: 'org.scoverage'
+
+    dependencies {
+        compile 'org.scala-lang:scala-library:2.11.11'
+        scoverage 'org.scoverage:scalac-scoverage-plugin_2.11:1.3.1',
+                'org.scoverage:scalac-scoverage-runtime_2.11:1.3.1'
+
+        testCompile 'junit:junit:4.11'
+    }
+
 }

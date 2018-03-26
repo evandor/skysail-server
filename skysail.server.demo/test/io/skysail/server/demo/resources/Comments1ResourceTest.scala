@@ -25,7 +25,7 @@ class Comments1ResourceTest(_system: ActorSystem)
 
   val re: RequestEvent = Mockito.mock(classOf[RequestEvent])
   val app: DemoApplication = Mockito.mock(classOf[DemoApplication])
-  var repo = Mockito.mock(classOf[ResourceRepository[Comment1]])
+  var repo: ResourceRepository[Comment1] = Mockito.mock(classOf[ResourceRepository[Comment1]])
 
   val c1 = Comment1(Some("id"), "c1")
 
