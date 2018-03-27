@@ -49,6 +49,7 @@ Import-Package: \
 Export-Package: \
 	io.skysail.server.routes,\
 	io.skysail.server,\
+	io.skysail.server.resources,\
 	io.skysail.server.actors,\
 	io.skysail.server.adapter,\
 	io.skysail.server.app,\

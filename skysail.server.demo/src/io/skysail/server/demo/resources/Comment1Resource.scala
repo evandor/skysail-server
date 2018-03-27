@@ -8,7 +8,7 @@ import akka.http.scaladsl.server.Route
 import io.skysail.domain.RequestEvent
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.repositories.RepositoryApi
-import io.skysail.domain.resources._
+import io.skysail.server.resources._
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Comment1, Comment1List}
 

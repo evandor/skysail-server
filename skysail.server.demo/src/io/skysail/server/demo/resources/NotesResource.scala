@@ -6,12 +6,12 @@ import akka.actor.{ActorSelection, ActorSystem}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.repositories.RepositoryApi
-import io.skysail.domain.resources._
+import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.server.demo.DemoApplication
-import io.skysail.server.demo.domain.{Account, Note, NoteList}
+import io.skysail.server.demo.domain.{Note, NoteList}
+import io.skysail.server.resources._
 import spray.json.{DefaultJsonProtocol, _}
 
 trait JsonSupport3 extends SprayJsonSupport with DefaultJsonProtocol {

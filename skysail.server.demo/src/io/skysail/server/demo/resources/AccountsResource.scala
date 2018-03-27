@@ -8,7 +8,7 @@ import akka.http.scaladsl.server.Route
 import io.skysail.domain.{RequestEvent, ResponseEventBase}
 import io.skysail.domain.messages.ProcessCommand
 import io.skysail.domain.repositories.RepositoryApi
-import io.skysail.domain.resources._
+import io.skysail.server.resources._
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Account, AccountList}
 import org.slf4j.LoggerFactory

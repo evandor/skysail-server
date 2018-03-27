@@ -9,7 +9,7 @@ import akka.http.scaladsl.server.{Route, _}
 import io.skysail.domain.SkysailResource
 import io.skysail.domain.app.{ApiVersion, ApplicationApi}
 import io.skysail.domain.model.ApplicationModel
-import io.skysail.domain.resources.DefaultResource
+import io.skysail.server.resources.DefaultResource
 import io.skysail.domain.routes._
 import io.skysail.server.app.resources.{AppModelResource, EntityModelResource, ResourceModelResource}
 import io.skysail.server.{Constants, RoutesCreatorTrait}
