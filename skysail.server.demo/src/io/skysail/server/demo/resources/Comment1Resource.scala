@@ -18,15 +18,9 @@ class Comment1Resource extends DefaultResource[DemoApplication, Comment1, Commen
 
   override def repo: RepositoryApi[Comment1] = getApplication().comments1Repo
 
-  override def getEntity(re: RequestEvent): Option[Comment1] = repo.find(re.firstParam())
-
   override def getTemplate(re: RequestEvent) = Comment1(None, "")
 
   override def getRedirectAfterPost(re: RequestEvent): Option[String] = Some("/demo/v1/comment1s")
-
-  override def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem):String = {
-    repo.save(requestEvent.cmd.entity)
-  }
 
   override def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
     val optionalEntity = repo.find(requestEvent.firstParam())
@@ -41,10 +35,5 @@ class Comment1Resource extends DefaultResource[DemoApplication, Comment1, Commen
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }
   }
-
-  override def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
-    repo.delete(re.cmd.urlParameter.head)
-  }
-
 }
 

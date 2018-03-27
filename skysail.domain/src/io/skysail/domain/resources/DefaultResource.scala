@@ -99,7 +99,9 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
 
   def getList(requestEvent: RequestEvent): L
 
-  def getEntity(re: RequestEvent): Option[T]
+  //def getEntity(re: RequestEvent): Option[T]
+  def getEntity(re: RequestEvent): Option[T] = repo.find(re.firstParam())
+
 
   def getTemplate(re: RequestEvent): T
 
@@ -117,8 +119,17 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
 
   def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
 
-  def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = ???
+  /*def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
+    val optionalEntity = repo.find(requestEvent.firstParam())
+    val updatedEntity = requestEvent.cmd.entity.asInstanceOf[T]
+    val entityToSave = updatedEntity.copy(id = optionalEntity.get.id)
+    repo.save(entityToSave)
+  }*/
 
+  //def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = ???
+  def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
+    repo.delete(re.cmd.urlParameter.head)
+  }
   // def get(re: RequestEvent): ResponseEventBase = ResponseEvent[T](re, getList(re))
 
   def getMappings(cls: Class[_ <: DefaultResource[_, _, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {

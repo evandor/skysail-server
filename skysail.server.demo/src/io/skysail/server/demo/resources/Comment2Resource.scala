@@ -16,23 +16,17 @@ class Comment2Resource extends DefaultResource[DemoApplication, Comment2, Commen
 
   override def repo: RepositoryApi[Comment2] = getApplication().comments2Repo
 
-  override def getList(re: RequestEvent) = Comment2List(getApplication().comments2Repo.find())
-
-  override def getEntity(re: RequestEvent) = getApplication().comments2Repo.find(re.cmd.urlParameter.head)
+  override def getList(re: RequestEvent) = Comment2List(repo.find())
 
   override def getTemplate(re: RequestEvent) = Comment2(None, "")
 
   override def getRedirectAfterPost(re: RequestEvent): Option[String] = Some("/demo/v1/comment1s")
 
-  override def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): String = {
-    getApplication().accountsRepo.save(requestEvent.cmd.entity)
-  }
-
   override def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
-    val optionalAccount = getApplication().accountsRepo.find(requestEvent.cmd.urlParameter.head)
+    val optionalAccount = repo.find(requestEvent.cmd.urlParameter.head)
     val updatedAccount = requestEvent.cmd.entity.asInstanceOf[Comment2]
     val AccountToSave = updatedAccount.copy(id = optionalAccount.get.id)
-    getApplication().accountsRepo.save(AccountToSave)
+    repo.save(AccountToSave)
   }
 
   override def createRoute(applicationActor: ActorSelection, processCommand: ProcessCommand)(implicit system: ActorSystem): Route = {
