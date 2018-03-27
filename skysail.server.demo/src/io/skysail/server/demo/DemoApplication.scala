@@ -67,8 +67,8 @@ class DemoApplication(
     classOf[NotesResource],
     classOf[TodosResource],
     classOf[AccountsResource],
-    classOf[Comments1Resource],
-    classOf[Comments2Resource]
+    classOf[Comment1Resource],
+    classOf[Comment2Resource]
   )
 
   override def routesMappings = {

@@ -12,7 +12,7 @@ import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Comment2, Comment2List}
 
-class Comments2Resource extends DefaultResource[DemoApplication, Comment2, Comment2List] {
+class Comment2Resource extends DefaultResource[DemoApplication, Comment2, Comment2List] {
 
   override def repo: RepositoryApi[Comment2] = getApplication().comments2Repo
 
@@ -23,8 +23,6 @@ class Comments2Resource extends DefaultResource[DemoApplication, Comment2, Comme
   override def getTemplate(re: RequestEvent) = Comment2(None, "")
 
   override def getRedirectAfterPost(re: RequestEvent): Option[String] = Some("/demo/v1/comment1s")
-
-  override def getRedirectAfterPut(re: RequestEvent): Option[String] = Some("/demo/v1/comment1s")
 
   override def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): String = {
     getApplication().accountsRepo.save(requestEvent.cmd.entity)

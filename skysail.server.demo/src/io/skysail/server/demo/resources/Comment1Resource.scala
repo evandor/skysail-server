@@ -12,13 +12,11 @@ import io.skysail.domain.resources._
 import io.skysail.server.demo.DemoApplication
 import io.skysail.server.demo.domain.{Comment1, Comment1List}
 
-class Comments1Resource extends DefaultResource[DemoApplication, Comment1, Comment1List] {
+class Comment1Resource extends DefaultResource[DemoApplication, Comment1, Comment1List] {
   
   override def getList(re: RequestEvent) = Comment1List(repo.find())
 
-  override def repo: RepositoryApi[Comment1] = {
-    getApplication().comments1Repo
-  }
+  override def repo: RepositoryApi[Comment1] = getApplication().comments1Repo
 
   override def getEntity(re: RequestEvent): Option[Comment1] = repo.find(re.firstParam())
 

@@ -109,7 +109,11 @@ abstract class DefaultResource[S <: ApplicationApi, T: TypeTag, L: TypeTag] exte
 
   def getRedirectAfterDelete(re: RequestEvent): Option[String] = getRedirectAfterPost(re)
 
-  def createEntity(re: RequestEvent)(implicit system: ActorSystem): String
+  //def createEntity(re: RequestEvent)(implicit system: ActorSystem): String
+
+  def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem):String = {
+    repo.save(requestEvent.cmd.entity)
+  }
 
   def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
 

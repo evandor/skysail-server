@@ -34,7 +34,7 @@ class Comments1ResourceTest(_system: ActorSystem)
   when(repo.find("id")).thenReturn(Some(c1))
   when(repo.save(c1)).thenReturn("createdId")
 
-  var resource: Comments1Resource = null
+  var resource: Comment1Resource = null
 
   def this() = this(ActorSystem("AkkaQuickstartSpec"))
 
@@ -43,7 +43,7 @@ class Comments1ResourceTest(_system: ActorSystem)
   }
 
   override def beforeEach() = {
-    resource = new Comments1Resource()
+    resource = new Comment1Resource()
     resource.setApplication(app)
   }
 
