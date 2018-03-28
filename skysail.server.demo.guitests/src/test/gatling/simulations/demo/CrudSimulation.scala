@@ -1,4 +1,4 @@
-package simulations.demo
+package demo
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
@@ -24,9 +24,18 @@ class CrudSimulation extends Simulation {
         .check(currentLocationRegex(".*demo/v1"))
     )
     .pause(1)
-    //.exec(http("request_2").get("/computers?f=macbook"))
-    //.pause(1)
-    //.exec(http("request_3").get("/computers/6"))
+    .exec(
+      http("get post form").get("/demo/v1/comment1s")
+        .check(status.is(200))
+    )
+    .pause(1)
+    .exec(
+      http("create comment")
+        .post("/demo/v1/comment1s/")
+        .headers(headers_10)
+        .formParam("comment", "a test comment"))
+  //.pause(1)
+  //.exec(http("request_3").get("/computers/6"))
 
   setUp(scn.inject(atOnceUsers(1)).protocols(httpConf))
     .assertions(forAll.failedRequests.percent.lte(5))

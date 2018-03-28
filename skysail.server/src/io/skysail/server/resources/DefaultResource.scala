@@ -119,13 +119,13 @@ abstract class DefaultResource[S <: ApplicationApi, T <:Entity[_]: TypeTag, L: T
     repo.save(requestEvent.cmd.entity)
   }
 
-  //def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
+  def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
 
-  def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
+  /*def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
     val updatedEntity:Entity[_] = re.cmd.entity.asInstanceOf[T]
     val entityToSave = updatedEntity.copy(id = Some(re.firstParam()))
     repo.save(entityToSave)
-  }
+  }*/
   
   //def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = ???
   def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
