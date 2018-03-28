@@ -64,7 +64,7 @@ public class SkysailServerIntegrationTest {
 
     @Before
     public void init() throws InterruptedException {
-        getService(io.skysail.server.app.ApplicationProvider.class);
+        //getService(io.skysail.server.app.ApplicationProvider.class);
     }
 
     <T> T getService(Class<T> clazz) throws InterruptedException {

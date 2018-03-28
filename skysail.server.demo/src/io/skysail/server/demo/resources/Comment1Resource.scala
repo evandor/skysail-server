@@ -22,10 +22,9 @@ class Comment1Resource extends DefaultResource[DemoApplication, Comment1, Commen
 
   override def getRedirectAfterPost(re: RequestEvent): Option[String] = Some("/demo/v1/comment1s")
 
-  override def updateEntity(requestEvent: RequestEvent)(implicit system: ActorSystem): Unit = {
-    val optionalEntity = repo.find(requestEvent.firstParam())
-    val updatedEntity = requestEvent.cmd.entity.asInstanceOf[Comment1]
-    val entityToSave = updatedEntity.copy(id = optionalEntity.get.id)
+  override def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
+    val updatedEntity: Comment1 = re.cmd.entity.asInstanceOf[Comment1]
+    val entityToSave: Comment1 = updatedEntity.copy(id = Some(re.firstParam()))
     repo.save(entityToSave)
   }
 
