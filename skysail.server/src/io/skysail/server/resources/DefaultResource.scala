@@ -26,7 +26,7 @@ import scala.reflect.runtime.universe._
   * S the backend application serving the resource
   * T the entity associated with the resource, typically an aggregate root
   */
-abstract class DefaultResource[S <: ApplicationApi, T <:Entity[_]: TypeTag, L: TypeTag] extends AsyncResource[S, T] {
+abstract class DefaultResource[S <: ApplicationApi, T <:Entity[String]: TypeTag, L: TypeTag] extends AsyncResource[S, T] {
 
   private val log = LoggerFactory.getLogger(this.getClass)
 
@@ -121,12 +121,6 @@ abstract class DefaultResource[S <: ApplicationApi, T <:Entity[_]: TypeTag, L: T
 
   def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
 
-  /*def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
-    val updatedEntity:Entity[_] = re.cmd.entity.asInstanceOf[T]
-    val entityToSave = updatedEntity.copy(id = Some(re.firstParam()))
-    repo.save(entityToSave)
-  }*/
-  
   //def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = ???
   def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
     repo.delete(re.cmd.urlParameter.head)
