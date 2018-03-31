@@ -64,23 +64,22 @@ abstract class DefaultResource[S <: ApplicationApi, T <:Entity[String]: TypeTag,
 
   }
 
-  final def handleListRouteMapping(re: RequestEvent) = {
+  final def handleListRouteMapping(re: RequestEvent): Unit = {
     val list: L = getList(re)
     re.controllerActor ! ResponseEvent[L](re, list)(listManifest, listClassTag)
   }
 
-  final def handleEntityMapping(re: RequestEvent) = {
+  final def handleEntityMapping(re: RequestEvent): Unit = {
     val entity = getEntity(re).get
     re.controllerActor ! ResponseEvent[T](re, entity)(entityManifest, entityClassTag)
   }
 
-  final def handleCreationMappingGet(re: RequestEvent) = {
+  final def handleCreationMappingGet(re: RequestEvent): Unit = {
     re.controllerActor ! ResponseEvent[T](re, getTemplate(re))(entityManifest, entityClassTag)
   }
 
-  final def handleCreationMappingPost(re: RequestEvent)(implicit system: ActorSystem) = {
+  final def handleCreationMappingPost(re: RequestEvent)(implicit system: ActorSystem): Unit = {
     createEntity(re)
-    val newRequest = re.cmd.ctx.request.copy(method = GET) // ???
     re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterPost(re))
   }
 
@@ -89,19 +88,18 @@ abstract class DefaultResource[S <: ApplicationApi, T <:Entity[String]: TypeTag,
     re.controllerActor ! ResponseEvent(re, optionalEntity.get)(entityManifest, entityClassTag)
   }
 
-  def handleUpdateMappingPut(re: RequestEvent)(implicit system: ActorSystem) = {
+  def handleUpdateMappingPut(re: RequestEvent)(implicit system: ActorSystem): Unit = {
     updateEntity(re)
     re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterPut(re))
   }
 
-  def handleUpdateMappingDelete(re: RequestEvent)(implicit system: ActorSystem) = {
+  def handleUpdateMappingDelete(re: RequestEvent)(implicit system: ActorSystem): Unit = {
     deleteEntity(re)
     re.controllerActor ! RedirectResponseEvent(re, "", getRedirectAfterDelete(re))
   }
 
   def getList(requestEvent: RequestEvent): L
 
-  //def getEntity(re: RequestEvent): Option[T]
   def getEntity(re: RequestEvent): Option[T] = repo.find(re.firstParam())
 
 
@@ -113,19 +111,15 @@ abstract class DefaultResource[S <: ApplicationApi, T <:Entity[String]: TypeTag,
 
   def getRedirectAfterDelete(re: RequestEvent): Option[String] = getRedirectAfterPost(re)
 
-  //def createEntity(re: RequestEvent)(implicit system: ActorSystem): String
-
   def createEntity(requestEvent: RequestEvent)(implicit system: ActorSystem):String = {
     repo.save(requestEvent.cmd.entity)
   }
 
   def updateEntity(re: RequestEvent)(implicit system: ActorSystem): Unit
 
-  //def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = ???
   def deleteEntity(re: RequestEvent)(implicit system: ActorSystem): Unit = {
     repo.delete(re.cmd.urlParameter.head)
   }
-  // def get(re: RequestEvent): ResponseEventBase = ResponseEvent[T](re, getList(re))
 
   def getMappings(cls: Class[_ <: DefaultResource[_, _, _]], appModel: ApplicationModel): List[RouteMappingI[_, T]] = {
     val root = appModel.appRoute

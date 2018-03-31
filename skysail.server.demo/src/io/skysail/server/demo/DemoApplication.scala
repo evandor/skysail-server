@@ -9,7 +9,7 @@ import io.skysail.db.orientdb.repositories.ResourceRepository
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
-import io.skysail.server.demo.domain.{Comment1, Comment2, DbConfig}
+import io.skysail.server.demo.domain.{Comment1, Comment2, DbConfig, Monitor2}
 import io.skysail.server.demo.repositories._
 import io.skysail.server.demo.resources.{DbConfigsResource, _}
 import io.skysail.server.demo.services.{BookmarkSchedulerService, EventService}
@@ -44,6 +44,7 @@ class DemoApplication(
   val accountsRepo = new AccountsRepo(dbService, appModel)
   val patternRepo = new PatternRepository(dbService, appModel)
   //val comments1Repo = new Comments1Repository(dbService, appModel)
+  val monitor2Repo = new MonitorRepository(classOf[Monitor2], appModel)
 
   val comments1Repo = new ResourceRepository(classOf[Comment1], dbService, appModel) {
     override def getEntityTemplate = Comment1(None, "")
@@ -68,7 +69,8 @@ class DemoApplication(
     classOf[TodosResource],
     classOf[AccountsResource],
     classOf[Comment1Resource],
-    classOf[Comment2Resource]
+    classOf[Comment2Resource],
+    classOf[Monitor2Resource]
   )
 
   override def routesMappings = {
