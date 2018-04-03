@@ -35,8 +35,8 @@ class DefaultMenuService extends MenuService {
       Some(m)
     } else {
       val segments = path.split("/").toList
-      m.items
-        .find(_.segmentId == segments.head)
+      m.nodes
+        .find(_.text == segments.head)
         .flatMap(c => lookup(c, segments.tail.mkString("/")))
         .orElse(None)
 

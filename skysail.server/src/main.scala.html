@@ -21,6 +21,7 @@
                                 Applications <span class="sr-only">(current)</span>
                                 <div id="appnav"></div>
                                 <div id="menunav"></div>
+                                <div id="tree"></div>
                             </a>
                         </li>
                     </ul>
@@ -55,7 +56,7 @@
         return $('<div>', {
           html: $('<a>', {
             href: context,
-            text: name
+            text: "["+name+"]"
           })
         })
       }
@@ -67,13 +68,86 @@
         });
       }, 'json');
 
+      // $.get( "/_root/menu", function( data ) {
+      //   var c=$("#menunav");
+      //   console.log("the data", data.items)
+      //   $.each(data.items, function(i, obj) {
+      //     c.append(createElement(1, obj.segmentId, obj.url));
+      //   });
+      // }, 'json');
+
+
+      var e = $('#tree')
       $.get( "/_root/menu", function( data ) {
-        var c=$("#menunav");
-        console.log("the data", data)
-        $.each(data, function(i, obj) {
-          c.append(createElement(1, obj.segmentId, obj.url));
-        });
-      }, 'json');
+          var json = JSON.parse("[" + JSON.stringify(data) + "]")
+          //console.log("3",JSON.stringify(json))
+
+
+           var t = [
+               {
+                   text: 'Parent 1!',
+                   href: '#parent1',
+                   tags: ['4'],
+                   nodes: [
+                       {
+                           text: 'Child 1',
+                           href: '#child1',
+                           tags: ['2'],
+                           nodes: [
+                               {
+                                   text: 'Grandchild 1',
+                                   href: '#grandchild1',
+                                   tags: ['0']
+                               },
+                               {
+                                   text: 'Grandchild 2',
+                                   href: '#grandchild2',
+                                   tags: ['0']
+                               }
+                           ]
+                       },
+                       {
+                           text: 'Child 2',
+                           href: '#child2',
+                           tags: ['0']
+                       }
+                   ]
+               },
+               {
+                   text: 'Parent 2',
+                   href: '#parent2',
+                   tags: ['0']
+               },
+               {
+                   text: 'Parent 3',
+                   href: '#parent3',
+                   tags: ['0']
+               },
+               {
+                   text: 'Parent 4',
+                   href: '#parent4',
+                   tags: ['0']
+               },
+               {
+                   text: 'Parent 5',
+                   href: '#parent5'  ,
+                   tags: ['0']
+               }
+           ]
+
+          e.treeview({
+              color: "#428bca",
+              expandIcon: 'glyphicon glyphicon-chevron-right',
+              collapseIcon: 'glyphicon glyphicon-chevron-down',
+              nodeIcon: 'glyphicon glyphicon-bookmark',
+              data: t});
+          //e.treeview('expandAll', { levels: 2, silent: true });
+      });
+
+
+
+
+
     </script>
 
 

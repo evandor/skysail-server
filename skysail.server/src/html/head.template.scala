@@ -58,7 +58,9 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
           src="https://code.jquery.com/jquery-3.3.1.min.js"
           integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
           crossorigin="anonymous"></script>
-"""))
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>"""))
       }
     }
   }
@@ -74,9 +76,9 @@ Seq[Any](format.raw/*1.3*/("""<meta charset="utf-8">
 
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 12 17:48:20 CET 2018
+                  DATE: Tue Apr 03 15:42:58 CEST 2018
                   SOURCE: C:/git/skysail-server/skysail.server/./src/head.scala.html
-                  HASH: e02b8b54e32402700d5813b28fb56e716c690083
+                  HASH: 79f2ed6185b8c6bcda90618aecf367952d546cc2
                   MATRIX: 532->2
                   LINES: 17->1
                   -- GENERATED --
