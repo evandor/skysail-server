@@ -4,14 +4,13 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives.{get, getFromResourceDirectory, pathPrefix}
 import akka.http.scaladsl.server.PathMatchers._
 import akka.http.scaladsl.server.{PathMatcher, Route}
-import io.skysail.api.ui.Client
+import io.skysail.api.ui.{Client, MenuService}
 import io.skysail.domain.routes.RouteMapping
-import io.skysail.server.app.resources.{AppsResource, ClientsResource, RootResource}
+import io.skysail.server.app.resources._
 import io.skysail.server.routes.RoutesCreator
 import org.osgi.framework.BundleContext
 
 import scala.concurrent.ExecutionContextExecutor
-import io.skysail.server.app.resources.RootRedirectResource
 import akka.http.scaladsl.server.PathMatchers
 
 object RootApplication {
@@ -29,6 +28,7 @@ object RootApplication {
 class RootApplication(
                        bundleContext: BundleContext,
                        routesCreator: RoutesCreator,
+                       val menuService: MenuService,
                        system: ActorSystem,
                        val conf: Map[String, Any]) extends BackendApplication(bundleContext, routesCreator, null)
   with ApplicationProvider {
@@ -52,6 +52,7 @@ class RootApplication(
       RouteMapping("", PathMatchers.PathEnd, classOf[RootRedirectResource]),
       RouteMapping("", root ~ PathEnd, classOf[RootResource]),
       RouteMapping("/apps", root / PathMatcher("apps") ~ PathEnd, classOf[AppsResource]),
+      RouteMapping("/menu", root / PathMatcher("menu") ~ PathEnd, classOf[MenuResource]),
       RouteMapping("/clients", root / PathMatcher("clients") ~ PathEnd, classOf[ClientsResource])
     )
   }

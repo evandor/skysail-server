@@ -36,6 +36,7 @@ Seq[Any](format.raw/*1.46*/("""
                                 <span data-feather="home"></span>
                                 Applications <span class="sr-only">(current)</span>
                                 <div id="appnav"></div>
+                                <div id="menunav"></div>
                             </a>
                         </li>
                     </ul>
@@ -59,29 +60,36 @@ Seq[Any](format.raw/*1.46*/("""
             </nav>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-                """),_display_(/*46.18*/content),format.raw/*46.25*/("""
-            """),format.raw/*47.13*/("""</main>
+                """),_display_(/*47.18*/content),format.raw/*47.25*/("""
+            """),format.raw/*48.13*/("""</main>
         </div>
     </div>
 
     <script>
 
-      function createElement(i, name,context) """),format.raw/*53.47*/("""{"""),format.raw/*53.48*/("""
-        """),format.raw/*54.9*/("""return $('<div>', """),format.raw/*54.27*/("""{"""),format.raw/*54.28*/("""
-          """),format.raw/*55.11*/("""html: $('<a>', """),format.raw/*55.26*/("""{"""),format.raw/*55.27*/("""
-            """),format.raw/*56.13*/("""href: context,
+      function createElement(i, name,context) """),format.raw/*54.47*/("""{"""),format.raw/*54.48*/("""
+        """),format.raw/*55.9*/("""return $('<div>', """),format.raw/*55.27*/("""{"""),format.raw/*55.28*/("""
+          """),format.raw/*56.11*/("""html: $('<a>', """),format.raw/*56.26*/("""{"""),format.raw/*56.27*/("""
+            """),format.raw/*57.13*/("""href: context,
             text: name
-          """),format.raw/*58.11*/("""}"""),format.raw/*58.12*/(""")
-        """),format.raw/*59.9*/("""}"""),format.raw/*59.10*/(""")
-      """),format.raw/*60.7*/("""}"""),format.raw/*60.8*/("""
+          """),format.raw/*59.11*/("""}"""),format.raw/*59.12*/(""")
+        """),format.raw/*60.9*/("""}"""),format.raw/*60.10*/(""")
+      """),format.raw/*61.7*/("""}"""),format.raw/*61.8*/("""
 
-      """),format.raw/*62.7*/("""$.get( "/_root/apps", function( data ) """),format.raw/*62.46*/("""{"""),format.raw/*62.47*/("""
-        """),format.raw/*63.9*/("""var c=$("#appnav");
-        $.each(data.applications, function(i, obj) """),format.raw/*64.52*/("""{"""),format.raw/*64.53*/("""
-          """),format.raw/*65.11*/("""c.append(createElement(1, obj.name, obj.context));
-        """),format.raw/*66.9*/("""}"""),format.raw/*66.10*/(""");
-      """),format.raw/*67.7*/("""}"""),format.raw/*67.8*/(""", 'json');
+      """),format.raw/*63.7*/("""$.get( "/_root/apps", function( data ) """),format.raw/*63.46*/("""{"""),format.raw/*63.47*/("""
+        """),format.raw/*64.9*/("""var c=$("#appnav");
+        $.each(data.applications, function(i, obj) """),format.raw/*65.52*/("""{"""),format.raw/*65.53*/("""
+          """),format.raw/*66.11*/("""c.append(createElement(1, obj.name, obj.context));
+        """),format.raw/*67.9*/("""}"""),format.raw/*67.10*/(""");
+      """),format.raw/*68.7*/("""}"""),format.raw/*68.8*/(""", 'json');
 
+      $.get( "/_root/menu", function( data ) """),format.raw/*70.46*/("""{"""),format.raw/*70.47*/("""
+        """),format.raw/*71.9*/("""var c=$("#menunav");
+        console.log("the data", data)
+        $.each(data, function(i, obj) """),format.raw/*73.39*/("""{"""),format.raw/*73.40*/("""
+          """),format.raw/*74.11*/("""c.append(createElement(1, obj.segmentId, obj.url));
+        """),format.raw/*75.9*/("""}"""),format.raw/*75.10*/(""");
+      """),format.raw/*76.7*/("""}"""),format.raw/*76.8*/(""", 'json');
     </script>
 
 
@@ -109,11 +117,11 @@ Seq[Any](format.raw/*1.46*/("""
 
               /*
                   -- GENERATED --
-                  DATE: Mon Mar 12 17:48:20 CET 2018
-                  SOURCE: C:/git/skysail-server/skysail.server/./src/main.scala.html
-                  HASH: 1df09289adf8763d31098875d63dc649baa7b9b5
-                  MATRIX: 466->1|605->45|632->46|726->115|752->121|779->122|847->164|876->172|909->178|2456->1698|2484->1705|2525->1718|2648->1813|2677->1814|2713->1823|2759->1841|2788->1842|2827->1853|2870->1868|2899->1869|2940->1882|3016->1930|3045->1931|3082->1941|3111->1942|3146->1950|3174->1951|3209->1959|3276->1998|3305->1999|3341->2008|3440->2079|3469->2080|3508->2091|3594->2150|3623->2151|3659->2160|3687->2161
-                  LINES: 12->1|17->1|18->2|22->6|22->6|23->7|27->11|27->11|29->13|62->46|62->46|63->47|69->53|69->53|70->54|70->54|70->54|71->55|71->55|71->55|72->56|74->58|74->58|75->59|75->59|76->60|76->60|78->62|78->62|78->62|79->63|80->64|80->64|81->65|82->66|82->66|83->67|83->67
+                  DATE: Tue Apr 03 09:03:54 CEST 2018
+                  SOURCE: /Users/carsten/git/skysail-server/skysail.server/./src/main.scala.html
+                  HASH: db1b2de4c7a2daff83980e581dc4ddc401ca7b4f
+                  MATRIX: 466->1|605->45|632->46|726->115|752->121|779->122|847->164|876->172|909->178|2513->1755|2541->1762|2582->1775|2705->1870|2734->1871|2770->1880|2816->1898|2845->1899|2884->1910|2927->1925|2956->1926|2997->1939|3073->1987|3102->1988|3139->1998|3168->1999|3203->2007|3231->2008|3266->2016|3333->2055|3362->2056|3398->2065|3497->2136|3526->2137|3565->2148|3651->2207|3680->2208|3716->2217|3744->2218|3829->2275|3858->2276|3894->2285|4019->2382|4048->2383|4087->2394|4174->2454|4203->2455|4239->2464|4267->2465
+                  LINES: 12->1|17->1|18->2|22->6|22->6|23->7|27->11|27->11|29->13|63->47|63->47|64->48|70->54|70->54|71->55|71->55|71->55|72->56|72->56|72->56|73->57|75->59|75->59|76->60|76->60|77->61|77->61|79->63|79->63|79->63|80->64|81->65|81->65|82->66|83->67|83->67|84->68|84->68|86->70|86->70|87->71|89->73|89->73|90->74|91->75|91->75|92->76|92->76
                   -- GENERATED --
               */
           

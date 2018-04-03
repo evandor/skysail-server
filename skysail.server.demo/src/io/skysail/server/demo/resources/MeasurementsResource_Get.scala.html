@@ -1,0 +1,25 @@
+@*************************************
+* Home page.                        *
+*                                   *
+* @param msg The message to display *
+*************************************@
+@(rep: RepresentationModel, response: ResponseEventBase, o: Object)
+
+@main(response) {
+
+    <script src="http://benpickles.github.io/peity/jquery.peity.min.js"></script>
+    <span class="line">@rep.rawData.map(_.get("duration").get).mkString(",")</span>
+    <script>
+        $.fn.peity.defaults.line = {
+          fill: "#c6d9fd",
+          max: null,
+          min: 0,
+          stroke: "#4d89f9",
+          strokeWidth: 1,
+          width: 320,
+          height:320
+        }
+        $(".line").peity("line")
+    </script>
+
+}

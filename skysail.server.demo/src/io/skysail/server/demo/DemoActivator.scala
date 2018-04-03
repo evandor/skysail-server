@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import domino.DominoActivator
 import domino.service_watching.ServiceWatcherEvent._
 import io.skysail.api.persistence.DbService
+import io.skysail.api.ui.MenuService
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.ApplicationProvider
 import org.osgi.service.event.EventAdmin
@@ -53,5 +54,16 @@ class DemoActivator extends DominoActivator {
         }
     }
 
+    watchServices[MenuService] {
+      case AddingService(s, context) =>
+        if (app != null) {
+          app.setMenuService(s)
+        }
+      case ModifiedService(s, _) =>
+      case RemovedService(s, _) =>
+        if (app != null) {
+          app.setMenuService(null)
+        }
+    }
   }
 }

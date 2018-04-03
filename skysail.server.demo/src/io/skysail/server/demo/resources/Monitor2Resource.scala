@@ -16,7 +16,7 @@ class Monitor2Resource extends DefaultResource[DemoApplication, Monitor2, Monito
 
   override def repo: RepositoryApi[Monitor2] = getApplication().monitor2Repo
 
-  override def getTemplate(re: RequestEvent) = Monitor2(None, "test", "")
+  override def getTemplate(re: RequestEvent) = Monitor2(None, "test", "", List())
 
   override def getRedirectAfterPost(re: RequestEvent): Option[String] = Some("/demo/v1/monitor2s")
 
@@ -30,7 +30,8 @@ class Monitor2Resource extends DefaultResource[DemoApplication, Monitor2, Monito
     formFieldMap { map =>
       val entity = Monitor2(None,
         map.getOrElse("name", "Unknown"),
-        map.getOrElse("url", "")
+        map.getOrElse("url", ""),
+        List()
       )
       super.createRoute(applicationActor, processCommand.copy(entity = entity))
     }

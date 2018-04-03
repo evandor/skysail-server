@@ -15,12 +15,13 @@ import domino.service_watching.ServiceWatcherContext
 import domino.service_watching.ServiceWatcherEvent.{AddingService, ModifiedService, RemovedService}
 import io.skysail.api.metrics.{CounterMetric, Metrics}
 import io.skysail.api.security.AuthenticationService
-import io.skysail.api.ui.Client
+import io.skysail.api.ui.{Client, MenuService}
 import io.skysail.server.actors.{ApplicationsActor, BundlesActor}
 import io.skysail.server.app.BackendApplication._
 import io.skysail.server.app.{ApplicationProvider, BackendApplication, RootApplication}
 import io.skysail.server.metrics.SimpleMetrics
 import io.skysail.server.routes.{RoutesCreator, RoutesTracker}
+import io.skysail.server.ui.DefaultMenuService
 import io.skysail.server.{Constants, RoutesCreatorTrait, SystemPropertiesCommand}
 import org.osgi.framework.BundleContext
 import org.slf4j.LoggerFactory
@@ -29,8 +30,6 @@ import org.slf4j.bridge.SLF4JBridgeHandler
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor, Future}
-import scala.util.Success
-import scala.util.Failure
 
 
 case class ServerConfig(port: Integer, binding: String, conf: Map[String, Any])
@@ -69,8 +68,9 @@ class AkkaServer extends DominoActivator {
   private var serverRestartsCounter = CounterMetric(this.getClass, "server.restarts")
   private var rootApplication: Option[RootApplication] = None
   private var startServerTask: akka.actor.Cancellable = _
-  
-//  onComplete(futureBinding) {
+  private var menuService: Option[MenuService] = _
+
+  //  onComplete(futureBinding) {
 //      case Success(result) => log info s"Server started successfully"; complete(futureBinding)
 //      case Failure(failure) => log error s"Problem occured when trying to start server"; complete(futureBinding)
 //    }
@@ -117,6 +117,8 @@ class AkkaServer extends DominoActivator {
 
     //Kamon.start()
     //serverRestartsCounter = Kamon.metrics.counter("server.restarts")
+
+
 
     watchServices[ApplicationProvider] {
       case AddingService(service, context) => addApplicationProvider(service, context)
@@ -169,9 +171,13 @@ class AkkaServer extends DominoActivator {
       //var authentication = conf.getOrElse("authentication", defaultAuthentication).asInstanceOf[String]
       serverConfig = ServerConfig(port, binding, conf)
 
+      menuService = Some(new DefaultMenuService())
+      menuService.get.providesService[MenuService]
+
       log info "creating RootApplication"
-      rootApplication = Some(new RootApplication(bundleContext, routesCreator, actorSystem, conf))
+      rootApplication = Some(new RootApplication(bundleContext, routesCreator, menuService.get, actorSystem, conf))
       rootApplication.get.providesService[ApplicationProvider]
+
     }
 
   })

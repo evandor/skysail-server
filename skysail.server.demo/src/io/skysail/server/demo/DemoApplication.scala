@@ -5,6 +5,7 @@ import akka.http.scaladsl.server.Directives.{getFromResourceDirectory, pathPrefi
 import akka.http.scaladsl.server.PathMatchers._
 import akka.http.scaladsl.server.{PathMatcher, Route}
 import io.skysail.api.persistence.DbService
+import io.skysail.api.ui.{MenuItem, MenuService}
 import io.skysail.db.orientdb.repositories.ResourceRepository
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
@@ -35,6 +36,22 @@ class DemoApplication(
 
   def setEventAdmin(eventAdmin: EventAdmin) = {
     eventService = new EventService(eventAdmin)
+  }
+
+  var menuSerivce: MenuService = new MenuService() {
+    override var root: MenuItem = _
+    override def register(path: String, item: MenuItem) = {null}
+    override def find(id: String) = Some(MenuItem("", ""))
+  }
+
+  def setMenuService(s: MenuService) = {
+    menuSerivce = s
+    menuSerivce.register("applications", MenuItem("Demo", "demo/v1"))
+    menuSerivce.register("applications/demo/v1", MenuItem("Bookmarks", "demo/v1/bms"))
+    menuSerivce.register("applications/demo/v1", MenuItem("Notes",     "demo/v1/notes"))
+    menuSerivce.register("applications/demo/v1", MenuItem("Comment1",  "demo/v1/comment1s"))
+
+
   }
 
   val repo = new BookmarksRepository(dbService, appModel)
@@ -93,6 +110,8 @@ class DemoApplication(
       RouteMapping("/beans", root / PathMatcher("beans") ~ PathEnd, classOf[BeansResource]),
 
       RouteMapping("/monitor", root / PathMatcher("monitor") ~ PathEnd, classOf[MonitorsResource]),
+
+      RouteMapping("/monitor2s/:id/measurements", root / PathMatcher("monitor2s") / Segment / PathMatcher("measurements") ~ PathEnd, classOf[MeasurementsResource]),
 
       RouteMapping("/es/indices", root / PathMatcher("es") / PathMatcher("indices") ~ PathEnd, classOf[IndicesResource]))
   }

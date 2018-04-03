@@ -59,5 +59,6 @@ Export-Package: \
 	html
 
 Private-Package: \
+	io.skysail.server.ui,\
 	io.skysail.server.activator,\
 	io.skysail.server.metrics
