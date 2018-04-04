@@ -1,17 +1,28 @@
 package io.skysail.server.ui
 
+import java.util.concurrent.atomic.AtomicInteger
+
 import io.skysail.api.ui.{MenuItem, MenuService}
 
 class DefaultMenuService extends MenuService {
 
+  private val identifier = new AtomicInteger(1)
+
   override var root = MenuItem("", "")
 
-  override def register(itemPath: String, subItem: MenuItem): MenuItem = {
-    val item = find(itemPath)
-      .getOrElse(createWithParents(itemPath))
-    val newItem = item.addItem(subItem)
-    updateParents(itemPath, newItem)
-    newItem
+  override def register(parentItemPath: String, newSubItem: MenuItem): MenuItem = {
+    newSubItem.id = identifier.getAndIncrement()
+    val parentItem = find(parentItemPath)
+      .getOrElse(createWithParents(parentItemPath))
+    val parentId = parentItem.id
+    val newParentItem = parentItem.addItem(newSubItem)
+    newParentItem.id = parentId
+    updateParents(parentItemPath, newParentItem)
+    newParentItem
+  }
+
+  override def find(path: String): Option[MenuItem] = {
+    lookup(root, path)
   }
 
   private def updateParents(itemPath: String, changedItem: MenuItem): Unit = {
@@ -24,10 +35,6 @@ class DefaultMenuService extends MenuService {
         .getOrElse(throw new IllegalArgumentException(s"could not find menu item with path '$itemPath'"))
       updateParents(parentPath, p.update(changedItem))
     }
-  }
-
-  override def find(path: String): Option[MenuItem] = {
-    lookup(root, path)
   }
 
   private def lookup(m: MenuItem, path: String): Option[MenuItem] = {
@@ -47,6 +54,7 @@ class DefaultMenuService extends MenuService {
     val segments = path.split("/").toList.reverse
     val t = segments.tail.reverse.mkString("/")
     val newItem = MenuItem(segments.head,null)
+    newItem.id = identifier.getAndIncrement()
     register(t, newItem)
     newItem
   }

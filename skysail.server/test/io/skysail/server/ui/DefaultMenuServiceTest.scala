@@ -15,16 +15,18 @@ class DefaultMenuServiceTest extends FlatSpec with BeforeAndAfter {
     assert(menuService.root.children.isEmpty)
     assert(menuService.root.name == "")
     assert(menuService.root.url == "")
+    assert(menuService.root.id == 0)
   }
 
   "A DefaultMenuService" should "accept a menuItem registration" in {
     menuService.register("", MenuItem("sub", "sublink"))
     assert(menuService.root.children.size == 1)
+    assert(menuService.root.id == 0)
+    assert(menuService.root.children(0).id == 1)
   }
 
   "A registered menuItem" should "be retrievable using its concatenated path" in {
-    val subMenu = MenuItem("sub", "sub")
-    menuService.register("", subMenu)
+    menuService.register("", MenuItem("sub", "sub"))
     val res:Option[MenuItem] = menuService.find("sub")
     assert(res.isDefined)
     assert(res.get.name == "sub")
@@ -42,9 +44,11 @@ class DefaultMenuServiceTest extends FlatSpec with BeforeAndAfter {
 
     assert(menuService.find("").get.name == "")
     assert(menuService.find("").get.children.size == 1)
+    assert(menuService.find("").get.id == 0)
 
     assert(menuService.find("sub").get.name == "sub")
     assert(menuService.find("sub").get.children.size == 1)
+    assert(menuService.find("sub").get.id == 1)
 
     assert(menuService.find("sub/subsub").get.name == "subsub")
     assert(menuService.find("sub/subsub").get.children.isEmpty)

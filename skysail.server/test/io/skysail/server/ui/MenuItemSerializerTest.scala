@@ -8,7 +8,7 @@ class MenuItemSerializerTest extends FlatSpec {
 
   "a" should "b" in {
     implicit val fmt = org.json4s.DefaultFormats + new MenuItemSerializer()
-    val i = MenuItem("name", "url")
+    val i = MenuItem("name", "url", List(MenuItem("a", "/a"), MenuItem("b", "/b", List(MenuItem("c", "/b/c")))))
     val r = write(i)
     println(r)
   }

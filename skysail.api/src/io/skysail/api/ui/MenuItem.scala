@@ -2,6 +2,8 @@ package io.skysail.api.ui
 
 case class MenuItem(name: String, url: String, children: List[MenuItem] = List()) {
 
+  var id = 0
+
   require(name != null, "the id of a MenuItem must not null")
   require(!name.exists(c => '/'.equals(c)), "the id must not contain any slashes")
   require(!name.exists(c => '\\'.equals(c)), "the id must not contain any slashes")
