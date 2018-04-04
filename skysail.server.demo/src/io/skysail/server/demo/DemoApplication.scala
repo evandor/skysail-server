@@ -46,10 +46,10 @@ class DemoApplication(
 
   def setMenuService(s: MenuService) = {
     menuSerivce = s
-    menuSerivce.register("applications", MenuItem("Demo", "demo/v1"))
-    menuSerivce.register("applications/demo/v1", MenuItem("Bookmarks", "demo/v1/bms"))
-    menuSerivce.register("applications/demo/v1", MenuItem("Notes",     "demo/v1/notes"))
-    menuSerivce.register("applications/demo/v1", MenuItem("Comment1",  "demo/v1/comment1s"))
+    menuSerivce.register("applications", MenuItem("Demo", "/demo/v1"))
+    menuSerivce.register("applications/demo/v1", MenuItem("Bookmarks", "/demo/v1/bms"))
+    menuSerivce.register("applications/demo/v1", MenuItem("Notes",     "/demo/v1/notes"))
+    menuSerivce.register("applications/demo/v1", MenuItem("Comment1",  "/demo/v1/comment1s"))
 
 
   }

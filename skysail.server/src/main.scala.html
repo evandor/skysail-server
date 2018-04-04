@@ -1,7 +1,7 @@
 @(response: ResponseEventBase)(content: Html)
+
 <!DOCTYPE html>
-<meta charset="utf-8"/>
-<html lang="en">
+<html>
 <head>
     @head()
 </head>
@@ -21,26 +21,11 @@
                                 Applications <span class="sr-only">(current)</span>
                                 <div id="appnav"></div>
                                 <div id="menunav"></div>
-                                <div id="tree"></div>
+                                <div id="tree1"></div>
                             </a>
                         </li>
                     </ul>
 
-                    <!--<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>Saved reports</span>
-                        <a class="d-flex align-items-center text-muted" href="#">
-                            <span data-feather="plus-circle"></span>
-                        </a>
-                    </h6>
-                    <ul class="nav flex-column mb-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Current month
-                            </a>
-                        </li>
-
-                    </ul>-->
                 </div>
             </nav>
 
@@ -61,102 +46,29 @@
         })
       }
 
-      $.get( "/_root/apps", function( data ) {
+      /*$.get( "/_root/apps", function( data ) {
         var c=$("#appnav");
         $.each(data.applications, function(i, obj) {
           c.append(createElement(1, obj.name, obj.context));
         });
-      }, 'json');
+      }, 'json');*/
 
-      // $.get( "/_root/menu", function( data ) {
-      //   var c=$("#menunav");
-      //   console.log("the data", data.items)
-      //   $.each(data.items, function(i, obj) {
-      //     c.append(createElement(1, obj.segmentId, obj.url));
-      //   });
-      // }, 'json');
-
-
-      var e = $('#tree')
       $.get( "/_root/menu", function( data ) {
-          var json = JSON.parse("[" + JSON.stringify(data) + "]")
-          //console.log("3",JSON.stringify(json))
-
-
-           var t = [
-               {
-                   text: 'Parent 1!',
-                   href: '#parent1',
-                   tags: ['4'],
-                   nodes: [
-                       {
-                           text: 'Child 1',
-                           href: '#child1',
-                           tags: ['2'],
-                           nodes: [
-                               {
-                                   text: 'Grandchild 1',
-                                   href: '#grandchild1',
-                                   tags: ['0']
-                               },
-                               {
-                                   text: 'Grandchild 2',
-                                   href: '#grandchild2',
-                                   tags: ['0']
-                               }
-                           ]
-                       },
-                       {
-                           text: 'Child 2',
-                           href: '#child2',
-                           tags: ['0']
-                       }
-                   ]
-               },
-               {
-                   text: 'Parent 2',
-                   href: '#parent2',
-                   tags: ['0']
-               },
-               {
-                   text: 'Parent 3',
-                   href: '#parent3',
-                   tags: ['0']
-               },
-               {
-                   text: 'Parent 4',
-                   href: '#parent4',
-                   tags: ['0']
-               },
-               {
-                   text: 'Parent 5',
-                   href: '#parent5'  ,
-                   tags: ['0']
-               }
-           ]
-
-          e.treeview({
-              color: "#428bca",
-              expandIcon: 'glyphicon glyphicon-chevron-right',
-              collapseIcon: 'glyphicon glyphicon-chevron-down',
-              nodeIcon: 'glyphicon glyphicon-bookmark',
-              data: t});
-          //e.treeview('expandAll', { levels: 2, silent: true });
+        var json = JSON.parse("[" + JSON.stringify(data) + "]")
+        $("#tree1").tree({
+              data: json,
+              saveState: 'skysail-nav-tree'
+        });
+        $('#tree1').on('tree.click', function(event) {
+            //console.log("event", event.node);
+            var node = event.node;
+            window.location.href = node.url;
+        });
       });
-
-
-
 
 
     </script>
 
-
-    <!--<custom-element></custom-element>-->
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 </body>
+
 </html>

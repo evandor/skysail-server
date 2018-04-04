@@ -12,14 +12,14 @@ class DefaultMenuServiceTest extends FlatSpec with BeforeAndAfter {
   }
 
   "An initial DefaultMenuService" should "provide the empty menu root at ''" in {
-    assert(menuService.root.nodes.isEmpty)
-    assert(menuService.root.text == "")
+    assert(menuService.root.children.isEmpty)
+    assert(menuService.root.name == "")
     assert(menuService.root.url == "")
   }
 
   "A DefaultMenuService" should "accept a menuItem registration" in {
     menuService.register("", MenuItem("sub", "sublink"))
-    assert(menuService.root.nodes.size == 1)
+    assert(menuService.root.children.size == 1)
   }
 
   "A registered menuItem" should "be retrievable using its concatenated path" in {
@@ -27,7 +27,7 @@ class DefaultMenuServiceTest extends FlatSpec with BeforeAndAfter {
     menuService.register("", subMenu)
     val res:Option[MenuItem] = menuService.find("sub")
     assert(res.isDefined)
-    assert(res.get.text == "sub")
+    assert(res.get.name == "sub")
   }
 
   "A registered sub menuItem" should "be retrievable using its concatenated path2" in {
@@ -40,43 +40,43 @@ class DefaultMenuServiceTest extends FlatSpec with BeforeAndAfter {
     menuService.register("", MenuItem("sub", "sub"))
     menuService.register("sub", MenuItem("subsub", "subsub"))
 
-    assert(menuService.find("").get.text == "")
-    assert(menuService.find("").get.nodes.size == 1)
+    assert(menuService.find("").get.name == "")
+    assert(menuService.find("").get.children.size == 1)
 
-    assert(menuService.find("sub").get.text == "sub")
-    assert(menuService.find("sub").get.nodes.size == 1)
+    assert(menuService.find("sub").get.name == "sub")
+    assert(menuService.find("sub").get.children.size == 1)
 
-    assert(menuService.find("sub/subsub").get.text == "subsub")
-    assert(menuService.find("sub/subsub").get.nodes.isEmpty)
+    assert(menuService.find("sub/subsub").get.name == "subsub")
+    assert(menuService.find("sub/subsub").get.children.isEmpty)
   }
 
   "Registering a menuItem at an unknown simple path" should "create the parent" in {
     menuService.register("sub", MenuItem("subsub", "subsub"))
 
-    assert(menuService.find("").get.text == "")
-    assert(menuService.find("").get.nodes.size == 1)
+    assert(menuService.find("").get.name == "")
+    assert(menuService.find("").get.children.size == 1)
 
-    assert(menuService.find("sub").get.text == "sub")
-    assert(menuService.find("sub").get.nodes.size == 1)
+    assert(menuService.find("sub").get.name == "sub")
+    assert(menuService.find("sub").get.children.size == 1)
 
-    assert(menuService.find("sub/subsub").get.text == "subsub")
-    assert(menuService.find("sub/subsub").get.nodes.isEmpty)
+    assert(menuService.find("sub/subsub").get.name == "subsub")
+    assert(menuService.find("sub/subsub").get.children.isEmpty)
   }
 
   "Registering a menuItem at an unknown concatenated path" should "create the parent chain" in {
     menuService.register("sub/sub2", MenuItem("sub3", "link"))
 
-    assert(menuService.find("").get.text == "")
-    assert(menuService.find("").get.nodes.size == 1)
+    assert(menuService.find("").get.name == "")
+    assert(menuService.find("").get.children.size == 1)
 
-    assert(menuService.find("sub").get.text == "sub")
-    assert(menuService.find("sub").get.nodes.size == 1)
+    assert(menuService.find("sub").get.name == "sub")
+    assert(menuService.find("sub").get.children.size == 1)
 
-    assert(menuService.find("sub/sub2").get.text == "sub2")
-    assert(menuService.find("sub/sub2").get.nodes.size == 1)
+    assert(menuService.find("sub/sub2").get.name == "sub2")
+    assert(menuService.find("sub/sub2").get.children.size == 1)
 
-    assert(menuService.find("sub/sub2/sub3").get.text == "sub3")
-    assert(menuService.find("sub/sub2/sub3").get.nodes.isEmpty)
+    assert(menuService.find("sub/sub2/sub3").get.name == "sub3")
+    assert(menuService.find("sub/sub2/sub3").get.children.isEmpty)
 
   }
 
