@@ -1,10 +1,10 @@
 package io.skysail.server.ui
 
-import io.skysail.api.ui.MenuItem
+import io.skysail.api.ui.ImmutableMenuItem
 import org.json4s.{CustomSerializer, DefaultFormats, Extraction, FieldSerializer, JObject, JsonAST, _}
 import org.json4s.JsonDSL._
 
-class MenuItemSerializer extends CustomSerializer[MenuItem](format => ( {
+class MenuItemSerializer extends CustomSerializer[ImmutableMenuItem](format => ( {
 
   case jsonObj: JObject =>
     implicit val formats = DefaultFormats
@@ -12,14 +12,14 @@ class MenuItemSerializer extends CustomSerializer[MenuItem](format => ( {
     val name = (jsonObj \ "name").extract[String]
     val url = (jsonObj \ "url").extract[String]
 
-    MenuItem(name, url)
+    ImmutableMenuItem(name, url)
 }, {
-  case menuItem: MenuItem =>
+  case menuItem: ImmutableMenuItem =>
     ("name" -> menuItem.name) ~
       ("url" -> menuItem.url) ~
       ("id" -> menuItem.id) ~
-      ("children" -> menuItem.children.map {c:MenuItem =>
-        Extraction.decompose(c)(DefaultFormats + FieldSerializer[MenuItem]())
+      ("children" -> menuItem.children.map {c:ImmutableMenuItem =>
+        Extraction.decompose(c)(DefaultFormats + FieldSerializer[ImmutableMenuItem]())
       })
    //case menuItem: MenuItem => Extraction.decompose(menuItem)(DefaultFormats + FieldSerializer[MenuItem]())
 }

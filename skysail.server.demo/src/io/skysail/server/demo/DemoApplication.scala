@@ -41,15 +41,15 @@ class DemoApplication(
   var menuSerivce: MenuService = new MenuService() {
     override var root: MenuItem = _
     override def register(path: String, item: MenuItem) = {null}
-    override def find(id: String) = Some(MenuItem("", ""))
+    override def find(id: String) = Some( new MenuItem("", ""))
   }
 
   def setMenuService(s: MenuService) = {
     menuSerivce = s
-    menuSerivce.register("applications", MenuItem("Demo", "/demo/v1"))
-    menuSerivce.register("applications/demo/v1", MenuItem("Bookmarks", "/demo/v1/bms"))
-    menuSerivce.register("applications/demo/v1", MenuItem("Notes",     "/demo/v1/notes"))
-    menuSerivce.register("applications/demo/v1", MenuItem("Comment1",  "/demo/v1/comment1s"))
+    menuSerivce.register("applications", new MenuItem("Demo", "/demo/v1"))
+    menuSerivce.register("applications/demo/v1", new MenuItem("Bookmarks", "/demo/v1/bms"))
+    menuSerivce.register("applications/demo/v1", new MenuItem("Notes",     "/demo/v1/notes"))
+    menuSerivce.register("applications/demo/v1", new MenuItem("Comment1",  "/demo/v1/comment1s"))
 
 
   }
