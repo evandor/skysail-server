@@ -50,5 +50,8 @@ logback.configurationFile.path = etc
 	osgi.enterprise;version='[5.0.0,5.0.1)',\
 	skysail.api;version=snapshot,\
 	slf4j.api;version='[1.7.25,1.7.26)',\
-	webconsole.all;version='[0.1.18,0.1.19)'
+	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
+	io.skysail.bundled.json4s_2.11-3.5.1;version='[3.5.1,3.5.2)',\
+	skysail.domain;version=snapshot,\
+	webconsole.all;version='[0.2.0,0.2.1)'
 

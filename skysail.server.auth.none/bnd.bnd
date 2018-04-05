@@ -1,6 +1,7 @@
 Bundle-Name: SKYSAIL :: server :: auth :: none
 
-Bundle-Version: 0.1.1.${tstamp}
+#release: 0.1.1
+Bundle-Version: 0.1.2.${tstamp}
     
 Bundle-Description: Noop-Auth Bundle for Skysail supporting explicit disabling of authentication
 

@@ -9,11 +9,8 @@
 -runbundles: \
 	org.apache.felix.gogo.command;version='[1.0.2,1.0.3)',\
 	org.apache.felix.gogo.runtime;version='[1.0.10,1.0.11)',\
-	webconsole.all;version='[0.1.18,0.1.19)',\
-	skysail.domain;version=${skysail.domain.version},\
 	ch.qos.logback.classic;version='[1.2.3,1.2.4)',\
 	ch.qos.logback.core;version='[1.2.3,1.2.4)',\
-	com.fasterxml.jackson.core.jackson-annotations;version='[2.9.2,2.9.3)',\
 	com.typesafe.akka.http;version='[10.0.10,10.0.11)',\
 	com.typesafe.akka.http.core;version='[10.0.10,10.0.11)',\
 	com.typesafe.akka.parsing;version='[10.0.10,10.0.11)',\
@@ -27,7 +24,11 @@
 	slf4j.api;version='[1.7.25,1.7.26)',\
 	org.apache.felix.gogo.shell;version='[1.0.0,1.0.1)',\
 	com.typesafe.akka.actor;version='[2.5.8,2.5.9)',\
-	com.typesafe.akka.stream;version='[2.5.8,2.5.9)'
+	com.typesafe.akka.stream;version='[2.5.8,2.5.9)',\
+	com.thoughtworks.paranamer;version='[2.8.0,2.8.1)',\
+	io.skysail.bundled.json4s_2.11-3.5.1;version='[3.5.1,3.5.2)',\
+	skysail.domain;version=snapshot,\
+	webconsole.all;version='[0.2.0,0.2.1)'
 
 -runrequires: \
 	osgi.identity;filter:='(&(osgi.identity=webconsole.all)(version>=0.1.18.201710301700))',\

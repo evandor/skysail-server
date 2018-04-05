@@ -89,4 +89,5 @@ logback.configurationFile.path = config/local
 	skysail.domain;version=snapshot,\
 	skysail.server;version=snapshot,\
 	skysail.server.auth.none;version=snapshot,\
-	webconsole.all;version='[0.2.0,0.2.1)'
+	webconsole.all;version='[0.2.0,0.2.1)',\
+	skysail.api;version='[2.0.0,2.0.1)'
