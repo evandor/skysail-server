@@ -1,6 +1,7 @@
 Bundle-Name: SKYSAIL :: domain
 
-Bundle-Version: 2.0.0.${tstamp}
+#released 2.0.0
+Bundle-Version: 2.0.1.${tstamp}
 
 Bundle-Description: Domain Bundle for Skysail
 
