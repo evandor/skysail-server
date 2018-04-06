@@ -31,7 +31,7 @@
 
 -releaserepo: Release
 -baselinerepo: Release
--buildrepo: BuildRepo
+#-buildrepo: BuildRepo
 
 # JUnit
 junit: org.apache.servicemix.bundles.junit; version=4.12
