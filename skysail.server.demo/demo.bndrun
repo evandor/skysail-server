@@ -39,12 +39,11 @@ logback.configurationFile.path = config
 	osgi.identity;filter:='(osgi.identity=skysail.domain)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.doc)',\
+    osgi.identity;filter:='(osgi.identity=skysail.server.app.appboard)',\
+    osgi.identity;filter:='(osgi.identity=skysail.server.app.osgi)',\
 	osgi.identity;filter:='(osgi.identity=skysail.server.demo)',\
 	osgi.identity;filter:='(osgi.identity=webconsole.all)',\
 	osgi.identity;filter:='(&(osgi.identity=org.jsoup)(version>=1.11.2))'
-
-#    osgi.identity;filter:='(osgi.identity=skysail.server.app.appboard)',\
-#    osgi.identity;filter:='(osgi.identity=skysail.server.app.osgi)',\
 
 
 -runbundles: \
@@ -115,6 +114,8 @@ logback.configurationFile.path = config
 	org.mockito.mockito-all;version='[1.10.19,1.10.20)',\
 	org.scala-lang.scala-compiler;version='[2.11.11,2.11.12)',\
 	org.scalactic;version='[3.0.1,3.0.2)',\
-	org.scalatest;version='[3.0.1,3.0.2)'
+	org.scalatest;version='[3.0.1,3.0.2)',\
+	skysail.server.app.appboard;version='[0.1.1,0.1.2)',\
+	skysail.server.app.osgi;version='[0.1.1,0.1.2)'
 	
 	
