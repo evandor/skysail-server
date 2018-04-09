@@ -1,13 +1,16 @@
-//package io.skysail.server.demo.domain
-//
-//import com.github.dockerjava.api.model.Container
-//
-//object DockerContainer {
-//  def apply(c: Container): DockerContainer = {
-//    DockerContainer(c.getId, c.getImage)
-//  }
-//
-//}
-//case class DockerContainer(id: String, image: String) {
-//
-//}
+package io.skysail.server.demo.domain
+
+import io.skysail.api.ddd.Entity
+import io.skysail.api.ui.ListPayload
+
+
+case class DockerContainer(
+                            id: Option[String],
+                            Command: String,
+                            Created: Int,
+                            Id: String,
+                            Image: String,
+                            ImageID: String
+                          )  extends Entity[String]
+
+case class DockerContainerList(payload: List[DockerContainer]) extends ListPayload[DockerContainer]

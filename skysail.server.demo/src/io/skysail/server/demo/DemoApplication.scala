@@ -10,7 +10,7 @@ import io.skysail.db.orientdb.repositories.ResourceRepository
 import io.skysail.domain.routes.RouteMapping
 import io.skysail.server.RoutesCreatorTrait
 import io.skysail.server.app.{ApplicationProvider, BackendApplication}
-import io.skysail.server.demo.domain.{Comment1, Comment2, DbConfig, Monitor2}
+import io.skysail.server.demo.domain._
 import io.skysail.server.demo.repositories._
 import io.skysail.server.demo.resources.{DbConfigsResource, _}
 import io.skysail.server.demo.services.{BookmarkSchedulerService, EventService}
@@ -50,6 +50,8 @@ class DemoApplication(
     menuSerivce.register("applications/demo/v1", new MenuItem("Bookmarks", "/demo/v1/bms"))
     menuSerivce.register("applications/demo/v1", new MenuItem("Notes",     "/demo/v1/notes"))
     menuSerivce.register("applications/demo/v1", new MenuItem("Comment1",  "/demo/v1/comment1s"))
+    menuSerivce.register("applications/demo/v1", new MenuItem("Monitor2",  "/demo/v1/monitor2s"))
+    menuSerivce.register("applications/demo/v1", new MenuItem("Container",  "/demo/v1/dockercontainers"))
 
 
   }
@@ -62,6 +64,7 @@ class DemoApplication(
   val patternRepo = new PatternRepository(dbService, appModel)
   //val comments1Repo = new Comments1Repository(dbService, appModel)
   val monitor2Repo = new MonitorRepository(classOf[Monitor2], appModel)
+  val dockerRepo = new DockerRepository(classOf[DockerContainer], appModel)
 
   val comments1Repo = new ResourceRepository(classOf[Comment1], dbService, appModel) {
     override def getEntityTemplate = Comment1(None, "")
@@ -87,7 +90,8 @@ class DemoApplication(
     classOf[AccountsResource],
     classOf[Comment1Resource],
     classOf[Comment2Resource],
-    classOf[Monitor2Resource]
+    classOf[Monitor2Resource],
+    classOf[ContainersResource]
   )
 
   override def routesMappings = {
